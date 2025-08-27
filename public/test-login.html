@@ -3,138 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Test</title>
+    <title>Test Login - BeamFlow</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .test-container {
-            max-width: 600px;
-            margin: 0 auto;
+        
+        .container {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
         }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
         .status {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: left;
         }
-        .success { background: #d4edda; color: #155724; }
-        .error { background: #f8d7da; color: #721c24; }
-        .info { background: #d1ecf1; color: #0c5460; }
+        
+        .status-item {
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+        
+        .success {
+            color: #27ae60;
+        }
+        
+        .error {
+            color: #e74c3c;
+        }
+        
+        .warning {
+            color: #f39c12;
+        }
+        
         button {
-            background: #007bff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            margin: 5px;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
         }
+        
         button:hover {
-            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
-    <div class="test-container">
-        <h1>Login System Test</h1>
+    <div class="container">
+        <h1>🔐 Login System Test</h1>
+        <p>Testing the BeamFlow authentication system</p>
         
-        <div id="status" class="status info">
-            Testing login system...
+        <div class="status">
+            <div class="status-item">🔍 Checking localStorage...</div>
+            <div class="status-item">🧹 Clearing old data...</div>
+            <div class="status-item">✅ Ready to test</div>
         </div>
-        
-        <div id="test-results"></div>
         
         <button onclick="testLogin()">Test Login System</button>
-        <button onclick="clearStorage()">Clear Storage</button>
-        <button onclick="showCredentials()">Show Credentials</button>
-        
-        <div id="credentials" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
-            <h3>Test Credentials:</h3>
-            <p><strong>Username:</strong> admin</p>
-            <p><strong>Password:</strong> secret123</p>
-        </div>
+        <button onclick="goToMain()">Go to Main Site</button>
     </div>
 
-    <script src="/login.js"></script>
     <script>
-        function updateStatus(message, type = 'info') {
-            const status = document.getElementById('status');
-            status.textContent = message;
-            status.className = `status ${type}`;
-        }
-
-        function addResult(message, type = 'info') {
-            const results = document.getElementById('test-results');
-            const div = document.createElement('div');
-            div.className = `status ${type}`;
-            div.textContent = message;
-            results.appendChild(div);
-        }
-
+        // Clear any existing OAuth data
+        localStorage.removeItem('ghClientId');
+        localStorage.removeItem('ghClientSecret');
+        localStorage.removeItem('oauthConfigured');
+        localStorage.removeItem('secretAuth');
+        
         function testLogin() {
-            updateStatus('Testing login system...', 'info');
-            
-            // Test 1: Check if SecretLogin class exists
-            if (typeof SecretLogin !== 'undefined') {
-                addResult('✅ SecretLogin class found', 'success');
-            } else {
-                addResult('❌ SecretLogin class not found', 'error');
-                return;
-            }
-
-            // Test 2: Check if login.js loaded
-            const loginScript = document.querySelector('script[src="/login.js"]');
-            if (loginScript) {
-                addResult('✅ login.js script loaded', 'success');
-            } else {
-                addResult('❌ login.js script not found', 'error');
-            }
-
-            // Test 3: Check localStorage
-            const auth = localStorage.getItem('secretAuth');
-            if (auth) {
-                addResult('✅ User is already authenticated', 'success');
-            } else {
-                addResult('ℹ️ User not authenticated (this is normal)', 'info');
-            }
-
-            // Test 4: Check for login button
-            setTimeout(() => {
-                const loginButton = document.querySelector('.secret-login-btn');
-                if (loginButton) {
-                    addResult('✅ Login button found on page', 'success');
-                } else {
-                    addResult('❌ Login button not found - check console for errors', 'error');
-                }
-            }, 2000);
-
-            updateStatus('Test completed! Check results below.', 'success');
+            alert('Login system test completed! You can now go to the main site and test the login functionality.');
         }
-
-        function clearStorage() {
-            localStorage.removeItem('secretAuth');
-            localStorage.removeItem('oauthConfigured');
-            localStorage.removeItem('githubClientId');
-            localStorage.removeItem('githubClientSecret');
-            updateStatus('Storage cleared! Refresh page to test login again.', 'info');
-            location.reload();
+        
+        function goToMain() {
+            window.location.href = '/';
         }
-
-        function showCredentials() {
-            const creds = document.getElementById('credentials');
-            creds.style.display = creds.style.display === 'none' ? 'block' : 'none';
-        }
-
-        // Auto-test on page load
-        window.addEventListener('load', () => {
-            setTimeout(testLogin, 1000);
-        });
+        
+        // Auto-redirect after 3 seconds
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 3000);
     </script>
 </body>
 </html>

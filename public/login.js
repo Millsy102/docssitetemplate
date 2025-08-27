@@ -3,7 +3,7 @@ class SecretLogin {
     constructor() {
         this.isAuthenticated = false;
         this.currentView = 'public'; // 'public', 'login', 'oauth-setup', 'git'
-        this.githubClientId = 'your-github-client-id'; // Replace with your GitHub OAuth app client ID
+        this.ghClientId = 'your-github-client-id'; // Replace with your GitHub OAuth app client ID
         this.credentials = {
             username: 'admin',
             password: 'secret123'
@@ -47,7 +47,7 @@ class SecretLogin {
                 `;
 
                 const loginButton = document.createElement('button');
-                loginButton.textContent = ' Login';
+                loginButton.textContent = '🔐 Login';
                 loginButton.className = 'secret-login-btn';
                 loginButton.style.cssText = `
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -98,176 +98,32 @@ class SecretLogin {
             height: 100%;
             background: rgba(0,0,0,0.8);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             z-index: 10000;
-            backdrop-filter: blur(5px);
-        `;
-
-        const modalContent = document.createElement('div');
-        modalContent.style.cssText = `
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            animation: modalSlideIn 0.3s ease;
-        `;
-
-        modalContent.innerHTML = `
-            <h2 style="margin: 0 0 30px 0; color: #333; font-size: 24px;"> Admin Access</h2>
-            <p style="color: #666; margin-bottom: 30px;">Enter credentials to access OAuth setup</p>
-            
-            <div style="margin-bottom: 20px;">
-                <input type="text" id="username" placeholder="Username" style="
-                    width: 100%;
-                    padding: 12px;
-                    border: 2px solid #e1e5e9;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    margin-bottom: 15px;
-                    box-sizing: border-box;
-                ">
-                <input type="password" id="password" placeholder="Password" style="
-                    width: 100%;
-                    padding: 12px;
-                    border: 2px solid #e1e5e9;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    box-sizing: border-box;
-                ">
-            </div>
-            
-            <div id="login-error" style="color: #e74c3c; margin-bottom: 20px; display: none;"></div>
-            
-            <button id="login-submit" style="
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border: none;
-                padding: 12px 30px;
-                border-radius: 25px;
-                font-size: 16px;
-                font-weight: 600;
-                cursor: pointer;
-                width: 100%;
-                transition: all 0.3s ease;
-            ">Login</button>
-            
-            <button id="login-cancel" style="
-                background: transparent;
-                color: #666;
-                border: 2px solid #e1e5e9;
-                padding: 12px 30px;
-                border-radius: 25px;
-                font-size: 16px;
-                margin-top: 15px;
-                cursor: pointer;
-                width: 100%;
-                transition: all 0.3s ease;
-            ">Cancel</button>
-        `;
-
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-
-        // Add event listeners
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const loginSubmit = document.getElementById('login-submit');
-        const loginCancel = document.getElementById('login-cancel');
-        const loginError = document.getElementById('login-error');
-
-        loginSubmit.addEventListener('click', () => {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-
-            if (username === this.credentials.username && password === this.credentials.password) {
-                this.isAuthenticated = true;
-                localStorage.setItem('secretAuth', 'true');
-                modal.remove();
-                this.showOAuthSetup();
-            } else {
-                loginError.textContent = 'Invalid credentials. Please try again.';
-                loginError.style.display = 'block';
-                passwordInput.value = '';
-            }
-        });
-
-        loginCancel.addEventListener('click', () => {
-            modal.remove();
-        });
-
-        // Enter key support
-        [usernameInput, passwordInput].forEach(input => {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    loginSubmit.click();
-                }
-            });
-        });
-
-        // Close on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-    }
-
-    showOAuthSetup() {
-        // Hide the public site
-        this.hidePublicSite();
-        
-        const container = document.createElement('div');
-        container.id = 'oauth-setup-container';
-        container.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         `;
 
-        container.innerHTML = `
+        modal.innerHTML = `
             <div style="
                 background: white;
                 padding: 40px;
                 border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-                max-width: 500px;
+                max-width: 400px;
                 width: 90%;
-                text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             ">
-                <h2 style="margin: 0 0 20px 0; color: #333;"> OAuth Setup</h2>
-                <p style="color: #666; margin-bottom: 30px;">Configure GitHub OAuth for secure Git-only access</p>
+                <h2 style="
+                    color: #333;
+                    margin-bottom: 30px;
+                    text-align: center;
+                    font-size: 28px;
+                    font-weight: 700;
+                ">🔐 Admin Login</h2>
                 
-                <div style="margin-bottom: 30px; text-align: left;">
-                    <h3 style="color: #333; margin-bottom: 15px;">Step 1: Create GitHub OAuth App</h3>
-                    <ol style="color: #666; line-height: 1.6;">
-                        <li>Go to <a href="https://github.com/settings/developers" target="_blank" style="color: #667eea;">GitHub Developer Settings</a></li>
-                        <li>Click "New OAuth App"</li>
-                        <li>Fill in the details:
-                            <ul style="margin-top: 10px;">
-                                <li><strong>Application name:</strong> Your Secret Site</li>
-                                <li><strong>Homepage URL:</strong> <span id="homepage-url">https://your-username.github.io/docssitetemplate</span></li>
-                                <li><strong>Authorization callback URL:</strong> <span id="callback-url">https://your-username.github.io/docssitetemplate/auth/callback</span></li>
-                            </ul>
-                        </li>
-                        <li>Click "Register application"</li>
-                    </ol>
-                </div>
-                
-                <div style="margin-bottom: 30px;">
-                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">Client ID:</label>
-                    <input type="text" id="client-id" placeholder="Enter your GitHub OAuth Client ID" style="
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">Username:</label>
+                    <input type="text" id="username" placeholder="Enter username" style="
                         width: 100%;
                         padding: 12px;
                         border: 2px solid #e1e5e9;
@@ -278,8 +134,164 @@ class SecretLogin {
                 </div>
                 
                 <div style="margin-bottom: 30px;">
-                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">Client Secret:</label>
-                    <input type="password" id="client-secret" placeholder="Enter your GitHub OAuth Client Secret" style="
+                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">Password:</label>
+                    <input type="password" id="password" placeholder="Enter password" style="
+                        width: 100%;
+                        padding: 12px;
+                        border: 2px solid #e1e5e9;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    ">
+                </div>
+                
+                <div id="login-error" style="color: #e74c3c; margin-bottom: 20px; display: none;"></div>
+                
+                <button id="login-btn" style="
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    width: 100%;
+                    margin-bottom: 15px;
+                    transition: all 0.3s ease;
+                ">Login</button>
+                
+                <button id="cancel-btn" style="
+                    background: transparent;
+                    color: #666;
+                    border: 2px solid #e1e5e9;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    width: 100%;
+                    transition: all 0.3s ease;
+                ">Cancel</button>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Add event listeners
+        const loginBtn = document.getElementById('login-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const loginError = document.getElementById('login-error');
+
+        loginBtn.addEventListener('click', () => {
+            if (username.value === this.credentials.username && password.value === this.credentials.password) {
+                localStorage.setItem('secretAuth', 'true');
+                this.isAuthenticated = true;
+                this.currentView = 'oauth-setup';
+                this.showOAuthSetup();
+            } else {
+                loginError.textContent = 'Invalid username or password';
+                loginError.style.display = 'block';
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+
+        // Close modal on outside click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
+
+        // Enter key to login
+        password.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loginBtn.click();
+            }
+        });
+    }
+
+    showOAuthSetup() {
+        // Remove existing container if any
+        const existingContainer = document.querySelector('.oauth-setup-container');
+        if (existingContainer) existingContainer.remove();
+
+        const container = document.createElement('div');
+        container.className = 'oauth-setup-container';
+        container.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        `;
+
+        container.innerHTML = `
+            <div style="
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            ">
+                <h2 style="
+                    color: #333;
+                    margin-bottom: 30px;
+                    text-align: center;
+                    font-size: 28px;
+                    font-weight: 700;
+                ">🔐 OAuth Setup</h2>
+                
+                <div style="
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 12px;
+                    margin-bottom: 30px;
+                    border-left: 4px solid #667eea;
+                ">
+                    <h3 style="color: #333; margin-bottom: 15px; font-size: 18px;">GitHub OAuth Setup Instructions:</h3>
+                    <ol style="color: #666; line-height: 1.6; margin-left: 20px;">
+                        <li>Go to <a href="https://github.com/settings/developers" target="_blank" style="color: #667eea;">GitHub Developer Settings</a></li>
+                        <li>Click "New OAuth App"</li>
+                        <li>Fill in the details:
+                            <ul style="margin-top: 10px; margin-left: 20px;">
+                                <li><strong>Application name:</strong> BeamFlow Site</li>
+                                <li><strong>Homepage URL:</strong> <span id="homepage-url">https://millsy.github.io/docssitetemplate</span></li>
+                                <li><strong>Authorization callback URL:</strong> <span id="callback-url">https://millsy.github.io/docssitetemplate/auth/callback</span></li>
+                            </ul>
+                        </li>
+                        <li>Click "Register application"</li>
+                    </ol>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">GitHub Client ID:</label>
+                    <input type="text" id="gh-client-id" placeholder="Enter your GitHub OAuth Client ID" style="
+                        width: 100%;
+                        padding: 12px;
+                        border: 2px solid #e1e5e9;
+                        border-radius: 8px;
+                        font-size: 16px;
+                        box-sizing: border-box;
+                    ">
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; text-align: left; margin-bottom: 10px; color: #333; font-weight: 600;">GitHub Client Secret:</label>
+                    <input type="password" id="gh-client-secret" placeholder="Enter your GitHub OAuth Client Secret" style="
                         width: 100%;
                         padding: 12px;
                         border: 2px solid #e1e5e9;
@@ -323,32 +335,32 @@ class SecretLogin {
         // Add event listeners
         const testOAuth = document.getElementById('test-oauth');
         const completeSetup = document.getElementById('complete-setup');
-        const clientId = document.getElementById('client-id');
-        const clientSecret = document.getElementById('client-secret');
+        const ghClientId = document.getElementById('gh-client-id');
+        const ghClientSecret = document.getElementById('gh-client-secret');
         const oauthError = document.getElementById('oauth-error');
 
         testOAuth.addEventListener('click', () => {
-            if (!clientId.value.trim() || !clientSecret.value.trim()) {
-                oauthError.textContent = 'Please enter both Client ID and Client Secret';
+            if (!ghClientId.value.trim() || !ghClientSecret.value.trim()) {
+                oauthError.textContent = 'Please enter both GitHub Client ID and Client Secret';
                 oauthError.style.display = 'block';
                 return;
             }
             
             // Test OAuth configuration
-            this.testOAuthConfiguration(clientId.value.trim(), clientSecret.value.trim());
+            this.testOAuthConfiguration(ghClientId.value.trim(), ghClientSecret.value.trim());
         });
 
         completeSetup.addEventListener('click', () => {
-            if (!clientId.value.trim() || !clientSecret.value.trim()) {
-                oauthError.textContent = 'Please enter both Client ID and Client Secret';
+            if (!ghClientId.value.trim() || !ghClientSecret.value.trim()) {
+                oauthError.textContent = 'Please enter both GitHub Client ID and Client Secret';
                 oauthError.style.display = 'block';
                 return;
             }
             
             // Save OAuth configuration
             localStorage.setItem('oauthConfigured', 'true');
-            localStorage.setItem('githubClientId', clientId.value.trim());
-            localStorage.setItem('githubClientSecret', clientSecret.value.trim());
+            localStorage.setItem('ghClientId', ghClientId.value.trim());
+            localStorage.setItem('ghClientSecret', ghClientSecret.value.trim());
             
             // Switch to Git-only interface
             this.currentView = 'git';
@@ -358,47 +370,35 @@ class SecretLogin {
 
     testOAuthConfiguration(clientId, clientSecret) {
         const oauthError = document.getElementById('oauth-error');
-        const testOAuth = document.getElementById('test-oauth');
+        oauthError.textContent = 'Testing OAuth configuration...';
+        oauthError.style.display = 'block';
+        oauthError.style.color = '#f39c12';
         
-        testOAuth.textContent = 'Testing...';
-        testOAuth.disabled = true;
-        
-        // Simulate OAuth test
+        // Simulate OAuth test (in real implementation, you'd make an API call)
         setTimeout(() => {
-            // In a real implementation, you would test the OAuth credentials here
-            oauthError.style.display = 'none';
-            testOAuth.textContent = ' OAuth Test Successful';
-            testOAuth.style.background = '#27ae60';
-            
-            setTimeout(() => {
-                testOAuth.textContent = 'Test OAuth';
-                testOAuth.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                testOAuth.disabled = false;
-            }, 2000);
-        }, 1500);
+            oauthError.textContent = 'OAuth configuration looks good! You can now complete the setup.';
+            oauthError.style.color = '#27ae60';
+        }, 2000);
     }
 
     showGitInterface() {
-        // Remove OAuth setup if present
-        const oauthSetup = document.getElementById('oauth-setup-container');
-        if (oauthSetup) oauthSetup.remove();
-        
-        // Hide the public site
-        this.hidePublicSite();
-        
+        // Remove existing container if any
+        const existingContainer = document.querySelector('.git-interface-container');
+        if (existingContainer) existingContainer.remove();
+
         const container = document.createElement('div');
-        container.id = 'git-interface-container';
+        container.className = 'git-interface-container';
         container.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: rgba(0,0,0,0.9);
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 9999;
+            justify-content: center;
+            z-index: 10000;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         `;
 
@@ -407,20 +407,33 @@ class SecretLogin {
                 background: white;
                 padding: 40px;
                 border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                 max-width: 400px;
                 width: 90%;
                 text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             ">
-                <h2 style="margin: 0 0 20px 0; color: #333;"> Git Authentication</h2>
-                <p style="color: #666; margin-bottom: 30px;">Access your secret system via GitHub OAuth</p>
+                <h2 style="
+                    color: #333;
+                    margin-bottom: 30px;
+                    font-size: 28px;
+                    font-weight: 700;
+                ">🚀 BeamFlow Ready!</h2>
+                
+                <p style="
+                    color: #666;
+                    margin-bottom: 30px;
+                    line-height: 1.6;
+                ">
+                    Your OAuth is configured and ready to use. 
+                    Click the button below to login with GitHub.
+                </p>
                 
                 <button id="github-login" style="
                     background: #24292e;
                     color: white;
                     border: none;
-                    padding: 15px 30px;
-                    border-radius: 8px;
+                    padding: 12px 30px;
+                    border-radius: 25px;
                     font-size: 16px;
                     font-weight: 600;
                     cursor: pointer;
@@ -465,14 +478,14 @@ class SecretLogin {
         logout.addEventListener('click', () => {
             localStorage.removeItem('secretAuth');
             localStorage.removeItem('oauthConfigured');
-            localStorage.removeItem('githubClientId');
-            localStorage.removeItem('githubClientSecret');
+            localStorage.removeItem('ghClientId');
+            localStorage.removeItem('ghClientSecret');
             location.reload();
         });
     }
 
     initiateGitHubOAuth() {
-        const clientId = localStorage.getItem('githubClientId');
+        const clientId = localStorage.getItem('ghClientId');
         if (!clientId) {
             alert('OAuth not configured. Please set up OAuth first.');
             return;

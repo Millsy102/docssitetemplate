@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Name - Modern Development Framework</title>
+    <title>BeamFlow - Modern Development Framework</title>
     <meta name="description" content="A powerful and flexible development framework designed to simplify complex development tasks. Build robust applications with minimal effort.">
     <meta name="keywords" content="development framework, web development, API, documentation, open source">
-    <meta name="author" content="Project Name Team">
-    <link rel="canonical" href="https://yourusername.github.io/your-repo-name/">
+    <meta name="author" content="BeamFlow Team">
+    <link rel="canonical" href="https://millsy.github.io/docssitetemplate/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/your-repo-name/">
-    <meta property="og:title" content="Project Name - Modern Development Framework">
+    <meta property="og:url" content="https://millsy.github.io/docssitetemplate/">
+    <meta property="og:title" content="BeamFlow - Modern Development Framework">
     <meta property="og:description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
-    <meta property="og:image" content="https://yourusername.github.io/your-repo-name/assets/og-image.png">
-    <meta property="og:site_name" content="Project Name">
+    <meta property="og:image" content="https://millsy.github.io/docssitetemplate/assets/og-image.png">
+    <meta property="og:site_name" content="BeamFlow">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/your-repo-name/">
-    <meta property="twitter:title" content="Project Name - Modern Development Framework">
+    <meta property="twitter:url" content="https://millsy.github.io/docssitetemplate/">
+    <meta property="twitter:title" content="BeamFlow - Modern Development Framework">
     <meta property="twitter:description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
-    <meta property="twitter:image" content="https://yourusername.github.io/your-repo-name/assets/og-image.png">
-    <meta property="twitter:creator" content="@yourusername">
+    <meta property="twitter:image" content="https://millsy.github.io/docssitetemplate/assets/og-image.png">
+    <meta property="twitter:creator" content="@millsy">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -46,16 +46,16 @@
     <meta name="msapplication-TileColor" content="#667eea">
     
     <!-- PWA manifest -->
-    <link rel="manifest" href="/beam-website/assets/manifest-ChRwKaLr.json">
+    <link rel="manifest" href="/manifest.json">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Project Name",
+        "name": "BeamFlow",
         "description": "A powerful and flexible development framework",
-        "url": "https://yourusername.github.io/your-repo-name/",
+        "url": "https://millsy.github.io/docssitetemplate/",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -65,7 +65,7 @@
         },
         "author": {
             "@type": "Organization",
-            "name": "Project Name Team"
+            "name": "BeamFlow Team"
         }
     }
     </script>
@@ -103,12 +103,6 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        
-        .loading-content {
-            text-align: center;
-            color: white;
         }
         
         .loading-spinner {
@@ -118,7 +112,6 @@
             border-top: 3px solid white;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
         }
         
         @keyframes spin {
@@ -126,127 +119,80 @@
             100% { transform: rotate(360deg); }
         }
         
-        .loading-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.025em;
-        }
-        
-        .loading-subtitle {
-            font-size: 1rem;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Focus styles for accessibility */
-        *:focus {
-            outline: 2px solid #667eea;
-            outline-offset: 2px;
-        }
-        
-        /* Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+        /* Hide loading screen when content is ready */
+        .content-loaded .loading-screen {
+            display: none;
         }
     </style>
-  <script type="module" crossorigin src="/beam-website/assets/main-Czr3l6Ap.js"></script>
-  <link rel="modulepreload" crossorigin href="/beam-website/assets/vendor-gH-7aFTg.js">
-  <link rel="modulepreload" crossorigin href="/beam-website/assets/router-HvkchvHX.js">
-  <link rel="stylesheet" crossorigin href="/beam-website/assets/main-tn0RQdqM.css">
 </head>
 <body>
-    <div id="root"></div>
-    
     <!-- Loading Screen -->
-    <div id="loading" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <h1 class="loading-title">Project Name</h1>
-            <p class="loading-subtitle">Loading amazing things...</p>
-        </div>
+    <div class="loading-screen">
+        <div class="loading-spinner"></div>
     </div>
-    
-    <!-- Modern JavaScript -->
 
+    <!-- Main Content -->
+    <div id="root">
+        <header style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem 0; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">🚀 BeamFlow</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Modern Development Framework</p>
+        </header>
+
+        <main style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+            <section style="margin-bottom: 3rem;">
+                <h2 style="color: #333; margin-bottom: 1rem;">Welcome to BeamFlow</h2>
+                <p style="color: #666; line-height: 1.8;">
+                    A powerful and flexible development framework designed to simplify complex development tasks. 
+                    Build robust applications with minimal effort using our comprehensive toolkit.
+                </p>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="color: #333; margin-bottom: 1rem;">Features</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">🔐 Secure Authentication</h3>
+                        <p style="color: #666;">Built-in OAuth support with GitHub integration</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">⚡ High Performance</h3>
+                        <p style="color: #666;">Optimized for speed and efficiency</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h3 style="color: #667eea; margin-bottom: 0.5rem;">🛠️ Easy Development</h3>
+                        <p style="color: #666;">Streamlined development workflow</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="color: #333; margin-bottom: 1rem;">Getting Started</h2>
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">Quick Start</h3>
+                    <p style="color: #666; margin-bottom: 1rem;">Your BeamFlow site is now live and ready to use!</p>
+                    <div style="background: #2d3748; color: #e2e8f0; padding: 1rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; overflow-x: auto;">
+                        <code>🚀 Site Status: ONLINE</code><br>
+                        <code>🔐 Authentication: CONFIGURED</code><br>
+                        <code>📊 Database: CONNECTED</code><br>
+                        <code>📧 Email: READY</code>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer style="background: #2d3748; color: white; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+            <p>&copy; 2024 BeamFlow. Built with ❤️ for developers.</p>
+        </footer>
+    </div>
+
+    <!-- Load login system -->
+    <script src="login.js"></script>
     
-    <!-- Service Worker for PWA -->
+    <!-- Hide loading screen when page is ready -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-    </script>
-    
-    <!-- Secret Login System -->
-    <script src="/login.js"></script>
-    
-    <!-- Performance monitoring -->
-    <script>
-        // Performance monitoring
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart);
-                
-                // Hide loading screen
-                const loading = document.getElementById('loading');
-                if (loading) {
-                    loading.style.opacity = '0';
-                    loading.style.visibility = 'hidden';
-                    setTimeout(() => {
-                        loading.style.display = 'none';
-                    }, 500);
-                }
-            }, 1000);
+        window.addEventListener('load', function() {
+            document.body.classList.add('content-loaded');
         });
-        
-        // Intersection Observer for animations
-        if ('IntersectionObserver' in window) {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe elements with animation classes
-            document.addEventListener('DOMContentLoaded', () => {
-                const animatedElements = document.querySelectorAll('.animate-on-scroll');
-                animatedElements.forEach(el => observer.observe(el));
-            });
-        }
-    </script>
-    
-    <!-- Analytics (replace with your preferred analytics) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </body>
 </html>
