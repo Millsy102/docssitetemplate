@@ -13,9 +13,15 @@
     "format": "prettier --write .",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "deploy": "npm run build && npm run deploy:prepare",
+    "build:full": "npm run build && npm run build:backend",
+    "build:backend": "cd _internal/system && npm run build:full",
+    "dev:full": "concurrently \"npm run dev\" \"npm run dev:backend\"",
+    "dev:backend": "cd _internal/system && npm run dev",
+    "start:backend": "cd _internal/system && npm start",
+    "deploy": "npm run build:full && npm run deploy:prepare",
     "deploy:prepare": "node scripts/prepare-deployment.js",
-    "deploy:github-pages": "npm run build && node scripts/deploy-github-pages.js"
+    "deploy:github-pages": "npm run build:full && node scripts/deploy-github-pages.js",
+    "deploy:vercel": "npm run build:full && vercel --prod"
   },
   "keywords": [
     "documentation",
@@ -36,6 +42,7 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",

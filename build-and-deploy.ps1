@@ -114,14 +114,14 @@ if (-not $SkipTests) {
     }
 }
 
-# Build the static site
-Write-Log "Building static documentation site..." "INFO"
+# Build the full application (frontend + backend)
+Write-Log "Building full application (frontend + backend)..." "INFO"
 try {
-    npm run build
-    Write-Log "Static site build completed" "SUCCESS"
+    npm run build:full
+    Write-Log "Full application build completed" "SUCCESS"
 }
 catch {
-    Write-Log "Static site build failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Full application build failed: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 
@@ -138,17 +138,30 @@ if (-not (Test-Path "dist/index.html")) {
 
 Write-Log "Build verification passed" "SUCCESS"
 
-# Create deployment package for GitHub Pages
-Write-Log "Preparing GitHub Pages deployment..." "INFO"
-$deployDir = "gh-pages-deploy"
+# Create deployment package for full application
+Write-Log "Preparing full application deployment..." "INFO"
+$deployDir = "full-app-deploy"
 if (Test-Path $deployDir) {
     Remove-Item $deployDir -Recurse -Force
 }
 New-Item -ItemType Directory -Path $deployDir | Out-Null
 
-# Copy built files
+# Copy frontend built files
 Copy-Item "dist\*" -Destination $deployDir -Recurse -Force
-Write-Log "Copied built files to deployment directory" "INFO"
+Write-Log "Copied frontend files to deployment directory" "INFO"
+
+# Copy backend files
+if (Test-Path "_internal/system/dist") {
+    Copy-Item "_internal/system/dist\*" -Destination $deployDir -Recurse -Force
+    Write-Log "Copied backend files to deployment directory" "INFO"
+}
+
+# Copy backend source and configuration
+New-Item -ItemType Directory -Path "$deployDir/backend" | Out-Null
+Copy-Item "_internal/system/src" -Destination "$deployDir/backend/" -Recurse -Force
+Copy-Item "_internal/system/package.json" -Destination "$deployDir/backend/"
+Copy-Item "_internal/system/package-lock.json" -Destination "$deployDir/backend/"
+Write-Log "Copied backend source and configuration" "INFO"
 
 # Copy additional files for GitHub Pages
 if (Test-Path "public/favicon.svg") {

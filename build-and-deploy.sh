@@ -159,12 +159,12 @@ if [ "$SKIP_TESTS" = false ]; then
     fi
 fi
 
-# Build the static site
-log "INFO" "Building static documentation site..."
-if npm run build; then
-    log "SUCCESS" "Static site build completed"
+# Build the full application (frontend + backend)
+log "INFO" "Building full application (frontend + backend)..."
+if npm run build:full; then
+    log "SUCCESS" "Full application build completed"
 else
-    log "ERROR" "Static site build failed"
+    log "ERROR" "Full application build failed"
     exit 1
 fi
 
@@ -181,17 +181,30 @@ fi
 
 log "SUCCESS" "Build verification passed"
 
-# Create deployment package for GitHub Pages
-log "INFO" "Preparing GitHub Pages deployment..."
-DEPLOY_DIR="gh-pages-deploy"
+# Create deployment package for full application
+log "INFO" "Preparing full application deployment..."
+DEPLOY_DIR="full-app-deploy"
 if [ -d "$DEPLOY_DIR" ]; then
     rm -rf "$DEPLOY_DIR"
 fi
 mkdir -p "$DEPLOY_DIR"
 
-# Copy built files
+# Copy frontend built files
 cp -r dist/* "$DEPLOY_DIR/"
-log "INFO" "Copied built files to deployment directory"
+log "INFO" "Copied frontend files to deployment directory"
+
+# Copy backend files
+if [ -d "_internal/system/dist" ]; then
+    cp -r _internal/system/dist/* "$DEPLOY_DIR/"
+    log "INFO" "Copied backend files to deployment directory"
+fi
+
+# Copy backend source and configuration
+mkdir -p "$DEPLOY_DIR/backend"
+cp -r _internal/system/src "$DEPLOY_DIR/backend/"
+cp _internal/system/package.json "$DEPLOY_DIR/backend/"
+cp _internal/system/package-lock.json "$DEPLOY_DIR/backend/"
+log "INFO" "Copied backend source and configuration"
 
 # Copy additional files for GitHub Pages
 if [ -f "public/favicon.svg" ]; then
@@ -210,29 +223,45 @@ log "INFO" "Created .nojekyll file"
 
 # Create deployment README
 cat > "$DEPLOY_DIR/README.md" << 'EOF'
-# BeamFlow Documentation Site
+# BeamFlow Full Application
 
-This is the built documentation site for BeamFlow.
+This is the complete BeamFlow application with both frontend and backend components.
 
-## Deployment
+## Components
 
-This directory contains the static files ready for GitHub Pages deployment.
+### Frontend (Documentation Site)
+- `index.html` - Main documentation page
+- `assets/` - CSS, JS, and other assets
+- `.nojekyll` - Prevents GitHub Pages from processing with Jekyll
 
-### Manual Deployment
+### Backend (API Server)
+- `backend/` - Complete backend system
+- `backend/src/` - Backend source code
+- `backend/package.json` - Backend dependencies
 
+## Deployment Options
+
+### GitHub Pages (Frontend Only)
 1. Push the contents of this directory to the `gh-pages` branch
 2. Configure GitHub Pages in your repository settings
 3. Set the source to the `gh-pages` branch
 
-### Automated Deployment
+### Vercel (Full Stack)
+1. Deploy to Vercel using the `api/` directory
+2. The backend will be deployed as serverless functions
+3. Frontend will be served from the `dist/` directory
 
-Use GitHub Actions to automatically deploy on push to main branch.
+### Local Development
+1. Start backend: `cd backend && npm start`
+2. Start frontend: `npm run dev`
+3. Or use: `npm run dev:full` to start both
 
-## Files
+## Secret Admin Access
 
-- `index.html` - Main documentation page
-- `assets/` - CSS, JS, and other assets
-- `.nojekyll` - Prevents GitHub Pages from processing with Jekyll
+The backend includes a secret admin panel accessible via:
+- URL: `/api/admin`
+- Authentication: Bearer token required
+- Token: Set via ADMIN_TOKEN environment variable
 
 ## Support
 
