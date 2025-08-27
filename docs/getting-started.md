@@ -1,315 +1,102 @@
-# Getting Started with Beam Website System
+# Getting Started
 
-Welcome to Beam Website System! This guide will help you understand the unique public/private access pattern and get started with the system.
+Welcome to the Documentation Site Template! This guide will help you get started with creating your own documentation site.
 
-## 🚀 Overview
+## Overview
 
-Beam Website System implements a sophisticated access control architecture where:
+This template provides a simple foundation for creating documentation sites. It's designed to be easy to use and customize.
 
-- **Public Site**: A limited, generic "template docs site" that showcases basic features
-- **Private Site**: The full, real site with complete functionality for authenticated users
-- **Admin Panel**: Enhanced features and management capabilities for administrators
+## Prerequisites
 
-## 🔐 Understanding Access Levels
+Before you begin, make sure you have:
 
-### Public Access (Template Site)
-When you first visit the site, you'll see the public template site which includes:
+- A GitHub account
+- Basic knowledge of Markdown
+- A text editor
 
-- **Basic Documentation**: Getting started guides and examples
-- **Demo Features**: Limited functionality demonstrations
-- **Marketing Content**: Showcase and promotional materials
-- **Limited API**: Basic endpoints for demonstration
+## Quick Start
 
-### Private Access (Real Site)
-After authentication, you gain access to the complete system:
-
-- **Full Documentation**: Complete guides and reference materials
-- **All Features**: Full functionality and capabilities
-- **Plugin Management**: Install and configure plugins
-- **Admin Dashboard**: User and system management
-- **Analytics**: Usage statistics and reporting
-
-## 📦 Installation
-
-### Prerequisites
-
-Before you begin, ensure you have:
-
-- **Node.js** (v18 or higher)
-- **npm** or **yarn**
-- **Database** (PostgreSQL, MySQL, or SQLite)
-- **Git**
-
-### Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/beam-website.git
-   cd beam-website
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env
-   ```
-
-4. **Configure your environment**
-   Edit the `.env` file with your settings:
-   ```env
-   # Database
-   DATABASE_URL=postgresql://localhost/beam_website
-   
-   # Authentication
-   JWT_SECRET=your-jwt-secret
-   GITHUB_CLIENT_ID=your-github-client-id
-   GITHUB_CLIENT_SECRET=your-github-client-secret
-   
-   # Server
-   PORT=3000
-   NODE_ENV=development
-   ```
-
-5. **Run database migrations**
-   ```bash
-   npm run db:migrate
-   ```
-
-6. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-7. **Access the application**
-   - **Public Site**: http://localhost:3000
-   - **Login**: http://localhost:3000/login
-   - **Dashboard**: http://localhost:3000/dashboard (after login)
-
-## 🔐 Authentication Setup
-
-### GitHub OAuth (Recommended)
-
-1. **Create a GitHub OAuth App**
-   - Go to GitHub Settings > Developer settings > OAuth Apps
-   - Click "New OAuth App"
-   - Set Application name: "Beam Website System"
-   - Set Homepage URL: `http://localhost:3000`
-   - Set Authorization callback URL: `http://localhost:3000/auth/github/callback`
-   - Click "Register application"
-
-2. **Get your credentials**
-   - Copy the Client ID and Client Secret
-   - Add them to your `.env` file
-
-### Traditional Authentication
-
-You can also use traditional username/password authentication:
-
-```javascript
-// Example authentication
-const response = await fetch('/api/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    email: 'user@example.com',
-    password: 'secure-password'
-  })
-});
-```
-
-## 🧩 Plugin System
-
-### Understanding Plugins
-
-The Beam system includes two types of functionality:
-
-1. **Core Features**: Essential functionality built into the system
-2. **Third-Party Plugins**: Extensible functionality through plugins
-
-### Installing Your First Plugin
-
-```javascript
-// Example: Install a plugin
-const plugin = await website.installPlugin('image-generator');
-
-// Configure the plugin
-await plugin.configure({
-  apiKey: 'your-api-key',
-  model: 'dall-e-2'
-});
-
-// Enable the plugin
-await plugin.enable();
-```
-
-## 🎨 Component System
-
-### Using Beam Components
-
-The system includes a comprehensive component library:
-
-```jsx
-import { 
-  BeamButton, 
-  BeamCard, 
-  BeamInput,
-  BeamModal 
-} from '@beam/components';
-
-function MyComponent() {
-  return (
-    <BeamCard>
-      <BeamInput 
-        label="Email" 
-        type="email" 
-        placeholder="Enter your email" 
-      />
-      <BeamButton variant="primary">
-        Submit
-      </BeamButton>
-    </BeamCard>
-  );
-}
-```
-
-## 🔧 Configuration
-
-### Access Control Configuration
-
-Configure the public/private access pattern:
-
-```javascript
-// Example configuration
-const config = {
-  public: {
-    // Public site settings
-    documentation: ['getting-started', 'installation', 'examples'],
-    features: ['demo', 'showcase'],
-    api: ['health', 'public-content']
-  },
-  private: {
-    // Private site settings
-    documentation: ['all'],
-    features: ['all'],
-    api: ['all']
-  }
-};
-```
-
-### Theme Configuration
-
-```javascript
-// Set theme
-website.setTheme('dark'); // or 'light', 'high-contrast'
-
-// Custom theme
-website.setCustomTheme({
-  primary: '#3b82f6',
-  secondary: '#6b7280',
-  background: '#ffffff',
-  text: '#1f2937'
-});
-```
-
-## 📚 Next Steps
-
-### For Public Users
-1. Explore the [Examples](examples.md) to see basic functionality
-2. Check the [FAQ](faq.md) for common questions
-3. Review the [API Reference](api-reference.md) for public endpoints
-
-### For Authenticated Users
-1. Complete the [Installation Guide](installation.md)
-2. Review the [Architecture Guide](architecture.md)
-3. Explore the [Plugin System](plugin-system-guide.md)
-4. Customize with the [Component Library](component-library.md)
-
-### For Administrators
-1. Set up [User Management](admin-docs/user-management.md)
-2. Configure [System Settings](admin-docs/system-configuration.md)
-3. Manage [Plugins](admin-docs/plugin-management.md)
-4. Monitor [Analytics](admin-docs/analytics.md)
-
-## 🆘 Getting Help
-
-### Documentation
-- **Public Docs**: Available to all users
-- **Private Docs**: Available after authentication
-- **Admin Docs**: Available to administrators
-
-### Community Support
-- **GitHub Issues**: Report bugs and request features
-- **Community Forum**: Ask questions and share solutions
-- **Discord**: Real-time chat and support
-
-### Professional Support
-- **Email Support**: Direct support for technical issues
-- **Documentation**: Comprehensive guides and tutorials
-- **Training**: Custom training sessions available
-
-## 🔍 Troubleshooting
-
-### Common Issues
-
-1. **Database Connection**
-   ```bash
-   # Check database connection
-   npm run db:test
-   
-   # Reset database
-   npm run db:reset
-   ```
-
-2. **Authentication Issues**
-   - Verify OAuth credentials
-   - Check JWT secret configuration
-   - Ensure proper redirect URLs
-
-3. **Plugin Problems**
-   - Check plugin compatibility
-   - Verify plugin configuration
-   - Review plugin logs
-
-### Debug Mode
-
-Enable debug logging:
+### 1. Clone the Template
 
 ```bash
-# Set debug environment variable
-export DEBUG=beam:*
-
-# Start with debug logging
-npm run dev:debug
+git clone https://github.com/your-username/docssitetemplate.git
+cd docssitetemplate
 ```
 
-## 🚀 Deployment
+### 2. Customize Content
 
-### Production Deployment
+Edit the files in the `docs/` folder to add your own content:
 
-```bash
-# Build for production
-npm run build
+- `docs/index.md` - Main page
+- `docs/getting-started.md` - This guide
+- `docs/installation.md` - Installation instructions
+- `docs/user-guide.md` - User guide
 
-# Start production server
-npm start
+### 3. Update Configuration
+
+Edit `mkdocs.yml` to customize your site:
+
+```yaml
+site_name: Your Project Name
+site_description: Your project description
+site_author: Your Name
 ```
 
-### Environment Variables
+### 4. Customize Styling
 
-Ensure all production environment variables are properly configured:
+Modify the CSS files in `assets/css/` to change the appearance:
 
-```env
-NODE_ENV=production
-DATABASE_URL=your-production-database-url
-JWT_SECRET=your-production-jwt-secret
-GITHUB_CLIENT_ID=your-production-github-client-id
-GITHUB_CLIENT_SECRET=your-production-github-client-secret
+- `assets/css/main.css` - Main styles
+- `assets/css/components.css` - Component styles
+
+### 5. Deploy to GitHub Pages
+
+1. Push your changes to GitHub
+2. Go to your repository settings
+3. Enable GitHub Pages
+4. Your site will be available at `https://yourusername.github.io/your-repo-name/`
+
+## File Structure
+
 ```
+├── docs/                 # Documentation content
+│   ├── index.md         # Main page
+│   ├── getting-started.md
+│   ├── installation.md
+│   └── user-guide.md
+├── assets/              # CSS, JS, images
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── index.html           # Main HTML file
+├── mkdocs.yml          # MkDocs configuration
+└── README.md           # Repository README
+```
+
+## Customization Tips
+
+### Adding Pages
+
+Create new Markdown files in the `docs/` folder and they'll automatically appear in the navigation.
+
+### Changing Colors
+
+Edit the CSS variables in `assets/css/main.css` to change the color scheme.
+
+### Adding Images
+
+Place images in `assets/images/` and reference them in your Markdown files.
+
+## Next Steps
+
+- Read the [Installation Guide](installation.md) for detailed setup instructions
+- Check the [User Guide](user-guide.md) for advanced features
+- Customize the styling to match your brand
+
+## Support
+
+If you need help, please refer to the documentation or create an issue in the repository.
 
 ---
 
-**Ready to get started?** Follow this guide to set up your Beam Website System and explore the unique public/private access pattern!
+*Simple documentation template for GitHub Pages*

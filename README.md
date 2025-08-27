@@ -1,55 +1,44 @@
 # Documentation Site Template
 
-A modern, professional documentation site template built with MkDocs and Material theme. Perfect for creating beautiful documentation for your projects, APIs, or technical guides.
+A simple, clean documentation site template for GitHub Pages.
 
-## 🚀 Quick Start
+## Overview
 
-`ash
-# Clone the template
-git clone https://github.com/your-username/docssitetemplate.git
-cd docssitetemplate
+This is a basic template for creating documentation sites. It includes:
 
-# Install dependencies
-npm install
+- Simple HTML/CSS structure
+- Basic navigation
+- Responsive design
+- GitHub Pages ready
 
-# Start development server
-npm run docs:dev
-`
+## Quick Start
 
-## ✨ Features
+1. Clone this repository
+2. Customize the content in the `docs/` folder
+3. Update the configuration files
+4. Deploy to GitHub Pages
 
-- **MkDocs + Material Theme** - Professional, responsive design
-- **Search Functionality** - Fast, full-text search across all content
-- **Dark/Light Mode** - Automatic theme switching
-- **Mobile Responsive** - Perfect on all devices
-- **SEO Optimized** - Built-in SEO features
-- **GitHub Pages Ready** - Automatic deployment
+## Structure
 
-## 📚 Documentation
+```
+├── docs/           # Documentation content
+├── assets/         # CSS, JS, and images
+├── index.html      # Main page
+└── README.md       # This file
+```
 
-- [Getting Started](docs/getting-started.md)
-- [Installation Guide](docs/installation.md)
-- [Configuration](docs/configuration.md)
-- [Customization](docs/customization.md)
-- [Deployment](docs/deployment.md)
+## Customization
 
-## 🔧 Development
+Edit the files in the `docs/` folder to add your own content. The site uses a simple, clean design that's easy to customize.
 
-`ash
-# Start development server
-npm run docs:dev
+## Deployment
 
-# Build for production
-npm run docs:build
+This template is ready for GitHub Pages deployment. Simply push to your repository and enable GitHub Pages in the repository settings.
 
-# Deploy to GitHub Pages
-npm run docs:deploy
-`
+## License
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - feel free to use this template for your own projects.
 
 ---
 
-**Documentation Site Template** - Create beautiful, professional documentation with ease.
+*Simple documentation template for GitHub Pages*

@@ -1,157 +1,60 @@
-# Welcome to Documentation Template
+# Documentation Site Template
 
-Welcome to the Documentation Site Template - a modern, professional template for creating beautiful documentation with MkDocs and Material theme.
+Welcome to the Documentation Site Template - a simple, clean template for creating documentation sites.
 
-## 🚀 Quick Start
+## Overview
 
-Get started in minutes with our easy-to-use documentation template:
+This template provides a basic structure for creating documentation sites. It's designed to be simple and easy to customize.
 
-`ash
-# Clone the template
-git clone https://github.com/your-username/docssitetemplate.git
-cd docssitetemplate
+## Features
 
-# Install dependencies
-npm install
+- Clean, responsive design
+- Simple navigation
+- Markdown support
+- GitHub Pages ready
+- Easy customization
 
-# Start development server
-npm run docs:dev
-`
+## Quick Start
 
-## ✨ Features
+1. Clone this repository
+2. Edit the content in the `docs/` folder
+3. Customize the styling in `assets/css/`
+4. Deploy to GitHub Pages
 
-### Modern Documentation
-- **MkDocs + Material Theme** - Professional, responsive design
-- **Search Functionality** - Fast, full-text search across all content
-- **Dark/Light Mode** - Automatic theme switching
-- **Mobile Responsive** - Perfect on all devices
-- **SEO Optimized** - Built-in SEO features
+## Structure
 
-### Developer Experience
-- **Hot Reload** - Instant preview during development
-- **Markdown Support** - Write content in Markdown with extensions
-- **Code Highlighting** - Syntax highlighting for 100+ languages
-- **Version Control** - Git-based content management
-- **CI/CD Ready** - Automated deployment to GitHub Pages
+```
+docs/
+├── index.md              # This page
+├── getting-started.md    # Getting started guide
+├── installation.md       # Installation instructions
+├── user-guide.md         # User guide
+└── contributing.md       # Contributing guidelines
+```
 
-## 📚 Documentation Sections
+## Customization
 
-### Getting Started
-Learn how to set up and customize your documentation site:
+### Content
+Edit the Markdown files in the `docs/` folder to add your own content.
 
-- [Installation Guide](getting-started/installation.md)
-- [Configuration](getting-started/configuration.md)
-- [Customization](getting-started/customization.md)
+### Styling
+Modify the CSS files in `assets/css/` to customize the appearance.
 
-### Features
-Explore the powerful features of this template:
+### Configuration
+Update the site configuration in `mkdocs.yml` to change site settings.
 
-- [Theme Customization](features/theme.md)
-- [Search Functionality](features/search.md)
-- [Code Highlighting](features/code-blocks.md)
+## Deployment
 
-### Advanced
-Take your documentation to the next level:
+This template is ready for GitHub Pages deployment:
 
-- [Custom Plugins](advanced/plugins.md)
-- [Custom CSS/JS](advanced/styling.md)
-- [Deployment](advanced/deployment.md)
+1. Push your changes to GitHub
+2. Enable GitHub Pages in repository settings
+3. Your site will be available at `https://yourusername.github.io/your-repo-name/`
 
-## 🎨 Customization
+## Support
 
-### Theme Configuration
-
-Customize the appearance of your site by editing mkdocs.yml:
-
-`yaml
-theme:
-  name: material
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/toggle-switch-off-outline
-        name: Switch to light mode
-`
-
-## 🔧 Development
-
-### Local Development
-
-`ash
-# Start development server
-npm run docs:dev
-
-# Build for production
-npm run docs:build
-
-# Validate links
-npm run validate-links
-`
-
-## 🚀 Deployment
-
-### GitHub Pages
-
-This template is configured for automatic deployment to GitHub Pages:
-
-1. Push to main branch
-2. GitHub Actions builds and deploys automatically
-3. Site available at https://yourusername.github.io/docssitetemplate
-
-## 📚 Documentation Features
-
-### Code Blocks
-
-`python
-def hello_world():
-    print("Hello, World!")
-    return "Documentation is awesome!"
-`
-
-### Admonitions
-
-!!! note "Note"
-    This template provides a solid foundation for creating professional documentation.
-
-!!! tip "Tip"
-    Use Material theme features to create rich, interactive documentation.
-
-!!! warning "Warning"
-    Always test your documentation before deploying to production.
-
-### Tabs
-
-=== "Python"
-    `python
-    print("Hello from Python!")
-    `
-
-=== "JavaScript"
-    `javascript
-    console.log("Hello from JavaScript!");
-    `
-
-=== "Bash"
-    `ash
-    echo "Hello from Bash!"
-    `
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](../CONTRIBUTING.md) for details.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+For questions or issues, please refer to the documentation or create an issue in the repository.
 
 ---
 
-**Documentation Site Template** - Create beautiful, professional documentation with ease.
+*Simple documentation template for GitHub Pages*
