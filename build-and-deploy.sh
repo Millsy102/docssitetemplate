@@ -195,7 +195,7 @@ fi
 mkdir -p "$DEPLOY_DIR"
 
 # Copy necessary files
-FILES_TO_COPY=("dist" "src" "package.json" "package-lock.json" "vite.config.ts" "tsconfig.json" "tailwind.config.js" ".env.example")
+FILES_TO_COPY=("dist" "src" "package.json" "package-lock.json" "vite.config.ts" "tsconfig.json" "tailwind.config.js" "env.example")
 
 for file in "${FILES_TO_COPY[@]}"; do
     if [ -e "$file" ]; then

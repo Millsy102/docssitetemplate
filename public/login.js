@@ -4,14 +4,58 @@ class SecretLogin {
         this.isAuthenticated = false;
         this.currentView = 'public'; // 'public', 'login', 'oauth-setup', 'git'
         this.ghClientId = 'your-github-client-id'; // Replace with your GitHub OAuth app client ID
-        this.credentials = {
-            username: 'admin',
-            password: 'secret123'
-        };
+        
+        // Try to get credentials from environment or use defaults
+        this.credentials = this.getCredentials();
+        
         this.init();
     }
 
-    init() {
+    async getCredentials() {
+        try {
+            // Try to fetch credentials from server first
+            const response = await fetch('/api/auth/config');
+            if (response.ok) {
+                const config = await response.json();
+                if (config.useEnvironmentCredentials) {
+                    console.log('Using environment variables for authentication');
+                    return {
+                        username: config.adminUsername,
+                        password: config.adminPassword
+                    };
+                }
+            }
+        } catch (error) {
+            console.log('Could not fetch server config, using fallback credentials');
+        }
+        
+        // Fallback to default credentials
+        console.log('Using default credentials. Set ADMIN_USERNAME and ADMIN_PASSWORD environment variables for custom credentials.');
+        return {
+            username: 'admin',
+            password: 'secret123'
+        };
+    }
+
+    getEnvironmentVariable(name) {
+        // Try to get from window object (if set by server)
+        if (window[name]) {
+            return window[name];
+        }
+        
+        // Try to get from meta tags
+        const metaTag = document.querySelector(`meta[name="${name}"]`);
+        if (metaTag) {
+            return metaTag.getAttribute('content');
+        }
+        
+        return null;
+    }
+
+    async init() {
+        // Initialize credentials first
+        this.credentials = await this.getCredentials();
+        
         // Check if OAuth is already configured
         if (localStorage.getItem('oauthConfigured') === 'true') {
             // OAuth is configured, show Git-only interface

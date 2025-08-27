@@ -162,7 +162,7 @@ $filesToCopy = @(
     "vite.config.ts",
     "tsconfig.json",
     "tailwind.config.js",
-    ".env.example"
+    "env.example"
 )
 
 foreach ($file in $filesToCopy) {

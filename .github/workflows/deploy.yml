@@ -1,76 +1,103 @@
-name: Deploy GitHub Pages
+name: Deploy BeamFlow
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build and prepare site
-        run: |
-          # Create site directory
-          mkdir -p site
-          
-          # Copy all public files
-          cp -r public/* site/
-          
-          # Copy any additional assets if needed
-          if [ -d "assets" ]; then
-            cp -r assets site/
-          fi
-          
-          # Ensure login.js is copied
-          if [ -f "public/login.js" ]; then
-            echo " Login system found and copied"
-          else
-            echo " Login system not found"
-          fi
-          
-          # Create a simple index if none exists
-          if [ ! -f "site/index.html" ]; then
-            echo "<!DOCTYPE html><html><head><title>My Secret Site</title></head><body><h1>Welcome to my secret site!</h1></body></html>" > site/index.html
-          fi
-          
-          # List contents for debugging
-          echo "Site contents:"
-          ls -la site/
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    
+    environment: github-pages
+    
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        cd _internal/system
+        npm ci
+        
+    - name: Build application
+      run: |
+        cd _internal/system
+        npm run build
+      env:
+        # Application Settings
+        NODE_ENV: ${{ vars.NODE_ENV }}
+        PORT: ${{ vars.PORT }}
+        HOST: ${{ vars.HOST }}
+        
+        # Authentication Settings
+        ADMIN_USERNAME: ${{ vars.ADMIN_USERNAME }}
+        ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        JWT_EXPIRES_IN: ${{ vars.JWT_EXPIRES_IN }}
+        SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        
+        # Database Configuration
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        REDIS_URL: ${{ secrets.REDIS_URL }}
+        
+        # GitHub OAuth
+        GITHUB_CLIENT_ID: ${{ vars.GITHUB_CLIENT_ID }}
+        GITHUB_CLIENT_SECRET: ${{ secrets.GITHUB_CLIENT_SECRET }}
+        GITHUB_CALLBACK_URL: ${{ vars.GITHUB_CALLBACK_URL }}
+        
+        # Email Configuration
+        SMTP_HOST: ${{ vars.SMTP_HOST }}
+        SMTP_PORT: ${{ vars.SMTP_PORT }}
+        SMTP_USER: ${{ vars.SMTP_USER }}
+        SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        SMTP_FROM: ${{ vars.SMTP_FROM }}
+        
+        # File Upload Settings
+        UPLOAD_PATH: ${{ vars.UPLOAD_PATH }}
+        MAX_FILE_SIZE: ${{ vars.MAX_FILE_SIZE }}
+        ALLOWED_FILE_TYPES: ${{ vars.ALLOWED_FILE_TYPES }}
+        
+        # Security Settings
+        CORS_ORIGIN: ${{ vars.CORS_ORIGIN }}
+        RATE_LIMIT_WINDOW_MS: ${{ vars.RATE_LIMIT_WINDOW_MS }}
+        RATE_LIMIT_MAX_REQUESTS: ${{ vars.RATE_LIMIT_MAX_REQUESTS }}
+        
+        # Logging
+        LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+        LOG_FILE: ${{ vars.LOG_FILE }}
+        
+        # FTP Server
+        FTP_PORT: ${{ vars.FTP_PORT }}
+        FTP_USER: ${{ vars.FTP_USER }}
+        FTP_PASS: ${{ secrets.FTP_PASS }}
+        
+        # SSH Server
+        SSH_PORT: ${{ vars.SSH_PORT }}
+        SSH_HOST_KEY_PATH: ${{ vars.SSH_HOST_KEY_PATH }}
+        SSH_AUTHORIZED_KEYS_PATH: ${{ vars.SSH_AUTHORIZED_KEYS_PATH }}
+        
+        # AI Integration
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        AI_MODEL: ${{ vars.AI_MODEL }}
+        AI_MAX_TOKENS: ${{ vars.AI_MAX_TOKENS }}
+        
+        # Monitoring
+        ENABLE_METRICS: ${{ vars.ENABLE_METRICS }}
+        METRICS_PORT: ${{ vars.METRICS_PORT }}
+                HEALTH_CHECK_INTERVAL: ${{ vars.HEALTH_CHECK_INTERVAL }}
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3.9.3
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_internal/system/dist
+        force_orphan: true
