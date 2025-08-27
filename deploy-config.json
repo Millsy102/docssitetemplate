@@ -1,0 +1,147 @@
+{
+  "deployment": {
+    "version": "1.0.0",
+    "defaultTarget": "local",
+    "targets": {
+      "local": {
+        "name": "Local Development",
+        "path": "C:\\BeamFlow",
+        "type": "filesystem",
+        "description": "Deploy to local filesystem",
+        "commands": {
+          "preDeploy": [],
+          "postDeploy": ["npm ci --only=production"]
+        }
+      },
+      "vercel": {
+        "name": "Vercel",
+        "type": "platform",
+        "description": "Deploy to Vercel platform",
+        "commands": {
+          "preDeploy": ["vercel --prod"],
+          "postDeploy": []
+        },
+        "config": {
+          "buildCommand": "npm run build",
+          "outputDirectory": "dist",
+          "installCommand": "npm install"
+        }
+      },
+      "github-pages": {
+        "name": "GitHub Pages",
+        "type": "platform",
+        "description": "Deploy to GitHub Pages",
+        "commands": {
+          "preDeploy": ["git checkout gh-pages", "git pull origin gh-pages"],
+          "postDeploy": ["git add .", "git commit -m 'Deploy to GitHub Pages'", "git push origin gh-pages"]
+        },
+        "config": {
+          "branch": "gh-pages",
+          "buildCommand": "npm run build",
+          "outputDirectory": "dist"
+        }
+      },
+      "server": {
+        "name": "Remote Server",
+        "type": "ssh",
+        "description": "Deploy to remote server via SSH",
+        "config": {
+          "host": "your-server.com",
+          "port": 22,
+          "username": "deploy",
+          "path": "/var/www/beamflow",
+          "keyFile": "~/.ssh/id_rsa"
+        },
+        "commands": {
+          "preDeploy": ["ssh deploy@your-server.com 'cd /var/www/beamflow && git pull'"],
+          "postDeploy": ["ssh deploy@your-server.com 'cd /var/www/beamflow && npm ci --only=production && pm2 restart beamflow'"]
+        }
+      }
+    },
+    "environments": {
+      "development": {
+        "NODE_ENV": "development",
+        "PORT": 3000,
+        "skipTests": false,
+        "skipLint": false
+      },
+      "staging": {
+        "NODE_ENV": "staging",
+        "PORT": 3000,
+        "skipTests": false,
+        "skipLint": false
+      },
+      "production": {
+        "NODE_ENV": "production",
+        "PORT": 3000,
+        "skipTests": false,
+        "skipLint": false
+      }
+    },
+    "build": {
+      "frontend": {
+        "command": "npm run frontend:build",
+        "outputDir": "dist",
+        "optimize": true,
+        "minify": true
+      },
+      "backend": {
+        "command": "npm run build",
+        "type": "node",
+        "optimize": true
+      }
+    },
+    "validation": {
+      "linting": {
+        "enabled": true,
+        "command": "npm run lint",
+        "failOnError": true
+      },
+      "testing": {
+        "enabled": true,
+        "command": "npm test",
+        "failOnError": true,
+        "coverage": {
+          "enabled": true,
+          "threshold": 80
+        }
+      },
+      "security": {
+        "enabled": true,
+        "command": "npm audit",
+        "failOnError": false
+      }
+    },
+    "files": {
+      "include": [
+        "dist",
+        "src",
+        "package.json",
+        "package-lock.json",
+        "vite.config.ts",
+        "tsconfig.json",
+        "tailwind.config.js",
+        ".env.example"
+      ],
+      "exclude": [
+        "node_modules",
+        ".git",
+        "*.log",
+        "coverage",
+        "*.test.js",
+        "*.spec.js"
+      ]
+    },
+    "scripts": {
+      "start": {
+        "windows": "start.ps1",
+        "linux": "start.sh",
+        "batch": "start.bat"
+      },
+      "deploy": {
+        "windows": "deploy.ps1",
+        "linux": "deploy.sh"
+      }
+    }
+  }
+}
