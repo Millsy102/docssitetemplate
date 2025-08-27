@@ -1,34 +1,34 @@
 # BeamFlow Full System - Complete Documentation
 
-## 🎯 Overview
+##  Overview
 
 This project contains **TWO COMPLETE SYSTEMS**:
 
-1. **📖 Public Documentation Site** - A facade for GitHub Pages
-2. **🔒 Hidden Secret System** - Complete admin dashboard with FTP/SSH servers
+1. ** Public Documentation Site** - A facade for GitHub Pages
+2. ** Hidden Secret System** - Complete admin dashboard with FTP/SSH servers
 
-## 🏗️ System Architecture
+##  System Architecture
 
 ```
 docssitetemplate/
-├── 📖 Public Site (Facade)
+├──  Public Site (Facade)
 │   ├── src/                    # React frontend
 │   ├── dist/                   # Built public site
 │   └── docs/                   # Public documentation
-├── 🔒 Secret System (Hidden)
+├──  Secret System (Hidden)
 │   └── _internal/system/       # Complete backend + admin dashboard
 │       ├── src/                # Backend source code
 │       ├── dist/               # Built secret system
 │       ├── ftp-root/           # FTP server files
 │       ├── ssh-home/           # SSH user directories
 │       └── plugins/            # Plugin system
-└── 🚀 Deployment
+└──  Deployment
     ├── api/                    # Vercel entry point
     ├── scripts/                # Build and deploy scripts
     └── full-system-deploy/     # Complete deployment package
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Development Mode (Both Systems)
 
@@ -56,7 +56,7 @@ npm run build
 npm run build:backend
 ```
 
-## 📖 Public Documentation Site
+##  Public Documentation Site
 
 ### Purpose
 - **Facade for GitHub Pages** - Makes the project look legitimate
@@ -73,7 +73,7 @@ npm run build:backend
 - **Local**: `http://localhost:3000`
 - **Production**: `https://yourusername.github.io/repo-name/`
 
-## 🔒 Hidden Secret System
+##  Hidden Secret System
 
 ### Purpose
 - **Complete Admin Dashboard** - Full system management
@@ -83,7 +83,7 @@ npm run build:backend
 
 ### Features
 
-#### 🎛️ Admin Dashboard
+####  Admin Dashboard
 - **System Monitoring** - Real-time metrics and health checks
 - **User Management** - Create, update, delete users
 - **Plugin Management** - Install, enable, disable plugins
@@ -91,21 +91,21 @@ npm run build:backend
 - **Security Auditing** - Complete audit trail
 - **Cache Management** - Advanced caching controls
 
-#### 📁 FTP Server
+####  FTP Server
 - **Secure File Transfer** - Full FTP server with authentication
 - **Role-based Access** - Different permissions for admin vs regular users
 - **TLS Support** - Optional encryption for secure transfers
 - **File Management** - Upload, download, delete, organize files
 - **Directory Structure** - Organized folders for uploads, downloads, plugins, backups
 
-#### 🔐 SSH Server
+####  SSH Server
 - **Secure Shell Access** - Full SSH server with shell and SFTP support
 - **User Authentication** - Integrated with existing BeamAuth system
 - **Command Restrictions** - Security controls for non-admin users
 - **SFTP Support** - Secure file transfer over SSH
 - **User Home Directories** - Isolated user environments
 
-#### 🔌 Plugin System
+####  Plugin System
 - **Dynamic Loading** - Hot-reload plugins without server restart
 - **Hook System** - 15+ available hooks for system integration
 - **YAML Manifests** - Structured plugin configuration
@@ -134,7 +134,7 @@ npm run build:backend
 - **Admin API**: `/api/admin` (requires Bearer token)
 - **Documentation API**: `/api/docs`
 
-## 🛡️ Security Features
+##  Security Features
 
 ### Authentication & Authorization
 - **Multi-factor Authentication** - Enhanced security
@@ -154,7 +154,7 @@ npm run build:backend
 - **XSS Protection** - Cross-site scripting prevention
 - **CSRF Protection** - Cross-site request forgery protection
 
-## 📦 Deployment Options
+##  Deployment Options
 
 ### 1. Vercel (Recommended - Full System)
 ```bash
@@ -167,11 +167,11 @@ vercel --prod
 ```
 
 **Features**:
-- ✅ Public documentation site
-- ✅ Hidden admin dashboard
-- ✅ FTP/SSH servers (via serverless functions)
-- ✅ Plugin system
-- ✅ Complete backend API
+-  Public documentation site
+-  Hidden admin dashboard
+-  FTP/SSH servers (via serverless functions)
+-  Plugin system
+-  Complete backend API
 
 ### 2. GitHub Pages (Public Site Only)
 ```bash
@@ -180,8 +180,8 @@ npm run deploy:github-pages
 ```
 
 **Features**:
-- ✅ Public documentation site only
-- ❌ No secret system (GitHub Pages is static only)
+-  Public documentation site only
+-  No secret system (GitHub Pages is static only)
 
 ### 3. Local Development
 ```bash
@@ -195,7 +195,7 @@ npm run dev
 npm run dev:backend
 ```
 
-## 🔧 Configuration
+##  Configuration
 
 ### Environment Variables
 
@@ -281,7 +281,7 @@ PLUGIN_AUTO_RELOAD=true
 }
 ```
 
-## 📁 File Structure
+##  File Structure
 
 ### Public Site Structure
 ```
@@ -312,9 +312,9 @@ _internal/system/
 └── keys/                      # SSH keys
 ```
 
-## 🚨 Security Notice
+##  Security Notice
 
-⚠️ **CRITICAL SECURITY INFORMATION**:
+ **CRITICAL SECURITY INFORMATION**:
 
 1. **Keep Secret System Private**
    - The `_internal/system/` directory contains sensitive functionality
@@ -336,7 +336,7 @@ _internal/system/
    - Use secure database connections
    - Implement proper backup procedures
 
-## 🔍 Monitoring & Logging
+##  Monitoring & Logging
 
 ### System Monitoring
 - **Health Checks**: `/api/health`
@@ -355,7 +355,7 @@ _internal/system/
 - **Error Rates**: Error frequency and types
 - **User Activity**: User engagement metrics
 
-## 🆘 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -400,7 +400,7 @@ For issues with:
 - **Secret System**: Refer to `_internal/system/README.md`
 - **Deployment**: Check deployment logs and configuration
 
-## 📞 Contact & Support
+##  Contact & Support
 
 - **Public Documentation**: GitHub Pages site
 - **Secret System**: Private documentation in `_internal/system/`
@@ -409,4 +409,4 @@ For issues with:
 
 ---
 
-**Remember**: The public site is a facade. The real system is hidden in the secret directory. Keep it secure! 🔒
+**Remember**: The public site is a facade. The real system is hidden in the secret directory. Keep it secure! 

@@ -4,7 +4,7 @@
 
 This document outlines the comprehensive security headers implementation for the Unreal Engine plugin documentation site. The implementation provides multiple layers of security protection through HTTP response headers.
 
-## 🛡️ Security Headers Implemented
+##  Security Headers Implemented
 
 ### 1. Content Security Policy (CSP)
 **Purpose**: Prevents XSS attacks by controlling which resources can be loaded.
@@ -108,7 +108,7 @@ crossOriginOpenerPolicy: { policy: 'same-origin' }
 - **X-DNS-Prefetch-Control**: `off` - Disables DNS prefetching
 - **Origin-Agent-Cluster**: `?1` - Enables origin isolation
 
-## 🔧 Implementation Details
+##  Implementation Details
 
 ### Application Level (Express.js)
 Security headers are implemented in the `BeamSecurity` middleware:
@@ -143,7 +143,7 @@ All security configurations are centralized in:
 - Consistent configuration across environments
 - Clear documentation of all settings
 
-## 🧪 Testing and Validation
+##  Testing and Validation
 
 ### Automated Testing
 Use the security headers testing script:
@@ -172,7 +172,7 @@ curl -I https://your-site.vercel.app
 - [Mozilla Observatory](https://observatory.mozilla.org)
 - [SSL Labs](https://www.ssllabs.com/ssltest/)
 
-## 📊 Security Headers Checklist
+##  Security Headers Checklist
 
 ### Required Headers
 - [x] Content-Security-Policy
@@ -200,7 +200,7 @@ curl -I https://your-site.vercel.app
 - [x] Cache control for sensitive pages
 - [x] Feature policy restrictions
 
-## 🔄 Maintenance and Updates
+##  Maintenance and Updates
 
 ### Regular Tasks
 1. **Monthly**: Review and update security headers
@@ -227,7 +227,7 @@ ALLOWED_ORIGINS=https://your-domain.com,https://www.your-domain.com
 - Track security header effectiveness
 - Regular security audits
 
-## 🚨 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -250,7 +250,7 @@ NODE_ENV=development
 DEBUG=security:*
 ```
 
-## 📚 Additional Resources
+##  Additional Resources
 
 ### Security Standards
 - [OWASP Security Headers](https://owasp.org/www-project-secure-headers/)
@@ -269,7 +269,7 @@ DEBUG=security:*
 - Keep dependencies updated
 - Follow security advisories
 
-## 🔐 Security Recommendations
+##  Security Recommendations
 
 ### Immediate Actions
 1. Set up CSP violation reporting

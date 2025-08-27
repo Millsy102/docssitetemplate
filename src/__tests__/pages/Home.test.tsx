@@ -16,7 +16,7 @@ describe('Home Page', () => {
   it('renders key features section', () => {
     render(<Home />);
     
-    expect(screen.getByText('🚀 Key Features')).toBeInTheDocument();
+    expect(screen.getByText(' Key Features')).toBeInTheDocument();
     expect(screen.getByText('• Real-time streaming capabilities')).toBeInTheDocument();
     expect(screen.getByText('• Advanced data processing')).toBeInTheDocument();
     expect(screen.getByText('• Seamless Unreal Engine integration')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('Home Page', () => {
   it('renders quick start section', () => {
     render(<Home />);
     
-    expect(screen.getByText('⚡ Quick Start')).toBeInTheDocument();
+    expect(screen.getByText(' Quick Start')).toBeInTheDocument();
     expect(screen.getByText('Get started with BeamFlow in minutes')).toBeInTheDocument();
   });
 
@@ -90,7 +90,7 @@ describe('Home Page', () => {
     expect(reportIssuesLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/issues');
     expect(reportIssuesLink).toHaveAttribute('target', '_blank');
     expect(reportIssuesLink).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(screen.getByText('🐛 Report Issues')).toBeInTheDocument();
+    expect(screen.getByText(' Report Issues')).toBeInTheDocument();
     expect(screen.getByText('Found a bug? Let us know!')).toBeInTheDocument();
   });
 
@@ -102,7 +102,7 @@ describe('Home Page', () => {
     expect(communityLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/discussions');
     expect(communityLink).toHaveAttribute('target', '_blank');
     expect(communityLink).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(screen.getByText('💬 Community')).toBeInTheDocument();
+    expect(screen.getByText(' Community')).toBeInTheDocument();
     expect(screen.getByText('Join the discussion')).toBeInTheDocument();
   });
 
@@ -112,7 +112,7 @@ describe('Home Page', () => {
     const contributeLink = screen.getByRole('link', { name: /contribute/i });
     expect(contributeLink).toBeInTheDocument();
     expect(contributeLink).toHaveAttribute('href', '/contributing');
-    expect(screen.getByText('🤝 Contribute')).toBeInTheDocument();
+    expect(screen.getByText(' Contribute')).toBeInTheDocument();
     expect(screen.getByText('Help improve BeamFlow')).toBeInTheDocument();
   });
 

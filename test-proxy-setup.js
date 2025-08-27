@@ -58,20 +58,20 @@ async function testEndpoint(url, description, expectedStatus = 200) {
     const response = await makeRequest(url);
     
     if (response.statusCode === expectedStatus) {
-      log(`✅ ${description} - Status: ${response.statusCode}`, 'green');
+      log(` ${description} - Status: ${response.statusCode}`, 'green');
       return true;
     } else {
-      log(`❌ ${description} - Expected ${expectedStatus}, got ${response.statusCode}`, 'red');
+      log(` ${description} - Expected ${expectedStatus}, got ${response.statusCode}`, 'red');
       return false;
     }
   } catch (error) {
-    log(`❌ ${description} - Error: ${error.message}`, 'red');
+    log(` ${description} - Error: ${error.message}`, 'red');
     return false;
   }
 }
 
 async function runTests() {
-  log('\n🚀 BeamFlow Development Proxy Test Suite', 'bright');
+  log('\n BeamFlow Development Proxy Test Suite', 'bright');
   log('==========================================', 'bright');
   
   const tests = [
@@ -115,25 +115,25 @@ async function runTests() {
     if (success) passed++;
   }
 
-  log('\n📊 Test Results', 'bright');
+  log('\n Test Results', 'bright');
   log('==============', 'bright');
   log(`Passed: ${passed}/${total}`, passed === total ? 'green' : 'yellow');
   
   if (passed === total) {
-    log('\n🎉 All tests passed! Your development proxy setup is working correctly.', 'green');
+    log('\n All tests passed! Your development proxy setup is working correctly.', 'green');
     log('\nYou can now:', 'bright');
     log('• Access the frontend at: http://localhost:3000', 'cyan');
     log('• Make API calls from frontend (they will be proxied to backend)', 'cyan');
     log('• Access admin dashboard at: http://localhost:3000/admin', 'cyan');
   } else {
-    log('\n⚠️  Some tests failed. Please check:', 'yellow');
+    log('\n  Some tests failed. Please check:', 'yellow');
     log('1. Is the frontend server running? (npm run dev)', 'yellow');
     log('2. Is the backend server running? (npm run dev:backend:env)', 'yellow');
     log('3. Are the ports 3000 and 3001 available?', 'yellow');
     log('4. Check the proxy configuration in vite.config.ts', 'yellow');
   }
 
-  log('\n📚 For more information, see: DEVELOPMENT_PROXY_SETUP.md', 'blue');
+  log('\n For more information, see: DEVELOPMENT_PROXY_SETUP.md', 'blue');
 }
 
 // Run the tests

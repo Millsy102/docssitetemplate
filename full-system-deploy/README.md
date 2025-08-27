@@ -2,22 +2,22 @@
 
 This package contains both the public documentation site and the hidden secret system.
 
-## 🚀 Public Documentation Site
+##  Public Documentation Site
 - **Location**: `public/` directory
 - **Purpose**: Public-facing documentation for GitHub Pages
 - **Access**: Open to everyone
 
-## 🔒 Hidden Secret System
+##  Hidden Secret System
 - **Location**: `secret/` directory  
 - **Purpose**: Private admin dashboard, FTP/SSH servers, plugin system
 - **Access**: Restricted with authentication
 
-## 🏗️ Backend System
+##  Backend System
 - **Location**: `backend/` directory
 - **Purpose**: Complete backend with all services
 - **Features**: Express server, database, authentication, file management
 
-## 📦 Deployment Options
+##  Deployment Options
 
 ### 1. Vercel (Recommended)
 ```bash
@@ -43,7 +43,7 @@ npm run dev
 npm run dev:backend
 ```
 
-## 🔐 Secret System Access
+##  Secret System Access
 
 ### Admin Dashboard
 - **URL**: `/admin`
@@ -65,7 +65,7 @@ npm run dev:backend
 - **Management**: Via admin dashboard
 - **Features**: Hot-reload, hook system, YAML manifests
 
-## 🛡️ Security Features
+##  Security Features
 
 - **IP Whitelisting**: Restrict access by IP address
 - **Session Management**: Secure session handling
@@ -73,7 +73,7 @@ npm run dev:backend
 - **Rate Limiting**: Protection against abuse
 - **Encryption**: Data encryption at rest and in transit
 
-## 📁 File Structure
+##  File Structure
 
 ```
 full-system-deploy/
@@ -91,7 +91,7 @@ full-system-deploy/
 └── vercel.json          # Vercel configuration
 ```
 
-## 🔧 Configuration
+##  Configuration
 
 ### Environment Variables
 ```env
@@ -110,15 +110,15 @@ JWT_SECRET=your-jwt-secret
 - **Default Password**: Set via ADMIN_PASSWORD env var
 - **Secret Token**: Set via ADMIN_TOKEN env var
 
-## 🚨 Security Notice
+##  Security Notice
 
-⚠️ **IMPORTANT**: This system contains sensitive functionality. Ensure:
+ **IMPORTANT**: This system contains sensitive functionality. Ensure:
 - Strong passwords are used
 - Environment variables are properly secured
 - Access is restricted to authorized users only
 - Regular security audits are performed
 
-## 📞 Support
+##  Support
 
 For issues or questions about the secret system, refer to the private documentation in `_internal/system/`.
 

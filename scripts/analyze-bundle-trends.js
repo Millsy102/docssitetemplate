@@ -82,7 +82,7 @@ class BundleTrendsAnalyzer {
       return;
     }
 
-    console.log(`${colors.bold}${colors.cyan}📈 Bundle Size Trends Analysis${colors.reset}\n`);
+    console.log(`${colors.bold}${colors.cyan} Bundle Size Trends Analysis${colors.reset}\n`);
 
     const first = history[0];
     const last = history[history.length - 1];
@@ -93,7 +93,7 @@ class BundleTrendsAnalyzer {
     const totalSizeChangePercent = ((totalSizeChange / first.summary.totalSize) * 100);
     const avgGrowthRate = this.calculateGrowthRate(first.summary.totalSize, last.summary.totalSize, periods);
 
-    console.log(`${colors.bold}📊 Overall Size Trends:${colors.reset}`);
+    console.log(`${colors.bold} Overall Size Trends:${colors.reset}`);
     console.log(`Initial Size: ${this.formatBytes(first.summary.totalSize)}`);
     console.log(`Current Size: ${this.formatBytes(last.summary.totalSize)}`);
     console.log(`Total Change: ${totalSizeChange > 0 ? '+' : ''}${this.formatBytes(totalSizeChange)} (${totalSizeChangePercent.toFixed(1)}%)`);
@@ -112,7 +112,7 @@ class BundleTrendsAnalyzer {
 
   // Analyze component trends
   analyzeComponentTrends(history, first, last) {
-    console.log(`${colors.bold}📁 Component Trends:${colors.reset}`);
+    console.log(`${colors.bold} Component Trends:${colors.reset}`);
 
     const components = [
       { key: 'jsSize', name: 'JavaScript', color: colors.blue },
@@ -135,7 +135,7 @@ class BundleTrendsAnalyzer {
 
   // Analyze compression trends
   analyzeCompressionTrends(history, first, last) {
-    console.log(`${colors.bold}🗜️  Compression Trends:${colors.reset}`);
+    console.log(`${colors.bold}  Compression Trends:${colors.reset}`);
 
     // Gzip trends
     const gzipInitial = first.summary.totalGzip;
@@ -167,7 +167,7 @@ class BundleTrendsAnalyzer {
       return;
     }
 
-    console.log(`${colors.bold}🕒 Recent Trends (Last 5 Builds):${colors.reset}`);
+    console.log(`${colors.bold} Recent Trends (Last 5 Builds):${colors.reset}`);
 
     const recent = history.slice(-5);
     const firstRecent = recent[0];
@@ -178,7 +178,7 @@ class BundleTrendsAnalyzer {
     console.log(`Size Change: ${recentChange > 0 ? '+' : ''}${this.formatBytes(recentChange)} (${recentChangePercent.toFixed(1)}%)`);
 
     // Show individual build changes
-    console.log(`\n${colors.bold}📊 Individual Build Changes:${colors.reset}`);
+    console.log(`\n${colors.bold} Individual Build Changes:${colors.reset}`);
     for (let i = 1; i < recent.length; i++) {
       const current = recent[i];
       const previous = recent[i - 1];
@@ -186,7 +186,7 @@ class BundleTrendsAnalyzer {
       const changePercent = ((change / previous.summary.totalSize) * 100);
       const date = this.formatDate(current.timestamp);
 
-      const changeSymbol = change > 0 ? '📈' : change < 0 ? '📉' : '➡️';
+      const changeSymbol = change > 0 ? '' : change < 0 ? '' : '';
       const changeColor = change > 0 ? colors.red : change < 0 ? colors.green : colors.blue;
 
       console.log(`  ${changeSymbol} ${date}: ${changeColor}${change > 0 ? '+' : ''}${this.formatBytes(change)} (${changePercent.toFixed(1)}%)${colors.reset}`);
@@ -202,7 +202,7 @@ class BundleTrendsAnalyzer {
       return;
     }
 
-    console.log(`${colors.bold}📏 Size History Trends:${colors.reset}`);
+    console.log(`${colors.bold} Size History Trends:${colors.reset}`);
 
     const first = sizeHistory[0];
     const last = sizeHistory[sizeHistory.length - 1];
@@ -234,7 +234,7 @@ class BundleTrendsAnalyzer {
 
   // Generate trend recommendations
   generateTrendRecommendations(history, sizeHistory) {
-    console.log(`${colors.bold}💡 Trend Recommendations:${colors.reset}`);
+    console.log(`${colors.bold} Trend Recommendations:${colors.reset}`);
 
     if (history.length < 2) {
       console.log(`  ${colors.yellow}Need more data for trend recommendations.${colors.reset}\n`);
@@ -249,36 +249,36 @@ class BundleTrendsAnalyzer {
 
     // Growth rate recommendations
     if (avgGrowthRate > 5) {
-      console.log(`  ${colors.red}⚠️  High growth rate (${avgGrowthRate.toFixed(1)}% per build). Consider optimization.${colors.reset}`);
+      console.log(`  ${colors.red}  High growth rate (${avgGrowthRate.toFixed(1)}% per build). Consider optimization.${colors.reset}`);
     } else if (avgGrowthRate > 2) {
-      console.log(`  ${colors.yellow}📈 Moderate growth rate (${avgGrowthRate.toFixed(1)}% per build). Monitor closely.${colors.reset}`);
+      console.log(`  ${colors.yellow} Moderate growth rate (${avgGrowthRate.toFixed(1)}% per build). Monitor closely.${colors.reset}`);
     } else if (avgGrowthRate < -2) {
-      console.log(`  ${colors.green}📉 Good optimization trend (${avgGrowthRate.toFixed(1)}% reduction per build).${colors.reset}`);
+      console.log(`  ${colors.green} Good optimization trend (${avgGrowthRate.toFixed(1)}% reduction per build).${colors.reset}`);
     } else {
-      console.log(`  ${colors.blue}➡️  Stable bundle size (${avgGrowthRate.toFixed(1)}% change per build).${colors.reset}`);
+      console.log(`  ${colors.blue}  Stable bundle size (${avgGrowthRate.toFixed(1)}% change per build).${colors.reset}`);
     }
 
     // Total growth recommendations
     if (totalGrowth > 50) {
-      console.log(`  ${colors.red}⚠️  Significant size increase (${totalGrowth.toFixed(1)}%). Review recent changes.${colors.reset}`);
+      console.log(`  ${colors.red}  Significant size increase (${totalGrowth.toFixed(1)}%). Review recent changes.${colors.reset}`);
     } else if (totalGrowth > 20) {
-      console.log(`  ${colors.yellow}📈 Notable size increase (${totalGrowth.toFixed(1)}%). Monitor for continued growth.${colors.reset}`);
+      console.log(`  ${colors.yellow} Notable size increase (${totalGrowth.toFixed(1)}%). Monitor for continued growth.${colors.reset}`);
     }
 
     // Component-specific recommendations
     const jsGrowth = ((last.summary.jsSize - first.summary.jsSize) / first.summary.jsSize) * 100;
     if (jsGrowth > 30) {
-      console.log(`  ${colors.yellow}📜 JavaScript growth (${jsGrowth.toFixed(1)}%). Consider code splitting.${colors.reset}`);
+      console.log(`  ${colors.yellow} JavaScript growth (${jsGrowth.toFixed(1)}%). Consider code splitting.${colors.reset}`);
     }
 
     const cssGrowth = ((last.summary.cssSize - first.summary.cssSize) / first.summary.cssSize) * 100;
     if (cssGrowth > 30) {
-      console.log(`  ${colors.yellow}🎨 CSS growth (${cssGrowth.toFixed(1)}%). Consider purging unused styles.${colors.reset}`);
+      console.log(`  ${colors.yellow} CSS growth (${cssGrowth.toFixed(1)}%). Consider purging unused styles.${colors.reset}`);
     }
 
     const imageGrowth = ((last.summary.imageSize - first.summary.imageSize) / first.summary.imageSize) * 100;
     if (imageGrowth > 50) {
-      console.log(`  ${colors.yellow}🖼️  Image growth (${imageGrowth.toFixed(1)}%). Consider optimization.${colors.reset}`);
+      console.log(`  ${colors.yellow}  Image growth (${imageGrowth.toFixed(1)}%). Consider optimization.${colors.reset}`);
     }
 
     console.log('');
@@ -341,7 +341,7 @@ class BundleTrendsAnalyzer {
     const trendSummaryPath = path.join(this.analysisPath, 'trend-summary.json');
     try {
       fs.writeFileSync(trendSummaryPath, JSON.stringify(trendSummary, null, 2));
-      console.log(`${colors.green}✅ Trend summary saved to ${trendSummaryPath}${colors.reset}\n`);
+      console.log(`${colors.green} Trend summary saved to ${trendSummaryPath}${colors.reset}\n`);
     } catch (error) {
       console.error(`${colors.red}Error saving trend summary: ${error.message}${colors.reset}`);
     }
@@ -349,7 +349,7 @@ class BundleTrendsAnalyzer {
 
   // Run the analyzer
   run() {
-    console.log(`${colors.cyan}📈 Analyzing bundle trends...${colors.reset}\n`);
+    console.log(`${colors.cyan} Analyzing bundle trends...${colors.reset}\n`);
     this.generateTrendReport();
   }
 }

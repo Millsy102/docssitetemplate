@@ -6,23 +6,23 @@ The Request Tracking System provides comprehensive debugging capabilities by ass
 
 ## Features
 
-### 🔍 **Unique Request Identifiers**
+###  **Unique Request Identifiers**
 - **Full UUID**: Complete unique identifier for each request
 - **Short ID**: 16-character hexadecimal ID for easier logging
 - **Request ID Headers**: Automatically added to response headers for client-side tracking
 
-### 📊 **Comprehensive Request Logging**
+###  **Comprehensive Request Logging**
 - **Request Details**: Method, URL, path, query parameters, headers, body
 - **Response Data**: Status code, response time, response body
 - **Error Tracking**: Detailed error information including stack traces
 - **Client Information**: IP address, user agent, timestamp
 
-### 🛡️ **Security & Privacy**
+###  **Security & Privacy**
 - **Data Sanitization**: Automatic redaction of sensitive information
 - **Configurable Retention**: Automatic cleanup of old logs
 - **Admin-Only Access**: All tracking data requires admin authentication
 
-### 📈 **Real-Time Monitoring**
+###  **Real-Time Monitoring**
 - **Live Statistics**: Request counts, error rates, response times
 - **Filtering**: Filter logs by method, status, path, completion status
 - **Export Capabilities**: Download logs for external analysis

@@ -2,7 +2,7 @@
 
 This directory contains comprehensive unit tests for the BeamFlow documentation site React application. The test suite ensures all components and pages work correctly and maintain their functionality across updates.
 
-## 📁 Test Structure
+##  Test Structure
 
 ```
 src/__tests__/
@@ -21,7 +21,7 @@ src/__tests__/
 └── README.md                    # This file
 ```
 
-## 🧪 Test Categories
+##  Test Categories
 
 ### Component Tests
 
@@ -148,7 +148,7 @@ Tests the main application wrapper:
   - Link presence
   - Component hierarchy
 
-## 🚀 Running Tests
+##  Running Tests
 
 ### Prerequisites
 Ensure all dependencies are installed:
@@ -183,7 +183,7 @@ npm test -- Header.test.tsx
 npm test -- --watch
 ```
 
-## 📊 Test Coverage
+##  Test Coverage
 
 The test suite aims for comprehensive coverage including:
 
@@ -201,7 +201,7 @@ The test suite aims for comprehensive coverage including:
 - **Lines**: 70%
 - **Statements**: 70%
 
-## 🛠️ Test Utilities
+##  Test Utilities
 
 ### Custom Render Function (`test-utils.tsx`)
 Provides a custom render function that includes:
@@ -213,7 +213,7 @@ Provides a custom render function that includes:
 - **fileMock.js**: Mocks static assets (images, CSS, etc.)
 - **setupTests.ts**: Global test configuration and mocks
 
-## 🔧 Test Configuration
+##  Test Configuration
 
 ### Jest Configuration (`jest.config.js`)
 - **Environment**: jsdom for browser simulation
@@ -226,7 +226,7 @@ Provides a custom render function that includes:
 - **Global Mocks**: Window APIs, IntersectionObserver, ResizeObserver
 - **Configuration**: Custom test ID attribute
 
-## 📝 Writing New Tests
+##  Writing New Tests
 
 ### Component Test Template
 ```typescript
@@ -263,7 +263,7 @@ describe('YourComponent', () => {
 5. **Group Related Tests**: Use describe blocks to organize test cases
 6. **Write Descriptive Test Names**: Clear, action-oriented test descriptions
 
-## 🐛 Debugging Tests
+##  Debugging Tests
 
 ### Common Issues
 1. **Import Errors**: Check file paths and TypeScript configuration
@@ -283,14 +283,14 @@ npm test -- --coverage --watch
 npm test -- --testNamePattern="Component Name"
 ```
 
-## 📈 Continuous Integration
+##  Continuous Integration
 
 Tests are automatically run in CI/CD pipelines:
 - **Pre-commit**: Linting and basic tests
 - **Pull Requests**: Full test suite with coverage
 - **Deployment**: Integration tests and build verification
 
-## 🤝 Contributing
+##  Contributing
 
 When adding new features or components:
 1. Write tests first (TDD approach)

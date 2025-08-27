@@ -6,12 +6,12 @@ const LanguageSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ja', name: '日本語', flag: '🇯🇵' }
+    { code: 'en', name: 'English', flag: '' },
+    { code: 'es', name: 'Español', flag: '' },
+    { code: 'fr', name: 'Français', flag: '' },
+    { code: 'de', name: 'Deutsch', flag: '' },
+    { code: 'zh', name: '中文', flag: '' },
+    { code: 'ja', name: '日本語', flag: '' }
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];

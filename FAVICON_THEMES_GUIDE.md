@@ -6,12 +6,12 @@ The BeamFlow documentation site now supports parameterized favicon generation wi
 
 ## Features
 
-- 🎨 **Multiple Theme Variants**: 6 pre-configured themes (Default, Dark, Light, Blue, Green, Purple)
-- 📱 **Multi-Format Support**: SVG, PNG, WebP, AVIF, and ICO formats
-- 🔧 **Easy Customization**: Simple theme configuration system
-- ⚡ **Automated Generation**: Command-line tools for batch generation
-- 🎯 **React Integration**: Theme switcher component for user interface
-- 💾 **Persistent Preferences**: User theme preferences saved in localStorage
+-  **Multiple Theme Variants**: 6 pre-configured themes (Default, Dark, Light, Blue, Green, Purple)
+-  **Multi-Format Support**: SVG, PNG, WebP, AVIF, and ICO formats
+-  **Easy Customization**: Simple theme configuration system
+-  **Automated Generation**: Command-line tools for batch generation
+-  **React Integration**: Theme switcher component for user interface
+-  **Persistent Preferences**: User theme preferences saved in localStorage
 
 ## Available Themes
 

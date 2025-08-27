@@ -2,7 +2,7 @@
 
 This guide provides a simplified approach to deploying your Unreal Engine plugin documentation site using Docker. The Docker setup includes production-optimized configurations with nginx, security headers, and automated deployment scripts.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -22,7 +22,7 @@ This guide provides a simplified approach to deploying your Unreal Engine plugin
 
 Your application will be available at `http://localhost:3000`
 
-## 📁 Docker Files Overview
+##  Docker Files Overview
 
 ### Core Files
 
@@ -37,7 +37,7 @@ Your application will be available at `http://localhost:3000`
 - **`scripts/docker-deploy.sh`** - Bash script for Linux/macOS
 - **`scripts/docker-deploy.ps1`** - PowerShell script for Windows
 
-## 🔧 Available Commands
+##  Available Commands
 
 ### Deployment Scripts
 
@@ -111,7 +111,7 @@ docker stop beamflow-docs-frontend
 docker rm beamflow-docs-frontend
 ```
 
-## 🏗️ Architecture
+##  Architecture
 
 ### Production Build Process
 
@@ -140,7 +140,7 @@ docker rm beamflow-docs-frontend
 - **Nginx Optimization**: Sendfile, tcp_nopush, keepalive
 - **Asset Optimization**: Minified and chunked JavaScript/CSS
 
-## 🔄 Development Workflow
+##  Development Workflow
 
 ### Local Development
 
@@ -163,7 +163,7 @@ docker run -d --name beamflow-docs-dev -p 3001:3000 -v $(pwd):/app beamflow-docs
 ./scripts/docker-deploy.sh update
 ```
 
-## 🌐 Environment Configuration
+##  Environment Configuration
 
 ### Environment Variables
 
@@ -182,7 +182,7 @@ To customize the deployment:
 3. **Nginx Config**: Edit `nginx.conf` for custom routing
 4. **Build Process**: Modify `Dockerfile` for custom build steps
 
-## 📊 Monitoring and Logs
+##  Monitoring and Logs
 
 ### Health Checks
 
@@ -209,7 +209,7 @@ docker logs --tail 100 beamflow-docs-frontend
 docker logs -t beamflow-docs-frontend
 ```
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -256,7 +256,7 @@ docker run -it --rm -p 3000:80 beamflow-docs /bin/sh
 docker run -it --rm -p 3000:80 beamflow-docs nginx -g "daemon off;"
 ```
 
-## 🚀 Production Deployment
+##  Production Deployment
 
 ### GitHub Actions Integration
 
@@ -311,7 +311,7 @@ gcloud builds submit --tag gcr.io/your-project/beamflow-docs
 gcloud run deploy beamflow-docs --image gcr.io/your-project/beamflow-docs --platform managed
 ```
 
-## 📈 Performance Monitoring
+##  Performance Monitoring
 
 ### Built-in Metrics
 
@@ -333,7 +333,7 @@ docker exec beamflow-docs-frontend tail -f /var/log/nginx/access.log
 docker exec beamflow-docs-frontend tail -f /var/log/nginx/error.log
 ```
 
-## 🔒 Security Best Practices
+##  Security Best Practices
 
 1. **Regular Updates**: Keep base images updated
 2. **Security Scanning**: Use `docker scan` for vulnerabilities
@@ -341,14 +341,14 @@ docker exec beamflow-docs-frontend tail -f /var/log/nginx/error.log
 4. **Secrets Management**: Use Docker secrets for sensitive data
 5. **Network Security**: Use custom networks and firewalls
 
-## 📚 Additional Resources
+##  Additional Resources
 
 - [Docker Documentation](https://docs.docker.com/)
 - [Nginx Configuration](https://nginx.org/en/docs/)
 - [React Production Build](https://create-react-app.dev/docs/production-build/)
 - [Vite Build Configuration](https://vitejs.dev/config/)
 
-## 🤝 Contributing
+##  Contributing
 
 To contribute to the Docker setup:
 

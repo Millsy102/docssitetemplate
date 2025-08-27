@@ -112,10 +112,10 @@ GH_REPO=[your-username]/[your-repo-name]
 
 ## Your Repository Status
 
-✅ **Repository exists**: https://github.com/[your-username]/[your-repo-name]  
-✅ **Public repository**: GitHub Pages enabled  
-✅ **GitHub Actions**: Configured for deployment  
-✅ **Site URL**: https://[your-username].github.io/[your-repo-name]/  
+ **Repository exists**: https://github.com/[your-username]/[your-repo-name]  
+ **Public repository**: GitHub Pages enabled  
+ **GitHub Actions**: Configured for deployment  
+ **Site URL**: https://[your-username].github.io/[your-repo-name]/  
 
 ## Next Steps
 
@@ -130,7 +130,7 @@ GH_REPO=[your-username]/[your-repo-name]
 Once your site is properly deployed, you'll need to set up authentication:
 
 ### For Testing Only:
-⚠️ **SECURITY WARNING**: Only use these for initial testing!
+ **SECURITY WARNING**: Only use these for initial testing!
 
 - **Username**: `admin`
 - **Password**: `secret123`

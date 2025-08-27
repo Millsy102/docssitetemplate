@@ -15,12 +15,12 @@ const Contributing: React.FC = () => {
             There are many ways to contribute to BeamFlow:
           </p>
           <ul className="text-gray-300 space-y-2">
-            <li>• 🐛 Report bugs and issues</li>
-            <li>• 💡 Suggest new features</li>
-            <li>• 📝 Improve documentation</li>
-            <li>• 🔧 Submit code improvements</li>
-            <li>• 🧪 Help with testing</li>
-            <li>• 🌍 Translate documentation</li>
+            <li>•  Report bugs and issues</li>
+            <li>•  Suggest new features</li>
+            <li>•  Improve documentation</li>
+            <li>•  Submit code improvements</li>
+            <li>•  Help with testing</li>
+            <li>•  Translate documentation</li>
           </ul>
         </div>
 

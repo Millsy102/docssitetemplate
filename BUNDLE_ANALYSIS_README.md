@@ -2,7 +2,7 @@
 
 Comprehensive bundle analysis and monitoring tools for the BeamFlow documentation site. These tools help you track, analyze, and optimize your bundle size over time.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Basic Analysis
 ```bash
@@ -26,7 +26,7 @@ npm run analyze
 npm run analyze:watch
 ```
 
-## 📊 Available Commands
+##  Available Commands
 
 ### Core Analysis
 - `npm run analyze` - Generate visual bundle analysis with rollup-plugin-visualizer
@@ -42,7 +42,7 @@ npm run analyze:watch
 - `npm run analyze:compare date 2024-01-01 2024-01-31` - Compare builds by date range
 - `npm run analyze:watch build-watch` - Build and then start watching
 
-## 🔍 Analysis Features
+##  Analysis Features
 
 ### Bundle Breakdown
 - **JavaScript**: Core application code and dependencies
@@ -62,7 +62,7 @@ npm run analyze:watch
 - **Largest files**: Identification of oversized assets
 - **Growth trends**: Size changes over time
 
-## 📈 Trend Analysis
+##  Trend Analysis
 
 ### Growth Tracking
 - **Average growth rate**: Per-build size changes
@@ -76,7 +76,7 @@ npm run analyze:watch
 - **Trend summaries**: Automated trend analysis
 - **Comparison data**: Build-to-build comparisons
 
-## 🎯 Performance Recommendations
+##  Performance Recommendations
 
 ### Size Thresholds
 - **Excellent**: < 500KB
@@ -90,7 +90,7 @@ npm run analyze:watch
 - **Image optimization**: For image bundles > 500KB
 - **Compression improvement**: For compression ratios < 70%
 
-## 📁 Output Files
+##  Output Files
 
 ### Analysis Data
 - `bundle-analysis/history.json` - Detailed analysis history
@@ -102,7 +102,7 @@ npm run analyze:watch
 - `dist/bundle-analysis.html` - Interactive bundle visualization
 - Console output with colored formatting and emojis
 
-## 🔧 Configuration
+##  Configuration
 
 ### Vite Configuration
 The bundle analysis is integrated into the Vite build process:
@@ -155,7 +155,7 @@ manualChunks: {
 }
 ```
 
-## 📊 Monitoring Workflow
+##  Monitoring Workflow
 
 ### Development Workflow
 1. **Start monitoring**: `npm run analyze:watch`
@@ -175,25 +175,25 @@ manualChunks: {
 3. **Measure impact**: Compare before/after sizes
 4. **Track progress**: Monitor long-term trends
 
-## 🎨 Color Coding
+##  Color Coding
 
 ### Console Output
-- **🟢 Green**: Good performance, optimizations
-- **🟡 Yellow**: Warnings, moderate issues
-- **🔴 Red**: Critical issues, large bundles
-- **🔵 Blue**: Neutral information
-- **🟣 Magenta**: CSS-related metrics
-- **🟠 Cyan**: HTML-related metrics
+- ** Green**: Good performance, optimizations
+- ** Yellow**: Warnings, moderate issues
+- ** Red**: Critical issues, large bundles
+- ** Blue**: Neutral information
+- ** Magenta**: CSS-related metrics
+- ** Cyan**: HTML-related metrics
 
 ### Trend Indicators
-- **📈**: Size increase
-- **📉**: Size decrease
-- **➡️**: No change
-- **⚠️**: Warning
-- **✅**: Success
-- **❌**: Error
+- ****: Size increase
+- ****: Size decrease
+- ****: No change
+- ****: Warning
+- ****: Success
+- ****: Error
 
-## 🔍 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -222,7 +222,7 @@ chmod +x scripts/*.js
 DEBUG=bundle-analyzer npm run analyze:report
 ```
 
-## 📚 Best Practices
+##  Best Practices
 
 ### Regular Monitoring
 - Run analysis after each build
@@ -241,7 +241,7 @@ DEBUG=bundle-analyzer npm run analyze:report
 - Track compression ratios
 - Establish growth rate thresholds
 
-## 🤝 Contributing
+##  Contributing
 
 ### Adding New Analysis
 1. Create analysis script in `scripts/`
@@ -255,7 +255,7 @@ DEBUG=bundle-analyzer npm run analyze:report
 - Create additional visualizations
 - Add CI/CD integration
 
-## 📄 License
+##  License
 
 This bundle analysis toolset is part of the BeamFlow documentation site and follows the same MIT license.
 

@@ -131,7 +131,7 @@ function cleanAssets(options = {}) {
     includeGit = false,
   } = options;
 
-  log('🚀 Starting asset cleanup...', 'INFO', colors.bright);
+  log(' Starting asset cleanup...', 'INFO', colors.bright);
 
   if (dryRun) {
     log(
@@ -274,7 +274,7 @@ function cleanAssets(options = {}) {
   const duration = ((endTime - startTime) / 1000).toFixed(2);
 
   log(
-    `✨ Cleanup completed in ${duration}s`,
+    ` Cleanup completed in ${duration}s`,
     'SUCCESS',
     colors.bright + colors.green
   );
@@ -335,7 +335,7 @@ ${colors.yellow}Warning:${colors.reset} This script will permanently delete file
   // Safety check for dangerous options
   if (options.includeNodeModules && !options.dryRun) {
     log(
-      '⚠️  WARNING: You are about to delete node_modules!',
+      '  WARNING: You are about to delete node_modules!',
       'WARN',
       colors.yellow
     );
@@ -347,7 +347,7 @@ ${colors.yellow}Warning:${colors.reset} This script will permanently delete file
 
   if (options.includeGit && !options.dryRun) {
     log(
-      '⚠️  WARNING: You are about to clean git artifacts!',
+      '  WARNING: You are about to clean git artifacts!',
       'WARN',
       colors.yellow
     );

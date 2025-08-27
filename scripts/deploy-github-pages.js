@@ -112,27 +112,27 @@ function createDeploymentSummary() {
     const adminCredentials = envConfig.getAdminCredentials();
     
     const summary = `
-# 🚀 BeamFlow Deployment Summary
+#  BeamFlow Deployment Summary
 
-## ✅ Public Documentation Site
+##  Public Documentation Site
 - **URL**: ${siteConfig.githubPagesUrl}
 - **Status**: Successfully deployed to GitHub Pages
 - **Branch**: gh-pages
 - **Last Deployed**: ${new Date().toISOString()}
 
-## 🔒 Hidden Secret System
+##  Hidden Secret System
 - **Location**: \`_internal/system/\`
 - **Status**: Built and ready for deployment
 - **Admin Panel**: Available at /admin (when deployed)
 - **FTP Server**: Available on configured port
 - **SSH Server**: Available on configured port
 
-## 🔐 Admin Credentials (From Environment Variables)
+##  Admin Credentials (From Environment Variables)
 - **Username**: ${adminCredentials.username}
 - **Password**: [HIDDEN - Set via ADMIN_PASSWORD environment variable]
 - **API Key**: [HIDDEN - Set via ADMIN_API_KEY environment variable]
 
-## 📦 Deployment Package
+##  Deployment Package
 - **Location**: \`full-system-deploy/\`
 - **Contains**: 
   - Public documentation site
@@ -141,7 +141,7 @@ function createDeploymentSummary() {
   - Admin dashboard
   - Plugin system
 
-## 🔧 Next Steps
+##  Next Steps
 
 ### 1. Verify Public Site
 Visit: ${siteConfig.githubPagesUrl}
@@ -161,7 +161,7 @@ npm run deploy:vercel
 - **Username**: ${adminCredentials.username}
 - **Password**: Set via ADMIN_PASSWORD environment variable
 
-## 🛡️ Security Features
+##  Security Features
 - Environment-based configuration (NO HARDCODED VALUES)
 - IP Whitelisting enabled
 - Session management active
@@ -169,7 +169,7 @@ npm run deploy:vercel
 - Audit logging enabled
 - Encrypted data storage
 
-## 📁 File Structure
+##  File Structure
 \`\`\`
 docssitetemplate/
 ├── dist/                    # Public site (deployed to GitHub Pages)
@@ -178,7 +178,7 @@ docssitetemplate/
 └── docs/                    # Documentation source
 \`\`\`
 
-## 🔧 Environment Variables Used
+##  Environment Variables Used
 - **SITE_TITLE**: ${siteConfig.title}
 - **SITE_DESCRIPTION**: ${siteConfig.description}
 - **SITE_URL**: ${siteConfig.url}
@@ -234,7 +234,7 @@ function createGitHubPagesConfig() {
 }
 
 async function main() {
-    console.log(`${colors.green}🚀 BeamFlow GitHub Pages Deployment${colors.reset}\n`);
+    console.log(`${colors.green} BeamFlow GitHub Pages Deployment${colors.reset}\n`);
     
     try {
         // Validate environment variables
@@ -264,7 +264,7 @@ async function main() {
         const siteConfig = envConfig.getSiteConfig();
         const adminCredentials = envConfig.getAdminCredentials();
         
-        console.log(`\n${colors.green}🎉 Deployment completed successfully!${colors.reset}`);
+        console.log(`\n${colors.green} Deployment completed successfully!${colors.reset}`);
         console.log(`${colors.cyan}Public site:${colors.reset} ${siteConfig.githubPagesUrl}`);
         console.log(`${colors.yellow}Secret system:${colors.reset} Ready for deployment in full-system-deploy/`);
         console.log(`${colors.magenta}Admin panel:${colors.reset} Available at /admin (after secret system deployment)`);

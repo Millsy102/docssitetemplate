@@ -24,7 +24,7 @@ function question(prompt) {
 }
 
 async function setupSite() {
-    log.info('🚀 BeamFlow Site Setup\n');
+    log.info(' BeamFlow Site Setup\n');
     log.info('This script will help you configure the site with your own information.\n');
 
     // Get user information
@@ -189,21 +189,21 @@ Your site is now ready to deploy!
 
     fs.writeFileSync('SETUP_COMPLETE.md', setupReadme);
 
-    log.info('\n✅ Site configuration complete!\n');
-    log.info('📋 Summary:');
+    log.info('\n Site configuration complete!\n');
+    log.info(' Summary:');
     log.info(`   Site Name: ${siteName}`);
     log.info(`   GitHub Username: ${githubUsername}`);
     log.info(`   Repository: ${repositoryName}`);
     log.info(`   Site URL: ${baseUrl}`);
     log.info(`   OAuth Callback: ${callbackUrl}\n`);
 
-    log.info('📝 Next steps:');
+    log.info(' Next steps:');
     log.info('1. Review SETUP_COMPLETE.md for detailed instructions');
     log.info('2. Push your changes to GitHub');
     log.info('3. Enable GitHub Pages in your repository settings');
     log.info('4. Your site will be available at the URL above\n');
 
-    log.info('🎉 Happy coding!');
+    log.info(' Happy coding!');
 
     rl.close();
 }
@@ -217,7 +217,7 @@ process.on('SIGINT', () => {
 
 // Run the setup
 setupSite().catch(error => {
-    log.error('❌ Setup failed:', error.message);
+    log.error(' Setup failed:', error.message);
     rl.close();
     process.exit(1);
 });

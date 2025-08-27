@@ -41,7 +41,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           if [ -z "$VERCEL_TOKEN" ]; then
-            echo "❌ VERCEL_TOKEN is not set. Please add it to your GitHub repository secrets."
+            echo " VERCEL_TOKEN is not set. Please add it to your GitHub repository secrets."
             echo "To get a Vercel token:"
             echo "1. Go to https://vercel.com/account/tokens"
             echo "2. Create a new token"
@@ -49,31 +49,31 @@ jobs:
             exit 1
           fi
           
-          echo "🚀 Deploying to Vercel..."
+          echo " Deploying to Vercel..."
           vercel --prod --yes --token $VERCEL_TOKEN
           
           if [ $? -eq 0 ]; then
-            echo "✅ Deployment successful!"
+            echo " Deployment successful!"
           else
-            echo "❌ Deployment failed!"
+            echo " Deployment failed!"
             exit 1
           fi
         
       - name: Create deployment summary
         run: |
-          echo "## 🚀 Vercel Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "##  Vercel Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ✅ Deployment Status" >> $GITHUB_STEP_SUMMARY
+          echo "###  Deployment Status" >> $GITHUB_STEP_SUMMARY
           echo "- **Platform**: Vercel" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: Successfully deployed" >> $GITHUB_STEP_SUMMARY
           echo "- **Domain**: docssitetemplate.vercel.app" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📦 What was deployed" >> $GITHUB_STEP_SUMMARY
+          echo "###  What was deployed" >> $GITHUB_STEP_SUMMARY
           echo "- **Build Output**: dist/ directory" >> $GITHUB_STEP_SUMMARY
           echo "- **API Functions**: api/ directory" >> $GITHUB_STEP_SUMMARY
           echo "- **Static Assets**: All built assets" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🔧 Configuration" >> $GITHUB_STEP_SUMMARY
+          echo "###  Configuration" >> $GITHUB_STEP_SUMMARY
           echo "- **Build Command**: npm run build" >> $GITHUB_STEP_SUMMARY
           echo "- **Output Directory**: dist" >> $GITHUB_STEP_SUMMARY
           echo "- **Node Version**: 20" >> $GITHUB_STEP_SUMMARY

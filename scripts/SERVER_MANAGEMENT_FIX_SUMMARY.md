@@ -83,36 +83,36 @@ npm run servers:test
 
 Output:
 ```
-🔧 BeamFlow Server Management System Test
+ BeamFlow Server Management System Test
 ==========================================
 
-📁 Checking backend components...
-✅ FTP Server: Found
-✅ SSH Server: Found
-✅ Process Manager: Found
-✅ Backend package.json: Found
-✅ All backend components found
+ Checking backend components...
+ FTP Server: Found
+ SSH Server: Found
+ Process Manager: Found
+ Backend package.json: Found
+ All backend components found
 
-📦 Checking npm scripts...
-✅ servers:start: Available
-✅ servers:stop: Available
-✅ servers:status: Available
-✅ ftp:start: Available
-✅ ssh:start: Available
-✅ All npm scripts defined
+ Checking npm scripts...
+ servers:start: Available
+ servers:stop: Available
+ servers:status: Available
+ ftp:start: Available
+ ssh:start: Available
+ All npm scripts defined
 
-🔧 Checking backend dependencies...
-✅ Backend dependencies: FTP/SSH packages found
-✅ Backend dependencies configured
+ Checking backend dependencies...
+ Backend dependencies: FTP/SSH packages found
+ Backend dependencies configured
 
-🚀 Testing npm scripts (status only)...
-🔄 Testing npm script: servers:status
-✅ npm script servers:status: Executed successfully
-✅ Status command working
+ Testing npm scripts (status only)...
+ Testing npm script: servers:status
+ npm script servers:status: Executed successfully
+ Status command working
 
-📊 Test Summary
+ Test Summary
 ==============
-🎉 All tests passed! Server management system is properly configured.
+ All tests passed! Server management system is properly configured.
 ```
 
 ## Usage Examples

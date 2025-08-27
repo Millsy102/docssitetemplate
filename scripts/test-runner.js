@@ -43,10 +43,10 @@ class TestRunner {
             args.push('--testNamePattern', testPattern);
         }
 
-        console.log('🧪 Running Emoji Removal Tests...');
-        console.log(`📁 Test Directory: ${this.testDir}`);
-        console.log(`⚙️  Jest Config: ${this.jestConfigPath}`);
-        console.log(`🔧 Options: ${JSON.stringify(options, null, 2)}`);
+        console.log(' Running Emoji Removal Tests...');
+        console.log(` Test Directory: ${this.testDir}`);
+        console.log(`  Jest Config: ${this.jestConfigPath}`);
+        console.log(` Options: ${JSON.stringify(options, null, 2)}`);
         console.log('');
 
         return new Promise((resolve, reject) => {
@@ -57,16 +57,16 @@ class TestRunner {
 
             jest.on('close', (code) => {
                 if (code === 0) {
-                    console.log('\n✅ Tests completed successfully!');
+                    console.log('\n Tests completed successfully!');
                     resolve();
                 } else {
-                    console.log(`\n❌ Tests failed with exit code ${code}`);
+                    console.log(`\n Tests failed with exit code ${code}`);
                     reject(new Error(`Tests failed with exit code ${code}`));
                 }
             });
 
             jest.on('error', (error) => {
-                console.error('❌ Failed to start Jest:', error.message);
+                console.error(' Failed to start Jest:', error.message);
                 reject(error);
             });
         });
@@ -76,7 +76,7 @@ class TestRunner {
      * Run unit tests only
      */
     async runUnitTests(options = {}) {
-        console.log('🔬 Running Unit Tests...');
+        console.log(' Running Unit Tests...');
         return this.runTests({
             ...options,
             testPattern: 'Unit'
@@ -87,7 +87,7 @@ class TestRunner {
      * Run integration tests only
      */
     async runIntegrationTests(options = {}) {
-        console.log('🔗 Running Integration Tests...');
+        console.log(' Running Integration Tests...');
         return this.runTests({
             ...options,
             testPattern: 'Integration'
@@ -98,7 +98,7 @@ class TestRunner {
      * Run tests with coverage
      */
     async runTestsWithCoverage(options = {}) {
-        console.log('📊 Running Tests with Coverage...');
+        console.log(' Running Tests with Coverage...');
         return this.runTests({
             ...options,
             coverage: true
@@ -109,7 +109,7 @@ class TestRunner {
      * Run tests in watch mode
      */
     async runTestsInWatchMode(options = {}) {
-        console.log('👀 Running Tests in Watch Mode...');
+        console.log(' Running Tests in Watch Mode...');
         return this.runTests({
             ...options,
             watch: true
@@ -120,13 +120,13 @@ class TestRunner {
      * Show test summary
      */
     showTestSummary() {
-        console.log('📋 Emoji Removal Test Suite Summary:');
+        console.log(' Emoji Removal Test Suite Summary:');
         console.log('');
-        console.log('📁 Test Files:');
+        console.log(' Test Files:');
         console.log('  ├── remove-emojis.test.js (Unit Tests)');
         console.log('  └── remove-emojis.integration.test.js (Integration Tests)');
         console.log('');
-        console.log('🧪 Test Categories:');
+        console.log(' Test Categories:');
         console.log('  ├── Constructor & Initialization');
         console.log('  ├── Emoji Removal Logic');
         console.log('  ├── File Processing');
@@ -137,7 +137,7 @@ class TestRunner {
         console.log('  ├── CLI Interface');
         console.log('  └── Edge Cases');
         console.log('');
-        console.log('🚀 Available Commands:');
+        console.log(' Available Commands:');
         console.log('  npm run test:scripts              # Run all tests');
         console.log('  npm run test:scripts:coverage     # Run tests with coverage');
         console.log('  node test-runner.js --unit        # Run unit tests only');
@@ -168,7 +168,7 @@ if (require.main === module) {
     // Show help
     if (options.help) {
         console.log(`
-🧪 Emoji Removal Test Runner
+ Emoji Removal Test Runner
 
 Usage: node test-runner.js [options]
 
@@ -212,7 +212,7 @@ Or use npm scripts:
                 await runner.runTests(options);
             }
         } catch (error) {
-            console.error('❌ Test execution failed:', error.message);
+            console.error(' Test execution failed:', error.message);
             process.exit(1);
         }
     };

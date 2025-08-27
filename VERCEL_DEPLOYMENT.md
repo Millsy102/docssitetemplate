@@ -42,15 +42,15 @@ GH_CLIENT_SECRET=your_github_oauth_client_secret
 
 ## Features Available in Vercel
 
-- ✅ Basic API endpoints
-- ✅ Authentication system
-- ✅ File upload/download
-- ✅ User management
-- ✅ Admin dashboard
-- ✅ Health checks and metrics
-- ❌ FTP server (not available in serverless)
-- ❌ SSH server (not available in serverless)
-- ❌ Real-time WebSocket connections (limited in serverless)
+-  Basic API endpoints
+-  Authentication system
+-  File upload/download
+-  User management
+-  Admin dashboard
+-  Health checks and metrics
+-  FTP server (not available in serverless)
+-  SSH server (not available in serverless)
+-  Real-time WebSocket connections (limited in serverless)
 
 ## Troubleshooting
 

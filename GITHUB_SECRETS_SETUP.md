@@ -1,10 +1,10 @@
-# 🔐 GitHub Secrets Setup Guide
+#  GitHub Secrets Setup Guide
 
 ## Overview
 
 This guide shows you how to set up GitHub Secrets to manage your admin credentials securely. This way, you can change your admin username, password, and API key through GitHub's secure environment variable system without touching any code.
 
-## 🚀 Quick Setup
+##  Quick Setup
 
 ### Step 1: Access GitHub Repository Settings
 
@@ -36,7 +36,7 @@ After adding the secrets, you should see them listed in the "Repository secrets"
 - `ADMIN_PASSWORD` (hidden)
 - `ADMIN_API_KEY` (hidden)
 
-## 🔧 How It Works
+##  How It Works
 
 ### Environment Variables in GitHub Actions
 
@@ -70,7 +70,7 @@ get adminApiKey() {
 }
 ```
 
-## 🔄 Changing Admin Credentials
+##  Changing Admin Credentials
 
 ### To Change Your Admin Credentials:
 
@@ -88,7 +88,7 @@ get adminApiKey() {
 - The old credentials are immediately invalidated
 - All deployments will use the new credentials
 
-## 🛡️ Security Features
+##  Security Features
 
 ### GitHub Secrets Security:
 - **Encrypted at rest**: All secrets are encrypted using AES-256
@@ -103,7 +103,7 @@ get adminApiKey() {
 - **Local development**: Falls back to `.env` file for local development
 - **Validation**: System validates that required variables are present
 
-## 🔍 Testing Your Setup
+##  Testing Your Setup
 
 ### Test Environment Configuration:
 
@@ -114,7 +114,7 @@ node scripts/env-config.js
 
 Expected output:
 ```
-🔧 Environment Configuration Summary:
+ Environment Configuration Summary:
 =====================================
 {
   "environment": {
@@ -129,7 +129,7 @@ Expected output:
   }
 }
 
-✅ Environment validation passed!
+ Environment validation passed!
 ```
 
 ### Test GitHub Actions Workflow:
@@ -140,7 +140,7 @@ Expected output:
 4. Watch the workflow run
 5. Check that it completes successfully
 
-## 🚨 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues:
 
@@ -171,7 +171,7 @@ To debug environment variable issues, you can temporarily add this to your workf
     echo "ADMIN_API_KEY is set: ${{ secrets.ADMIN_API_KEY != '' }}"
 ```
 
-## 📋 Best Practices
+##  Best Practices
 
 ### Password Security:
 - Use strong, unique passwords
@@ -191,7 +191,7 @@ To debug environment variable issues, you can temporarily add this to your workf
 - Monitor the audit log for secret changes
 - Use different credentials for different environments
 
-## 🔄 Migration from .env File
+##  Migration from .env File
 
 If you currently have admin credentials in your `.env` file:
 
@@ -206,7 +206,7 @@ If you currently have admin credentials in your `.env` file:
 3. **Test the setup** by pushing a change
 4. **Verify** that the system works with GitHub Secrets
 
-## 📞 Support
+##  Support
 
 If you encounter any issues:
 
@@ -217,4 +217,4 @@ If you encounter any issues:
 
 ---
 
-**Remember**: GitHub Secrets provide enterprise-grade security for your admin credentials. Once set up, you can change your credentials anytime without touching any code! 🔐
+**Remember**: GitHub Secrets provide enterprise-grade security for your admin credentials. Once set up, you can change your credentials anytime without touching any code! 

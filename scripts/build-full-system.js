@@ -181,22 +181,22 @@ async function createDeploymentReadme(deployDir) {
 
 This package contains both the public documentation site and the hidden secret system.
 
-## 🚀 Public Documentation Site
+##  Public Documentation Site
 - **Location**: \`public/\` directory
 - **Purpose**: Public-facing documentation for GitHub Pages
 - **Access**: Open to everyone
 
-## 🔒 Hidden Secret System
+##  Hidden Secret System
 - **Location**: \`secret/\` directory  
 - **Purpose**: Private admin dashboard, FTP/SSH servers, plugin system
 - **Access**: Restricted with authentication
 
-## 🏗️ Backend System
+##  Backend System
 - **Location**: \`backend/\` directory
 - **Purpose**: Complete backend with all services
 - **Features**: Express server, database, authentication, file management
 
-## 📦 Deployment Options
+##  Deployment Options
 
 ### 1. Vercel (Recommended)
 \`\`\`bash
@@ -222,7 +222,7 @@ npm run dev
 npm run dev:backend
 \`\`\`
 
-## 🔐 Secret System Access
+##  Secret System Access
 
 ### Admin Dashboard
 - **URL**: \`/admin\`
@@ -244,7 +244,7 @@ npm run dev:backend
 - **Management**: Via admin dashboard
 - **Features**: Hot-reload, hook system, YAML manifests
 
-## 🛡️ Security Features
+##  Security Features
 
 - **IP Whitelisting**: Restrict access by IP address
 - **Session Management**: Secure session handling
@@ -252,7 +252,7 @@ npm run dev:backend
 - **Rate Limiting**: Protection against abuse
 - **Encryption**: Data encryption at rest and in transit
 
-## 📁 File Structure
+##  File Structure
 
 \`\`\`
 full-system-deploy/
@@ -270,7 +270,7 @@ full-system-deploy/
 └── vercel.json          # Vercel configuration
 \`\`\`
 
-## 🔧 Configuration
+##  Configuration
 
 ### Environment Variables
 \`\`\`env
@@ -289,15 +289,15 @@ JWT_SECRET=your-jwt-secret
 - **Default Password**: Set via ADMIN_PASSWORD env var
 - **Secret Token**: Set via ADMIN_TOKEN env var
 
-## 🚨 Security Notice
+##  Security Notice
 
-⚠️ **IMPORTANT**: This system contains sensitive functionality. Ensure:
+ **IMPORTANT**: This system contains sensitive functionality. Ensure:
 - Strong passwords are used
 - Environment variables are properly secured
 - Access is restricted to authorized users only
 - Regular security audits are performed
 
-## 📞 Support
+##  Support
 
 For issues or questions about the secret system, refer to the private documentation in \`_internal/system/\`.
 
@@ -316,23 +316,23 @@ async function createStartScripts(deployDir) {
         const startScript = `#!/bin/bash
 # BeamFlow Full System Start Script
 
-echo "🚀 Starting BeamFlow Full System..."
+echo " Starting BeamFlow Full System..."
 
 # Set environment
 export NODE_ENV="production"
 
 # Install dependencies
-echo "📦 Installing dependencies..."
+echo " Installing dependencies..."
 npm install
 
 # Start the backend server
-echo "🔒 Starting secret system..."
+echo " Starting secret system..."
 node api.js
 
-echo "✅ BeamFlow Full System started!"
-echo "📖 Public site: http://localhost:3000"
-echo "🔐 Admin panel: http://localhost:3000/admin"
-echo "📊 Health check: http://localhost:3000/api/health"
+echo " BeamFlow Full System started!"
+echo " Public site: http://localhost:3000"
+echo " Admin panel: http://localhost:3000/admin"
+echo " Health check: http://localhost:3000/api/health"
 `;
 
         await fs.writeFile(`${deployDir}/start.sh`, startScript);
@@ -341,23 +341,23 @@ echo "📊 Health check: http://localhost:3000/api/health"
         // Create PowerShell version
         const startScriptPS = `# BeamFlow Full System Start Script (PowerShell)
 
-Write-Host "🚀 Starting BeamFlow Full System..." -ForegroundColor Green
+Write-Host " Starting BeamFlow Full System..." -ForegroundColor Green
 
 # Set environment
 $env:NODE_ENV = "production"
 
 # Install dependencies
-Write-Host "📦 Installing dependencies..." -ForegroundColor Yellow
+Write-Host " Installing dependencies..." -ForegroundColor Yellow
 npm install
 
 # Start the backend server
-Write-Host "🔒 Starting secret system..." -ForegroundColor Yellow
+Write-Host " Starting secret system..." -ForegroundColor Yellow
 node api.js
 
-Write-Host "✅ BeamFlow Full System started!" -ForegroundColor Green
-Write-Host "📖 Public site: http://localhost:3000" -ForegroundColor Cyan
-Write-Host "🔐 Admin panel: http://localhost:3000/admin" -ForegroundColor Cyan
-Write-Host "📊 Health check: http://localhost:3000/api/health" -ForegroundColor Cyan
+Write-Host " BeamFlow Full System started!" -ForegroundColor Green
+Write-Host " Public site: http://localhost:3000" -ForegroundColor Cyan
+Write-Host " Admin panel: http://localhost:3000/admin" -ForegroundColor Cyan
+Write-Host " Health check: http://localhost:3000/api/health" -ForegroundColor Cyan
 `;
 
         await fs.writeFile(`${deployDir}/start.ps1`, startScriptPS);
@@ -369,7 +369,7 @@ Write-Host "📊 Health check: http://localhost:3000/api/health" -ForegroundColo
 }
 
 async function main() {
-    console.log(`${colors.green}🚀 BeamFlow Full System Build${colors.reset}\n`);
+    console.log(`${colors.green} BeamFlow Full System Build${colors.reset}\n`);
     
     try {
         checkPrerequisites();
@@ -378,7 +378,7 @@ async function main() {
         const deployDir = await createDeploymentPackage();
         await createStartScripts(deployDir);
         
-        console.log(`\n${colors.green}🎉 Full system build completed!${colors.reset}`);
+        console.log(`\n${colors.green} Full system build completed!${colors.reset}`);
         console.log(`${colors.yellow}Deployment package:${colors.reset} ${deployDir}`);
         console.log(`${colors.cyan}Next steps:${colors.reset}`);
         console.log('1. Review the deployment package');

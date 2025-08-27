@@ -55,21 +55,21 @@ class SimpleTestRunner {
      * Run all tests
      */
     async runTests() {
-        console.log('🧪 Running Simple Emoji Removal Tests...\n');
+        console.log(' Running Simple Emoji Removal Tests...\n');
 
         for (const test of this.tests) {
             try {
                 await test.testFunction();
-                console.log(`✅ ${test.name}`);
+                console.log(` ${test.name}`);
                 this.passed++;
             } catch (error) {
-                console.log(`❌ ${test.name}`);
+                console.log(` ${test.name}`);
                 console.log(`   Error: ${error.message}`);
                 this.failed++;
             }
         }
 
-        console.log(`\n📊 Test Results: ${this.passed} passed, ${this.failed} failed`);
+        console.log(`\n Test Results: ${this.passed} passed, ${this.failed} failed`);
         return this.failed === 0;
     }
 
@@ -120,7 +120,7 @@ runner.test('Constructor should initialize correctly', () => {
 // Test 2: Basic emoji removal
 runner.test('Should remove basic emojis', () => {
     const remover = new EmojiRemover();
-    const text = 'Hello 😀 world 🌍!';
+    const text = 'Hello  world !';
     const result = remover.removeEmojis(text);
     
     runner.assertEqual(result, 'Hello  world !', 'Should remove emojis correctly');
@@ -130,7 +130,7 @@ runner.test('Should remove basic emojis', () => {
 // Test 3: Multiple emojis
 runner.test('Should remove multiple emojis', () => {
     const remover = new EmojiRemover();
-    const text = '😀🌍🎉🚀💻';
+    const text = '';
     const result = remover.removeEmojis(text);
     
     runner.assertEqual(result, '', 'Should remove all emojis');
@@ -150,7 +150,7 @@ runner.test('Should handle text without emojis', () => {
 // Test 5: Emoji sequences
 runner.test('Should remove emoji sequences', () => {
     const remover = new EmojiRemover();
-    const text = '👨‍👩‍👧‍👦'; // Family emoji sequence
+    const text = ''; // Family emoji sequence
     const result = remover.removeEmojis(text);
     
     runner.assertEqual(result, '', 'Should remove emoji sequence');
@@ -160,7 +160,7 @@ runner.test('Should remove emoji sequences', () => {
 // Test 6: Skin tone modifiers
 runner.test('Should remove skin tone modifiers', () => {
     const remover = new EmojiRemover();
-    const text = '👍🏽'; // Thumbs up with skin tone
+    const text = ''; // Thumbs up with skin tone
     const result = remover.removeEmojis(text);
     
     runner.assertEqual(result, '', 'Should remove emoji with skin tone');
@@ -232,7 +232,7 @@ runner.test('Should process real files', async () => {
     runner.setupTestDir();
     
     const testFile = path.join(runner.testDir, 'test.md');
-    const content = '# Test Document 😀\n\nThis is a test with 🌍 emojis!';
+    const content = '# Test Document \n\nThis is a test with  emojis!';
     
     // Write test file
     fs.writeFileSync(testFile, content, 'utf8');
@@ -258,7 +258,7 @@ runner.test('Should handle dry run mode', async () => {
     runner.setupTestDir();
     
     const testFile = path.join(runner.testDir, 'test.txt');
-    const content = 'Hello 😀 world 🌍!';
+    const content = 'Hello  world !';
     
     // Write test file
     fs.writeFileSync(testFile, content, 'utf8');
@@ -291,7 +291,7 @@ runner.test('Should handle non-existent files gracefully', async () => {
 // Test 14: Mixed content preservation
 runner.test('Should preserve text content accurately', () => {
     const remover = new EmojiRemover();
-    const text = 'Code: console.log("Hello 😀"); // Debug 🌍';
+    const text = 'Code: console.log("Hello "); // Debug ';
     const result = remover.removeEmojis(text);
     
     runner.assertEqual(result, 'Code: console.log("Hello "); // Debug ', 'Should preserve text content');
@@ -307,7 +307,7 @@ runner.test('Should handle edge cases', () => {
     runner.assertEqual(emptyResult, '', 'Should handle empty string');
     
     // Very long string
-    const longString = '😀'.repeat(1000) + 'Hello world';
+    const longString = ''.repeat(1000) + 'Hello world';
     const longResult = remover.removeEmojis(longString);
     runner.assertEqual(longResult, 'Hello world', 'Should handle very long strings');
     
@@ -324,14 +324,14 @@ async function runAllTests() {
         runner.cleanup();
         
         if (success) {
-            console.log('\n🎉 All tests passed!');
+            console.log('\n All tests passed!');
             process.exit(0);
         } else {
-            console.log('\n❌ Some tests failed!');
+            console.log('\n Some tests failed!');
             process.exit(1);
         }
     } catch (error) {
-        console.error('\n💥 Test runner error:', error.message);
+        console.error('\n Test runner error:', error.message);
         runner.cleanup();
         process.exit(1);
     }

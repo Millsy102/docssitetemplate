@@ -19,7 +19,7 @@ class ServiceWorkerVersioningTester {
      * Run all tests
      */
     async runTests() {
-        console.log('🧪 Testing Service Worker Versioning...\n');
+        console.log(' Testing Service Worker Versioning...\n');
 
         const tests = [
             this.testVersionGeneration,
@@ -36,20 +36,20 @@ class ServiceWorkerVersioningTester {
         for (const test of tests) {
             try {
                 await test.call(this);
-                console.log(`✅ ${test.name} - PASSED`);
+                console.log(` ${test.name} - PASSED`);
                 passed++;
             } catch (error) {
-                console.log(`❌ ${test.name} - FAILED: ${error.message}`);
+                console.log(` ${test.name} - FAILED: ${error.message}`);
                 failed++;
             }
         }
 
-        console.log(`\n📊 Test Results: ${passed} passed, ${failed} failed`);
+        console.log(`\n Test Results: ${passed} passed, ${failed} failed`);
 
         if (failed > 0) {
             process.exit(1);
         } else {
-            console.log('🎉 All tests passed!');
+            console.log(' All tests passed!');
         }
     }
 
@@ -274,7 +274,7 @@ class ServiceWorkerVersioningTester {
 if (require.main === module) {
     const tester = new ServiceWorkerVersioningTester();
     tester.runTests().catch(error => {
-        console.error('❌ Test runner failed:', error);
+        console.error(' Test runner failed:', error);
         process.exit(1);
     });
 }

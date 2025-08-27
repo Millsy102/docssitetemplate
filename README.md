@@ -8,12 +8,12 @@ BeamFlow is a powerful plugin that enhances Unreal Engine development with advan
 
 ## Features
 
-- 🚀 **Modern React + Vite** - Fast development and build times
-- 🎨 **Red & Black Theme** - Consistent with BeamFlow branding
-- 📱 **Responsive Design** - Works on all devices
-- ⚡ **Static Site** - Optimized for GitHub Pages
-- 🔍 **SEO Optimized** - Proper meta tags and structure
-- 📚 **Comprehensive Docs** - Installation, getting started, and contributing guides
+-  **Modern React + Vite** - Fast development and build times
+-  **Red & Black Theme** - Consistent with BeamFlow branding
+-  **Responsive Design** - Works on all devices
+-  **Static Site** - Optimized for GitHub Pages
+-  **SEO Optimized** - Proper meta tags and structure
+-  **Comprehensive Docs** - Installation, getting started, and contributing guides
 
 ## Quick Start
 

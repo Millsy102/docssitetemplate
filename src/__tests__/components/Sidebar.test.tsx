@@ -27,10 +27,10 @@ describe('Sidebar Component', () => {
   it('renders navigation icons', () => {
     render(<Sidebar />);
     
-    expect(screen.getByText('🏠')).toBeInTheDocument(); // Overview
-    expect(screen.getByText('📦')).toBeInTheDocument(); // Installation
-    expect(screen.getByText('🚀')).toBeInTheDocument(); // Getting Started
-    expect(screen.getByText('🤝')).toBeInTheDocument(); // Contributing
+    expect(screen.getByText('')).toBeInTheDocument(); // Overview
+    expect(screen.getByText('')).toBeInTheDocument(); // Installation
+    expect(screen.getByText('')).toBeInTheDocument(); // Getting Started
+    expect(screen.getByText('')).toBeInTheDocument(); // Contributing
   });
 
   it('renders quick links section', () => {
@@ -44,8 +44,8 @@ describe('Sidebar Component', () => {
   it('renders quick links icons', () => {
     render(<Sidebar />);
     
-    expect(screen.getByText('📚')).toBeInTheDocument(); // GitHub Repository
-    expect(screen.getByText('🐛')).toBeInTheDocument(); // Report Issues
+    expect(screen.getByText('')).toBeInTheDocument(); // GitHub Repository
+    expect(screen.getByText('')).toBeInTheDocument(); // Report Issues
   });
 
   it('has correct navigation links', () => {
@@ -131,10 +131,10 @@ describe('Sidebar Component', () => {
     render(<Sidebar />);
     
     const navItems = [
-      { label: 'Overview', icon: '🏠', path: '/' },
-      { label: 'Installation', icon: '📦', path: '/installation' },
-      { label: 'Getting Started', icon: '🚀', path: '/getting-started' },
-      { label: 'Contributing', icon: '🤝', path: '/contributing' },
+      { label: 'Overview', icon: '', path: '/' },
+      { label: 'Installation', icon: '', path: '/installation' },
+      { label: 'Getting Started', icon: '', path: '/getting-started' },
+      { label: 'Contributing', icon: '', path: '/contributing' },
     ];
     
     navItems.forEach(item => {

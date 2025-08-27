@@ -227,14 +227,14 @@ self.getVersionInfo = getVersionInfo;
             fs.writeFileSync(this.swOutputPath, swContent);
             fs.writeFileSync(this.versionInfoPath, JSON.stringify(versionInfo, null, 2));
 
-            console.log('✅ Service worker generated with version:', versionInfo.version);
-            console.log('📁 Output files:');
+            console.log(' Service worker generated with version:', versionInfo.version);
+            console.log(' Output files:');
             console.log(`   - ${this.swOutputPath}`);
             console.log(`   - ${this.versionInfoPath}`);
 
             return versionInfo;
         } catch (error) {
-            console.error('❌ Error generating service worker:', error);
+            console.error(' Error generating service worker:', error);
             throw error;
         }
     }
@@ -253,7 +253,7 @@ self.getVersionInfo = getVersionInfo;
         const manifestPath = path.join(this.buildDir, 'cache-manifest.json');
         fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
         
-        console.log('📋 Cache manifest generated:', manifestPath);
+        console.log(' Cache manifest generated:', manifestPath);
         return manifest;
     }
 
@@ -308,13 +308,13 @@ self.getVersionInfo = getVersionInfo;
      * Main generation process
      */
     generate() {
-        console.log('🚀 Generating service worker version...');
+        console.log(' Generating service worker version...');
         
         const versionInfo = this.generateVersionInfo();
         this.generateServiceWorker(versionInfo);
         this.generateCacheManifest(versionInfo);
         
-        console.log('✅ Service worker versioning complete!');
+        console.log(' Service worker versioning complete!');
         return versionInfo;
     }
 }

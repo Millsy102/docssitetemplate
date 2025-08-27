@@ -181,7 +181,7 @@ class BundleAnalyzer {
   // Generate analysis report
   generateReport() {
     console.log(
-      `${colors.bold}${colors.cyan}📊 Bundle Analysis Report${colors.reset}\n`
+      `${colors.bold}${colors.cyan} Bundle Analysis Report${colors.reset}\n`
     );
 
     const jsFiles = this.analyzeJavaScriptFiles();
@@ -206,7 +206,7 @@ class BundleAnalyzer {
     const totalSize = totalJS + totalCSS + totalImages + totalHTML;
 
     // Display summary
-    console.log(`${colors.bold}📈 Bundle Summary:${colors.reset}`);
+    console.log(`${colors.bold} Bundle Summary:${colors.reset}`);
     console.log(
       `Total Size: ${colors.green}${this.formatBytes(totalSize)}${colors.reset}`
     );
@@ -220,7 +220,7 @@ class BundleAnalyzer {
     // Display JavaScript files
     if (jsFiles.length > 0) {
       console.log(
-        `${colors.bold}📜 JavaScript Files (${this.formatBytes(totalJS)}):${colors.reset}`
+        `${colors.bold} JavaScript Files (${this.formatBytes(totalJS)}):${colors.reset}`
       );
       jsFiles.forEach(file => {
         const gzipReduction = ((file.gzipSize / file.size) * 100).toFixed(1);
@@ -237,7 +237,7 @@ class BundleAnalyzer {
     // Display CSS files
     if (cssFiles.length > 0) {
       console.log(
-        `${colors.bold}🎨 CSS Files (${this.formatBytes(totalCSS)}):${colors.reset}`
+        `${colors.bold} CSS Files (${this.formatBytes(totalCSS)}):${colors.reset}`
       );
       cssFiles.forEach(file => {
         const gzipReduction = ((file.gzipSize / file.size) * 100).toFixed(1);
@@ -254,7 +254,7 @@ class BundleAnalyzer {
     // Display image files
     if (imageFiles.length > 0) {
       console.log(
-        `${colors.bold}🖼️  Image Files (${this.formatBytes(totalImages)}):${colors.reset}`
+        `${colors.bold}  Image Files (${this.formatBytes(totalImages)}):${colors.reset}`
       );
       imageFiles.forEach(file => {
         console.log(`  ${file.name}: ${this.formatBytes(file.size)}`);
@@ -265,7 +265,7 @@ class BundleAnalyzer {
     // Display HTML files
     if (htmlFiles.length > 0) {
       console.log(
-        `${colors.bold}📄 HTML Files (${this.formatBytes(totalHTML)}):${colors.reset}`
+        `${colors.bold} HTML Files (${this.formatBytes(totalHTML)}):${colors.reset}`
       );
       htmlFiles.forEach(file => {
         const gzipReduction = ((file.gzipSize / file.size) * 100).toFixed(1);
@@ -321,22 +321,22 @@ class BundleAnalyzer {
     cssFiles,
     imageFiles
   ) {
-    console.log(`${colors.bold}💡 Performance Recommendations:${colors.reset}`);
+    console.log(`${colors.bold} Performance Recommendations:${colors.reset}`);
 
     // Check bundle size thresholds
     if (totalSize > 2 * 1024 * 1024) {
       // 2MB
       console.log(
-        `  ${colors.red}⚠️  Bundle is large (${this.formatBytes(totalSize)}). Consider code splitting and lazy loading.${colors.reset}`
+        `  ${colors.red}  Bundle is large (${this.formatBytes(totalSize)}). Consider code splitting and lazy loading.${colors.reset}`
       );
     } else if (totalSize > 1 * 1024 * 1024) {
       // 1MB
       console.log(
-        `  ${colors.yellow}⚠️  Bundle is moderately large (${this.formatBytes(totalSize)}). Monitor for growth.${colors.reset}`
+        `  ${colors.yellow}  Bundle is moderately large (${this.formatBytes(totalSize)}). Monitor for growth.${colors.reset}`
       );
     } else {
       console.log(
-        `  ${colors.green}✅ Bundle size is good (${this.formatBytes(totalSize)})${colors.reset}`
+        `  ${colors.green} Bundle size is good (${this.formatBytes(totalSize)})${colors.reset}`
       );
     }
 
@@ -345,7 +345,7 @@ class BundleAnalyzer {
     if (totalJS > 500 * 1024) {
       // 500KB
       console.log(
-        `  ${colors.yellow}📦 Consider splitting large JavaScript chunks${colors.reset}`
+        `  ${colors.yellow} Consider splitting large JavaScript chunks${colors.reset}`
       );
     }
 
@@ -354,7 +354,7 @@ class BundleAnalyzer {
       file => file.size > 100 * 1024
     ); // 100KB
     if (largeFiles.length > 0) {
-      console.log(`  ${colors.yellow}📁 Large files detected:${colors.reset}`);
+      console.log(`  ${colors.yellow} Large files detected:${colors.reset}`);
       largeFiles.forEach(file => {
         console.log(`    - ${file.name}: ${this.formatBytes(file.size)}`);
       });
@@ -364,7 +364,7 @@ class BundleAnalyzer {
     const largeImages = imageFiles.filter(file => file.size > 200 * 1024); // 200KB
     if (largeImages.length > 0) {
       console.log(
-        `  ${colors.yellow}🖼️  Consider optimizing large images:${colors.reset}`
+        `  ${colors.yellow}  Consider optimizing large images:${colors.reset}`
       );
       largeImages.forEach(file => {
         console.log(`    - ${file.name}: ${this.formatBytes(file.size)}`);
@@ -377,21 +377,21 @@ class BundleAnalyzer {
 
     if (gzipRatio > 70) {
       console.log(
-        `  ${colors.green}✅ Good gzip compression (${gzipRatio.toFixed(1)}% reduction)${colors.reset}`
+        `  ${colors.green} Good gzip compression (${gzipRatio.toFixed(1)}% reduction)${colors.reset}`
       );
     } else {
       console.log(
-        `  ${colors.yellow}📦 Consider improving gzip compression (${gzipRatio.toFixed(1)}% reduction)${colors.reset}`
+        `  ${colors.yellow} Consider improving gzip compression (${gzipRatio.toFixed(1)}% reduction)${colors.reset}`
       );
     }
 
     if (brotliRatio > 75) {
       console.log(
-        `  ${colors.green}✅ Excellent brotli compression (${brotliRatio.toFixed(1)}% reduction)${colors.reset}`
+        `  ${colors.green} Excellent brotli compression (${brotliRatio.toFixed(1)}% reduction)${colors.reset}`
       );
     } else {
       console.log(
-        `  ${colors.yellow}📦 Consider improving brotli compression (${brotliRatio.toFixed(1)}% reduction)${colors.reset}`
+        `  ${colors.yellow} Consider improving brotli compression (${brotliRatio.toFixed(1)}% reduction)${colors.reset}`
       );
     }
 
@@ -426,7 +426,7 @@ class BundleAnalyzer {
     try {
       fs.writeFileSync(this.historyPath, JSON.stringify(history, null, 2));
       console.log(
-        `${colors.green}✅ Analysis data saved to ${this.historyPath}${colors.reset}\n`
+        `${colors.green} Analysis data saved to ${this.historyPath}${colors.reset}\n`
       );
     } catch (error) {
       console.error(
@@ -445,7 +445,7 @@ class BundleAnalyzer {
     }
 
     console.log(
-      `${colors.cyan}🔍 Analyzing bundle in ${this.distPath}...${colors.reset}\n`
+      `${colors.cyan} Analyzing bundle in ${this.distPath}...${colors.reset}\n`
     );
     this.generateReport();
   }

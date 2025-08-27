@@ -22,7 +22,7 @@ const log = (message, color = 'reset') => {
 };
 
 const runCommand = (command, description) => {
-  log(`\n${colors.cyan}🔄 ${description}...${colors.reset}`);
+  log(`\n${colors.cyan} ${description}...${colors.reset}`);
   try {
     const result = execSync(command, {
       encoding: 'utf8',
@@ -30,11 +30,11 @@ const runCommand = (command, description) => {
       timeout: 300000, // 5 minutes timeout
     });
     log(
-      `${colors.green}✅ ${description} completed successfully${colors.reset}`
+      `${colors.green} ${description} completed successfully${colors.reset}`
     );
     return { success: true, output: result };
   } catch (error) {
-    log(`${colors.red}❌ ${description} failed${colors.reset}`);
+    log(`${colors.red} ${description} failed${colors.reset}`);
     log(`${colors.yellow}Error: ${error.message}${colors.reset}`);
     return { success: false, output: error.stdout || error.message };
   }
@@ -81,14 +81,14 @@ const generateMarkdownReport = report => {
   // Summary
   markdown += `## Summary\n\n`;
   markdown += `- **Total Tests:** ${summary.total}\n`;
-  markdown += `- **Passed:** ${summary.passed} ${summary.passed === summary.total ? '✅' : ''}\n`;
-  markdown += `- **Failed:** ${summary.failed} ${summary.failed === 0 ? '✅' : '❌'}\n\n`;
+  markdown += `- **Passed:** ${summary.passed} ${summary.passed === summary.total ? '' : ''}\n`;
+  markdown += `- **Failed:** ${summary.failed} ${summary.failed === 0 ? '' : ''}\n\n`;
 
   // Results
   markdown += `## Test Results\n\n`;
 
   Object.entries(results).forEach(([testName, result]) => {
-    const status = result.success ? '✅ PASS' : '❌ FAIL';
+    const status = result.success ? ' PASS' : ' FAIL';
     markdown += `### ${testName}\n`;
     markdown += `**Status:** ${status}\n\n`;
 
@@ -107,7 +107,7 @@ const generateMarkdownReport = report => {
     markdown += `4. Test with users who have disabilities\n\n`;
   } else {
     markdown += `## Status\n\n`;
-    markdown += `🎉 All accessibility tests passed! The site meets WCAG 2.1 AA standards.\n\n`;
+    markdown += ` All accessibility tests passed! The site meets WCAG 2.1 AA standards.\n\n`;
   }
 
   return markdown;
@@ -116,7 +116,7 @@ const generateMarkdownReport = report => {
 // Main execution
 const main = async () => {
   log(
-    `${colors.bright}${colors.blue}🔍 BeamFlow Accessibility Test Suite${colors.reset}\n`
+    `${colors.bright}${colors.blue} BeamFlow Accessibility Test Suite${colors.reset}\n`
   );
 
   const results = {};
@@ -138,19 +138,19 @@ const main = async () => {
   try {
     execSync('curl -s http://localhost:5173 > /dev/null', { stdio: 'ignore' });
     devServerRunning = true;
-    log(`${colors.green}✅ Development server is running${colors.reset}`);
+    log(`${colors.green} Development server is running${colors.reset}`);
   } catch (error) {
     log(
-      `${colors.yellow}⚠️  Development server not running. Starting it...${colors.reset}`
+      `${colors.yellow}  Development server not running. Starting it...${colors.reset}`
     );
     try {
       execSync('npm run dev &', { stdio: 'ignore' });
       // Wait for server to start
       await new Promise(resolve => setTimeout(resolve, 10000));
       devServerRunning = true;
-      log(`${colors.green}✅ Development server started${colors.reset}`);
+      log(`${colors.green} Development server started${colors.reset}`);
     } catch (error) {
-      log(`${colors.red}❌ Failed to start development server${colors.reset}`);
+      log(`${colors.red} Failed to start development server${colors.reset}`);
     }
   }
 
@@ -184,7 +184,7 @@ const main = async () => {
   const report = generateReport(results);
 
   log(
-    `\n${colors.bright}${colors.blue}📊 Accessibility Test Summary${colors.reset}`
+    `\n${colors.bright}${colors.blue} Accessibility Test Summary${colors.reset}`
   );
   log(`Total Tests: ${report.summary.total}`);
   log(`Passed: ${colors.green}${report.summary.passed}${colors.reset}`);
@@ -194,21 +194,21 @@ const main = async () => {
 
   if (report.summary.failed === 0) {
     log(
-      `\n${colors.green}${colors.bright}🎉 All accessibility tests passed!${colors.reset}`
+      `\n${colors.green}${colors.bright} All accessibility tests passed!${colors.reset}`
     );
     log(
       `${colors.green}The BeamFlow documentation site meets WCAG 2.1 AA standards.${colors.reset}`
     );
   } else {
     log(
-      `\n${colors.red}${colors.bright}⚠️  Some accessibility tests failed.${colors.reset}`
+      `\n${colors.red}${colors.bright}  Some accessibility tests failed.${colors.reset}`
     );
     log(
       `${colors.yellow}Please review the detailed report and fix the issues.${colors.reset}`
     );
   }
 
-  log(`\n${colors.cyan}📄 Detailed reports saved to:${colors.reset}`);
+  log(`\n${colors.cyan} Detailed reports saved to:${colors.reset}`);
   log(`- accessibility-test-report.json`);
   log(`- accessibility-test-report.md`);
 
@@ -252,6 +252,6 @@ if (args.includes('--quick')) {
 
 // Run the main function
 main().catch(error => {
-  log(`${colors.red}❌ Unexpected error: ${error.message}${colors.reset}`);
+  log(`${colors.red} Unexpected error: ${error.message}${colors.reset}`);
   process.exit(1);
 });

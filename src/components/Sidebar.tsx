@@ -5,10 +5,10 @@ const Sidebar: React.FC = () => {
   const location = useLocation()
 
   const navItems = [
-    { path: '/', label: 'Overview', icon: '🏠' },
-    { path: '/installation', label: 'Installation', icon: '📦' },
-    { path: '/getting-started', label: 'Getting Started', icon: '🚀' },
-    { path: '/contributing', label: 'Contributing', icon: '🤝' },
+    { path: '/', label: 'Overview', icon: '' },
+    { path: '/installation', label: 'Installation', icon: '' },
+    { path: '/getting-started', label: 'Getting Started', icon: '' },
+    { path: '/contributing', label: 'Contributing', icon: '' },
   ]
 
   return (
@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center space-x-3 px-4 py-2 text-gray-300 hover:text-red-400 transition-colors"
           >
-            <span>📚</span>
+            <span></span>
             <span>GitHub Repository</span>
           </a>
           <a
@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center space-x-3 px-4 py-2 text-gray-300 hover:text-red-400 transition-colors"
           >
-            <span>🐛</span>
+            <span></span>
             <span>Report Issues</span>
           </a>
         </div>

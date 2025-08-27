@@ -159,23 +159,23 @@ module.exports = {
 
 #### 3. Unsafe Patterns to Avoid
 ```javascript
-// ❌ UNSAFE - Direct module access
+//  UNSAFE - Direct module access
 const fs = require('fs');
 const process = require('process');
 
-// ❌ UNSAFE - Code evaluation
+//  UNSAFE - Code evaluation
 eval('console.log("dangerous")');
 new Function('console.log("dangerous")');
 
-// ❌ UNSAFE - Process access
+//  UNSAFE - Process access
 process.exit(1);
 process.env.SECRET_KEY;
 
-// ❌ UNSAFE - File system access
+//  UNSAFE - File system access
 fs.readFileSync('/etc/passwd');
 fs.writeFileSync('/tmp/malicious', 'data');
 
-// ❌ UNSAFE - Network access without permission
+//  UNSAFE - Network access without permission
 const http = require('http');
 fetch('http://malicious-site.com');
 ```

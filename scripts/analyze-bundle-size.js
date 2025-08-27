@@ -160,7 +160,7 @@ class BundleSizeAnalyzer {
   // Generate size report
   generateSizeReport() {
     console.log(
-      `${colors.bold}${colors.cyan}📏 Bundle Size Analysis${colors.reset}\n`
+      `${colors.bold}${colors.cyan} Bundle Size Analysis${colors.reset}\n`
     );
 
     const sizes = this.getFileSizesByType();
@@ -168,13 +168,13 @@ class BundleSizeAnalyzer {
     const largestFiles = this.getLargestFiles(5);
 
     // Display summary
-    console.log(`${colors.bold}📊 Size Summary:${colors.reset}`);
+    console.log(`${colors.bold} Size Summary:${colors.reset}`);
     console.log(
       `Total Bundle Size: ${colors.green}${this.formatBytes(totalSize)}${colors.reset}\n`
     );
 
     // Display breakdown by type
-    console.log(`${colors.bold}📁 Breakdown by Type:${colors.reset}`);
+    console.log(`${colors.bold} Breakdown by Type:${colors.reset}`);
     console.log(
       `JavaScript: ${colors.blue}${this.formatBytes(sizes.javascript)}${colors.reset} (${((sizes.javascript / totalSize) * 100).toFixed(1)}%)`
     );
@@ -193,7 +193,7 @@ class BundleSizeAnalyzer {
 
     // Display largest files
     if (largestFiles.length > 0) {
-      console.log(`${colors.bold}📦 Largest Files:${colors.reset}`);
+      console.log(`${colors.bold} Largest Files:${colors.reset}`);
       largestFiles.forEach((file, index) => {
         const percentage = ((file.size / totalSize) * 100).toFixed(1);
         console.log(
@@ -236,27 +236,27 @@ class BundleSizeAnalyzer {
 
   // Generate size recommendations
   generateSizeRecommendations(totalSize, sizes, largestFiles) {
-    console.log(`${colors.bold}💡 Size Recommendations:${colors.reset}`);
+    console.log(`${colors.bold} Size Recommendations:${colors.reset}`);
 
     // Overall size recommendations
     if (totalSize > 2 * 1024 * 1024) {
       // 2MB
       console.log(
-        `  ${colors.red}⚠️  Bundle is very large (${this.formatBytes(totalSize)}). Consider aggressive optimization.${colors.reset}`
+        `  ${colors.red}  Bundle is very large (${this.formatBytes(totalSize)}). Consider aggressive optimization.${colors.reset}`
       );
     } else if (totalSize > 1 * 1024 * 1024) {
       // 1MB
       console.log(
-        `  ${colors.yellow}⚠️  Bundle is large (${this.formatBytes(totalSize)}). Monitor for growth.${colors.reset}`
+        `  ${colors.yellow}  Bundle is large (${this.formatBytes(totalSize)}). Monitor for growth.${colors.reset}`
       );
     } else if (totalSize > 500 * 1024) {
       // 500KB
       console.log(
-        `  ${colors.yellow}📦 Bundle is moderately sized (${this.formatBytes(totalSize)}).${colors.reset}`
+        `  ${colors.yellow} Bundle is moderately sized (${this.formatBytes(totalSize)}).${colors.reset}`
       );
     } else {
       console.log(
-        `  ${colors.green}✅ Bundle size is excellent (${this.formatBytes(totalSize)})${colors.reset}`
+        `  ${colors.green} Bundle size is excellent (${this.formatBytes(totalSize)})${colors.reset}`
       );
     }
 
@@ -264,7 +264,7 @@ class BundleSizeAnalyzer {
     if (sizes.javascript > 500 * 1024) {
       // 500KB
       console.log(
-        `  ${colors.yellow}📜 JavaScript bundle is large. Consider code splitting.${colors.reset}`
+        `  ${colors.yellow} JavaScript bundle is large. Consider code splitting.${colors.reset}`
       );
     }
 
@@ -272,7 +272,7 @@ class BundleSizeAnalyzer {
     if (sizes.css > 100 * 1024) {
       // 100KB
       console.log(
-        `  ${colors.yellow}🎨 CSS bundle is large. Consider purging unused styles.${colors.reset}`
+        `  ${colors.yellow} CSS bundle is large. Consider purging unused styles.${colors.reset}`
       );
     }
 
@@ -280,7 +280,7 @@ class BundleSizeAnalyzer {
     if (sizes.images > 500 * 1024) {
       // 500KB
       console.log(
-        `  ${colors.yellow}🖼️  Images are large. Consider optimization and modern formats.${colors.reset}`
+        `  ${colors.yellow}  Images are large. Consider optimization and modern formats.${colors.reset}`
       );
     }
 
@@ -288,7 +288,7 @@ class BundleSizeAnalyzer {
     const veryLargeFiles = largestFiles.filter(f => f.size > 200 * 1024); // 200KB
     if (veryLargeFiles.length > 0) {
       console.log(
-        `  ${colors.yellow}📁 Very large files detected:${colors.reset}`
+        `  ${colors.yellow} Very large files detected:${colors.reset}`
       );
       veryLargeFiles.forEach(file => {
         console.log(`    - ${file.name}: ${this.formatBytes(file.size)}`);
@@ -307,18 +307,18 @@ class BundleSizeAnalyzer {
     const change = recent.totalSize - previous.totalSize;
     const changePercent = (change / previous.totalSize) * 100;
 
-    console.log(`${colors.bold}📈 Size Trend:${colors.reset}`);
+    console.log(`${colors.bold} Size Trend:${colors.reset}`);
 
     if (change > 0) {
       console.log(
-        `  ${colors.red}📈 Increased by ${this.formatBytes(change)} (${changePercent.toFixed(1)}%)${colors.reset}`
+        `  ${colors.red} Increased by ${this.formatBytes(change)} (${changePercent.toFixed(1)}%)${colors.reset}`
       );
     } else if (change < 0) {
       console.log(
-        `  ${colors.green}📉 Decreased by ${this.formatBytes(Math.abs(change))} (${Math.abs(changePercent).toFixed(1)}%)${colors.reset}`
+        `  ${colors.green} Decreased by ${this.formatBytes(Math.abs(change))} (${Math.abs(changePercent).toFixed(1)}%)${colors.reset}`
       );
     } else {
-      console.log(`  ${colors.blue}➡️  No change in size${colors.reset}`);
+      console.log(`  ${colors.blue}  No change in size${colors.reset}`);
     }
 
     // Show trend over last 5 builds
@@ -330,7 +330,7 @@ class BundleSizeAnalyzer {
       const totalChangePercent = (totalChange / first.totalSize) * 100;
 
       console.log(
-        `  ${colors.cyan}📊 Last 5 builds: ${totalChange > 0 ? '+' : ''}${this.formatBytes(totalChange)} (${totalChangePercent.toFixed(1)}%)${colors.reset}`
+        `  ${colors.cyan} Last 5 builds: ${totalChange > 0 ? '+' : ''}${this.formatBytes(totalChange)} (${totalChangePercent.toFixed(1)}%)${colors.reset}`
       );
     }
 
@@ -347,7 +347,7 @@ class BundleSizeAnalyzer {
     }
 
     console.log(
-      `${colors.cyan}🔍 Analyzing bundle size in ${this.distPath}...${colors.reset}\n`
+      `${colors.cyan} Analyzing bundle size in ${this.distPath}...${colors.reset}\n`
     );
     return this.generateSizeReport();
   }

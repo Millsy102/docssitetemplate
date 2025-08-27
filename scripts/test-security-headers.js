@@ -117,7 +117,7 @@ class SecurityHeadersTester {
     }
 
     async runTests(baseUrl) {
-        console.log('🔒 Testing Security Headers...\n');
+        console.log(' Testing Security Headers...\n');
         
         const testUrls = [
             { url: baseUrl, description: 'Homepage' },
@@ -132,22 +132,22 @@ class SecurityHeadersTester {
                 const result = await this.testEndpoint(test.url, test.description);
                 this.results.push(result);
                 
-                console.log(`✅ ${test.description} (${test.url})`);
+                console.log(` ${test.description} (${test.url})`);
                 console.log(`   Status: ${result.statusCode}`);
                 console.log(`   Score: ${result.score}/${this.requiredHeaders.length + 1}`);
                 
                 if (result.missingHeaders.length > 0) {
-                    console.log(`   ❌ Missing: ${result.missingHeaders.join(', ')}`);
+                    console.log(`    Missing: ${result.missingHeaders.join(', ')}`);
                 }
                 
                 if (result.warnings && result.warnings.length > 0) {
-                    console.log(`   ⚠️  Warnings: ${result.warnings.join(', ')}`);
+                    console.log(`     Warnings: ${result.warnings.join(', ')}`);
                 }
                 
                 console.log('');
                 
             } catch (error) {
-                console.log(`❌ ${test.description} (${test.url})`);
+                console.log(` ${test.description} (${test.url})`);
                 console.log(`   Error: ${error.error}`);
                 console.log('');
             }
@@ -157,7 +157,7 @@ class SecurityHeadersTester {
     }
 
     generateReport() {
-        console.log('📊 Security Headers Report\n');
+        console.log(' Security Headers Report\n');
         console.log('='.repeat(50));
         
         const totalTests = this.results.length;
@@ -170,7 +170,7 @@ class SecurityHeadersTester {
         console.log(`Average Score: ${averageScore.toFixed(1)}/${maxScore}`);
         console.log(`Security Grade: ${this.getGrade(averageScore, maxScore)}`);
         
-        console.log('\n📋 Detailed Results:');
+        console.log('\n Detailed Results:');
         console.log('-'.repeat(50));
         
         this.results.forEach(result => {
@@ -178,7 +178,7 @@ class SecurityHeadersTester {
             console.log(`${result.description}: ${result.score}/${maxScore} (${percentage}%)`);
         });
         
-        console.log('\n🔍 Recommendations:');
+        console.log('\n Recommendations:');
         console.log('-'.repeat(50));
         
         const allMissingHeaders = new Set();
@@ -192,10 +192,10 @@ class SecurityHeadersTester {
                 console.log(`  - ${header}`);
             });
         } else {
-            console.log('✅ All required security headers are present!');
+            console.log(' All required security headers are present!');
         }
         
-        console.log('\n💡 Additional Security Recommendations:');
+        console.log('\n Additional Security Recommendations:');
         console.log('-'.repeat(50));
         console.log('1. Consider implementing Subresource Integrity (SRI) for external resources');
         console.log('2. Set up CSP reporting to monitor violations');
@@ -223,7 +223,7 @@ async function main() {
     const baseUrl = process.argv[2] || 'http://localhost:3000';
     
     if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
-        console.error('❌ Please provide a valid URL starting with http:// or https://');
+        console.error(' Please provide a valid URL starting with http:// or https://');
         console.error('Usage: node test-security-headers.js <base-url>');
         console.error('Example: node test-security-headers.js https://your-site.vercel.app');
         process.exit(1);
@@ -232,7 +232,7 @@ async function main() {
     try {
         await tester.runTests(baseUrl);
     } catch (error) {
-        console.error('❌ Test execution failed:', error.message);
+        console.error(' Test execution failed:', error.message);
         process.exit(1);
     }
 }

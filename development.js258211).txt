@@ -2418,7 +2418,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
       --------------------------------------------------
       link:
 
-      Name "🏠 Overview":
+      Name " Overview":
       [36m<a[39m
         [33maria-current[39m=[32m"page"[39m
         [33mclass[39m=[32m"navLink active"[39m
@@ -2426,28 +2426,28 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📦 Installation":
+      Name " Installation":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/installation"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🚀 Getting Started":
+      Name " Getting Started":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/getting-started"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🤝 Contributing":
+      Name " Contributing":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/contributing"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📚 GitHub Repository":
+      Name " GitHub Repository":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate"[39m
@@ -2456,7 +2456,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtarget[39m=[32m"_blank"[39m
       [36m/>[39m
 
-      Name "🐛 Report Issues":
+      Name " Report Issues":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate/issues"[39m
@@ -2507,7 +2507,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🏠[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2527,7 +2527,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m📦[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2547,7 +2547,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🚀[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2567,7 +2567,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🤝[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2602,7 +2602,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m📚[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -2624,7 +2624,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m🐛[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -2729,7 +2729,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
       --------------------------------------------------
       link:
 
-      Name "🏠 Overview":
+      Name " Overview":
       [36m<a[39m
         [33maria-current[39m=[32m"page"[39m
         [33mclass[39m=[32m"navLink active"[39m
@@ -2737,28 +2737,28 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📦 Installation":
+      Name " Installation":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/installation"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🚀 Getting Started":
+      Name " Getting Started":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/getting-started"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🤝 Contributing":
+      Name " Contributing":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/contributing"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📚 GitHub Repository":
+      Name " GitHub Repository":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate"[39m
@@ -2767,7 +2767,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtarget[39m=[32m"_blank"[39m
       [36m/>[39m
 
-      Name "🐛 Report Issues":
+      Name " Report Issues":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate/issues"[39m
@@ -2818,7 +2818,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🏠[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2838,7 +2838,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m📦[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2858,7 +2858,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🚀[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2878,7 +2878,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🤝[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -2913,7 +2913,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m📚[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -2935,7 +2935,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m🐛[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -3039,7 +3039,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
       --------------------------------------------------
       link:
 
-      Name "🏠 Overview":
+      Name " Overview":
       [36m<a[39m
         [33maria-current[39m=[32m"page"[39m
         [33mclass[39m=[32m"navLink active"[39m
@@ -3047,28 +3047,28 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📦 Installation":
+      Name " Installation":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/installation"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🚀 Getting Started":
+      Name " Getting Started":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/getting-started"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🤝 Contributing":
+      Name " Contributing":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/contributing"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📚 GitHub Repository":
+      Name " GitHub Repository":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate"[39m
@@ -3077,7 +3077,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtarget[39m=[32m"_blank"[39m
       [36m/>[39m
 
-      Name "🐛 Report Issues":
+      Name " Report Issues":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate/issues"[39m
@@ -3128,7 +3128,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🏠[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3148,7 +3148,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m📦[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3168,7 +3168,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🚀[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3188,7 +3188,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🤝[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3223,7 +3223,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m📚[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -3245,7 +3245,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m🐛[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -3469,7 +3469,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
       --------------------------------------------------
       link:
 
-      Name "🏠 Overview":
+      Name " Overview":
       [36m<a[39m
         [33maria-current[39m=[32m"page"[39m
         [33mclass[39m=[32m"navLink active"[39m
@@ -3477,28 +3477,28 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📦 Installation":
+      Name " Installation":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/installation"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🚀 Getting Started":
+      Name " Getting Started":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/getting-started"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "🤝 Contributing":
+      Name " Contributing":
       [36m<a[39m
         [33mclass[39m=[32m"navLink "[39m
         [33mhref[39m=[32m"/contributing"[39m
         [33mtabindex[39m=[32m"0"[39m
       [36m/>[39m
 
-      Name "📚 GitHub Repository":
+      Name " GitHub Repository":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate"[39m
@@ -3507,7 +3507,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
         [33mtarget[39m=[32m"_blank"[39m
       [36m/>[39m
 
-      Name "🐛 Report Issues":
+      Name " Report Issues":
       [36m<a[39m
         [33mclass[39m=[32m"quickLink "[39m
         [33mhref[39m=[32m"https://github.com/Millsy102/docssitetemplate/issues"[39m
@@ -3558,7 +3558,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🏠[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3578,7 +3578,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m📦[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3598,7 +3598,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🚀[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3618,7 +3618,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"navIcon"[39m
                     [36m>[39m
-                      [0m🤝[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"navLabel"[39m
@@ -3653,7 +3653,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m📚[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m
@@ -3675,7 +3675,7 @@ FAIL src/__tests__/responsive/Sidebar.responsive.test.tsx
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkIcon"[39m
                     [36m>[39m
-                      [0m🐛[0m
+                      [0m[0m
                     [36m</span>[39m
                     [36m<span[39m
                       [33mclass[39m=[32m"quickLinkLabel"[39m

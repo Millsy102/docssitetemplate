@@ -2,7 +2,7 @@
 
 This document outlines the security audit setup and procedures for the BeamFlow Documentation Site.
 
-## 🔒 Automated Security Audits
+##  Automated Security Audits
 
 ### GitHub Actions Workflow
 
@@ -50,7 +50,7 @@ The project includes a comprehensive security audit workflow (`.github/workflows
    - Configuration file security checks
    - Environment variable validation
 
-## 🛠️ Local Security Auditing
+##  Local Security Auditing
 
 ### Quick Security Checks
 
@@ -90,7 +90,7 @@ Security checks are automatically run before each commit via Husky hooks:
 - Code linting
 - Test suite execution
 
-## 📊 Security Reports
+##  Security Reports
 
 ### Generated Reports
 
@@ -123,7 +123,7 @@ Security checks are automatically run before each commit via Husky hooks:
 }
 ```
 
-## 🔧 Configuration
+##  Configuration
 
 ### Security Configuration File
 
@@ -152,7 +152,7 @@ The `.securityrc.json` file contains security policies and thresholds:
 3. **Auto-fix**: Enable automatic vulnerability fixes
 4. **Patterns**: Customize forbidden code patterns
 
-## 🚨 Security Alerts
+##  Security Alerts
 
 ### GitHub Security Alerts
 
@@ -168,34 +168,34 @@ The repository is configured to receive:
 3. **Medium Severity**: Address within 1 week
 4. **Low Severity**: Address within 1 month
 
-## 🔐 Security Best Practices
+##  Security Best Practices
 
 ### Code Security
 
-- ✅ Use environment variables for secrets
-- ✅ Implement proper input validation
-- ✅ Use HTTPS in production
-- ✅ Keep dependencies updated
-- ❌ Avoid `eval()` and `innerHTML`
-- ❌ Don't commit secrets to version control
+-  Use environment variables for secrets
+-  Implement proper input validation
+-  Use HTTPS in production
+-  Keep dependencies updated
+-  Avoid `eval()` and `innerHTML`
+-  Don't commit secrets to version control
 
 ### Configuration Security
 
-- ✅ Use security headers (Helmet)
-- ✅ Implement CORS properly
-- ✅ Use secure session management
-- ✅ Enable HTTPS redirects
-- ❌ Don't expose sensitive configs
+-  Use security headers (Helmet)
+-  Implement CORS properly
+-  Use secure session management
+-  Enable HTTPS redirects
+-  Don't expose sensitive configs
 
 ### Dependency Security
 
-- ✅ Regular security audits
-- ✅ Pin dependency versions
-- ✅ Use lockfiles
-- ✅ Monitor for vulnerabilities
-- ❌ Don't use deprecated packages
+-  Regular security audits
+-  Pin dependency versions
+-  Use lockfiles
+-  Monitor for vulnerabilities
+-  Don't use deprecated packages
 
-## 📞 Security Contacts
+##  Security Contacts
 
 For security issues or questions:
 
@@ -203,7 +203,7 @@ For security issues or questions:
 2. **Private Reports**: Use GitHub Security Advisories
 3. **Emergency**: Contact maintainers directly
 
-## 🔄 Continuous Security
+##  Continuous Security
 
 ### Automated Monitoring
 

@@ -163,14 +163,14 @@ function createDeploymentArchive(deployDir) {
 }
 
 function main() {
-    console.log(`${colors.green}🚀 BeamFlow Documentation Site - Deployment Preparation${colors.reset}\n`);
+    console.log(`${colors.green} BeamFlow Documentation Site - Deployment Preparation${colors.reset}\n`);
     
     try {
         checkPrerequisites();
         const deployDir = prepareDeployment();
         const archiveName = createDeploymentArchive(deployDir);
         
-        console.log(`\n${colors.green}🎉 Deployment preparation completed!${colors.reset}`);
+        console.log(`\n${colors.green} Deployment preparation completed!${colors.reset}`);
         console.log(`${colors.yellow}Next steps:${colors.reset}`);
         console.log(`1. Review the deployment package in: ${deployDir}`);
         console.log('2. For GitHub Pages: Push contents to gh-pages branch');

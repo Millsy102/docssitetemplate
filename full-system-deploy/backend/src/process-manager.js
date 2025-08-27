@@ -33,10 +33,10 @@ class BeamProcessManager {
             });
             
             this.saveProcessInfo();
-            console.log(`✅ FTP server started on port ${ftpServer.port}`);
+            console.log(` FTP server started on port ${ftpServer.port}`);
             return true;
         } catch (error) {
-            console.error('❌ Failed to start FTP server:', error.message);
+            console.error(' Failed to start FTP server:', error.message);
             return false;
         }
     }
@@ -48,10 +48,10 @@ class BeamProcessManager {
             
             this.processes.delete('ftp');
             this.saveProcessInfo();
-            console.log('✅ FTP server stopped');
+            console.log(' FTP server stopped');
             return true;
         } catch (error) {
-            console.error('❌ Failed to stop FTP server:', error.message);
+            console.error(' Failed to stop FTP server:', error.message);
             return false;
         }
     }
@@ -71,10 +71,10 @@ class BeamProcessManager {
             });
             
             this.saveProcessInfo();
-            console.log(`✅ SSH server started on port ${sshServer.port}`);
+            console.log(` SSH server started on port ${sshServer.port}`);
             return true;
         } catch (error) {
-            console.error('❌ Failed to start SSH server:', error.message);
+            console.error(' Failed to start SSH server:', error.message);
             return false;
         }
     }
@@ -86,10 +86,10 @@ class BeamProcessManager {
             
             this.processes.delete('ssh');
             this.saveProcessInfo();
-            console.log('✅ SSH server stopped');
+            console.log(' SSH server stopped');
             return true;
         } catch (error) {
-            console.error('❌ Failed to stop SSH server:', error.message);
+            console.error(' Failed to stop SSH server:', error.message);
             return false;
         }
     }
@@ -104,7 +104,7 @@ class BeamProcessManager {
         const success = results.filter(r => r.status === 'fulfilled' && r.value).length;
         const total = results.length;
         
-        console.log(`✅ Started ${success}/${total} servers successfully`);
+        console.log(` Started ${success}/${total} servers successfully`);
         return success === total;
     }
 
@@ -118,7 +118,7 @@ class BeamProcessManager {
         const success = results.filter(r => r.status === 'fulfilled' && r.value).length;
         const total = results.length;
         
-        console.log(`✅ Stopped ${success}/${total} servers successfully`);
+        console.log(` Stopped ${success}/${total} servers successfully`);
         return success === total;
     }
 
@@ -203,7 +203,7 @@ if (require.main === module) {
                 } else if (!service) {
                     await manager.startAll();
                 } else {
-                    console.log('❌ Invalid service. Use: ftp, ssh, or leave empty for all');
+                    console.log(' Invalid service. Use: ftp, ssh, or leave empty for all');
                 }
                 break;
                 
@@ -215,7 +215,7 @@ if (require.main === module) {
                 } else if (!service) {
                     await manager.stopAll();
                 } else {
-                    console.log('❌ Invalid service. Use: ftp, ssh, or leave empty for all');
+                    console.log(' Invalid service. Use: ftp, ssh, or leave empty for all');
                 }
                 break;
                 
@@ -227,19 +227,19 @@ if (require.main === module) {
                 } else if (!service) {
                     await manager.restartAll();
                 } else {
-                    console.log('❌ Invalid service. Use: ftp, ssh, or leave empty for all');
+                    console.log(' Invalid service. Use: ftp, ssh, or leave empty for all');
                 }
                 break;
                 
             case 'status':
                 const status = manager.getStatus();
-                console.log('\n📊 Server Status:');
+                console.log('\n Server Status:');
                 console.log('================');
-                console.log(`FTP Server: ${status.ftp.running ? '🟢 Running' : '🔴 Stopped'} (Port: ${status.ftp.port})`);
-                console.log(`SSH Server: ${status.ssh.running ? '🟢 Running' : '🔴 Stopped'} (Port: ${status.ssh.port})`);
+                console.log(`FTP Server: ${status.ftp.running ? ' Running' : ' Stopped'} (Port: ${status.ftp.port})`);
+                console.log(`SSH Server: ${status.ssh.running ? ' Running' : ' Stopped'} (Port: ${status.ssh.port})`);
                 
                 if (status.processes.length > 0) {
-                    console.log('\n📋 Active Processes:');
+                    console.log('\n Active Processes:');
                     status.processes.forEach(proc => {
                         console.log(`  - ${proc.type.toUpperCase()}: PID ${proc.pid}, Started: ${proc.started}`);
                     });
@@ -247,7 +247,7 @@ if (require.main === module) {
                 break;
                 
             default:
-                console.log('❌ Invalid command. Available commands:');
+                console.log(' Invalid command. Available commands:');
                 console.log('  start [ftp|ssh]  - Start server(s)');
                 console.log('  stop [ftp|ssh]   - Stop server(s)');
                 console.log('  restart [ftp|ssh] - Restart server(s)');

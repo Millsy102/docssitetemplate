@@ -71,33 +71,33 @@ jobs:
       - name: Create deployment summary
         if: github.ref == 'refs/heads/main'
         run: |
-          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "##  Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ✅ Public Documentation Site" >> $GITHUB_STEP_SUMMARY
+          echo "###  Public Documentation Site" >> $GITHUB_STEP_SUMMARY
           echo "- **URL**: https://millsy102.github.io/docssitetemplate" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: Successfully deployed" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch**: gh-pages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🔒 Hidden Secret System" >> $GITHUB_STEP_SUMMARY
+          echo "###  Hidden Secret System" >> $GITHUB_STEP_SUMMARY
           echo "- **Location**: \`_internal/system/\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: Built and ready for deployment" >> $GITHUB_STEP_SUMMARY
           echo "- **Admin Panel**: Available at /admin (when deployed)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📦 Deployment Package" >> $GITHUB_STEP_SUMMARY
+          echo "###  Deployment Package" >> $GITHUB_STEP_SUMMARY
           echo "- **Location**: \`full-system-deploy/\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Contains**: Public site + Secret system + Backend" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🔐 Admin Credentials" >> $GITHUB_STEP_SUMMARY
+          echo "###  Admin Credentials" >> $GITHUB_STEP_SUMMARY
           echo "- **Username**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
           echo "- **Password**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
           echo "- **API Key**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🔧 Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "###  Next Steps" >> $GITHUB_STEP_SUMMARY
           echo "1. Verify public site at: https://millsy102.github.io/docssitetemplate" >> $GITHUB_STEP_SUMMARY
           echo "2. Deploy secret system to Vercel: \`vercel --prod\`" >> $GITHUB_STEP_SUMMARY
           echo "3. Access admin panel at: /admin" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🛡️ Security" >> $GITHUB_STEP_SUMMARY
+          echo "###  Security" >> $GITHUB_STEP_SUMMARY
           echo "- Admin credentials managed via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
           echo "- No hardcoded values in code" >> $GITHUB_STEP_SUMMARY
           echo "- Environment variables properly configured" >> $GITHUB_STEP_SUMMARY

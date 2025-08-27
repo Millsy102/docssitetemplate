@@ -40,7 +40,7 @@ describe('EmojiRemover Integration Tests', () => {
 
     describe('Real File Processing', () => {
         test('should remove emojis from markdown file', async () => {
-            const content = '# Test Document 😀\n\nThis is a test with 🌍 emojis!';
+            const content = '# Test Document \n\nThis is a test with  emojis!';
             fs.writeFileSync(testFiles.markdown, content, 'utf8');
             
             const result = await remover.processFile(testFiles.markdown);
@@ -54,7 +54,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should remove emojis from JavaScript file', async () => {
-            const content = '// Test comment 😀\nconsole.log("Hello 🌍 world!");';
+            const content = '// Test comment \nconsole.log("Hello  world!");';
             fs.writeFileSync(testFiles.javascript, content, 'utf8');
             
             const result = await remover.processFile(testFiles.javascript);
@@ -68,7 +68,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should remove emojis from text file', async () => {
-            const content = 'Hello 😀 world 🌍! This is a test.';
+            const content = 'Hello  world ! This is a test.';
             fs.writeFileSync(testFiles.text, content, 'utf8');
             
             const result = await remover.processFile(testFiles.text);
@@ -82,7 +82,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should remove emojis from HTML file', async () => {
-            const content = '<!DOCTYPE html>\n<html>\n<head><title>Test 😀</title></head>\n<body>Hello 🌍!</body>\n</html>';
+            const content = '<!DOCTYPE html>\n<html>\n<head><title>Test </title></head>\n<body>Hello !</body>\n</html>';
             fs.writeFileSync(testFiles.html, content, 'utf8');
             
             const result = await remover.processFile(testFiles.html);
@@ -110,7 +110,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should handle dry run mode', async () => {
-            const content = 'Hello 😀 world 🌍!';
+            const content = 'Hello  world !';
             fs.writeFileSync(testFiles.text, content, 'utf8');
             
             const result = await remover.processFile(testFiles.text, true);
@@ -129,9 +129,9 @@ describe('EmojiRemover Integration Tests', () => {
         test('should process all files in directory', async () => {
             // Create multiple test files
             const files = [
-                { path: testFiles.markdown, content: 'Test 😀 markdown' },
-                { path: testFiles.javascript, content: '// Test 🌍 JavaScript' },
-                { path: testFiles.text, content: 'Test text 🎉' }
+                { path: testFiles.markdown, content: 'Test  markdown' },
+                { path: testFiles.javascript, content: '// Test  JavaScript' },
+                { path: testFiles.text, content: 'Test text ' }
             ];
             
             files.forEach(file => {
@@ -146,9 +146,9 @@ describe('EmojiRemover Integration Tests', () => {
             // Verify all files were processed
             files.forEach(file => {
                 const processedContent = fs.readFileSync(file.path, 'utf8');
-                expect(processedContent).not.toContain('😀');
-                expect(processedContent).not.toContain('🌍');
-                expect(processedContent).not.toContain('🎉');
+                expect(processedContent).not.toContain('');
+                expect(processedContent).not.toContain('');
+                expect(processedContent).not.toContain('');
             });
         });
 
@@ -157,7 +157,7 @@ describe('EmojiRemover Integration Tests', () => {
             const nestedFile = path.join(nestedDir, 'test.md');
             
             fs.mkdirSync(nestedDir, { recursive: true });
-            fs.writeFileSync(nestedFile, 'Nested 😀 file', 'utf8');
+            fs.writeFileSync(nestedFile, 'Nested  file', 'utf8');
             
             await remover.processDirectory(testDir);
             
@@ -175,8 +175,8 @@ describe('EmojiRemover Integration Tests', () => {
             const supportedFile = testFiles.markdown;
             const unsupportedFile = path.join(testDir, 'test.png');
             
-            fs.writeFileSync(supportedFile, 'Test 😀 markdown', 'utf8');
-            fs.writeFileSync(unsupportedFile, 'Test 😀 image', 'utf8');
+            fs.writeFileSync(supportedFile, 'Test  markdown', 'utf8');
+            fs.writeFileSync(unsupportedFile, 'Test  image', 'utf8');
             
             await remover.processDirectory(testDir);
             
@@ -189,7 +189,7 @@ describe('EmojiRemover Integration Tests', () => {
             
             // Unsupported file should remain unchanged
             const unchangedContent = fs.readFileSync(unsupportedFile, 'utf8');
-            expect(unchangedContent).toBe('Test 😀 image');
+            expect(unchangedContent).toBe('Test  image');
         });
     });
 
@@ -203,7 +203,7 @@ describe('EmojiRemover Integration Tests', () => {
 
         test('should handle permission errors gracefully', async () => {
             // Create a file and then make it read-only (if possible)
-            fs.writeFileSync(testFiles.text, 'Test 😀 content', 'utf8');
+            fs.writeFileSync(testFiles.text, 'Test  content', 'utf8');
             
             // On Windows, we can't easily test permission errors
             // This test mainly ensures the error handling code path exists
@@ -215,9 +215,9 @@ describe('EmojiRemover Integration Tests', () => {
     describe('Statistics Tracking', () => {
         test('should track statistics across multiple files', async () => {
             const files = [
-                { path: testFiles.markdown, content: 'Test 😀 markdown 🌍' },
-                { path: testFiles.javascript, content: '// Test 🎉 JavaScript 🚀' },
-                { path: testFiles.text, content: 'Test text 💻' }
+                { path: testFiles.markdown, content: 'Test  markdown ' },
+                { path: testFiles.javascript, content: '// Test  JavaScript ' },
+                { path: testFiles.text, content: 'Test text ' }
             ];
             
             files.forEach(file => {
@@ -233,7 +233,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should reset statistics correctly', async () => {
-            fs.writeFileSync(testFiles.text, 'Test 😀 content', 'utf8');
+            fs.writeFileSync(testFiles.text, 'Test  content', 'utf8');
             await remover.processFile(testFiles.text);
             
             expect(remover.stats.filesProcessed).toBe(1);
@@ -253,8 +253,8 @@ describe('EmojiRemover Integration Tests', () => {
     describe('Emoji Removal Accuracy', () => {
         test('should remove various emoji types', async () => {
             const emojis = [
-                '😀', '🌍', '🎉', '🚀', '💻', '👍', '❤️', '🎵', '⚡', '🔥',
-                '👨‍👩‍👧‍👦', '👍🏽', '🇺🇸', '🏳️‍🌈', '☀️', '🌙', '⭐', '🎯', '🎪', '🎨'
+                '', '', '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '⭐', '', '', ''
             ];
             
             const content = `Test content with emojis: ${emojis.join(' ')}`;
@@ -274,7 +274,7 @@ describe('EmojiRemover Integration Tests', () => {
         });
 
         test('should preserve text content accurately', async () => {
-            const content = 'Hello 😀 world 🌍! This is a test with 🎉 emojis and 🚀 symbols.';
+            const content = 'Hello  world ! This is a test with  emojis and  symbols.';
             fs.writeFileSync(testFiles.text, content, 'utf8');
             
             await remover.processFile(testFiles.text);

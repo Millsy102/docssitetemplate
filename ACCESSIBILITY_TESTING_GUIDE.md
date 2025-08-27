@@ -258,37 +258,37 @@ The testing suite covers all WCAG 2.1 AA requirements:
 
 1. **Missing Alt Text**:
    ```tsx
-   // ❌ Bad
+   //  Bad
    <img src="image.jpg" />
    
-   // ✅ Good
+   //  Good
    <img src="image.jpg" alt="Description of image" />
    ```
 
 2. **Invalid ARIA Attributes**:
    ```tsx
-   // ❌ Bad
+   //  Bad
    <button aria-expanded="true" aria-controls="menu">
    
-   // ✅ Good
+   //  Good
    <button aria-expanded="true" aria-controls="menu" aria-haspopup="true">
    ```
 
 3. **Poor Color Contrast**:
    ```css
-   /* ❌ Bad - Low contrast */
+   /*  Bad - Low contrast */
    .text { color: #666; }
    
-   /* ✅ Good - High contrast */
+   /*  Good - High contrast */
    .text { color: #333; }
    ```
 
 4. **Missing Focus Indicators**:
    ```css
-   /* ❌ Bad - No focus indicator */
+   /*  Bad - No focus indicator */
    button:focus { outline: none; }
    
-   /* ✅ Good - Clear focus indicator */
+   /*  Good - Clear focus indicator */
    button:focus { 
      outline: 2px solid var(--primary-red);
      outline-offset: 2px;

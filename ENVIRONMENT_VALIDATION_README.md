@@ -94,41 +94,41 @@ npm start
 
 **Success:**
 ```
-🔍 Environment Variable Validation:
+ Environment Variable Validation:
 =====================================
-✅ All required environment variables are properly configured
-✅ All recommended environment variables are configured
+ All required environment variables are properly configured
+ All recommended environment variables are configured
 =====================================
 ```
 
 **Missing Required Variables:**
 ```
-🔍 Environment Variable Validation:
+ Environment Variable Validation:
 =====================================
 
-❌ Missing required environment variables:
+ Missing required environment variables:
    • SITE_TITLE - The title of the documentation site
    • SITE_DESCRIPTION - The description of the documentation site
 
-💡 Please set these variables in your .env file
+ Please set these variables in your .env file
    Application cannot start without required environment variables.
 
-📝 Example .env file:
+ Example .env file:
    SITE_TITLE=Your Documentation Site
    SITE_DESCRIPTION=Description of your documentation
 ```
 
 **Missing Recommended Variables:**
 ```
-🔍 Environment Variable Validation:
+ Environment Variable Validation:
 =====================================
 
-⚠️  Missing recommended environment variables:
+  Missing recommended environment variables:
    • SITE_URL - The base URL of the site (recommended for production)
    • GA_MEASUREMENT_ID - Google Analytics measurement ID (optional)
    These are optional but recommended for production use
 
-✅ All required environment variables are properly configured
+ All required environment variables are properly configured
 =====================================
 ```
 

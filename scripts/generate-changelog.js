@@ -212,7 +212,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         fs.writeFileSync(this.changelogPath, lines.join('\n'));
       }
 
-      console.log('✅ Changelog updated successfully!');
+      console.log(' Changelog updated successfully!');
     } catch (error) {
       console.error('Error updating changelog:', error.message);
       throw error;
@@ -224,7 +224,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    */
   generateWithConventionalChangelog() {
     try {
-      console.log('🔄 Generating changelog with conventional-changelog-cli...');
+      console.log(' Generating changelog with conventional-changelog-cli...');
 
       // Create a backup of the current changelog
       if (fs.existsSync(this.changelogPath)) {
@@ -276,7 +276,7 @@ ${generatedContent}`;
         fs.unlinkSync(this.changelogPath + '.backup');
       }
 
-      console.log('✅ Conventional changelog generated successfully!');
+      console.log(' Conventional changelog generated successfully!');
     } catch (error) {
       console.error('Error generating conventional changelog:', error.message);
       throw error;
@@ -289,7 +289,7 @@ ${generatedContent}`;
   generate(options = {}) {
     const { useConventional = true, sinceTag = null, version = null } = options;
 
-    console.log('🚀 Starting changelog generation...');
+    console.log(' Starting changelog generation...');
 
     try {
       if (useConventional) {
@@ -305,9 +305,9 @@ ${generatedContent}`;
         this.updateChangelog(newContent);
       }
 
-      console.log('🎉 Changelog generation completed!');
+      console.log(' Changelog generation completed!');
     } catch (error) {
-      console.error('❌ Changelog generation failed:', error.message);
+      console.error(' Changelog generation failed:', error.message);
       process.exit(1);
     }
   }

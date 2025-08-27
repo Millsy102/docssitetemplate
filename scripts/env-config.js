@@ -130,14 +130,14 @@ class EnvironmentConfig {
         const missing = required.filter(key => !process.env[key]);
         
         if (missing.length > 0) {
-            console.warn('⚠️  Missing environment variables:', missing.join(', '));
+            console.warn('  Missing environment variables:', missing.join(', '));
             
             if (this.isProduction()) {
-                console.warn('💡 In production, set these as GitHub Secrets:');
+                console.warn(' In production, set these as GitHub Secrets:');
                 console.warn('   Go to: Repository Settings → Secrets and variables → Actions');
                 console.warn('   Add repository secrets: ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_API_KEY');
             } else {
-                console.warn('💡 For local development, set these in your .env file');
+                console.warn(' For local development, set these in your .env file');
             }
             return false;
         }
@@ -192,7 +192,7 @@ class EnvironmentConfig {
     getSetupInstructions() {
         if (this.isProduction()) {
             return `
-🔧 GitHub Secrets Setup Instructions:
+ GitHub Secrets Setup Instructions:
 ====================================
 
 1. Go to your GitHub repository: https://github.com/Millsy102/docssitetemplate
@@ -208,11 +208,11 @@ class EnvironmentConfig {
 6. Click "Add secret" for each one
 7. These will be available in GitHub Actions as environment variables
 
-💡 Security Note: GitHub Secrets are encrypted and never exposed in logs
+ Security Note: GitHub Secrets are encrypted and never exposed in logs
             `;
         } else {
             return `
-🔧 Local Environment Setup Instructions:
+ Local Environment Setup Instructions:
 =======================================
 
 1. Create or edit .env file in your project root
@@ -225,7 +225,7 @@ class EnvironmentConfig {
 3. Save the file
 4. Restart your development server
 
-💡 Security Note: Never commit .env files to version control
+ Security Note: Never commit .env files to version control
             `;
         }
     }
@@ -239,7 +239,7 @@ module.exports = envConfig;
 
 // If run directly, show configuration summary
 if (require.main === module) {
-    console.log('🔧 Environment Configuration Summary:');
+    console.log(' Environment Configuration Summary:');
     console.log('=====================================');
     console.log(JSON.stringify(envConfig.getConfigSummary(), null, 2));
     
@@ -247,6 +247,6 @@ if (require.main === module) {
         console.log('\n' + envConfig.getSetupInstructions());
         process.exit(1);
     } else {
-        console.log('\n✅ Environment validation passed!');
+        console.log('\n Environment validation passed!');
     }
 }

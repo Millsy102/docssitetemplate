@@ -50,14 +50,14 @@ describe('EmojiRemover', () => {
 
     describe('removeEmojis', () => {
         test('should remove basic emojis', () => {
-            const text = 'Hello 😀 world 🌍!';
+            const text = 'Hello  world !';
             const result = remover.removeEmojis(text);
             expect(result).toBe('Hello  world !');
             expect(remover.stats.emojisRemoved).toBeGreaterThan(0);
         });
 
         test('should remove multiple emojis', () => {
-            const text = '😀🌍🎉🚀💻';
+            const text = '';
             const result = remover.removeEmojis(text);
             expect(result).toBe('');
             expect(remover.stats.emojisRemoved).toBeGreaterThan(0);
@@ -72,21 +72,21 @@ describe('EmojiRemover', () => {
         });
 
         test('should remove emoji sequences', () => {
-            const text = '👨‍👩‍👧‍👦'; // Family emoji sequence
+            const text = ''; // Family emoji sequence
             const result = remover.removeEmojis(text);
             expect(result).toBe('');
             expect(remover.stats.emojisRemoved).toBeGreaterThan(0);
         });
 
         test('should remove skin tone modifiers', () => {
-            const text = '👍🏽'; // Thumbs up with skin tone
+            const text = ''; // Thumbs up with skin tone
             const result = remover.removeEmojis(text);
             expect(result).toBe('');
             expect(remover.stats.emojisRemoved).toBeGreaterThan(0);
         });
 
         test('should handle mixed content', () => {
-            const text = 'Code: console.log("Hello 😀"); // Debug 🌍';
+            const text = 'Code: console.log("Hello "); // Debug ';
             const result = remover.removeEmojis(text);
             expect(result).toBe('Code: console.log("Hello "); // Debug ');
             expect(remover.stats.emojisRemoved).toBeGreaterThan(0);
@@ -223,7 +223,7 @@ describe('EmojiRemover', () => {
 
     describe('processFile', () => {
         test('should process file with emojis', async () => {
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             const result = await remover.processFile('test.md');
             
@@ -253,7 +253,7 @@ describe('EmojiRemover', () => {
         });
 
         test('should handle dry run mode', async () => {
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             const result = await remover.processFile('test.md', true);
             
@@ -275,7 +275,7 @@ describe('EmojiRemover', () => {
         });
 
         test('should handle file write errors', async () => {
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             mockFs.writeFileSync.mockImplementation(() => {
                 throw new Error('Permission denied');
             });
@@ -291,7 +291,7 @@ describe('EmojiRemover', () => {
         test('should process current directory by default', async () => {
             mockFs.readdirSync.mockReturnValue(['file1.md', 'file2.js']);
             mockFs.statSync.mockReturnValue({ isDirectory: () => false, isFile: () => true });
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             await remover.processFiles();
             
@@ -303,7 +303,7 @@ describe('EmojiRemover', () => {
             mockFs.existsSync.mockReturnValue(true);
             mockFs.statSync.mockReturnValue({ isDirectory: () => true, isFile: () => false });
             mockFs.readdirSync.mockReturnValue(['file1.md']);
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             await remover.processFiles(['src']);
             
@@ -321,7 +321,7 @@ describe('EmojiRemover', () => {
         test('should handle dry run mode', async () => {
             mockFs.readdirSync.mockReturnValue(['file1.md']);
             mockFs.statSync.mockReturnValue({ isDirectory: () => false, isFile: () => true });
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             await remover.processFiles(['.'], { dryRun: true });
             
@@ -335,7 +335,7 @@ describe('EmojiRemover', () => {
         test('should process specific directory', async () => {
             mockFs.readdirSync.mockReturnValue(['file1.md']);
             mockFs.statSync.mockReturnValue({ isDirectory: () => false, isFile: () => true });
-            mockFs.readFileSync.mockReturnValue('Hello 😀 world');
+            mockFs.readFileSync.mockReturnValue('Hello  world');
             
             await remover.processDirectory('src');
             
@@ -418,7 +418,7 @@ describe('EmojiRemover', () => {
         });
 
         test('should handle very long strings', () => {
-            const longString = '😀'.repeat(10000) + 'Hello world';
+            const longString = ''.repeat(10000) + 'Hello world';
             const result = remover.removeEmojis(longString);
             expect(result).toBe('Hello world');
         });

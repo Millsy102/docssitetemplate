@@ -125,22 +125,22 @@ class BundleComparer {
 
   // Display comparison results
   displayComparison(comparison, build1Date, build2Date) {
-    console.log(`${colors.bold}${colors.cyan}🔄 Bundle Comparison${colors.reset}\n`);
+    console.log(`${colors.bold}${colors.cyan} Bundle Comparison${colors.reset}\n`);
     console.log(`Build 1: ${build1Date}`);
     console.log(`Build 2: ${build2Date}\n`);
 
     // Overall size comparison
     const total = comparison.totalSize;
-    const changeSymbol = total.change > 0 ? '📈' : total.change < 0 ? '📉' : '➡️';
+    const changeSymbol = total.change > 0 ? '' : total.change < 0 ? '' : '';
     const changeColor = total.change > 0 ? colors.red : total.change < 0 ? colors.green : colors.blue;
 
-    console.log(`${colors.bold}📊 Overall Size:${colors.reset}`);
+    console.log(`${colors.bold} Overall Size:${colors.reset}`);
     console.log(`  Build 1: ${this.formatBytes(total.build1)}`);
     console.log(`  Build 2: ${this.formatBytes(total.build2)}`);
     console.log(`  Change: ${changeSymbol} ${changeColor}${total.change > 0 ? '+' : ''}${this.formatBytes(total.change)} (${total.changePercent.toFixed(1)}%)${colors.reset}\n`);
 
     // Component comparison
-    console.log(`${colors.bold}📁 Component Changes:${colors.reset}`);
+    console.log(`${colors.bold} Component Changes:${colors.reset}`);
     const components = [
       { key: 'javascript', name: 'JavaScript', color: colors.blue },
       { key: 'css', name: 'CSS', color: colors.magenta },
@@ -150,7 +150,7 @@ class BundleComparer {
 
     components.forEach(component => {
       const comp = comparison.components[component.key];
-      const changeSymbol = comp.change > 0 ? '📈' : comp.change < 0 ? '📉' : '➡️';
+      const changeSymbol = comp.change > 0 ? '' : comp.change < 0 ? '' : '';
       const changeColor = comp.change > 0 ? colors.red : comp.change < 0 ? colors.green : colors.blue;
 
       console.log(`  ${component.color}${component.name}:${colors.reset} ${this.formatBytes(comp.build1)} → ${this.formatBytes(comp.build2)}`);
@@ -160,7 +160,7 @@ class BundleComparer {
     console.log('');
 
     // Compression comparison
-    console.log(`${colors.bold}🗜️  Compression Changes:${colors.reset}`);
+    console.log(`${colors.bold}  Compression Changes:${colors.reset}`);
     const compressionTypes = [
       { key: 'gzip', name: 'Gzip', color: colors.blue },
       { key: 'brotli', name: 'Brotli', color: colors.magenta }
@@ -168,7 +168,7 @@ class BundleComparer {
 
     compressionTypes.forEach(type => {
       const comp = comparison.compression[type.key];
-      const changeSymbol = comp.change > 0 ? '📈' : comp.change < 0 ? '📉' : '➡️';
+      const changeSymbol = comp.change > 0 ? '' : comp.change < 0 ? '' : '';
       const changeColor = comp.change > 0 ? colors.red : comp.change < 0 ? colors.green : colors.blue;
 
       console.log(`  ${type.color}${type.name}:${colors.reset} ${this.formatBytes(comp.build1)} → ${this.formatBytes(comp.build2)}`);
@@ -183,19 +183,19 @@ class BundleComparer {
 
   // Generate comparison recommendations
   generateComparisonRecommendations(comparison) {
-    console.log(`${colors.bold}💡 Comparison Recommendations:${colors.reset}`);
+    console.log(`${colors.bold} Comparison Recommendations:${colors.reset}`);
 
     const total = comparison.totalSize;
 
     // Overall size recommendations
     if (total.changePercent > 20) {
-      console.log(`  ${colors.red}⚠️  Significant size increase (${total.changePercent.toFixed(1)}%). Review changes.${colors.reset}`);
+      console.log(`  ${colors.red}  Significant size increase (${total.changePercent.toFixed(1)}%). Review changes.${colors.reset}`);
     } else if (total.changePercent > 10) {
-      console.log(`  ${colors.yellow}📈 Notable size increase (${total.changePercent.toFixed(1)}%). Monitor for continued growth.${colors.reset}`);
+      console.log(`  ${colors.yellow} Notable size increase (${total.changePercent.toFixed(1)}%). Monitor for continued growth.${colors.reset}`);
     } else if (total.changePercent < -10) {
-      console.log(`  ${colors.green}📉 Good optimization (${Math.abs(total.changePercent).toFixed(1)}% reduction).${colors.reset}`);
+      console.log(`  ${colors.green} Good optimization (${Math.abs(total.changePercent).toFixed(1)}% reduction).${colors.reset}`);
     } else {
-      console.log(`  ${colors.blue}➡️  Minimal size change (${total.changePercent.toFixed(1)}%).${colors.reset}`);
+      console.log(`  ${colors.blue}  Minimal size change (${total.changePercent.toFixed(1)}%).${colors.reset}`);
     }
 
     // Component-specific recommendations
@@ -208,9 +208,9 @@ class BundleComparer {
       };
 
       if (comp.changePercent > 30) {
-        console.log(`  ${colors.yellow}📦 ${componentNames[key]} increased significantly (${comp.changePercent.toFixed(1)}%).${colors.reset}`);
+        console.log(`  ${colors.yellow} ${componentNames[key]} increased significantly (${comp.changePercent.toFixed(1)}%).${colors.reset}`);
       } else if (comp.changePercent < -20) {
-        console.log(`  ${colors.green}✅ ${componentNames[key]} optimized well (${Math.abs(comp.changePercent).toFixed(1)}% reduction).${colors.reset}`);
+        console.log(`  ${colors.green} ${componentNames[key]} optimized well (${Math.abs(comp.changePercent).toFixed(1)}% reduction).${colors.reset}`);
       }
     });
 
@@ -298,7 +298,7 @@ class BundleComparer {
       return;
     }
 
-    console.log(`${colors.bold}${colors.cyan}📋 Available Builds:${colors.reset}\n`);
+    console.log(`${colors.bold}${colors.cyan} Available Builds:${colors.reset}\n`);
 
     history.forEach((build, index) => {
       const date = this.formatDate(build.timestamp);
@@ -325,7 +325,7 @@ class BundleComparer {
     const comparisonPath = path.join(this.analysisPath, 'comparison.json');
     try {
       fs.writeFileSync(comparisonPath, JSON.stringify(comparisonData, null, 2));
-      console.log(`${colors.green}✅ Comparison saved to ${comparisonPath}${colors.reset}\n`);
+      console.log(`${colors.green} Comparison saved to ${comparisonPath}${colors.reset}\n`);
     } catch (error) {
       console.error(`${colors.red}Error saving comparison: ${error.message}${colors.reset}`);
     }
@@ -385,7 +385,7 @@ class BundleComparer {
 
   // Run the comparer
   run() {
-    console.log(`${colors.cyan}🔄 Bundle Comparison Tool${colors.reset}\n`);
+    console.log(`${colors.cyan} Bundle Comparison Tool${colors.reset}\n`);
     this.parseArguments();
   }
 }

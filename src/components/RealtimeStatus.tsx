@@ -104,9 +104,9 @@ export const RealtimeStatus: React.FC<RealtimeStatusProps> = ({
   };
 
   const getStatusIcon = (value: number, thresholds: { warning: number; critical: number }) => {
-    if (value >= thresholds.critical) return '🔴';
-    if (value >= thresholds.warning) return '🟡';
-    return '🟢';
+    if (value >= thresholds.critical) return '';
+    if (value >= thresholds.warning) return '';
+    return '';
   };
 
   const formatUptime = (seconds: number): string => {

@@ -322,7 +322,7 @@ const RequestTracker: React.FC = () => {
                     onClick={() => setSelectedLog(null)}
                     className="text-gray-400 hover:text-white transition-colors"
                   >
-                    ✕
+                    
                   </button>
                 </div>
               </div>

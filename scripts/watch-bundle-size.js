@@ -157,7 +157,7 @@ class BundleSizeWatcher {
     const change = currentSize - previousSize;
     const changePercent = previousSize > 0 ? ((change / previousSize) * 100) : 0;
 
-    const changeSymbol = change > 0 ? '📈' : change < 0 ? '📉' : '➡️';
+    const changeSymbol = change > 0 ? '' : change < 0 ? '' : '';
     const changeColor = change > 0 ? colors.red : change < 0 ? colors.green : colors.blue;
 
     console.log(`  ${changeSymbol} ${changeColor}${change > 0 ? '+' : ''}${this.formatBytes(change)} (${changePercent.toFixed(1)}%)${colors.reset}`);
@@ -169,7 +169,7 @@ class BundleSizeWatcher {
     const breakdown = this.getFileSizesByType();
     const timestamp = new Date().toLocaleTimeString();
 
-    console.log(`\n${colors.bold}${colors.cyan}📏 Bundle Size Monitor - ${timestamp}${colors.reset}`);
+    console.log(`\n${colors.bold}${colors.cyan} Bundle Size Monitor - ${timestamp}${colors.reset}`);
     console.log(`Total Size: ${colors.green}${this.formatBytes(currentSize)}${colors.reset}`);
 
     if (this.lastSize > 0) {
@@ -179,7 +179,7 @@ class BundleSizeWatcher {
     // Display breakdown
     const totalBreakdown = Object.values(breakdown).reduce((sum, size) => sum + size, 0);
     if (totalBreakdown > 0) {
-      console.log(`\n${colors.bold}📁 Breakdown:${colors.reset}`);
+      console.log(`\n${colors.bold} Breakdown:${colors.reset}`);
       console.log(`  JavaScript: ${colors.blue}${this.formatBytes(breakdown.javascript)}${colors.reset} (${((breakdown.javascript / totalBreakdown) * 100).toFixed(1)}%)`);
       console.log(`  CSS: ${colors.magenta}${this.formatBytes(breakdown.css)}${colors.reset} (${((breakdown.css / totalBreakdown) * 100).toFixed(1)}%)`);
       console.log(`  Images: ${colors.yellow}${this.formatBytes(breakdown.images)}${colors.reset} (${((breakdown.images / totalBreakdown) * 100).toFixed(1)}%)`);
@@ -195,9 +195,9 @@ class BundleSizeWatcher {
 
     // Show warnings if size is large
     if (currentSize > 2 * 1024 * 1024) { // 2MB
-      console.log(`\n${colors.red}⚠️  Bundle is very large (${this.formatBytes(currentSize)})${colors.reset}`);
+      console.log(`\n${colors.red}  Bundle is very large (${this.formatBytes(currentSize)})${colors.reset}`);
     } else if (currentSize > 1 * 1024 * 1024) { // 1MB
-      console.log(`\n${colors.yellow}⚠️  Bundle is large (${this.formatBytes(currentSize)})${colors.reset}`);
+      console.log(`\n${colors.yellow}  Bundle is large (${this.formatBytes(currentSize)})${colors.reset}`);
     }
   }
 
@@ -208,7 +208,7 @@ class BundleSizeWatcher {
       return;
     }
 
-    console.log(`${colors.cyan}🔍 Starting bundle size monitor...${colors.reset}`);
+    console.log(`${colors.cyan} Starting bundle size monitor...${colors.reset}`);
     console.log(`Watching: ${this.distPath}`);
     console.log(`Interval: ${this.watchInterval / 1000} seconds`);
     console.log(`Press Ctrl+C to stop\n`);
@@ -234,7 +234,7 @@ class BundleSizeWatcher {
       return;
     }
 
-    console.log(`\n${colors.cyan}🛑 Stopping bundle size monitor${colors.reset}`);
+    console.log(`\n${colors.cyan} Stopping bundle size monitor${colors.reset}`);
     
     if (this.watchTimer) {
       clearInterval(this.watchTimer);
@@ -246,7 +246,7 @@ class BundleSizeWatcher {
 
   // Start build process
   startBuildProcess() {
-    console.log(`${colors.cyan}🔨 Starting build process...${colors.reset}`);
+    console.log(`${colors.cyan} Starting build process...${colors.reset}`);
 
     this.buildProcess = spawn('npm', ['run', 'build'], {
       stdio: 'inherit',
@@ -255,10 +255,10 @@ class BundleSizeWatcher {
 
     this.buildProcess.on('close', (code) => {
       if (code === 0) {
-        console.log(`${colors.green}✅ Build completed successfully${colors.reset}`);
+        console.log(`${colors.green} Build completed successfully${colors.reset}`);
         this.displayBundleInfo();
       } else {
-        console.log(`${colors.red}❌ Build failed with code ${code}${colors.reset}`);
+        console.log(`${colors.red} Build failed with code ${code}${colors.reset}`);
       }
       this.buildProcess = null;
     });
@@ -278,7 +278,7 @@ class BundleSizeWatcher {
       return;
     }
 
-    console.log(`\n${colors.bold}${colors.cyan}📊 Size History Summary${colors.reset}`);
+    console.log(`\n${colors.bold}${colors.cyan} Size History Summary${colors.reset}`);
 
     const sizes = history.map(h => h.totalSize);
     const maxSize = Math.max(...sizes);
@@ -364,7 +364,7 @@ class BundleSizeWatcher {
     process.on('SIGINT', () => this.handleTermination());
     process.on('SIGTERM', () => this.handleTermination());
 
-    console.log(`${colors.cyan}📏 Bundle Size Watcher${colors.reset}\n`);
+    console.log(`${colors.cyan} Bundle Size Watcher${colors.reset}\n`);
     this.parseArguments();
   }
 }

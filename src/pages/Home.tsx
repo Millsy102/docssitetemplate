@@ -16,7 +16,7 @@ const Home: React.FC = () => {
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-red-400 mb-4">🚀 {t('home.features.title')}</h3>
+          <h3 className="text-red-400 mb-4"> {t('home.features.title')}</h3>
           <ul className="space-y-2 text-gray-300">
             <li>• {t('home.features.streaming')}</li>
             <li>• {t('home.features.processing')}</li>
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
         </div>
 
         <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-red-400 mb-4">⚡ {t('home.getStarted.title')}</h3>
+          <h3 className="text-red-400 mb-4"> {t('home.getStarted.title')}</h3>
           <div className="space-y-3">
             <p className="text-gray-300">{t('home.getStarted.description')}</p>
             <Link 
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
             rel="noopener noreferrer"
             className="block p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
           >
-            <h4 className="text-red-400 mb-2">🐛 Report Issues</h4>
+            <h4 className="text-red-400 mb-2"> Report Issues</h4>
             <p className="text-gray-300 text-sm">Found a bug? Let us know!</p>
           </a>
           <a 
@@ -91,14 +91,14 @@ const Home: React.FC = () => {
             rel="noopener noreferrer"
             className="block p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
           >
-            <h4 className="text-red-400 mb-2">💬 Community</h4>
+            <h4 className="text-red-400 mb-2"> Community</h4>
             <p className="text-gray-300 text-sm">Join the discussion</p>
           </a>
           <Link 
             to="/contributing" 
             className="block p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
           >
-            <h4 className="text-red-400 mb-2">🤝 Contribute</h4>
+            <h4 className="text-red-400 mb-2"> Contribute</h4>
             <p className="text-gray-300 text-sm">Help improve BeamFlow</p>
           </Link>
         </div>

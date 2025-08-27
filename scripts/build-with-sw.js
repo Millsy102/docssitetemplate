@@ -21,7 +21,7 @@ class BuildWithServiceWorker {
      * Run the complete build process
      */
     async build() {
-        console.log('🚀 Starting build with service worker versioning...');
+        console.log(' Starting build with service worker versioning...');
         
         try {
             // Step 1: Run Vite build
@@ -36,10 +36,10 @@ class BuildWithServiceWorker {
             // Step 4: Generate build manifest
             await this.generateBuildManifest();
             
-            console.log('✅ Build completed successfully!');
+            console.log(' Build completed successfully!');
             
         } catch (error) {
-            console.error('❌ Build failed:', error);
+            console.error(' Build failed:', error);
             process.exit(1);
         }
     }
@@ -48,14 +48,14 @@ class BuildWithServiceWorker {
      * Run Vite build
      */
     async runViteBuild() {
-        console.log('📦 Running Vite build...');
+        console.log(' Running Vite build...');
         
         try {
             execSync('npm run build', {
                 cwd: this.projectRoot,
                 stdio: 'inherit'
             });
-            console.log('✅ Vite build completed');
+            console.log(' Vite build completed');
         } catch (error) {
             throw new Error(`Vite build failed: ${error.message}`);
         }
@@ -65,11 +65,11 @@ class BuildWithServiceWorker {
      * Generate service worker with versioning
      */
     async generateServiceWorker() {
-        console.log('🔧 Generating service worker with versioning...');
+        console.log(' Generating service worker with versioning...');
         
         try {
             const versionInfo = this.swGenerator.generate();
-            console.log('✅ Service worker generated with version:', versionInfo.version);
+            console.log(' Service worker generated with version:', versionInfo.version);
             
             // Update the service worker with actual built assets
             await this.updateServiceWorkerAssets(versionInfo);
@@ -103,7 +103,7 @@ class BuildWithServiceWorker {
         
         // Write updated service worker
         fs.writeFileSync(swPath, swContent);
-        console.log('✅ Service worker updated with built assets');
+        console.log(' Service worker updated with built assets');
     }
 
     /**
@@ -143,7 +143,7 @@ class BuildWithServiceWorker {
      * Copy additional files to dist
      */
     async copyAdditionalFiles() {
-        console.log('📋 Copying additional files...');
+        console.log(' Copying additional files...');
         
         const filesToCopy = [
             { src: 'public/manifest.json', dest: 'dist/manifest.json' },
@@ -158,9 +158,9 @@ class BuildWithServiceWorker {
             
             if (fs.existsSync(srcPath)) {
                 fs.copyFileSync(srcPath, destPath);
-                console.log(`✅ Copied ${file.src} to ${file.dest}`);
+                console.log(` Copied ${file.src} to ${file.dest}`);
             } else {
-                console.warn(`⚠️  Warning: ${file.src} not found, skipping`);
+                console.warn(`  Warning: ${file.src} not found, skipping`);
             }
         }
     }
@@ -169,7 +169,7 @@ class BuildWithServiceWorker {
      * Generate build manifest
      */
     async generateBuildManifest() {
-        console.log('📄 Generating build manifest...');
+        console.log(' Generating build manifest...');
         
         const manifest = {
             buildTime: new Date().toISOString(),
@@ -189,18 +189,18 @@ class BuildWithServiceWorker {
         const manifestPath = path.join(this.distDir, 'build-manifest.json');
         fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
         
-        console.log('✅ Build manifest generated');
+        console.log(' Build manifest generated');
     }
 
     /**
      * Clean build directory
      */
     clean() {
-        console.log('🧹 Cleaning build directory...');
+        console.log(' Cleaning build directory...');
         
         if (fs.existsSync(this.distDir)) {
             fs.rmSync(this.distDir, { recursive: true, force: true });
-            console.log('✅ Build directory cleaned');
+            console.log(' Build directory cleaned');
         }
     }
 
@@ -208,7 +208,7 @@ class BuildWithServiceWorker {
      * Development build (with source maps)
      */
     async buildDev() {
-        console.log('🔧 Starting development build...');
+        console.log(' Starting development build...');
         
         try {
             // Set NODE_ENV to development
@@ -224,10 +224,10 @@ class BuildWithServiceWorker {
             await this.generateServiceWorker();
             await this.copyAdditionalFiles();
             
-            console.log('✅ Development build completed');
+            console.log(' Development build completed');
             
         } catch (error) {
-            console.error('❌ Development build failed:', error);
+            console.error(' Development build failed:', error);
             process.exit(1);
         }
     }

@@ -16,12 +16,12 @@ The site now supports multiple languages using `react-i18next` with the followin
 
 | Language | Code | Flag | Native Name |
 |----------|------|------|-------------|
-| English | `en` | 🇺🇸 | English |
-| Spanish | `es` | 🇪🇸 | Español |
-| French | `fr` | 🇫🇷 | Français |
-| German | `de` | 🇩🇪 | Deutsch |
-| Chinese | `zh` | 🇨🇳 | 中文 |
-| Japanese | `ja` | 🇯🇵 | 日本語 |
+| English | `en` |  | English |
+| Spanish | `es` |  | Español |
+| French | `fr` |  | Français |
+| German | `de` |  | Deutsch |
+| Chinese | `zh` |  | 中文 |
+| Japanese | `ja` |  | 日本語 |
 
 ## File Structure
 
@@ -109,7 +109,7 @@ const MyComponent = () => {
 ```typescript
 export const languages = {
   // ... existing languages
-  newLang: { name: 'New Language', flag: '🏳️' }
+  newLang: { name: 'New Language', flag: '' }
 }
 ```
 

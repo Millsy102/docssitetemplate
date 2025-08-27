@@ -51,7 +51,7 @@ class SecurityAuditor {
   }
 
   async checkDependencies() {
-    this.log('🔍 Checking dependencies for vulnerabilities...', 'title');
+    this.log(' Checking dependencies for vulnerabilities...', 'title');
 
     try {
       // Run npm audit
@@ -108,7 +108,7 @@ class SecurityAuditor {
   }
 
   async checkCodePatterns() {
-    this.log('🔍 Scanning code for security patterns...', 'title');
+    this.log(' Scanning code for security patterns...', 'title');
 
     const srcDir = path.join(this.projectRoot, 'src');
     if (!fs.existsSync(srcDir)) {
@@ -208,7 +208,7 @@ class SecurityAuditor {
   }
 
   async checkConfiguration() {
-    this.log('🔍 Checking configuration files...', 'title');
+    this.log(' Checking configuration files...', 'title');
 
     const configFiles = [
       'package.json',
@@ -249,7 +249,7 @@ class SecurityAuditor {
   }
 
   async checkSecurityHeaders() {
-    this.log('🔍 Checking security headers configuration...', 'title');
+    this.log(' Checking security headers configuration...', 'title');
 
     // Check if helmet is configured
     const srcDir = path.join(this.projectRoot, 'src');
@@ -283,7 +283,7 @@ class SecurityAuditor {
   }
 
   async checkEnvironmentVariables() {
-    this.log('🔍 Checking environment variable usage...', 'title');
+    this.log(' Checking environment variable usage...', 'title');
 
     const envFiles = ['.env', '.env.local', '.env.production'];
     const hasEnvFiles = envFiles.some(file =>
@@ -298,7 +298,7 @@ class SecurityAuditor {
   }
 
   async generateReport() {
-    this.log('📊 Generating security audit report...', 'title');
+    this.log(' Generating security audit report...', 'title');
 
     const report = {
       timestamp: new Date().toISOString(),
@@ -327,23 +327,23 @@ class SecurityAuditor {
 
   async printSummary() {
     this.log('\n' + '='.repeat(60), 'title');
-    this.log('🔒 SECURITY AUDIT SUMMARY', 'title');
+    this.log(' SECURITY AUDIT SUMMARY', 'title');
     this.log('='.repeat(60), 'title');
 
-    this.log(`\n✅ Passed: ${this.passed.length}`, 'success');
+    this.log(`\n Passed: ${this.passed.length}`, 'success');
     this.passed.forEach(item => {
       this.log(`  • ${item.category}: ${item.message}`, 'success');
     });
 
     if (this.warnings.length > 0) {
-      this.log(`\n⚠️  Warnings: ${this.warnings.length}`, 'warning');
+      this.log(`\n  Warnings: ${this.warnings.length}`, 'warning');
       this.warnings.forEach(item => {
         this.log(`  • ${item.category}: ${item.message}`, 'warning');
       });
     }
 
     if (this.issues.length > 0) {
-      this.log(`\n❌ Issues: ${this.issues.length}`, 'error');
+      this.log(`\n Issues: ${this.issues.length}`, 'error');
       this.issues.forEach(item => {
         const severity = item.severity.toUpperCase();
         const fileInfo = item.file
@@ -359,10 +359,10 @@ class SecurityAuditor {
     this.log('\n' + '='.repeat(60), 'title');
 
     if (this.issues.length === 0) {
-      this.log('🎉 No critical security issues found!', 'success');
+      this.log(' No critical security issues found!', 'success');
     } else {
       this.log(
-        `⚠️  Found ${this.issues.length} security issues that need attention`,
+        `  Found ${this.issues.length} security issues that need attention`,
         'error'
       );
     }
@@ -371,7 +371,7 @@ class SecurityAuditor {
   }
 
   async run() {
-    this.log('🚀 Starting comprehensive security audit...', 'title');
+    this.log(' Starting comprehensive security audit...', 'title');
 
     await this.checkDependencies();
     await this.checkCodePatterns();

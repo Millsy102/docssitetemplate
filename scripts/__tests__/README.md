@@ -2,7 +2,7 @@
 
 This directory contains comprehensive tests for the emoji removal utility (`remove-emojis.js`). The test suite ensures the utility works correctly across various scenarios and edge cases.
 
-## 📁 Test Structure
+##  Test Structure
 
 ```
 __tests__/
@@ -11,7 +11,7 @@ __tests__/
 └── README.md                       # This file
 ```
 
-## 🧪 Test Categories
+##  Test Categories
 
 ### Unit Tests (`remove-emojis.test.js`)
 
@@ -93,7 +93,7 @@ Tests the utility with real file system operations:
   - Text content preservation
   - Complex emoji sequences
 
-## 🚀 Running Tests
+##  Running Tests
 
 ### Using npm scripts (Recommended)
 
@@ -153,7 +153,7 @@ npx jest --config scripts/jest.config.js --coverage
 npx jest --config scripts/jest.config.js --watch
 ```
 
-## 📊 Coverage Requirements
+##  Coverage Requirements
 
 The test suite aims for comprehensive coverage:
 
@@ -164,7 +164,7 @@ The test suite aims for comprehensive coverage:
 
 Coverage reports are generated in `../coverage/scripts/` when running with coverage.
 
-## 🔧 Test Configuration
+##  Test Configuration
 
 The test suite uses a custom Jest configuration (`jest.config.js`):
 
@@ -174,7 +174,7 @@ The test suite uses a custom Jest configuration (`jest.config.js`):
 - **Mocking**: Automatic mock clearing and restoration
 - **Verbose**: Detailed test output
 
-## 🧩 Mocking Strategy
+##  Mocking Strategy
 
 ### Unit Tests
 - **fs module**: Mocked to avoid file system dependencies
@@ -187,25 +187,25 @@ The test suite uses a custom Jest configuration (`jest.config.js`):
 - **Temporary files**: Created and cleaned up automatically
 - **Error simulation**: Tests real error conditions
 
-## 📝 Test Data
+##  Test Data
 
 ### Emoji Test Cases
 The tests cover various emoji types:
 
-- Basic emojis: 😀 🌍 🎉 🚀 💻
-- Emoji sequences: 👨‍👩‍👧‍👦 (family)
-- Skin tone modifiers: 👍🏽
-- Regional indicators: 🇺🇸
-- Symbols: ⚡ 🔥 ❤️
-- Objects: 🎵 🎯 🎪 🎨
+- Basic emojis:     
+- Emoji sequences:  (family)
+- Skin tone modifiers: 
+- Regional indicators: 
+- Symbols:   
+- Objects:    
 
 ### File Content Examples
-- Markdown: `# Test Document 😀\n\nThis is a test with 🌍 emojis!`
-- JavaScript: `// Test comment 😀\nconsole.log("Hello 🌍 world!");`
-- HTML: `<title>Test 😀</title><body>Hello 🌍!</body>`
-- Text: `Hello 😀 world 🌍! This is a test.`
+- Markdown: `# Test Document \n\nThis is a test with  emojis!`
+- JavaScript: `// Test comment \nconsole.log("Hello  world!");`
+- HTML: `<title>Test </title><body>Hello !</body>`
+- Text: `Hello  world ! This is a test.`
 
-## 🐛 Debugging Tests
+##  Debugging Tests
 
 ### Verbose Output
 ```bash
@@ -227,7 +227,7 @@ npx jest --config scripts/jest.config.js -t "removeEmojis"
 node --inspect-brk node_modules/.bin/jest --config scripts/jest.config.js
 ```
 
-## 🔄 Continuous Integration
+##  Continuous Integration
 
 The test suite is designed to work in CI environments:
 
@@ -237,7 +237,7 @@ The test suite is designed to work in CI environments:
 - **Reliable cleanup**: Integration tests clean up after themselves
 - **Clear output**: Structured test results
 
-## 📈 Adding New Tests
+##  Adding New Tests
 
 ### Unit Test Guidelines
 1. Use descriptive test names
@@ -258,7 +258,7 @@ The test suite is designed to work in CI environments:
 describe('Feature Name', () => {
     test('should handle normal case', () => {
         // Arrange
-        const input = 'test 😀 input';
+        const input = 'test  input';
         
         // Act
         const result = remover.process(input);
@@ -277,7 +277,7 @@ describe('Feature Name', () => {
 });
 ```
 
-## 🎯 Test Maintenance
+##  Test Maintenance
 
 ### Regular Tasks
 - Update emoji ranges when Unicode standards change
@@ -291,7 +291,7 @@ describe('Feature Name', () => {
 - Remove redundant test cases
 - Update test data as needed
 
-## 📚 Related Documentation
+##  Related Documentation
 
 - [Emoji Removal Utility](../EMOJI_REMOVAL_README.md)
 - [Jest Documentation](https://jestjs.io/docs/getting-started)

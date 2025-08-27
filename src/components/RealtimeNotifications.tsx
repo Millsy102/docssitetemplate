@@ -87,11 +87,11 @@ export const RealtimeNotifications: React.FC<RealtimeNotificationsProps> = ({
   const getNotificationIcon = (type: string): string => {
     switch (type) {
       case 'success':
-        return '✓';
+        return '';
       case 'warning':
-        return '⚠';
+        return '';
       case 'error':
-        return '✗';
+        return '';
       default:
         return 'ℹ';
     }
@@ -137,7 +137,7 @@ export const RealtimeNotifications: React.FC<RealtimeNotificationsProps> = ({
           ? 'bg-green-900/20 text-green-100 border border-green-500' 
           : 'bg-red-900/20 text-red-100 border border-red-500'
       }`}>
-        {isConnected ? '🟢 Connected' : '🔴 Disconnected'}
+        {isConnected ? ' Connected' : ' Disconnected'}
       </div>
 
       {/* Notifications */}

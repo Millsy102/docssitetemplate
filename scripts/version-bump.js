@@ -73,7 +73,7 @@ class VersionBumper {
         this.packageJsonPath,
         JSON.stringify(packageJson, null, 2) + '\n'
       );
-      console.log(`✅ Updated package.json version to ${newVersion}`);
+      console.log(` Updated package.json version to ${newVersion}`);
     } catch (error) {
       console.error('Error updating package.json:', error.message);
       throw error;
@@ -104,7 +104,7 @@ class VersionBumper {
       execSync(`git tag -a v${version} -m "${tagMessage}"`, {
         stdio: 'inherit',
       });
-      console.log(`✅ Created git tag v${version}`);
+      console.log(` Created git tag v${version}`);
     } catch (error) {
       console.error('Error creating git tag:', error.message);
       throw error;
@@ -117,7 +117,7 @@ class VersionBumper {
   pushGitTag(version) {
     try {
       execSync(`git push origin v${version}`, { stdio: 'inherit' });
-      console.log(`✅ Pushed git tag v${version} to remote`);
+      console.log(` Pushed git tag v${version} to remote`);
     } catch (error) {
       console.error('Error pushing git tag:', error.message);
       throw error;
@@ -129,7 +129,7 @@ class VersionBumper {
    */
   generateChangelog(version) {
     try {
-      console.log('🔄 Generating changelog...');
+      console.log(' Generating changelog...');
       const ChangelogGenerator = require('./generate-changelog');
       const generator = new ChangelogGenerator();
       generator.generate({ version });
@@ -148,7 +148,7 @@ class VersionBumper {
       execSync(`git commit -m "chore: bump version to ${version}"`, {
         stdio: 'inherit',
       });
-      console.log(`✅ Committed version changes for ${version}`);
+      console.log(` Committed version changes for ${version}`);
     } catch (error) {
       console.error('Error committing version changes:', error.message);
       throw error;
@@ -161,7 +161,7 @@ class VersionBumper {
   pushChanges() {
     try {
       execSync('git push origin main', { stdio: 'inherit' });
-      console.log('✅ Pushed changes to remote');
+      console.log(' Pushed changes to remote');
     } catch (error) {
       console.error('Error pushing changes:', error.message);
       throw error;
@@ -181,13 +181,13 @@ class VersionBumper {
       dryRun = false,
     } = options;
 
-    console.log('🚀 Starting version bump workflow...');
+    console.log(' Starting version bump workflow...');
 
     try {
       // Check if working directory is clean
       if (!this.isWorkingDirectoryClean()) {
         console.error(
-          '❌ Working directory is not clean. Please commit or stash your changes first.'
+          ' Working directory is not clean. Please commit or stash your changes first.'
         );
         process.exit(1);
       }
@@ -195,11 +195,11 @@ class VersionBumper {
       const currentVersion = this.getCurrentVersion();
       const newVersion = this.bumpVersion(currentVersion, type);
 
-      console.log(`📦 Current version: ${currentVersion}`);
-      console.log(`📦 New version: ${newVersion}`);
+      console.log(` Current version: ${currentVersion}`);
+      console.log(` New version: ${newVersion}`);
 
       if (dryRun) {
-        console.log('🔍 Dry run mode - no changes will be made');
+        console.log(' Dry run mode - no changes will be made');
         return { currentVersion, newVersion };
       }
 
@@ -228,11 +228,11 @@ class VersionBumper {
       }
 
       console.log(
-        `🎉 Successfully bumped version from ${currentVersion} to ${newVersion}`
+        ` Successfully bumped version from ${currentVersion} to ${newVersion}`
       );
       return { currentVersion, newVersion };
     } catch (error) {
-      console.error('❌ Version bump failed:', error.message);
+      console.error(' Version bump failed:', error.message);
       process.exit(1);
     }
   }

@@ -147,7 +147,7 @@ const RealtimeDemo: React.FC = () => {
         {/* Feature Information */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
-            <div className="text-red-400 text-2xl mb-3">💬</div>
+            <div className="text-red-400 text-2xl mb-3"></div>
             <h3 className="text-xl font-semibold text-white mb-2">Real-time Chat</h3>
             <p className="text-gray-300 text-sm">
               Collaborative messaging with typing indicators, online user status, and room-based conversations.
@@ -155,7 +155,7 @@ const RealtimeDemo: React.FC = () => {
           </div>
 
           <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
-            <div className="text-red-400 text-2xl mb-3">🔔</div>
+            <div className="text-red-400 text-2xl mb-3"></div>
             <h3 className="text-xl font-semibold text-white mb-2">Live Notifications</h3>
             <p className="text-gray-300 text-sm">
               Instant notifications for system events, user actions, and important updates with auto-dismiss.
@@ -163,7 +163,7 @@ const RealtimeDemo: React.FC = () => {
           </div>
 
           <div className="p-6 bg-gray-800 rounded-lg border border-gray-700">
-            <div className="text-red-400 text-2xl mb-3">📊</div>
+            <div className="text-red-400 text-2xl mb-3"></div>
             <h3 className="text-xl font-semibold text-white mb-2">System Monitoring</h3>
             <p className="text-gray-300 text-sm">
               Real-time system metrics, connection status, and performance monitoring with visual indicators.

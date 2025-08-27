@@ -55,12 +55,12 @@ function createFaviconFiles() {
     // Create SVG favicon
     const svgPath = path.join(publicDir, 'favicon.svg');
     fs.writeFileSync(svgPath, svgContent);
-    console.log('✅ Created favicon.svg');
+    console.log(' Created favicon.svg');
     
     // Create HTML template for PNG generation
     const htmlPath = path.join(publicDir, 'favicon-generator.html');
     fs.writeFileSync(htmlPath, htmlTemplate);
-    console.log('✅ Created favicon-generator.html');
+    console.log(' Created favicon-generator.html');
     
     // Create placeholder PNG files with instructions
     const pngFiles = [
@@ -83,10 +83,10 @@ function createFaviconFiles() {
 # For now, the SVG favicon will be used as fallback`;
         
         fs.writeFileSync(filePath, content);
-        console.log(`✅ Created ${file.name} (placeholder)`);
+        console.log(` Created ${file.name} (placeholder)`);
     });
     
-    console.log('\n📝 Next steps:');
+    console.log('\n Next steps:');
     console.log('1. Open public/favicon-generator.html in a browser');
     console.log('2. Take screenshots and resize to create actual PNG files');
     console.log('3. Replace the placeholder files with actual PNGs');
@@ -97,9 +97,9 @@ function createFaviconFiles() {
 if (require.main === module) {
     try {
         createFaviconFiles();
-        console.log('\n🎉 Favicon generation complete!');
+        console.log('\n Favicon generation complete!');
     } catch (error) {
-        console.error('❌ Error generating favicons:', error.message);
+        console.error(' Error generating favicons:', error.message);
         process.exit(1);
     }
 }

@@ -266,5 +266,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 🔒 Security Audit Results\n\n${report}\n\n*This report was generated automatically by the security audit workflow.*`
+              body: `##  Security Audit Results\n\n${report}\n\n*This report was generated automatically by the security audit workflow.*`
             });

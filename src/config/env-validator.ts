@@ -128,25 +128,25 @@ const enforceEnvironmentValidation = (): void => {
   const validation = validateEnvironment();
   
   // Display results
-  log.info('\n🔍 Environment Variable Validation:');
+  log.info('\n Environment Variable Validation:');
   log.info('=====================================');
   
   if (validation.missingRequired.length > 0) {
-    log.error('\n❌ Missing required environment variables:');
+    log.error('\n Missing required environment variables:');
     validation.missingRequired.forEach(variable => {
       const rule = envValidationRules.find(r => r.name === variable);
       log.error(`   • ${variable}${rule?.description ? ` - ${rule.description}` : ''}`);
     });
-    log.error('\n💡 Please set these variables in your .env file');
+    log.error('\n Please set these variables in your .env file');
     log.error('   Application cannot start without required environment variables.');
-    log.error('\n📝 Example .env file:');
+    log.error('\n Example .env file:');
     log.error('   SITE_TITLE=Your Documentation Site');
     log.error('   SITE_DESCRIPTION=Description of your documentation');
     process.exit(1);
   }
   
   if (validation.missingRecommended.length > 0) {
-    log.warn('\n⚠️  Missing recommended environment variables:');
+    log.warn('\n  Missing recommended environment variables:');
     validation.missingRecommended.forEach(variable => {
       const rule = envValidationRules.find(r => r.name === variable);
       log.warn(`   • ${variable}${rule?.description ? ` - ${rule.description}` : ''}`);
@@ -155,7 +155,7 @@ const enforceEnvironmentValidation = (): void => {
   }
   
   if (validation.invalidValues.length > 0) {
-    log.error('\n❌ Invalid environment variable values:');
+    log.error('\n Invalid environment variable values:');
     validation.invalidValues.forEach(variable => {
       log.error(`   • ${variable} - Value does not meet validation requirements`);
     });
@@ -163,9 +163,9 @@ const enforceEnvironmentValidation = (): void => {
   }
   
   if (validation.isValid) {
-    log.info('✅ All required environment variables are properly configured');
+    log.info(' All required environment variables are properly configured');
     if (validation.missingRecommended.length === 0) {
-      log.info('✅ All recommended environment variables are configured');
+      log.info(' All recommended environment variables are configured');
     }
   }
   

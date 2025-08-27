@@ -17,7 +17,7 @@ const AnalyticsOptInBanner: React.FC = () => {
           {/* Main content */}
           <div className='flex-1'>
             <h3 className='text-white font-semibold text-lg mb-2'>
-              🍪 We use cookies to improve your experience
+               We use cookies to improve your experience
             </h3>
             <p className='text-gray-300 text-sm mb-3'>
               We use cookies to analyze site traffic and optimize your

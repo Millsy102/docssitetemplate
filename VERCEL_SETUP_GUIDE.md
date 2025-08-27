@@ -1,9 +1,9 @@
 # Vercel Deployment Setup Guide
 
-## 🚨 Current Issue
+##  Current Issue
 Your builds are not being sent to Vercel because the required authentication token is missing.
 
-## 🔧 Required Setup
+##  Required Setup
 
 ### 1. Get Your Vercel Token
 
@@ -54,7 +54,7 @@ For better deployment control, also add these secrets:
    - `VERCEL_PROJECT_ID`: Your project ID
    - `VERCEL_ORG_ID`: Your team/org ID
 
-## 🚀 Test the Deployment
+##  Test the Deployment
 
 ### Option 1: Manual Trigger
 1. Go to your repository's "Actions" tab
@@ -66,7 +66,7 @@ For better deployment control, also add these secrets:
 2. Commit and push to the `main` branch
 3. The workflow will automatically trigger
 
-## 📋 What Was Fixed
+##  What Was Fixed
 
 ### 1. Updated `vercel.json`
 - Added `buildCommand`: `npm run build`
@@ -82,7 +82,7 @@ For better deployment control, also add these secrets:
 - `deploy-secret.yml`: Removed path restrictions
 - Added better error handling for missing tokens
 
-## 🔍 Troubleshooting
+##  Troubleshooting
 
 ### If Deployment Still Fails:
 
@@ -100,16 +100,16 @@ For better deployment control, also add these secrets:
    - Make sure your project exists on Vercel
    - Check that the domain is properly configured
 
-## 📞 Support
+##  Support
 
 If you continue having issues:
 1. Check the GitHub Actions logs for specific error messages
 2. Verify your Vercel token has the correct permissions
 3. Ensure your Vercel project is properly set up
 
-## 🎯 Expected Result
+##  Expected Result
 
 After following these steps, you should see:
-- ✅ Successful deployments in GitHub Actions
-- ✅ Your site live at `docssitetemplate.vercel.app`
-- ✅ Automatic deployments on every push to main
+-  Successful deployments in GitHub Actions
+-  Your site live at `docssitetemplate.vercel.app`
+-  Automatic deployments on every push to main
