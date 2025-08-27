@@ -17,9 +17,9 @@ const config = {
   REDIS_URL: process.env.REDIS_URL,
 
   // GitHub OAuth
-  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
-  GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL,
+  GH_CLIENT_ID: process.env.GH_CLIENT_ID,
+  GH_CLIENT_SECRET: process.env.GH_CLIENT_SECRET,
+  GH_CALLBACK_URL: process.env.GH_CALLBACK_URL,
 
   // Email Configuration
   SMTP_HOST: process.env.SMTP_HOST,
@@ -70,7 +70,7 @@ const requiredSecrets = [
   'SESSION_SECRET',
   'DATABASE_URL',
   'REDIS_URL',
-  'GITHUB_CLIENT_SECRET',
+  'GH_CLIENT_SECRET',
   'SMTP_PASS',
   'FTP_PASS',
   'OPENAI_API_KEY'

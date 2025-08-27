@@ -25,8 +25,8 @@ console.log(`REDIS_URL: ${config.REDIS_URL ? '✅ Set' : '❌ Missing'}`);
 
 // Test OAuth
 console.log('\n🔗 OAuth:');
-console.log(`GITHUB_CLIENT_ID: ${config.GITHUB_CLIENT_ID ? '✅ Set' : '❌ Missing'}`);
-console.log(`GITHUB_CLIENT_SECRET: ${config.GITHUB_CLIENT_SECRET ? '✅ Set' : '❌ Missing'}`);
+console.log(`GH_CLIENT_ID: ${config.GH_CLIENT_ID ? '✅ Set' : '❌ Missing'}`);
+console.log(`GH_CLIENT_SECRET: ${config.GH_CLIENT_SECRET ? '✅ Set' : '❌ Missing'}`);
 
 // Test email
 console.log('\n📧 Email:');
