@@ -1,17 +1,6 @@
 # Handle client-side routing
 /*    /index.html   200
 
-# Hidden Admin System Routes
-/login    /login.html   200
-/login/   /login.html   200
-/admin    /admin.html   200
-/admin/*  /admin.html   200
-/secret   /secret/index.html   200
-/secret/* /secret/index.html   200
-
-# Backend API routes (static files for GitHub Pages)
-/backend/*  /backend/index.html   200
-
 # API routes (if any backend functionality is needed)
 /api/*  /api/index.js  200
 
