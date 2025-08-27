@@ -3,12 +3,16 @@
 /**
  * BeamFlow GitHub Pages Deployment Script
  * Deploys both the public documentation site and prepares the secret system
+ * Uses environment variables for all configuration - NO HARDCODED VALUES
  */
 
 const fs = require('fs').promises;
 const fsSync = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+
+// Import environment configuration
+const envConfig = require('./env-config');
 
 // Colors for console output
 const colors = {
@@ -52,10 +56,10 @@ function buildPublicSite() {
     log('Building public documentation site...');
     
     try {
-        // Set environment variables from .env file or use defaults
-        process.env.SITE_TITLE = process.env.SITE_TITLE || 'BeamFlow Documentation';
-        process.env.SITE_DESCRIPTION = process.env.SITE_DESCRIPTION || 'Comprehensive documentation for the BeamFlow Unreal Engine plugin';
-        process.env.SITE_URL = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
+        // Set environment variables from environment manager
+        process.env.SITE_TITLE = envConfig.siteTitle;
+        process.env.SITE_DESCRIPTION = envConfig.siteDescription;
+        process.env.SITE_URL = envConfig.siteUrl;
         process.env.NODE_ENV = 'production';
         
         // Build the site
@@ -103,16 +107,15 @@ function deployToGitHubPages() {
 function createDeploymentSummary() {
     log('Creating deployment summary...');
     
-    // Get admin credentials from environment variables
-    const adminUsername = process.env.ADMIN_USERNAME || 'admin';
-    const adminPassword = process.env.ADMIN_PASSWORD || 'your-secure-admin-password';
-    const siteUrl = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
+    // Get configuration from environment manager (NO HARDCODED VALUES)
+    const siteConfig = envConfig.getSiteConfig();
+    const adminCredentials = envConfig.getAdminCredentials();
     
     const summary = `
 # 🚀 BeamFlow Deployment Summary
 
 ## ✅ Public Documentation Site
-- **URL**: ${siteUrl}
+- **URL**: ${siteConfig.githubPagesUrl}
 - **Status**: Successfully deployed to GitHub Pages
 - **Branch**: gh-pages
 - **Last Deployed**: ${new Date().toISOString()}
@@ -124,10 +127,10 @@ function createDeploymentSummary() {
 - **FTP Server**: Available on configured port
 - **SSH Server**: Available on configured port
 
-## 🔐 Admin Credentials
-- **Username**: ${adminUsername}
-- **Password**: ${adminPassword}
-- **API Key**: ${process.env.ADMIN_API_KEY || 'your-admin-api-key'}
+## 🔐 Admin Credentials (From Environment Variables)
+- **Username**: ${adminCredentials.username}
+- **Password**: [HIDDEN - Set via ADMIN_PASSWORD environment variable]
+- **API Key**: [HIDDEN - Set via ADMIN_API_KEY environment variable]
 
 ## 📦 Deployment Package
 - **Location**: \`full-system-deploy/\`
@@ -141,7 +144,7 @@ function createDeploymentSummary() {
 ## 🔧 Next Steps
 
 ### 1. Verify Public Site
-Visit: ${siteUrl}
+Visit: ${siteConfig.githubPagesUrl}
 
 ### 2. Deploy Secret System (Optional)
 \`\`\`bash
@@ -155,10 +158,11 @@ npm run deploy:vercel
 
 ### 3. Access Admin Panel
 - **URL**: /admin (after secret system deployment)
-- **Username**: ${adminUsername}
-- **Password**: ${adminPassword}
+- **Username**: ${adminCredentials.username}
+- **Password**: Set via ADMIN_PASSWORD environment variable
 
 ## 🛡️ Security Features
+- Environment-based configuration (NO HARDCODED VALUES)
 - IP Whitelisting enabled
 - Session management active
 - Rate limiting configured
@@ -173,6 +177,16 @@ docssitetemplate/
 ├── full-system-deploy/      # Complete deployment package
 └── docs/                    # Documentation source
 \`\`\`
+
+## 🔧 Environment Variables Used
+- **SITE_TITLE**: ${siteConfig.title}
+- **SITE_DESCRIPTION**: ${siteConfig.description}
+- **SITE_URL**: ${siteConfig.url}
+- **ADMIN_USERNAME**: ${adminCredentials.username}
+- **ADMIN_PASSWORD**: [HIDDEN]
+- **ADMIN_API_KEY**: [HIDDEN]
+- **GITHUB_USERNAME**: ${siteConfig.githubUsername}
+- **REPOSITORY_NAME**: ${siteConfig.repositoryName}
 
 ---
 *Deployment completed on ${new Date().toISOString()}*
@@ -190,9 +204,9 @@ function createGitHubPagesConfig() {
     log('Creating GitHub Pages configuration...');
     
     const config = {
-        name: process.env.SITE_TITLE || "BeamFlow Documentation",
+        name: envConfig.siteTitle,
         short_name: "BeamFlow",
-        description: process.env.SITE_DESCRIPTION || "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
+        description: envConfig.siteDescription,
         start_url: "/docssitetemplate/",
         display: "standalone",
         background_color: "#000000",
@@ -223,6 +237,12 @@ async function main() {
     console.log(`${colors.green}🚀 BeamFlow GitHub Pages Deployment${colors.reset}\n`);
     
     try {
+        // Validate environment variables
+        if (!envConfig.validateEnvironment()) {
+            log('Environment validation failed', 'ERROR');
+            process.exit(1);
+        }
+        
         // Check prerequisites
         if (!checkGitStatus()) {
             process.exit(1);
@@ -241,14 +261,15 @@ async function main() {
         // Create deployment summary
         createDeploymentSummary();
         
-        const siteUrl = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
-        const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+        const siteConfig = envConfig.getSiteConfig();
+        const adminCredentials = envConfig.getAdminCredentials();
         
         console.log(`\n${colors.green}🎉 Deployment completed successfully!${colors.reset}`);
-        console.log(`${colors.cyan}Public site:${colors.reset} ${siteUrl}`);
+        console.log(`${colors.cyan}Public site:${colors.reset} ${siteConfig.githubPagesUrl}`);
         console.log(`${colors.yellow}Secret system:${colors.reset} Ready for deployment in full-system-deploy/`);
         console.log(`${colors.magenta}Admin panel:${colors.reset} Available at /admin (after secret system deployment)`);
-        console.log(`${colors.blue}Admin username:${colors.reset} ${adminUsername}`);
+        console.log(`${colors.blue}Admin username:${colors.reset} ${adminCredentials.username}`);
+        console.log(`${colors.green}Environment variables:${colors.reset} All configuration from environment variables`);
         
     } catch (error) {
         log(`Deployment failed: ${error.message}`, 'ERROR');
@@ -264,5 +285,6 @@ if (require.main === module) {
 module.exports = {
     buildPublicSite,
     buildSecretSystem,
-    deployToGitHubPages
+    deployToGitHubPages,
+    envConfig
 };

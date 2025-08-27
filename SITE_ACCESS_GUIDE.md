@@ -12,20 +12,21 @@
 - **API Endpoints**: https://millsy102.github.io/docssitetemplate/api/* (when deployed)
 - **Status**: ✅ Built and ready for deployment
 
-## 🔐 **Admin Credentials (Environment Variables)**
+## 🔐 **Admin Credentials (Environment Variables Only)**
 
-Your admin credentials are now properly configured using environment variables:
+Your admin credentials are configured **ONLY** through environment variables - NO HARDCODED VALUES:
 
 ```env
-ADMIN_USERNAME=millsy102
-ADMIN_PASSWORD=beamflow-secure-admin-password-2024
-ADMIN_API_KEY=beamflow-admin-api-key-2024
+# Set these in your .env file or environment variables
+ADMIN_USERNAME=your-admin-username
+ADMIN_PASSWORD=your-secure-admin-password
+ADMIN_API_KEY=your-admin-api-key
 ```
 
 ### Admin Access Information:
-- **Username**: `millsy102` (from environment variable)
-- **Password**: `beamflow-secure-admin-password-2024` (from environment variable)
-- **API Key**: `beamflow-admin-api-key-2024` (from environment variable)
+- **Username**: Set via `ADMIN_USERNAME` environment variable
+- **Password**: Set via `ADMIN_PASSWORD` environment variable
+- **API Key**: Set via `ADMIN_API_KEY` environment variable
 
 ## ❌ **WRONG URL (What you tried)**
 - **Incorrect**: https://millsy102.github.io/login/
@@ -91,11 +92,11 @@ https://millsy102.github.io/docssitetemplate/
 - **Location**: `_internal/system/` (hidden in GitHub)
 - **Capabilities**: Complete backend system
 - **Features**: Admin panel, FTP/SSH servers, plugin system
-- **Access**: Restricted with authentication using your admin credentials
+- **Access**: Restricted with authentication using environment variables
 
 ## 🔧 **Environment Variables Configuration**
 
-The system now properly uses environment variables instead of hardcoded values:
+The system uses **ONLY** environment variables - no hardcoded values anywhere:
 
 ```env
 # Site Configuration
@@ -103,32 +104,73 @@ SITE_TITLE=BeamFlow Documentation
 SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin
 SITE_URL=https://millsy102.github.io/docssitetemplate
 
-# Admin Authentication
-ADMIN_USERNAME=millsy102
-ADMIN_PASSWORD=beamflow-secure-admin-password-2024
-ADMIN_API_KEY=beamflow-admin-api-key-2024
+# Admin Authentication (REQUIRED - NO DEFAULTS)
+ADMIN_USERNAME=your-admin-username
+ADMIN_PASSWORD=your-secure-admin-password
+ADMIN_API_KEY=your-admin-api-key
 
 # GitHub Configuration
+GITHUB_USERNAME=millsy102
 REPOSITORY_NAME=docssitetemplate
 GH_PAGES_BRANCH=gh-pages
+
+# Security Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+BCRYPT_ROUNDS=12
 ```
+
+## 🔐 **How to Set Your Admin Credentials**
+
+### Option 1: Environment Variables (Recommended)
+```bash
+# Set these in your system environment
+export ADMIN_USERNAME=your-chosen-username
+export ADMIN_PASSWORD=your-secure-password
+export ADMIN_API_KEY=your-api-key
+```
+
+### Option 2: .env File
+```bash
+# Create or edit .env file
+echo "ADMIN_USERNAME=your-chosen-username" >> .env
+echo "ADMIN_PASSWORD=your-secure-password" >> .env
+echo "ADMIN_API_KEY=your-api-key" >> .env
+```
+
+### Option 3: GitHub Secrets (For Production)
+1. Go to your GitHub repository
+2. Settings → Secrets and variables → Actions
+3. Add repository secrets:
+   - `ADMIN_USERNAME`
+   - `ADMIN_PASSWORD`
+   - `ADMIN_API_KEY`
 
 ## 🔐 **Next Steps**
 
 1. **Visit the correct URL**: https://millsy102.github.io/docssitetemplate/
 2. **Verify the site loads**: You should see the BeamFlow documentation
-3. **Deploy secret system** (optional): Use Vercel or other platforms
-4. **Access admin panel**: Use your configured admin credentials
+3. **Set your admin credentials**: Use environment variables
+4. **Deploy secret system** (optional): Use Vercel or other platforms
+5. **Access admin panel**: Use your configured admin credentials
 
 ## 🛡️ **Security Features**
 
-- **Environment-based configuration**: No hardcoded credentials
+- **Environment-based configuration**: NO HARDCODED VALUES ANYWHERE
+- **Dynamic credential loading**: All admin credentials from environment variables
 - **IP Whitelisting**: Restrict access by IP address
 - **Session Management**: Secure session handling
 - **Audit Logging**: Complete system audit trail
 - **Rate Limiting**: Protection against abuse
 - **Encryption**: Data encryption at rest and in transit
 
+## 🔧 **Environment Manager**
+
+The system includes a dedicated environment manager (`scripts/env-config.js`) that:
+- Loads all configuration from environment variables
+- Validates required variables
+- Provides secure access to credentials
+- Never exposes sensitive data in logs or documentation
+
 ---
 
-**Remember**: The beauty of your hidden site is that it appears as a completely legitimate documentation site to the public, while containing a sophisticated backend system with full admin capabilities! Your admin credentials are now properly configured using environment variables for enhanced security. 🚀
+**Remember**: The beauty of your hidden site is that it appears as a completely legitimate documentation site to the public, while containing a sophisticated backend system with full admin capabilities! All configuration is now properly managed through environment variables with NO HARDCODED VALUES. 🚀

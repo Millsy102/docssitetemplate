@@ -1,29 +1,32 @@
-// Site Configuration
+// Site Configuration - Using Environment Variables
+const envConfig = require('./scripts/env-config');
+
+// Site Configuration object - dynamically generated from environment variables
 const siteConfig = {
-  // Site metadata
-  title: process.env.SITE_TITLE || "BeamFlow Documentation",
-  description: process.env.SITE_DESCRIPTION || "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
-  author: process.env.SITE_AUTHOR || "BeamFlow Team",
+  // Site metadata - from environment variables
+  title: envConfig.siteTitle,
+  description: envConfig.siteDescription,
+  author: envConfig.siteAuthor,
   
-  // URLs and paths
-  baseUrl: process.env.SITE_URL || "https://millsy102.github.io/docssitetemplate/",
+  // URLs and paths - from environment variables
+  baseUrl: envConfig.siteUrl,
   
-  // GitHub configuration
-  githubUsername: process.env.GITHUB_USERNAME || "Millsy102",
-  repositoryName: process.env.REPOSITORY_NAME || "docssitetemplate",
+  // GitHub configuration - from environment variables
+  githubUsername: envConfig.githubUsername,
+  repositoryName: envConfig.repositoryName,
   twitterHandle: process.env.TWITTER_HANDLE || "@Millsy102",
   
-  // Authentication - Using environment variables
+  // Authentication - from environment variables
   auth: {
     clientId: process.env.GH_CLIENT_ID || "",
-    callbackUrl: process.env.SITE_URL ? `${process.env.SITE_URL}auth/callback` : "https://millsy102.github.io/docssitetemplate/auth/callback",
+    callbackUrl: `${envConfig.siteUrl}/auth/callback`,
   },
   
-  // Admin credentials - Using environment variables
+  // Admin credentials - from environment variables (NO HARDCODED VALUES)
   admin: {
-    username: process.env.ADMIN_USERNAME || "admin",
-    password: process.env.ADMIN_PASSWORD || "your-secure-admin-password",
-    apiKey: process.env.ADMIN_API_KEY || "your-admin-api-key",
+    username: envConfig.adminUsername,
+    password: envConfig.adminPassword,
+    apiKey: envConfig.adminApiKey,
   },
   
   // Social Media
@@ -32,7 +35,7 @@ const siteConfig = {
       creator: process.env.TWITTER_HANDLE || "@Millsy102",
       site: process.env.TWITTER_HANDLE || "@Millsy102"
     },
-    github: process.env.GITHUB_URL || "https://github.com/Millsy102"
+    github: process.env.GITHUB_URL || `https://github.com/${envConfig.githubUsername}`
   },
   
   // Theme Configuration
@@ -61,24 +64,34 @@ function getFullUrl(path = '') {
 
 // Helper function to get the GitHub Pages URL
 function getGitHubPagesUrl() {
-  return `https://${siteConfig.githubUsername}.github.io/${siteConfig.repositoryName}/`;
+  return envConfig.githubPagesUrl;
 }
 
-// Helper function to get admin credentials
+// Helper function to get admin credentials (from environment variables)
 function getAdminCredentials() {
-  return {
-    username: siteConfig.admin.username,
-    password: siteConfig.admin.password,
-    apiKey: siteConfig.admin.apiKey
-  };
+  return envConfig.getAdminCredentials();
+}
+
+// Helper function to get site configuration (from environment variables)
+function getSiteConfig() {
+  return envConfig.getSiteConfig();
 }
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { siteConfig, getFullUrl, getGitHubPagesUrl, getAdminCredentials };
+  module.exports = { 
+    siteConfig, 
+    getFullUrl, 
+    getGitHubPagesUrl, 
+    getAdminCredentials,
+    getSiteConfig,
+    envConfig 
+  };
 } else if (typeof window !== 'undefined') {
   window.siteConfig = siteConfig;
   window.getFullUrl = getFullUrl;
   window.getGitHubPagesUrl = getGitHubPagesUrl;
   window.getAdminCredentials = getAdminCredentials;
+  window.getSiteConfig = getSiteConfig;
+  window.envConfig = envConfig;
 }
