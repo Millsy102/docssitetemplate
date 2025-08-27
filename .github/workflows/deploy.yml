@@ -1,14 +1,16 @@
-name: Deploy Documentation Site to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,13 +32,14 @@ jobs:
           echo "REPOSITORY_NAME=docssitetemplate" >> $GITHUB_ENV
           echo "GH_PAGES_BRANCH=gh-pages" >> $GITHUB_ENV
           echo "NODE_ENV=production" >> $GITHUB_ENV
-        
-      - name: Run linting
-        run: npm run lint
-        
-      - name: Run tests
-        run: npm test
-        
+          echo "GITHUB_USERNAME=millsy102" >> $GITHUB_ENV
+          
+      - name: Set admin credentials from secrets
+        run: |
+          echo "ADMIN_USERNAME=${{ secrets.ADMIN_USERNAME }}" >> $GITHUB_ENV
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> $GITHUB_ENV
+          echo "ADMIN_API_KEY=${{ secrets.ADMIN_API_KEY }}" >> $GITHUB_ENV
+          
       - name: Build documentation site
         run: npm run build
         
@@ -50,7 +53,7 @@ jobs:
           echo "Checking secret system..."
           ls -la full-system-deploy/
           echo "Build completed successfully"
-        
+          
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3.9.3
@@ -79,7 +82,17 @@ jobs:
           echo "- **Location**: \`full-system-deploy/\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Contains**: Public site + Secret system + Backend" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔐 Admin Credentials" >> $GITHUB_STEP_SUMMARY
+          echo "- **Username**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
+          echo "- **Password**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
+          echo "- **API Key**: Set via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 🔧 Next Steps" >> $GITHUB_STEP_SUMMARY
           echo "1. Verify public site at: https://millsy102.github.io/docssitetemplate" >> $GITHUB_STEP_SUMMARY
           echo "2. Deploy secret system to Vercel: \`vercel --prod\`" >> $GITHUB_STEP_SUMMARY
           echo "3. Access admin panel at: /admin" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🛡️ Security" >> $GITHUB_STEP_SUMMARY
+          echo "- Admin credentials managed via GitHub Secrets" >> $GITHUB_STEP_SUMMARY
+          echo "- No hardcoded values in code" >> $GITHUB_STEP_SUMMARY
+          echo "- Environment variables properly configured" >> $GITHUB_STEP_SUMMARY

@@ -4,6 +4,7 @@
  * Environment Configuration Manager
  * Dynamically reads configuration from environment variables
  * No hardcoded values - everything comes from environment
+ * Supports GitHub Actions environment variables and secrets
  */
 
 const fs = require('fs').promises;
@@ -15,7 +16,7 @@ class EnvironmentConfig {
     }
 
     loadEnvironmentVariables() {
-        // Load from .env file if it exists
+        // Load from .env file if it exists (for local development)
         try {
             const dotenv = require('dotenv');
             dotenv.config();
@@ -42,6 +43,7 @@ class EnvironmentConfig {
     }
 
     // Admin Configuration - NO HARDCODED VALUES
+    // These should be set via GitHub Secrets in production
     get adminUsername() {
         return process.env.ADMIN_USERNAME || 'admin';
     }
@@ -107,6 +109,16 @@ class EnvironmentConfig {
         };
     }
 
+    // Check if we're running in GitHub Actions
+    isGitHubActions() {
+        return process.env.GITHUB_ACTIONS === 'true';
+    }
+
+    // Check if we're in production environment
+    isProduction() {
+        return process.env.NODE_ENV === 'production' || this.isGitHubActions();
+    }
+
     // Validate that required environment variables are set
     validateEnvironment() {
         const required = [
@@ -119,7 +131,14 @@ class EnvironmentConfig {
         
         if (missing.length > 0) {
             console.warn('⚠️  Missing environment variables:', missing.join(', '));
-            console.warn('💡 Please set these in your .env file or environment');
+            
+            if (this.isProduction()) {
+                console.warn('💡 In production, set these as GitHub Secrets:');
+                console.warn('   Go to: Repository Settings → Secrets and variables → Actions');
+                console.warn('   Add repository secrets: ADMIN_USERNAME, ADMIN_PASSWORD, ADMIN_API_KEY');
+            } else {
+                console.warn('💡 For local development, set these in your .env file');
+            }
             return false;
         }
 
@@ -129,6 +148,11 @@ class EnvironmentConfig {
     // Generate configuration summary (without exposing sensitive data)
     getConfigSummary() {
         return {
+            environment: {
+                isProduction: this.isProduction(),
+                isGitHubActions: this.isGitHubActions(),
+                nodeEnv: process.env.NODE_ENV || 'development'
+            },
             site: this.getSiteConfig(),
             admin: {
                 username: this.adminUsername,
@@ -163,6 +187,48 @@ class EnvironmentConfig {
             }
         };
     }
+
+    // Get instructions for setting up environment variables
+    getSetupInstructions() {
+        if (this.isProduction()) {
+            return `
+🔧 GitHub Secrets Setup Instructions:
+====================================
+
+1. Go to your GitHub repository: https://github.com/Millsy102/docssitetemplate
+2. Click "Settings" tab
+3. Click "Secrets and variables" → "Actions"
+4. Click "New repository secret"
+5. Add these secrets:
+
+   ADMIN_USERNAME=your-admin-username
+   ADMIN_PASSWORD=your-secure-admin-password
+   ADMIN_API_KEY=your-admin-api-key
+
+6. Click "Add secret" for each one
+7. These will be available in GitHub Actions as environment variables
+
+💡 Security Note: GitHub Secrets are encrypted and never exposed in logs
+            `;
+        } else {
+            return `
+🔧 Local Environment Setup Instructions:
+=======================================
+
+1. Create or edit .env file in your project root
+2. Add these variables:
+
+   ADMIN_USERNAME=your-admin-username
+   ADMIN_PASSWORD=your-secure-admin-password
+   ADMIN_API_KEY=your-admin-api-key
+
+3. Save the file
+4. Restart your development server
+
+💡 Security Note: Never commit .env files to version control
+            `;
+        }
+    }
 }
 
 // Create singleton instance
@@ -178,6 +244,9 @@ if (require.main === module) {
     console.log(JSON.stringify(envConfig.getConfigSummary(), null, 2));
     
     if (!envConfig.validateEnvironment()) {
+        console.log('\n' + envConfig.getSetupInstructions());
         process.exit(1);
+    } else {
+        console.log('\n✅ Environment validation passed!');
     }
 }
