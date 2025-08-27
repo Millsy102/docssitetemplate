@@ -65,6 +65,7 @@ const config = {
 
 // Validate required secrets
 const requiredSecrets = [
+  'ADMIN_USERNAME',
   'ADMIN_PASSWORD',
   'JWT_SECRET',
   'SESSION_SECRET',
