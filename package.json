@@ -1,0 +1,26 @@
+{
+  "name": "docssitetemplate-façade",
+  "version": "1.0.0",
+  "description": "Public documentation façade - private app lives in ~/millsy-admin",
+  "private": true,
+  "scripts": {
+    "docs:dev": "mkdocs serve",
+    "docs:build": "mkdocs build",
+    "docs:deploy": "mkdocs gh-deploy",
+    "validate": "npm run validate-links",
+    "validate-links": "node scripts/validate-links.js"
+  },
+  "keywords": [
+    "documentation",
+    "façade",
+    "template"
+  ],
+  "author": "Private Development",
+  "license": "MIT",
+  "devDependencies": {
+    "broken-link-checker": "^0.7.8",
+    "markdownlint-cli": "^0.37.0",
+    "mkdocs": "^1.5.3",
+    "mkdocs-material": "^9.4.8"
+  }
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Loader Demo - Improved Version</title>
+    <link rel="stylesheet" href="../src/styles/BeamLoader.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 2rem;
+        }
+        
+        .demo-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 20px rgba(74, 158, 255, 0.5);
+        }
+        
+        .demo-title h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(45deg, #4a9eff, #7bb9ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .demo-title p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        .loader-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .example {
+            text-align: center;
+        }
+        
+        .example-label {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .custom-text-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(74, 158, 255, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: white;
+            font-size: 1rem;
+            margin: 1rem 0;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-text-input:focus {
+            border-color: #4a9eff;
+            box-shadow: 0 0 10px rgba(74, 158, 255, 0.3);
+        }
+        
+        .custom-text-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .control-btn {
+            background: linear-gradient(45deg, #4a9eff, #7bb9ff);
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 158, 255, 0.3);
+        }
+        
+        .control-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-title">
+            <h1>Beam Loader</h1>
+            <p>Improved version with enhanced text styling and animations</p>
+        </div>
+        
+        <div class="loader-examples">
+            <!-- Default Loader -->
+            <div class="example">
+                <div class="example-label">Default Loader</div>
+                <div class="beam-loader-container">
+                    <div class="beam-loader">
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__text">Loading...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Text Loader -->
+            <div class="example">
+                <div class="example-label">Custom Text Loader</div>
+                <input type="text" class="custom-text-input" id="customText" placeholder="Enter custom text..." value="Processing...">
+                <div class="controls">
+                    <button class="control-btn" onclick="updateText()">Update Text</button>
+                    <button class="control-btn" onclick="resetText()">Reset</button>
+                </div>
+                <div class="beam-loader-container">
+                    <div class="beam-loader">
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__text" id="customLoaderText">Processing...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Different Text Examples -->
+            <div class="example">
+                <div class="example-label">Text Variations</div>
+                <div class="controls">
+                    <button class="control-btn" onclick="changeText('Initializing...')">Initializing</button>
+                    <button class="control-btn" onclick="changeText('Connecting...')">Connecting</button>
+                    <button class="control-btn" onclick="changeText('Syncing...')">Syncing</button>
+                    <button class="control-btn" onclick="changeText('Beam Ready!')">Ready</button>
+                </div>
+                <div class="beam-loader-container">
+                    <div class="beam-loader">
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__dot"></div>
+                        <div class="beam-loader__text" id="variationText">Initializing...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateText() {
+            const input = document.getElementById('customText');
+            const textElement = document.getElementById('customLoaderText');
+            textElement.textContent = input.value || 'Loading...';
+        }
+        
+        function resetText() {
+            document.getElementById('customText').value = 'Processing...';
+            document.getElementById('customLoaderText').textContent = 'Processing...';
+        }
+        
+        function changeText(text) {
+            document.getElementById('variationText').textContent = text;
+        }
+        
+        // Auto-update custom text on Enter key
+        document.getElementById('customText').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                updateText();
+            }
+        });
+    </script>
+</body>
+</html>

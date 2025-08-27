@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Navigation Selector - Standalone Demo</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .demo-title {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .demo-description {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Beam Navigation Selector Component Styles */
+        .beam-navigation-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: all 450ms ease-in-out;
+            width: auto;
+        }
+
+        .beam-navigation-container {
+            border: 1px solid #374151;
+            width: 100%;
+            transition: ease-in-out duration-500;
+            left: 0;
+            border-radius: 1rem;
+            display: flex;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+            background-color: white;
+        }
+
+        .beam-navigation-item {
+            position: relative;
+            width: 100%;
+            height: 4rem;
+            padding: 1rem;
+            transition: ease-in-out duration-300;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: row;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            background-color: transparent;
+            transition: all 300ms ease-in-out;
+        }
+
+        .beam-navigation-item:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .beam-navigation-item.selected {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .beam-navigation-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .beam-navigation-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 300ms ease-in-out;
+            color: #6b7280;
+            fill: #6b7280;
+        }
+
+        .beam-navigation-item:hover .beam-navigation-icon {
+            transform: scale(1.25);
+            color: #3b82f6;
+            fill: #3b82f6;
+        }
+
+        .beam-navigation-item.selected .beam-navigation-icon {
+            transform: scale(1.25);
+            color: #3b82f6;
+            fill: #3b82f6;
+        }
+
+        .beam-navigation-label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #374151;
+            transition: color 300ms ease-in-out;
+        }
+
+        .beam-navigation-item:hover .beam-navigation-label {
+            color: #3b82f6;
+        }
+
+        .beam-navigation-item.selected .beam-navigation-label {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        /* Status display */
+        .status-display {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .status-text {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .beam-navigation-container {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .beam-navigation-item {
+                width: 100%;
+                height: 3.5rem;
+            }
+            
+            .beam-navigation-label {
+                font-size: 0.8rem;
+            }
+
+            .demo-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Animation for smooth transitions */
+        @keyframes beamNavigationFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .beam-navigation-selector {
+            animation: beamNavigationFadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1 class="demo-title">Beam Navigation Selector</h1>
+        <p class="demo-description">A modern, accessible navigation selector component with smooth animations</p>
+        
+        <div class="beam-navigation-selector">
+            <article class="beam-navigation-container">
+                <label class="beam-navigation-item" for="dashboard">
+                    <input id="dashboard" name="path" type="radio" class="beam-navigation-input" checked>
+                    <span class="beam-navigation-icon">
+                        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path>
+                        </svg>
+                    </span>
+                    <span class="beam-navigation-label">Dashboard</span>
+                </label>
+                
+                <label class="beam-navigation-item" for="profile">
+                    <input id="profile" name="path" type="radio" class="beam-navigation-input">
+                    <span class="beam-navigation-icon">
+                        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                        </svg>
+                    </span>
+                    <span class="beam-navigation-label">Profile</span>
+                </label>
+                
+                <label class="beam-navigation-item" for="messages">
+                    <input id="messages" name="path" type="radio" class="beam-navigation-input">
+                    <span class="beam-navigation-icon">
+                        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"></path>
+                            <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"></path>
+                        </svg>
+                    </span>
+                    <span class="beam-navigation-label">Messages</span>
+                </label>
+                
+                <label class="beam-navigation-item" for="help">
+                    <input id="help" name="path" type="radio" class="beam-navigation-input">
+                    <span class="beam-navigation-icon">
+                        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.953 2C6.465 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.493 2 11.953 2zM12 20c-4.411 0-8-3.589-8-8s3.567-8 7.953-8C16.391 4 20 7.589 20 12s-3.589 8-8 8z"></path>
+                            <path d="M11 7h2v7h-2zm0 8h2v2h-2z"></path>
+                        </svg>
+                    </span>
+                    <span class="beam-navigation-label">Help</span>
+                </label>
+                
+                <label class="beam-navigation-item" for="settings">
+                    <input id="settings" name="path" type="radio" class="beam-navigation-input">
+                    <span class="beam-navigation-icon">
+                        <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z"></path>
+                            <path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z"></path>
+                        </svg>
+                    </span>
+                    <span class="beam-navigation-label">Settings</span>
+                </label>
+            </article>
+        </div>
+
+        <div class="status-display">
+            <p class="status-text">Selected: <span id="selected-status">dashboard</span></p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the navigation selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioInputs = document.querySelectorAll('.beam-navigation-input');
+            const statusElement = document.getElementById('selected-status');
+            const navigationItems = document.querySelectorAll('.beam-navigation-item');
+
+            // Set initial selected state
+            const initialSelected = document.querySelector('.beam-navigation-input:checked');
+            if (initialSelected) {
+                const selectedItem = initialSelected.closest('.beam-navigation-item');
+                selectedItem.classList.add('selected');
+            }
+
+            // Handle radio button changes
+            radioInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // Remove selected class from all items
+                    navigationItems.forEach(item => {
+                        item.classList.remove('selected');
+                    });
+
+                    // Add selected class to current item
+                    const selectedItem = this.closest('.beam-navigation-item');
+                    selectedItem.classList.add('selected');
+
+                    // Update status display
+                    statusElement.textContent = this.id;
+
+                    // Log the selection change
+                    console.log('Navigation changed to:', this.id);
+                });
+            });
+
+            // Add hover effects for better UX
+            navigationItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('selected')) {
+                        this.style.transform = 'translateY(-1px)';
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('selected')) {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

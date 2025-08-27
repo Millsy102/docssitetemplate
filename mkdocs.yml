@@ -1,0 +1,143 @@
+site_name: BeamFlow Documentation
+site_description: Enterprise-grade data processing and analytics platform
+site_author: BeamFlow Team
+site_url: https://beamflow.com
+
+repo_name: beam/beamflow-docs
+repo_url: https://github.com/beam/beamflow-docs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.delay
+    - navigation.instant.loading
+    - navigation.instant.prefetch
+    - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  # - git-committers:
+  #     repository: beam/beamflow-docs
+  # - social
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/beam/beamflow
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/beamflow
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/company/beamflow
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: getting-started.md
+    - Installation: installation.md
+    - User Guide: user-guide.md
+  - API Reference:
+    - Overview: api-reference.md
+  - Guides:
+    - Deployment: deployment.md
+    - Security: security.md
+    - Performance: performance.md
+    - Architecture: architecture.md
+    - Examples: examples.md
+    - Troubleshooting: troubleshooting.md
+  - Development:
+    - Contributing: contributing.md
+    - Plugin Development: PLUGIN-DEVELOPMENT.md
+    - Component System: component-system-overview.md
+    - Visual Design: visual-design-system.md
+  - Features:
+    - AI Chat: ai-chat-feature.md
+    - Search Bar: search-bar-implementation.md
+  - Community:
+    - Code of Conduct: code-of-conduct.md
+    - FAQ: faq.md
+    - Changelog: changelog.md

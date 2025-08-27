@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Documentation Site Template</title>
+    <meta name="description" content="Learn the basics and get up and running quickly with our comprehensive getting started guide">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="/" class="brand-link">
+                        <span class="brand-icon">📚</span>
+                        <span class="brand-text">Docs Template</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="/docs/getting-started" class="nav-link">Getting Started</a>
+                    <a href="/docs/tutorials" class="nav-link">Tutorials</a>
+                    <a href="/docs/api" class="nav-link">API Reference</a>
+                    <a href="/docs/examples" class="nav-link">Examples</a>
+                    <a href="/docs/faq" class="nav-link">FAQ</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="search-toggle" aria-label="Search">
+                        <span class="search-icon">🔍</span>
+                    </button>
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="site-main">
+        <div class="content-section">
+            <div class="container">
+                <div class="content-grid">
+                    <aside class="sidebar">
+                        <nav class="docs-nav">
+                            <h3 class="nav-title">Documentation</h3>
+                            <ul class="nav-list">
+                                <li><a href="/docs/getting-started" class="nav-item">Getting Started</a></li>
+                                <li><a href="/docs/installation" class="nav-item">Installation</a></li>
+                                <li><a href="/docs/configuration" class="nav-item">Configuration</a></li>
+                                <li><a href="/docs/basic-concepts" class="nav-item">Basic Concepts</a></li>
+                                <li><a href="/docs/advanced-topics" class="nav-item">Advanced Topics</a></li>
+                                <li><a href="/docs/troubleshooting" class="nav-item">Troubleshooting</a></li>
+                            </ul>
+                            
+                            <h3 class="nav-title">Tutorials</h3>
+                            <ul class="nav-list">
+                                <li><a href="/docs/tutorials/first-project" class="nav-item">Your First Project</a></li>
+                                <li><a href="/docs/tutorials/building-blocks" class="nav-item">Building Blocks</a></li>
+                                <li><a href="/docs/tutorials/data-handling" class="nav-item">Data Handling</a></li>
+                                <li><a href="/docs/tutorials/user-interface" class="nav-item">User Interface</a></li>
+                                <li><a href="/docs/tutorials/testing" class="nav-item">Testing</a></li>
+                                <li><a href="/docs/tutorials/deployment" class="nav-item">Deployment</a></li>
+                            </ul>
+                            
+                            <h3 class="nav-title">API Reference</h3>
+                            <ul class="nav-list">
+                                <li><a href="/docs/api/core" class="nav-item">Core API</a></li>
+                                <li><a href="/docs/api/utilities" class="nav-item">Utilities</a></li>
+                                <li><a href="/docs/api/plugins" class="nav-item">Plugins</a></li>
+                                <li><a href="/docs/api/events" class="nav-item">Events</a></li>
+                            </ul>
+                        </nav>
+                    </aside>
+                    
+                    <div class="main-content">
+                        <article class="content-article">
+                            <nav class="breadcrumbs">
+                                <span class="breadcrumb-item">
+                                    <a href="/" class="breadcrumb-link">Home</a>
+                                    <span class="breadcrumb-separator">/</span>
+                                </span>
+                                <span class="breadcrumb-item">
+                                    <a href="/docs" class="breadcrumb-link">Documentation</a>
+                                    <span class="breadcrumb-separator">/</span>
+                                </span>
+                                <span class="breadcrumb-item">
+                                    <span class="breadcrumb-current">Getting Started</span>
+                                </span>
+                            </nav>
+
+                            <h1>Getting Started with Web Development</h1>
+                            <p class="lead">Welcome to the comprehensive guide for beginners who want to learn web development from scratch. This guide will walk you through the essential concepts and tools you need to build modern websites and applications.</p>
+                            
+                            <div class="toc">
+                                <h3 class="toc-title">Table of Contents</h3>
+                                <ul class="toc-list">
+                                    <!-- Will be populated by JavaScript -->
+                                </ul>
+                            </div>
+
+                            <h2>What is Web Development?</h2>
+                            <p>Web development is the process of creating websites and web applications that run on the internet. It involves writing code that browsers can understand and execute to display content, handle user interactions, and process data.</p>
+                            
+                            <p>Modern web development typically involves three main technologies:</p>
+                            <ul>
+                                <li><strong>HTML (HyperText Markup Language):</strong> The structure and content of web pages</li>
+                                <li><strong>CSS (Cascading Style Sheets):</strong> The styling and visual presentation</li>
+                                <li><strong>JavaScript:</strong> The programming language that adds interactivity and functionality</li>
+                            </ul>
+
+                            <h2>Prerequisites</h2>
+                            <p>Before you begin your web development journey, make sure you have the following:</p>
+                            
+                            <h3>Essential Tools</h3>
+                            <ul>
+                                <li>A modern web browser (Chrome, Firefox, Safari, or Edge)</li>
+                                <li>A text editor or integrated development environment (IDE)</li>
+                                <li>Basic computer literacy and file management skills</li>
+                            </ul>
+
+                            <h3>Recommended Tools</h3>
+                            <ul>
+                                <li>Visual Studio Code (free, powerful text editor)</li>
+                                <li>Git for version control</li>
+                                <li>Node.js for running JavaScript outside the browser</li>
+                                <li>A local development server</li>
+                            </ul>
+
+                            <div class="callout callout-info">
+                                <h3>💡 Pro Tip</h3>
+                                <p>Don't worry if you don't have all the recommended tools yet. You can start with just a browser and a text editor, and add more tools as you progress.</p>
+                            </div>
+
+                            <h2>Your First Web Page</h2>
+                            <p>Let's create your very first web page. This simple example will introduce you to the basic structure of HTML documents.</p>
+
+                            <h3>Step 1: Create the HTML File</h3>
+                            <p>Open your text editor and create a new file called <code>index.html</code>. Add the following code:</p>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is my first web page. I'm learning web development!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <h3>Step 2: Save and Open</h3>
+                            <p>Save the file and double-click it to open it in your web browser. You should see your first web page with a heading and a paragraph!</p>
+
+                            <h2>Understanding the Code</h2>
+                            <p>Let's break down what each part of the HTML code does:</p>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Element</th>
+                                        <th>Purpose</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                                        <td>Document Type Declaration</td>
+                                        <td>Tells the browser this is an HTML5 document</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;html&gt;</code></td>
+                                        <td>Root Element</td>
+                                        <td>The container for all HTML content</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;head&gt;</code></td>
+                                        <td>Document Head</td>
+                                        <td>Contains metadata about the document</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;body&gt;</code></td>
+                                        <td>Document Body</td>
+                                        <td>Contains the visible content of the page</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;h1&gt;</code></td>
+                                        <td>Heading</td>
+                                        <td>Main heading of the page</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>&lt;p&gt;</code></td>
+                                        <td>Paragraph</td>
+                                        <td>Text content</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>Adding Some Style</h2>
+                            <p>Now let's make your web page look better by adding some CSS styling. Create a new file called <code>styles.css</code> in the same folder:</p>
+
+                            <pre><code class="language-css">body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}</code></pre>
+
+                            <p>Now update your HTML file to include the CSS:</p>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;Hello, World!&lt;/h1&gt;
+        &lt;p&gt;This is my first web page. I'm learning web development!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <h2>Adding Interactivity with JavaScript</h2>
+                            <p>Let's add some basic interactivity to your page. Create a file called <code>script.js</code>:</p>
+
+                            <pre><code class="language-javascript">// Wait for the page to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the heading element
+    const heading = document.querySelector('h1');
+    
+    // Add a click event listener
+    heading.addEventListener('click', function() {
+        // Change the text when clicked
+        this.textContent = 'Hello, Interactive World!';
+        
+        // Add some visual feedback
+        this.style.color = '#007bff';
+        this.style.transform = 'scale(1.1)';
+        
+        // Reset after 1 second
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+        }, 1000);
+    });
+    
+    // Add a button to the page
+    const button = document.createElement('button');
+    button.textContent = 'Click me!';
+    button.style.cssText = `
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    `;
+    
+    button.addEventListener('click', function() {
+        alert('Great job! You\'re learning JavaScript!');
+    });
+    
+    // Add the button to the page
+    document.querySelector('.container').appendChild(button);
+});</code></pre>
+
+                            <p>Update your HTML to include the JavaScript:</p>
+
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;Hello, World!&lt;/h1&gt;
+        &lt;p&gt;This is my first web page. I'm learning web development!&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                            <div class="callout callout-warning">
+                                <h3>⚠️ Important Note</h3>
+                                <p>This is a basic example to get you started. In real-world development, you'll use more sophisticated tools and frameworks, but understanding these fundamentals is crucial.</p>
+                            </div>
+
+                            <h2>Next Steps</h2>
+                            <p>Congratulations! You've created your first interactive web page. Here's what you should learn next:</p>
+
+                            <ol>
+                                <li><strong>HTML Fundamentals:</strong> Learn more HTML elements and semantic markup</li>
+                                <li><strong>CSS Layout:</strong> Master Flexbox and Grid for modern layouts</li>
+                                <li><strong>JavaScript Basics:</strong> Variables, functions, and DOM manipulation</li>
+                                <li><strong>Responsive Design:</strong> Make your websites work on all devices</li>
+                                <li><strong>Version Control:</strong> Learn Git to track your code changes</li>
+                            </ol>
+
+                            <h2>Resources for Learning</h2>
+                            <p>Here are some excellent resources to continue your learning journey:</p>
+
+                            <ul>
+                                <li><a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank">MDN Web Docs</a> - Comprehensive web development documentation</li>
+                                <li><a href="https://www.w3schools.com/" target="_blank">W3Schools</a> - Interactive tutorials and examples</li>
+                                <li><a href="https://www.freecodecamp.org/" target="_blank">freeCodeCamp</a> - Free coding curriculum</li>
+                                <li><a href="https://css-tricks.com/" target="_blank">CSS-Tricks</a> - CSS tips and tricks</li>
+                                <li><a href="https://javascript.info/" target="_blank">JavaScript.info</a> - Modern JavaScript tutorial</li>
+                            </ul>
+
+                            <div class="callout callout-success">
+                                <h3>🎉 You're Ready!</h3>
+                                <p>You now have the foundation to start building real web projects. Remember, the best way to learn is by doing - start building small projects and gradually increase their complexity.</p>
+                            </div>
+
+                            <div class="page-nav">
+                                <a href="/docs/installation" class="page-nav-link next">
+                                    <span>Installation Guide</span>
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Documentation</h3>
+                    <ul>
+                        <li><a href="/docs/getting-started">Getting Started</a></li>
+                        <li><a href="/docs/tutorials">Tutorials</a></li>
+                        <li><a href="/docs/api">API Reference</a></li>
+                        <li><a href="/docs/examples">Examples</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/docs/faq">FAQ</a></li>
+                        <li><a href="/docs/troubleshooting">Troubleshooting</a></li>
+                        <li><a href="/docs/contributing">Contributing</a></li>
+                        <li><a href="/docs/changelog">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">Discussions</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Documentation Template. All content is placeholder and for demonstration purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden admin login link -->
+    <div class="admin-login" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        <a href="/private/admin" class="admin-link" style="display: none;">Admin</a>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/docs.js"></script>
+</body>
+</html>
