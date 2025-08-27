@@ -271,3 +271,130 @@ credentials/
 *.key
 *.pem
 *.p12
+
+# =============================================================================
+# DOCS FAÇADE PATTERN - PRIVATE CONTENT PROTECTION
+# =============================================================================
+
+# NEVER commit private or admin content to public repo
+_admin/
+local/
+private/
+dist/
+node_modules/
+.env
+*.log
+
+# Private application code (lives in personal folder ~/millsy-admin)
+private-app/
+private-src/
+private-dist/
+
+# Admin tools and scripts (personal folder only)
+admin-scripts/
+admin-tools/
+personal-tools/
+
+# Sensitive configuration
+secrets/
+*.secret
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Local development overrides
+local/
+.local/
+localhost/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+database/
+
+# Session and cache files
+sessions/
+cache/
+temp/
+tmp/
+
+# Build artifacts (except encrypted blobs)
+build/
+dist/
+out/
+.cache/
+
+# Log files
+logs/
+*.log
+*.out
+
+# Environment files
+.env*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Backup and temporary files
+*.bak
+*.backup
+*.old
+*.tmp
+*.temp
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Test coverage and reports
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+playwright-report/
+
+# Package manager files (keep only example)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# =============================================================================
+# ALLOWED IN PUBLIC REPO (façade only)
+# =============================================================================
+
+# Public documentation
+!docs/
+!public/
+!site/
+
+# Configuration examples
+!.env.example
+!package.json.example
+
+# GitHub workflows
+!.github/
+
+# README and documentation
+!README.md
+!CONTRIBUTING.md
+!LICENSE
+
+# Encrypted blobs (if using encrypted-on-GH pattern)
+!encrypted/
+!encrypted/*.enc
