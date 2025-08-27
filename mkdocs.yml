@@ -1,15 +1,14 @@
-site_name: Documentation Site Template
-site_description: A modern documentation site template for creating comprehensive guides and tutorials
+site_name: Documentation Template
+site_description: A modern documentation site template
 site_author: Documentation Template
-site_url: https://yourusername.github.io/your-repo-name
+site_url: https://yourusername.github.io/docssitetemplate/
 
-repo_name: yourusername/docs-site-template
-repo_url: https://github.com/yourusername/docs-site-template
+repo_name: yourusername/docssitetemplate
+repo_url: https://github.com/yourusername/docssitetemplate
 edit_uri: edit/main/docs/
 
 theme:
   name: material
-  language: en
   palette:
     - scheme: default
       primary: indigo
@@ -24,61 +23,23 @@ theme:
         icon: material/toggle-switch-off-outline
         name: Switch to light mode
   features:
-    - announce.dismiss
-    - content.action.edit
-    - content.action.view
-    - content.code.annotate
-    - content.code.copy
-    - content.code.select
-    - content.tabs.link
-    - content.tooltips
-    - header.autohide
-    - navigation.expand
-    - navigation.footer
-    - navigation.indexes
-    - navigation.instant
-    - navigation.instant.delay
-    - navigation.instant.loading
-    - navigation.instant.prefetch
-    - navigation.prune
-    - navigation.sections
     - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.top
-    - navigation.tracking
-    - search.highlight
-    - search.share
+    - navigation.sections
+    - navigation.expand
     - search.suggest
-    - toc.follow
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
 
 plugins:
   - search
-  - minify:
-      minify_html: true
-  # - git-revision-date-localized:
-  #     enable_creation_date: true
-  # - git-committers:
-  #     repository: yourusername/docs-site-template
-  # - social
-
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/yourusername/docs-site-template
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/yourusername
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/yourusername
+  - git-revision-date-localized
 
 markdown_extensions:
-  - abbr
   - admonition
-  - attr_list
-  - def_list
+  - codehilite
   - footnotes
-  - md_in_html
-  - toc:
-      permalink: true
+  - meta
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
@@ -86,20 +47,16 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets:
-      auto_append:
-        - includes/abbreviations.md
+      check_paths: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -107,10 +64,6 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-      combine_header_slug: true
-      slugify: !!python/object/apply:pymdownx.slugs.slugify
-        kwds:
-          case: lower
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -118,33 +71,16 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting Started:
-    - Quick Start: getting-started.md
-    - Installation: installation.md
-    - Configuration: configuration.md
-  - Documentation:
-    - API Reference: api-reference.md
-    - Examples: examples.md
-    - Troubleshooting: troubleshooting.md
-  - Development:
-    - Contributing: contributing.md
-    - Code of Conduct: code-of-conduct.md
-    - Changelog: changelog.md
-  - Community:
-    - FAQ: faq.md
-    - Support: support.md
-
-extra_css:
-  - stylesheets/extra.css
-
-extra_javascript:
-  - javascripts/mathjax.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-validation:
-  nav:
-    omitted_files: ignore
-  not_found: ignore
-
-# Copyright
-copyright: Copyright &copy; 2024 Documentation Template
+    - Installation: getting-started/installation.md
+    - Configuration: getting-started/configuration.md
+    - Customization: getting-started/customization.md
+  - Features:
+    - Theme: features/theme.md
+    - Search: features/search.md
+    - Code Blocks: features/code-blocks.md
+  - Advanced:
+    - Plugins: advanced/plugins.md
+    - Styling: advanced/styling.md
+    - Deployment: advanced/deployment.md
+  - API Reference: api-reference/index.md
+  - Contributing: contributing.md

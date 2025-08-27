@@ -1,7 +1,7 @@
 {
-  "name": "docs-site-template",
+  "name": "docssitetemplate",
   "version": "1.0.0",
-  "description": "A modern documentation site template with GitHub Pages support",
+  "description": "A modern documentation site template built with MkDocs and Material theme",
   "private": true,
   "scripts": {
     "docs:dev": "mkdocs serve",
@@ -12,9 +12,10 @@
   },
   "keywords": [
     "documentation",
+    "mkdocs",
+    "material-theme",
     "template",
-    "github-pages",
-    "mkdocs"
+    "github-pages"
   ],
   "author": "Documentation Template",
   "license": "MIT",
