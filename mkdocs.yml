@@ -69,7 +69,7 @@ markdown_extensions:
   - pymdownx.tilde
 
 nav:
-  - Home: index.md
+  - Home: index.html
   - Getting Started: getting-started.md
   - Installation: installation.md
   - Contributing: contributing.md

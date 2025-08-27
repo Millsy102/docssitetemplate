@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Site Template</title>
+    <meta name="description" content="A simple, clean documentation site template for GitHub Pages.">
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem;
+        }
+        
+        .login-form {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo p {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 0.875rem;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+            background: #ffffff;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hidden content that appears after login */
+        .authenticated-content {
+            display: none;
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+        
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #c53030;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .content-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+        }
+        
+        .content-card p {
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+        
+        .content-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .content-card a:hover {
+            color: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="container" id="loginContainer">
+        <div class="login-form">
+            <div class="logo">
+                <h1>Documentation Site</h1>
+                <p>Enter your credentials to access the full documentation</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Sign In</span>
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+            </form>
+            
+            <div class="error-message" id="errorMessage">
+                Invalid username or password. Please try again.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Authenticated Content (Hidden by default) -->
+    <div class="authenticated-content" id="authenticatedContent">
+        <div class="header">
+            <h1>Welcome to the Full Documentation</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Getting Started</h3>
+                <p>Learn how to get started with our platform and set up your first project.</p>
+                <a href="#getting-started">Read More →</a>
+            </div>
+            
+            <div class="content-card">
+                <h3>API Documentation</h3>
+                <p>Comprehensive API reference with examples and best practices.</p>
+                <a href="#api-docs">View API Docs →</a>
+            </div>
+            
+            <div class="content-card">
+                <h3>Admin Dashboard</h3>
+                <p>Access the admin dashboard for system management and monitoring.</p>
+                <a href="/admin" target="_blank">Open Dashboard →</a>
+            </div>
+            
+            <div class="content-card">
+                <h3>FTP Access</h3>
+                <p>Secure file transfer protocol access for file management.</p>
+                <a href="ftp://localhost:21" target="_blank">Connect via FTP →</a>
+            </div>
+            
+            <div class="content-card">
+                <h3>SSH Access</h3>
+                <p>Secure shell access for command-line operations.</p>
+                <a href="ssh://localhost:22" target="_blank">Connect via SSH →</a>
+            </div>
+            
+            <div class="content-card">
+                <h3>Plugin System</h3>
+                <p>Extend functionality with our powerful plugin system.</p>
+                <a href="#plugins">Browse Plugins →</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple authentication system
+        const VALID_CREDENTIALS = {
+            'admin': 'admin123',
+            'user': 'user123',
+            'demo': 'demo123'
+        };
+        
+        // Check if user is already authenticated
+        function checkAuth() {
+            const isAuthenticated = localStorage.getItem('authenticated');
+            if (isAuthenticated === 'true') {
+                showAuthenticatedContent();
+            }
+        }
+        
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Show loading state
+            const btnText = document.querySelector('.btn-text');
+            const loading = document.querySelector('.loading');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            btnText.style.display = 'none';
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Simulate authentication delay
+            setTimeout(() => {
+                if (authenticate(username, password)) {
+                    localStorage.setItem('authenticated', 'true');
+                    localStorage.setItem('username', username);
+                    showAuthenticatedContent();
+                } else {
+                    showError();
+                }
+                
+                // Reset button state
+                btnText.style.display = 'block';
+                loading.style.display = 'none';
+            }, 1000);
+        });
+        
+        // Authentication function
+        function authenticate(username, password) {
+            return VALID_CREDENTIALS[username] === password;
+        }
+        
+        // Show error message
+        function showError() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'block';
+            
+            // Clear password field
+            document.getElementById('password').value = '';
+        }
+        
+        // Show authenticated content
+        function showAuthenticatedContent() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('authenticatedContent').style.display = 'block';
+        }
+        
+        // Logout function
+        function logout() {
+            localStorage.removeItem('authenticated');
+            localStorage.removeItem('username');
+            
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('authenticatedContent').style.display = 'none';
+            
+            // Clear form
+            document.getElementById('loginForm').reset();
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        // Check authentication on page load
+        checkAuth();
+        
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add focus effects to inputs
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'translateY(-2px)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

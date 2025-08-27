@@ -40,8 +40,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build documentation
-        run: npm run docs:build
+      - name: Setup static site for link checking
+        run: |
+          mkdir -p site
+          cp -r public/* site/
         
       - name: Check links
         run: npx broken-link-checker http://localhost:8000 --recursive --exclude-external
@@ -61,11 +63,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build documentation
-        run: npm run docs:build
+      - name: Setup static site for testing
+        run: |
+          mkdir -p site
+          cp -r public/* site/
         
       - name: Start server
-        run: npm run docs:dev &
+        run: npx http-server site -p 8000 &
         
       - name: Run Lighthouse CI
         run: |

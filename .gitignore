@@ -84,6 +84,8 @@ out/
 .nuxt/
 .vuepress/dist/
 
+# Note: public/ directory is NOT ignored as it contains the website files for GitHub Pages
+
 # Temporary files
 tmp/
 temp/

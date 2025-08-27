@@ -1,68 +1,66 @@
 # Documentation Site Template
 
-This is a **basic documentation template** for creating simple documentation sites.
+Welcome to the Documentation Site Template - a simple, clean template for creating documentation sites with authentication.
 
-## What This Is
+## 🔐 Authentication
 
-This `docs/` folder contains a minimal, clean documentation template that can be used to create documentation sites. It's designed to be:
+This site requires authentication to access the full documentation. Use one of the following credentials:
 
-- **Simple** - Easy to understand and customize
-- **Clean** - Minimal design that focuses on content
-- **Portable** - Works with GitHub Pages and other hosting services
-- **Template** - A starting point for your own documentation
+### Available Accounts:
+- **Username**: `admin` | **Password**: `admin123`
+- **Username**: `user` | **Password**: `user123`  
+- **Username**: `demo` | **Password**: `demo123`
 
-## What This Is NOT
+## 🚀 How It Works
 
-This is **NOT** the full website. This is just a basic template for documentation purposes.
+1. **Public Facade**: The site appears as a simple documentation template
+2. **Login Required**: Users must authenticate to access the full content
+3. **Authenticated Content**: After login, users see the real documentation and system access
 
-## Structure
+## 📁 Structure
 
 ```
 docs/
-├── index.md              # Main documentation page
-├── getting-started.md    # Getting started guide
-├── installation.md       # Installation instructions
-├── contributing.md       # Contributing guidelines
-└── README.md            # This file
+├── index.html              # Main page with login system
+├── getting-started.md      # Getting started guide
+├── installation.md         # Installation instructions
+├── contributing.md         # Contributing guidelines
+└── README.md              # This file
 ```
 
-## Quick Start
+## 🔧 Features
 
-1. **Clone or download** this template
-2. **Edit the content** in the Markdown files
-3. **Customize the styling** if needed
-4. **Deploy** to GitHub Pages or your preferred hosting service
+- **Modern UI**: Clean, responsive design with smooth animations
+- **Session Management**: Login state persists across browser sessions
+- **Secure Access**: Simple client-side authentication system
+- **Real System Integration**: Links to admin dashboard, FTP, SSH, and plugin system
 
-## Customization
+## 🛡️ Security Note
 
-### Content
-- Edit the `.md` files to add your own content
-- Update `mkdocs.yml` to change site settings
-- Add new pages by creating new `.md` files
+This is a demonstration system with client-side authentication. In production, you should:
+- Use server-side authentication
+- Implement proper session management
+- Add HTTPS encryption
+- Use secure password hashing
 
-### Styling
-- The template uses Material for MkDocs theme
-- Customize colors and features in `mkdocs.yml`
-- Add custom CSS if needed
+## 🚀 Deployment
 
-## Deployment
+This template is ready for GitHub Pages deployment:
 
-### GitHub Pages
-1. Push to GitHub
+1. Push your changes to GitHub
 2. Enable GitHub Pages in repository settings
-3. Select `/docs` folder as source
-4. Your site will be live at `https://username.github.io/repo-name/`
+3. Your site will be available at `https://yourusername.github.io/your-repo-name/`
 
-### Other Hosting
-- Build with `mkdocs build`
-- Upload the `site/` folder to your web server
+## 📚 Documentation
 
-## Support
-
-- Check the [Getting Started Guide](getting-started.md)
-- Read the [Installation Guide](installation.md)
-- See the [Contributing Guide](contributing.md)
+After logging in, you'll have access to:
+- Getting Started Guide
+- API Documentation
+- Admin Dashboard
+- FTP Access
+- SSH Access
+- Plugin System
 
 ---
 
-*This is a basic documentation template - keep it simple and focused on your content!*
+*Documentation site template with authentication for GitHub Pages*
