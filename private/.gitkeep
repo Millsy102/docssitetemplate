@@ -1,3 +1,0 @@
-# This file ensures the admin-docs folder exists in the repository
-# The actual admin-docs folder contents are ignored by .gitignore
-# This is your private documentation - never commit the real contents!
