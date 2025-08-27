@@ -2,7 +2,7 @@
 
 Welcome to the Documentation Site Template - a simple, clean template for creating documentation sites with authentication.
 
-## 🔐 Authentication
+##  Authentication
 
 This site requires authentication to access the full documentation. Use one of the following credentials:
 
@@ -11,13 +11,13 @@ This site requires authentication to access the full documentation. Use one of t
 - **Username**: `user` | **Password**: `user123`  
 - **Username**: `demo` | **Password**: `demo123`
 
-## 🚀 How It Works
+##  How It Works
 
 1. **Public Facade**: The site appears as a simple documentation template
 2. **Login Required**: Users must authenticate to access the full content
 3. **Authenticated Content**: After login, users see the real documentation and system access
 
-## 📁 Structure
+##  Structure
 
 ```
 docs/
@@ -28,14 +28,14 @@ docs/
 └── README.md              # This file
 ```
 
-## 🔧 Features
+##  Features
 
 - **Modern UI**: Clean, responsive design with smooth animations
 - **Session Management**: Login state persists across browser sessions
 - **Secure Access**: Simple client-side authentication system
 - **Real System Integration**: Links to admin dashboard, FTP, SSH, and plugin system
 
-## 🛡️ Security Note
+##  Security Note
 
 This is a demonstration system with client-side authentication. In production, you should:
 - Use server-side authentication
@@ -43,7 +43,7 @@ This is a demonstration system with client-side authentication. In production, y
 - Add HTTPS encryption
 - Use secure password hashing
 
-## 🚀 Deployment
+##  Deployment
 
 This template is ready for GitHub Pages deployment:
 
@@ -51,7 +51,7 @@ This template is ready for GitHub Pages deployment:
 2. Enable GitHub Pages in repository settings
 3. Your site will be available at `https://yourusername.github.io/your-repo-name/`
 
-## 📚 Documentation
+##  Documentation
 
 After logging in, you'll have access to:
 - Getting Started Guide

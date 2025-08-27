@@ -2,7 +2,7 @@
 
 This guide will help you set up GitHub Pages to host your website as a secret/private site.
 
-## 🚀 Quick Setup
+##  Quick Setup
 
 ### 1. Repository Settings
 1. Go to your repository on GitHub
@@ -19,7 +19,7 @@ This guide will help you set up GitHub Pages to host your website as a secret/pr
 - Your site will be available at: `https://[your-username].github.io/[repository-name]/`
 - For example: `https://millsy.github.io/docssitetemplate/`
 
-## 🔒 Making Your Site "Secret"
+##  Making Your Site "Secret"
 
 ### Option 1: Private Repository
 1. Go to repository **Settings** → **General**
@@ -39,7 +39,7 @@ This guide will help you set up GitHub Pages to host your website as a secret/pr
 3. Add a `CNAME` file in your `public` folder with your domain
 4. Configure DNS settings with your domain provider
 
-## 📁 File Structure
+##  File Structure
 ```
 your-repo/
 ├── public/                 # Your website files
@@ -52,7 +52,7 @@ your-repo/
 └── README.md
 ```
 
-## 🔧 Customization
+##  Customization
 
 ### Update Site Content
 - Edit files in the `public/` folder
@@ -68,20 +68,20 @@ your-repo/
 - Add secrets in repository **Settings** → **Secrets and variables** → **Actions**
 - Use them in your workflow with `${{ secrets.SECRET_NAME }}`
 
-## 🚨 Security Tips
+##  Security Tips
 
 1. **Never commit sensitive data** (API keys, passwords, etc.)
 2. **Use environment variables** for configuration
 3. **Keep dependencies updated** regularly
 4. **Review workflow permissions** in Settings → Actions → General
 
-## 📊 Monitoring
+##  Monitoring
 
 - Check deployment status in **Actions** tab
 - View build logs for debugging
 - Monitor site performance with GitHub's built-in analytics
 
-## 🆘 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues:
 1. **Build fails**: Check the Actions tab for error logs
@@ -96,4 +96,4 @@ your-repo/
 
 ---
 
-Your secret website is now ready! 🎉
+Your secret website is now ready! 

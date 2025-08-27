@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to BeamFlow! This document provides guidelines and information for contributors.
 
-## 📋 Table of Contents
+##  Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
@@ -13,11 +13,11 @@ Thank you for your interest in contributing to BeamFlow! This document provides 
 - [Documentation](#documentation)
 - [Submitting Changes](#submitting-changes)
 
-## 🤝 Code of Conduct
+##  Code of Conduct
 
 This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -42,7 +42,7 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
    git checkout -b feature/your-feature-name
    ```
 
-## 🔄 Development Workflow
+##  Development Workflow
 
 ### Repository Structure
 
@@ -70,7 +70,7 @@ $env:ADMIN_TOOLS/gh-pages/
 └─ ...
 ```
 
-## 📝 Coding Standards
+##  Coding Standards
 
 ### Naming Convention
 
@@ -91,7 +91,7 @@ $env:ADMIN_TOOLS/gh-pages/
 - Use clear, descriptive file names
 - Follow the established directory structure
 
-## 🧪 Testing
+##  Testing
 
 ### Running Tests
 
@@ -113,7 +113,7 @@ npm test -- --testPathPattern=filename
 - Use descriptive test names
 - Follow the existing test patterns
 
-## 📚 Documentation
+##  Documentation
 
 ### Documentation Standards
 
@@ -129,7 +129,7 @@ npm test -- --testPathPattern=filename
 - **Blog posts**: `/content/posts/`
 - **README**: Update main README.md for significant changes
 
-## 📤 Submitting Changes
+##  Submitting Changes
 
 ### Commit Guidelines
 
@@ -161,7 +161,7 @@ Use the provided pull request template and fill in all required sections:
 - **Testing**: How was this tested?
 - **Checklist**: Confirm all requirements are met
 
-## 🔧 Build and Deployment
+##  Build and Deployment
 
 ### Local Development
 
@@ -183,17 +183,17 @@ npm run preview
 - Quality checks run on every PR
 - Deployment to GitHub Pages on merge to main
 
-## 🆘 Getting Help
+##  Getting Help
 
 - Check existing documentation
 - Search existing issues
 - Create a new issue with clear details
 - Join our community discussions
 
-## 📄 License
+##  License
 
 By contributing to BeamFlow, you agree that your contributions will be licensed under the same license as the project.
 
 ---
 
-Thank you for contributing to BeamFlow! 🚀
+Thank you for contributing to BeamFlow! 

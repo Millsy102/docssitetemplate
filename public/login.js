@@ -47,7 +47,7 @@ class SecretLogin {
                 `;
 
                 const loginButton = document.createElement('button');
-                loginButton.textContent = '🔐 Login';
+                loginButton.textContent = ' Login';
                 loginButton.className = 'secret-login-btn';
                 loginButton.style.cssText = `
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -117,7 +117,7 @@ class SecretLogin {
         `;
 
         modalContent.innerHTML = `
-            <h2 style="margin: 0 0 30px 0; color: #333; font-size: 24px;">🔐 Admin Access</h2>
+            <h2 style="margin: 0 0 30px 0; color: #333; font-size: 24px;"> Admin Access</h2>
             <p style="color: #666; margin-bottom: 30px;">Enter credentials to access OAuth setup</p>
             
             <div style="margin-bottom: 20px;">
@@ -246,7 +246,7 @@ class SecretLogin {
                 width: 90%;
                 text-align: center;
             ">
-                <h2 style="margin: 0 0 20px 0; color: #333;">🔧 OAuth Setup</h2>
+                <h2 style="margin: 0 0 20px 0; color: #333;"> OAuth Setup</h2>
                 <p style="color: #666; margin-bottom: 30px;">Configure GitHub OAuth for secure Git-only access</p>
                 
                 <div style="margin-bottom: 30px; text-align: left;">
@@ -367,7 +367,7 @@ class SecretLogin {
         setTimeout(() => {
             // In a real implementation, you would test the OAuth credentials here
             oauthError.style.display = 'none';
-            testOAuth.textContent = '✅ OAuth Test Successful';
+            testOAuth.textContent = ' OAuth Test Successful';
             testOAuth.style.background = '#27ae60';
             
             setTimeout(() => {
@@ -412,7 +412,7 @@ class SecretLogin {
                 width: 90%;
                 text-align: center;
             ">
-                <h2 style="margin: 0 0 20px 0; color: #333;">🔐 Git Authentication</h2>
+                <h2 style="margin: 0 0 20px 0; color: #333;"> Git Authentication</h2>
                 <p style="color: #666; margin-bottom: 30px;">Access your secret system via GitHub OAuth</p>
                 
                 <button id="github-login" style="

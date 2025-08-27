@@ -45,9 +45,9 @@ jobs:
           
           # Ensure login.js is copied
           if [ -f "public/login.js" ]; then
-            echo "✅ Login system found and copied"
+            echo " Login system found and copied"
           else
-            echo "❌ Login system not found"
+            echo " Login system not found"
           fi
           
           # Create a simple index if none exists
