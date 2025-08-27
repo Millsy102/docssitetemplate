@@ -1,31 +1,38 @@
 // Site Configuration
 const siteConfig = {
   // Site metadata
-  title: "BeamFlow Documentation",
-  description: "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
-  author: "BeamFlow Team",
+  title: process.env.SITE_TITLE || "BeamFlow Documentation",
+  description: process.env.SITE_DESCRIPTION || "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
+  author: process.env.SITE_AUTHOR || "BeamFlow Team",
   
   // URLs and paths
-  baseUrl: "https://millsy102.github.io/docssitetemplate/",
+  baseUrl: process.env.SITE_URL || "https://millsy102.github.io/docssitetemplate/",
   
   // GitHub configuration
-  githubUsername: "Millsy102",
-  repositoryName: "docssitetemplate",
-  twitterHandle: "@Millsy102",
+  githubUsername: process.env.GITHUB_USERNAME || "Millsy102",
+  repositoryName: process.env.REPOSITORY_NAME || "docssitetemplate",
+  twitterHandle: process.env.TWITTER_HANDLE || "@Millsy102",
   
-  // Authentication
+  // Authentication - Using environment variables
   auth: {
     clientId: process.env.GH_CLIENT_ID || "",
-    callbackUrl: "https://millsy102.github.io/docssitetemplate/auth/callback",
+    callbackUrl: process.env.SITE_URL ? `${process.env.SITE_URL}auth/callback` : "https://millsy102.github.io/docssitetemplate/auth/callback",
+  },
+  
+  // Admin credentials - Using environment variables
+  admin: {
+    username: process.env.ADMIN_USERNAME || "admin",
+    password: process.env.ADMIN_PASSWORD || "your-secure-admin-password",
+    apiKey: process.env.ADMIN_API_KEY || "your-admin-api-key",
   },
   
   // Social Media
   social: {
     twitter: {
-      creator: "@Millsy102",
-      site: "@Millsy102"
+      creator: process.env.TWITTER_HANDLE || "@Millsy102",
+      site: process.env.TWITTER_HANDLE || "@Millsy102"
     },
-    github: "https://github.com/Millsy102"
+    github: process.env.GITHUB_URL || "https://github.com/Millsy102"
   },
   
   // Theme Configuration
@@ -57,11 +64,21 @@ function getGitHubPagesUrl() {
   return `https://${siteConfig.githubUsername}.github.io/${siteConfig.repositoryName}/`;
 }
 
+// Helper function to get admin credentials
+function getAdminCredentials() {
+  return {
+    username: siteConfig.admin.username,
+    password: siteConfig.admin.password,
+    apiKey: siteConfig.admin.apiKey
+  };
+}
+
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { siteConfig, getFullUrl, getGitHubPagesUrl };
+  module.exports = { siteConfig, getFullUrl, getGitHubPagesUrl, getAdminCredentials };
 } else if (typeof window !== 'undefined') {
   window.siteConfig = siteConfig;
   window.getFullUrl = getFullUrl;
   window.getGitHubPagesUrl = getGitHubPagesUrl;
+  window.getAdminCredentials = getAdminCredentials;
 }

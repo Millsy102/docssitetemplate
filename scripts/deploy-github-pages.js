@@ -52,10 +52,10 @@ function buildPublicSite() {
     log('Building public documentation site...');
     
     try {
-        // Set environment variables
-        process.env.SITE_TITLE = 'BeamFlow Documentation';
-        process.env.SITE_DESCRIPTION = 'Comprehensive documentation for the BeamFlow Unreal Engine plugin';
-        process.env.SITE_URL = 'https://millsy102.github.io/docssitetemplate';
+        // Set environment variables from .env file or use defaults
+        process.env.SITE_TITLE = process.env.SITE_TITLE || 'BeamFlow Documentation';
+        process.env.SITE_DESCRIPTION = process.env.SITE_DESCRIPTION || 'Comprehensive documentation for the BeamFlow Unreal Engine plugin';
+        process.env.SITE_URL = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
         process.env.NODE_ENV = 'production';
         
         // Build the site
@@ -92,7 +92,7 @@ function deployToGitHubPages() {
         }
         
         // Deploy to GitHub Pages
-        execSync('npx gh-pages -d dist -t true', { stdio: 'inherit' });
+        execSync('npx gh-pages -d dist', { stdio: 'inherit' });
         log('GitHub Pages deployment completed', 'SUCCESS');
     } catch (error) {
         log(`GitHub Pages deployment failed: ${error.message}`, 'ERROR');
@@ -103,11 +103,16 @@ function deployToGitHubPages() {
 function createDeploymentSummary() {
     log('Creating deployment summary...');
     
+    // Get admin credentials from environment variables
+    const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'your-secure-admin-password';
+    const siteUrl = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
+    
     const summary = `
 # 🚀 BeamFlow Deployment Summary
 
 ## ✅ Public Documentation Site
-- **URL**: https://millsy102.github.io/docssitetemplate
+- **URL**: ${siteUrl}
 - **Status**: Successfully deployed to GitHub Pages
 - **Branch**: gh-pages
 - **Last Deployed**: ${new Date().toISOString()}
@@ -118,6 +123,11 @@ function createDeploymentSummary() {
 - **Admin Panel**: Available at /admin (when deployed)
 - **FTP Server**: Available on configured port
 - **SSH Server**: Available on configured port
+
+## 🔐 Admin Credentials
+- **Username**: ${adminUsername}
+- **Password**: ${adminPassword}
+- **API Key**: ${process.env.ADMIN_API_KEY || 'your-admin-api-key'}
 
 ## 📦 Deployment Package
 - **Location**: \`full-system-deploy/\`
@@ -131,7 +141,7 @@ function createDeploymentSummary() {
 ## 🔧 Next Steps
 
 ### 1. Verify Public Site
-Visit: https://millsy102.github.io/docssitetemplate
+Visit: ${siteUrl}
 
 ### 2. Deploy Secret System (Optional)
 \`\`\`bash
@@ -145,8 +155,8 @@ npm run deploy:vercel
 
 ### 3. Access Admin Panel
 - **URL**: /admin (after secret system deployment)
-- **Username**: Set via environment variables
-- **Password**: Set via environment variables
+- **Username**: ${adminUsername}
+- **Password**: ${adminPassword}
 
 ## 🛡️ Security Features
 - IP Whitelisting enabled
@@ -180,9 +190,9 @@ function createGitHubPagesConfig() {
     log('Creating GitHub Pages configuration...');
     
     const config = {
-        name: "BeamFlow Documentation",
+        name: process.env.SITE_TITLE || "BeamFlow Documentation",
         short_name: "BeamFlow",
-        description: "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
+        description: process.env.SITE_DESCRIPTION || "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
         start_url: "/docssitetemplate/",
         display: "standalone",
         background_color: "#000000",
@@ -231,10 +241,14 @@ async function main() {
         // Create deployment summary
         createDeploymentSummary();
         
+        const siteUrl = process.env.SITE_URL || 'https://millsy102.github.io/docssitetemplate';
+        const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+        
         console.log(`\n${colors.green}🎉 Deployment completed successfully!${colors.reset}`);
-        console.log(`${colors.cyan}Public site:${colors.reset} https://millsy102.github.io/docssitetemplate`);
+        console.log(`${colors.cyan}Public site:${colors.reset} ${siteUrl}`);
         console.log(`${colors.yellow}Secret system:${colors.reset} Ready for deployment in full-system-deploy/`);
         console.log(`${colors.magenta}Admin panel:${colors.reset} Available at /admin (after secret system deployment)`);
+        console.log(`${colors.blue}Admin username:${colors.reset} ${adminUsername}`);
         
     } catch (error) {
         log(`Deployment failed: ${error.message}`, 'ERROR');
