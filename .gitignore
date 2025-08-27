@@ -7,8 +7,7 @@ package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
-# Build outputs
-dist/
+# Development build outputs (exclude, but keep dist/ for secret website)
 build/
 .cache/
 docs/_build/
@@ -78,17 +77,27 @@ env/
 venv/
 ENV/
 
-# Private content (never commit)
-private/
-admin/
-secrets/
-*.key
-*.pem
-*.p12
-*.pfx
+# Development artifacts
+.snapshots/
+.husky/
+*.config.js
+jest.config.js
+jest.setup.js
+.prettierrc
+lighthouserc.js
+webpack.config.js
+vite.config.js
+postcss.config.js
+tailwind.config.js
 
 # Hidden website configuration (never commit)
 HIDDEN_CONFIG.md
 *.hidden
 .hidden/
-g
+
+# Secret files (keep these on GitHub for secret hosting)
+# dist/ - KEEP (secret website)
+# admin-docs/ - KEEP (admin documentation)
+# content/ - KEEP (secret content)
+# assets/ - KEEP (secret assets)
+# scripts/ - KEEP (secret scripts)
