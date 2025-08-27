@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeamFlow - Unreal Engine Plugin Documentation</title>
+    <meta name="description" content="Comprehensive documentation for the BeamFlow Unreal Engine plugin" />
+    <meta name="keywords" content="Unreal Engine, Plugin, Documentation, BeamFlow" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Theme colors -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="BeamFlow - Unreal Engine Plugin Documentation" />
+    <meta property="og:description" content="Comprehensive documentation for the BeamFlow Unreal Engine plugin" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.com" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BeamFlow - Unreal Engine Plugin Documentation" />
+    <meta name="twitter:description" content="Comprehensive documentation for the BeamFlow Unreal Engine plugin" />
+    <script type="module" crossorigin src="/assets/index-CHe0HHT2.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-DtOhX2xw.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DEjfdhMi.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Loading indicator -->
+    <div id="loading" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: #ff0000;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+    ">
+      <div style="text-align: center;">
+        <div style="
+          width: 50px;
+          height: 50px;
+          border: 3px solid #ff0000;
+          border-top: 3px solid transparent;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px;
+        "></div>
+        <div>Loading BeamFlow Documentation...</div>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loading indicator when app loads */
+      #root:not(:empty) + #loading {
+        display: none;
+      }
+    </style>
+    
+    <script>
+      // Hide loading indicator when React app mounts
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const loading = document.getElementById('loading');
+          if (loading) {
+            loading.style.display = 'none';
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
