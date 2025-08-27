@@ -35,7 +35,8 @@
     "i18n:copy": "node scripts/copy-translations.js",
     "i18n:build": "npm run i18n:copy && npm run build",
     "i18n:dev": "npm run i18n:copy && npm run dev",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "husky"
   },
   "keywords": [
     "documentation",
