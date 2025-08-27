@@ -1,0 +1,193 @@
+name: "ai-assistant"
+version: "1.0.0"
+description: "Advanced AI assistant with code analysis, content generation, and smart automation"
+author: "BeamFlow System"
+license: "MIT"
+dependencies: ["openai", "langchain", "axios", "natural"]
+permissions: 
+  - "plugin:ai-assistant:read"
+  - "plugin:ai-assistant:write"
+  - "plugin:ai-assistant:admin"
+  - "plugin:ai-assistant:code-analysis"
+  - "plugin:ai-assistant:content-generation"
+
+settings:
+  openai_api_key:
+    type: "string"
+    default: ""
+    required: true
+    description: "OpenAI API key for AI services"
+    validation: "value.length > 0"
+  
+  model_name:
+    type: "select"
+    default: "gpt-4"
+    description: "AI model to use for responses"
+    options: ["gpt-4", "gpt-3.5-turbo", "gpt-4-turbo"]
+  
+  max_tokens:
+    type: "number"
+    default: 2000
+    description: "Maximum tokens for AI responses"
+    validation: "value >= 100 && value <= 8000"
+  
+  temperature:
+    type: "number"
+    default: 0.7
+    description: "AI response creativity (0.0-1.0)"
+    validation: "value >= 0.0 && value <= 1.0"
+  
+  code_analysis_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable code analysis features"
+  
+  content_generation_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable content generation features"
+  
+  auto_suggestions_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable automatic suggestions"
+  
+  context_window_size:
+    type: "number"
+    default: 10
+    description: "Number of previous messages to include in context"
+    validation: "value >= 1 && value <= 50"
+
+hooks:
+  - name: "onRequest"
+    description: "Process AI assistant requests"
+    priority: 0
+    enabled: true
+  
+  - name: "onCodeAnalysis"
+    description: "Analyze code and provide suggestions"
+    priority: 0
+    enabled: true
+  
+  - name: "onContentGeneration"
+    description: "Generate content based on prompts"
+    priority: 0
+    enabled: true
+  
+  - name: "onSystemStart"
+    description: "Initialize AI assistant services"
+    priority: 0
+    enabled: true
+
+ui:
+  navigation:
+    enabled: true
+    title: "AI Assistant"
+    icon: "smart_toy"
+    path: "/plugins/ai-assistant"
+    order: 5
+    permissions: ["plugin:ai-assistant:read"]
+  
+  widgets:
+    - name: "AIChatWidget"
+      description: "AI chat interface"
+      component: "AIChatWidget"
+      permissions: ["plugin:ai-assistant:read"]
+    
+    - name: "CodeAnalysisWidget"
+      description: "Code analysis and suggestions"
+      component: "CodeAnalysisWidget"
+      permissions: ["plugin:ai-assistant:code-analysis"]
+    
+    - name: "ContentGeneratorWidget"
+      description: "Content generation tools"
+      component: "ContentGeneratorWidget"
+      permissions: ["plugin:ai-assistant:content-generation"]
+    
+    - name: "AISettingsWidget"
+      description: "AI assistant configuration"
+      component: "AISettingsWidget"
+      permissions: ["plugin:ai-assistant:admin"]
+  
+  pages:
+    - name: "AIChatPage"
+      description: "Main AI chat interface"
+      component: "AIChatPage"
+      path: "/plugins/ai-assistant"
+      permissions: ["plugin:ai-assistant:read"]
+    
+    - name: "CodeAnalysisPage"
+      description: "Code analysis workspace"
+      component: "CodeAnalysisPage"
+      path: "/plugins/ai-assistant/code"
+      permissions: ["plugin:ai-assistant:code-analysis"]
+    
+    - name: "ContentGeneratorPage"
+      description: "Content generation workspace"
+      component: "ContentGeneratorPage"
+      path: "/plugins/ai-assistant/content"
+      permissions: ["plugin:ai-assistant:content-generation"]
+    
+    - name: "AISettingsPage"
+      description: "AI assistant settings"
+      component: "AISettingsPage"
+      path: "/plugins/ai-assistant/settings"
+      permissions: ["plugin:ai-assistant:admin"]
+
+api:
+  routes:
+    - method: "POST"
+      path: "/chat"
+      handler: "processChat"
+      middleware: ["auth", "rateLimit"]
+      permissions: ["plugin:ai-assistant:read"]
+    
+    - method: "POST"
+      path: "/analyze-code"
+      handler: "analyzeCode"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-assistant:code-analysis"]
+    
+    - method: "POST"
+      path: "/generate-content"
+      handler: "generateContent"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-assistant:content-generation"]
+    
+    - method: "GET"
+      path: "/suggestions"
+      handler: "getSuggestions"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-assistant:read"]
+    
+    - method: "POST"
+      path: "/settings"
+      handler: "updateSettings"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-assistant:admin"]
+    
+    - method: "GET"
+      path: "/history"
+      handler: "getChatHistory"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-assistant:read"]
+  
+  websocket:
+    - event: "chat_message"
+      handler: "handleChatMessage"
+      permissions: ["plugin:ai-assistant:read"]
+    
+    - event: "code_analysis"
+      handler: "handleCodeAnalysis"
+      permissions: ["plugin:ai-assistant:code-analysis"]
+  
+  middleware:
+    - name: "auth"
+      handler: "authenticateUser"
+    
+    - name: "rateLimit"
+      handler: "rateLimitAIRequests"
+  
+  rateLimit:
+    windowMs: 60000
+    max: 20
