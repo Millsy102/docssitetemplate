@@ -250,3 +250,10 @@ analytics/
 metrics/
 reports/
 logs/
+
+# ========================================
+# MISCELLANEOUS
+# ========================================
+# Prevent accidental command output files
+tatus
+
