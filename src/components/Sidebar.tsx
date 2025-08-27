@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
         </h3>
         <div className="space-y-2">
           <a
-            href="https://github.com/yourusername/beamflow-docs"
+            href="https://github.com/Millsy102/docssitetemplate"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-3 px-4 py-2 text-gray-300 hover:text-red-400 transition-colors"
@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
             <span>GitHub Repository</span>
           </a>
           <a
-            href="https://github.com/yourusername/beamflow-docs/issues"
+            href="https://github.com/Millsy102/docssitetemplate/issues"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-3 px-4 py-2 text-gray-300 hover:text-red-400 transition-colors"

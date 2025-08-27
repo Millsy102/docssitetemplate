@@ -1,0 +1,51 @@
+name: code-repository-manager
+version: 1.0.0
+description: Code repository and development management
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:code-repository-manager:read
+  - plugin:code-repository-manager:write
+  - plugin:code-repository-manager:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Code
+    icon: code
+    path: /plugins/code-repository-manager
+    order: 100
+    permissions:
+      - plugin:code-repository-manager:read
+  widgets:
+    - name: code-repository-managerWidget
+      description: Code repository and development management widget
+      component: code-repository-managerWidget
+      permissions:
+        - plugin:code-repository-manager:read
+  pages:
+    - name: code-repository-managerPage
+      description: Code repository and development management page
+      component: code-repository-managerPage
+      path: /plugins/code-repository-manager
+      permissions:
+        - plugin:code-repository-manager:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:code-repository-manager:read

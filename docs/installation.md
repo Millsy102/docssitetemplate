@@ -16,7 +16,7 @@ This guide provides detailed instructions for installing and setting up the Docu
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/docssitetemplate.git
+   git clone https://github.com/Millsy102/docssitetemplate.git
    cd docssitetemplate
    ```
 
@@ -57,14 +57,14 @@ This guide provides detailed instructions for installing and setting up the Docu
    site_name: Your Documentation Site
    site_description: Your site description
    site_author: Your Name
-   site_url: https://yourusername.github.io/your-repo-name/
+   site_url: https://millsy102.github.io/docssitetemplate/
    ```
 
 2. **Update repository information**
 
    ```yaml
-   repo_name: yourusername/your-repo-name
-   repo_url: https://github.com/yourusername/your-repo-name
+   repo_name: Millsy102/docssitetemplate
+   repo_url: https://github.com/Millsy102/docssitetemplate
    edit_uri: edit/main/docs/
    ```
 
@@ -212,7 +212,7 @@ nav:
    - Click "Save"
 
 3. **Your site is live**
-   Your documentation will be available at `https://yourusername.github.io/your-repo-name/`
+   Your documentation will be available at `https://millsy102.github.io/docssitetemplate/`
 
 ### Netlify
 
@@ -235,7 +235,7 @@ nav:
    ```
 
 2. **Configure DNS**
-   Add a CNAME record pointing to `yourusername.github.io`
+   Add a CNAME record pointing to `millsy102.github.io`
 
 3. **Update configuration**
 

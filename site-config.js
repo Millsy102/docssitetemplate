@@ -1,45 +1,31 @@
-// Site Configuration - Update these values for your deployment
+// Site Configuration
 const siteConfig = {
-  // Site Information
-  siteName: "BeamFlow",
-  siteDescription: "A powerful and flexible development framework designed to simplify complex development tasks. Build robust applications with minimal effort.",
-  siteKeywords: "development framework, web development, API, documentation, open source",
-  siteAuthor: "BeamFlow Team",
+  // Site metadata
+  title: "BeamFlow Documentation",
+  description: "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
+  author: "BeamFlow Team",
   
-  // Domain Configuration
-  // Update these values for your deployment
-  domain: {
-    // For GitHub Pages: https://[username].github.io/[repository-name]/
-    baseUrl: "https://yourusername.github.io/your-repo-name/",
-    // For custom domain (optional): "https://yourdomain.com/"
-    // For local development: "http://localhost:3000/"
-    
-    // GitHub username (used for OAuth and social links)
-    githubUsername: "yourusername",
-    
-    // Repository name
-    repositoryName: "your-repo-name",
-    
-    // Twitter handle (optional)
-    twitterHandle: "@yourusername"
-  },
+  // URLs and paths
+  baseUrl: "https://millsy102.github.io/docssitetemplate/",
   
-  // OAuth Configuration
-  oauth: {
-    // GitHub OAuth callback URL
-    callbackUrl: "https://yourusername.github.io/your-repo-name/auth/callback",
-    
-    // OAuth app name
-    appName: "BeamFlow Site"
+  // GitHub configuration
+  githubUsername: "Millsy102",
+  repositoryName: "docssitetemplate",
+  twitterHandle: "@Millsy102",
+  
+  // Authentication
+  auth: {
+    clientId: process.env.GITHUB_CLIENT_ID || "",
+    callbackUrl: "https://millsy102.github.io/docssitetemplate/auth/callback",
   },
   
   // Social Media
   social: {
     twitter: {
-      creator: "@yourusername",
-      site: "@yourusername"
+      creator: "@Millsy102",
+      site: "@Millsy102"
     },
-    github: "https://github.com/yourusername"
+    github: "https://github.com/Millsy102"
   },
   
   // Theme Configuration
@@ -61,14 +47,14 @@ const siteConfig = {
 
 // Helper function to get the full URL for a path
 function getFullUrl(path = '') {
-  const baseUrl = siteConfig.domain.baseUrl.replace(/\/$/, '');
+  const baseUrl = siteConfig.baseUrl.replace(/\/$/, '');
   const cleanPath = path.replace(/^\//, '');
   return `${baseUrl}/${cleanPath}`;
 }
 
 // Helper function to get the GitHub Pages URL
 function getGitHubPagesUrl() {
-  return `https://${siteConfig.domain.githubUsername}.github.io/${siteConfig.domain.repositoryName}/`;
+  return `https://${siteConfig.githubUsername}.github.io/${siteConfig.repositoryName}/`;
 }
 
 // Export for use in other files

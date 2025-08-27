@@ -1,0 +1,333 @@
+name: "devops-center"
+version: "1.0.0"
+description: "Comprehensive DevOps center integrating GitHub, GitLab, Docker, AWS, Google Cloud, Vercel, and Netlify"
+author: "BeamFlow Team"
+license: "MIT"
+dependencies: 
+  - "octokit"
+  - "gitlab"
+  - "dockerode"
+  - "aws-sdk"
+  - "@google-cloud/storage"
+  - "vercel"
+  - "netlify"
+  - "axios"
+  - "node-cron"
+
+permissions: 
+  - "plugin:devops-center:read"
+  - "plugin:devops-center:write"
+  - "plugin:devops-center:admin"
+
+settings:
+  github_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "GitHub personal access token"
+    encrypted: true
+  
+  github_username:
+    type: "string"
+    default: ""
+    required: false
+    description: "GitHub username"
+  
+  gitlab_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "GitLab personal access token"
+    encrypted: true
+  
+  gitlab_url:
+    type: "string"
+    default: "https://gitlab.com"
+    required: false
+    description: "GitLab instance URL"
+  
+  docker_host:
+    type: "string"
+    default: "unix:///var/run/docker.sock"
+    required: false
+    description: "Docker daemon host"
+  
+  aws_access_key_id:
+    type: "string"
+    default: ""
+    required: false
+    description: "AWS access key ID"
+    encrypted: true
+  
+  aws_secret_access_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "AWS secret access key"
+    encrypted: true
+  
+  aws_region:
+    type: "string"
+    default: "us-east-1"
+    required: false
+    description: "AWS region"
+  
+  google_credentials:
+    type: "string"
+    default: ""
+    required: false
+    description: "Google Cloud service account JSON"
+    encrypted: true
+  
+  vercel_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "Vercel API token"
+    encrypted: true
+  
+  netlify_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "Netlify API token"
+    encrypted: true
+  
+  enable_github:
+    type: "boolean"
+    default: true
+    description: "Enable GitHub integration"
+  
+  enable_gitlab:
+    type: "boolean"
+    default: true
+    description: "Enable GitLab integration"
+  
+  enable_docker:
+    type: "boolean"
+    default: true
+    description: "Enable Docker integration"
+  
+  enable_aws:
+    type: "boolean"
+    default: true
+    description: "Enable AWS integration"
+  
+  enable_google_cloud:
+    type: "boolean"
+    default: true
+    description: "Enable Google Cloud integration"
+  
+  enable_vercel:
+    type: "boolean"
+    default: true
+    description: "Enable Vercel integration"
+  
+  enable_netlify:
+    type: "boolean"
+    default: true
+    description: "Enable Netlify integration"
+  
+  auto_deploy:
+    type: "boolean"
+    default: true
+    description: "Enable automatic deployments"
+  
+  ci_cd_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable CI/CD pipelines"
+  
+  monitoring_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable infrastructure monitoring"
+  
+  backup_enabled:
+    type: "boolean"
+    default: true
+    description: "Enable automated backups"
+
+hooks:
+  - name: "onCodePush"
+    description: "Process code push events"
+    priority: 10
+    enabled: true
+  
+  - name: "onDeployment"
+    description: "Process deployment events"
+    priority: 10
+    enabled: true
+  
+  - name: "onInfrastructureChange"
+    description: "Process infrastructure changes"
+    priority: 5
+    enabled: true
+
+ui:
+  navigation:
+    enabled: true
+    title: "DevOps Center"
+    icon: "code"
+    path: "/plugins/devops-center"
+    order: 50
+    permissions: ["plugin:devops-center:read"]
+  
+  widgets:
+    - name: "RepositoryManagerWidget"
+      description: "Git repository management"
+      component: "RepositoryManagerWidget"
+      permissions: ["plugin:devops-center:read"]
+    
+    - name: "DeploymentManagerWidget"
+      description: "Deployment management and monitoring"
+      component: "DeploymentManagerWidget"
+      permissions: ["plugin:devops-center:write"]
+    
+    - name: "ContainerManagerWidget"
+      description: "Docker container management"
+      component: "ContainerManagerWidget"
+      permissions: ["plugin:devops-center:write"]
+    
+    - name: "CloudManagerWidget"
+      description: "Cloud infrastructure management"
+      component: "CloudManagerWidget"
+      permissions: ["plugin:devops-center:admin"]
+    
+    - name: "PipelineManagerWidget"
+      description: "CI/CD pipeline management"
+      component: "PipelineManagerWidget"
+      permissions: ["plugin:devops-center:write"]
+    
+    - name: "MonitoringWidget"
+      description: "Infrastructure monitoring"
+      component: "MonitoringWidget"
+      permissions: ["plugin:devops-center:read"]
+
+api:
+  routes:
+    - method: "GET"
+      path: "/repositories"
+      handler: "getRepositories"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/repositories/create"
+      handler: "createRepository"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/repositories/:id"
+      handler: "getRepository"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/repositories/:id/webhook"
+      handler: "createWebhook"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/deployments"
+      handler: "getDeployments"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/deployments/create"
+      handler: "createDeployment"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/deployments/:id"
+      handler: "getDeployment"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/deployments/:id/rollback"
+      handler: "rollbackDeployment"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/containers"
+      handler: "getContainers"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/containers/start"
+      handler: "startContainer"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "POST"
+      path: "/containers/stop"
+      handler: "stopContainer"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/containers/logs/:id"
+      handler: "getContainerLogs"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "GET"
+      path: "/cloud/resources"
+      handler: "getCloudResources"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/cloud/resources/create"
+      handler: "createCloudResource"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:admin"]
+    
+    - method: "GET"
+      path: "/pipelines"
+      handler: "getPipelines"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/pipelines/create"
+      handler: "createPipeline"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "POST"
+      path: "/pipelines/:id/trigger"
+      handler: "triggerPipeline"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:write"]
+    
+    - method: "GET"
+      path: "/monitoring/metrics"
+      handler: "getMetrics"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "GET"
+      path: "/monitoring/alerts"
+      handler: "getAlerts"
+      middleware: ["auth"]
+      permissions: ["plugin:devops-center:read"]
+    
+    - method: "POST"
+      path: "/webhook/github"
+      handler: "githubWebhook"
+      middleware: []
+      permissions: []
+    
+    - method: "POST"
+      path: "/webhook/gitlab"
+      handler: "gitlabWebhook"
+      middleware: []
+      permissions: []

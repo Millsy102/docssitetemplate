@@ -1,0 +1,51 @@
+name: design-asset-manager
+version: 1.0.0
+description: Design asset management and organization
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:design-asset-manager:read
+  - plugin:design-asset-manager:write
+  - plugin:design-asset-manager:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Design
+    icon: palette
+    path: /plugins/design-asset-manager
+    order: 100
+    permissions:
+      - plugin:design-asset-manager:read
+  widgets:
+    - name: design-asset-managerWidget
+      description: Design asset management and organization widget
+      component: design-asset-managerWidget
+      permissions:
+        - plugin:design-asset-manager:read
+  pages:
+    - name: design-asset-managerPage
+      description: Design asset management and organization page
+      component: design-asset-managerPage
+      path: /plugins/design-asset-manager
+      permissions:
+        - plugin:design-asset-manager:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:design-asset-manager:read

@@ -1,0 +1,51 @@
+name: color-picker
+version: 1.0.0
+description: Color picker and palette generator
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:color-picker:read
+  - plugin:color-picker:write
+  - plugin:color-picker:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Color
+    icon: build
+    path: /plugins/color-picker
+    order: 100
+    permissions:
+      - plugin:color-picker:read
+  widgets:
+    - name: color-pickerWidget
+      description: Color picker and palette generator widget
+      component: color-pickerWidget
+      permissions:
+        - plugin:color-picker:read
+  pages:
+    - name: color-pickerPage
+      description: Color picker and palette generator page
+      component: color-pickerPage
+      path: /plugins/color-picker
+      permissions:
+        - plugin:color-picker:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:color-picker:read

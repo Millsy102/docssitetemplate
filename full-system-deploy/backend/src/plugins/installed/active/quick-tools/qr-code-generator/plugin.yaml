@@ -1,0 +1,51 @@
+name: qr-code-generator
+version: 1.0.0
+description: QR code generator and scanner
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:qr-code-generator:read
+  - plugin:qr-code-generator:write
+  - plugin:qr-code-generator:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: QR
+    icon: build
+    path: /plugins/qr-code-generator
+    order: 100
+    permissions:
+      - plugin:qr-code-generator:read
+  widgets:
+    - name: qr-code-generatorWidget
+      description: QR code generator and scanner widget
+      component: qr-code-generatorWidget
+      permissions:
+        - plugin:qr-code-generator:read
+  pages:
+    - name: qr-code-generatorPage
+      description: QR code generator and scanner page
+      component: qr-code-generatorPage
+      path: /plugins/qr-code-generator
+      permissions:
+        - plugin:qr-code-generator:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:qr-code-generator:read

@@ -23,8 +23,8 @@
 - `EMAIL_PROVIDER` ✅
 - `GH_CALLBACK_URL` ✅
 
-### 🌐 Site URL:
-https://yourusername.github.io/your-repo-name/
+### �� Site URL:
+https://millsy102.github.io/docssitetemplate/
 
 ### 🔐 Login Credentials:
 ⚠️ **SECURITY WARNING**: Use environment variables for production!

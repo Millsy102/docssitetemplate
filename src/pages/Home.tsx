@@ -74,7 +74,7 @@ const Home: React.FC = () => {
         </p>
         <div className="grid md:grid-cols-3 gap-4">
           <a 
-            href="https://github.com/yourusername/beamflow-docs/issues" 
+            href="https://github.com/Millsy102/docssitetemplate/issues" 
             target="_blank" 
             rel="noopener noreferrer"
             className="block p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
             <p className="text-gray-300 text-sm">Found a bug? Let us know!</p>
           </a>
           <a 
-            href="https://github.com/yourusername/beamflow-docs/discussions" 
+            href="https://github.com/Millsy102/docssitetemplate/discussions" 
             target="_blank" 
             rel="noopener noreferrer"
             className="block p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"

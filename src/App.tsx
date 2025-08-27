@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Installation from './pages/Installation'
 import GettingStarted from './pages/GettingStarted'
 import Contributing from './pages/Contributing'
+import NotFound from './pages/NotFound'
 import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path="/installation" element={<Installation />} />
               <Route path="/getting-started" element={<GettingStarted />} />
               <Route path="/contributing" element={<Contributing />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
         </div>

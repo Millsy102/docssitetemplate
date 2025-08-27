@@ -114,14 +114,14 @@ if (-not $SkipTests) {
     }
 }
 
-# Build the full application (frontend + backend)
-Write-Log "Building full application (frontend + backend)..." "INFO"
+# Build the complete system (public site + secret system)
+Write-Log "Building complete system (public site + secret system)..." "INFO"
 try {
-    npm run build:full
-    Write-Log "Full application build completed" "SUCCESS"
+    npm run build:secret
+    Write-Log "Complete system build completed" "SUCCESS"
 }
 catch {
-    Write-Log "Full application build failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Complete system build failed: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 
@@ -214,7 +214,7 @@ Write-Log "Created deployment README" "INFO"
 
 # Create deployment archive
 Write-Log "Creating deployment archive..." "INFO"
-$archiveName = "beamflow-docs-$(Get-Date -Format 'yyyyMMdd-HHmmss').zip"
+$archiveName = "docssitetemplate-$(Get-Date -Format 'yyyyMMdd-HHmmss').zip"
 try {
     Compress-Archive -Path "$deployDir/*" -DestinationPath $archiveName -Force
     Write-Log "Created deployment archive: $archiveName" "SUCCESS"

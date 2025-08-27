@@ -1,0 +1,51 @@
+name: task-project-management
+version: 1.0.0
+description: Comprehensive task and project management system
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:task-project-management:read
+  - plugin:task-project-management:write
+  - plugin:task-project-management:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Comprehensive
+    icon: work
+    path: /plugins/task-project-management
+    order: 100
+    permissions:
+      - plugin:task-project-management:read
+  widgets:
+    - name: task-project-managementWidget
+      description: Comprehensive task and project management system widget
+      component: task-project-managementWidget
+      permissions:
+        - plugin:task-project-management:read
+  pages:
+    - name: task-project-managementPage
+      description: Comprehensive task and project management system page
+      component: task-project-managementPage
+      path: /plugins/task-project-management
+      permissions:
+        - plugin:task-project-management:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:task-project-management:read

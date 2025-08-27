@@ -159,12 +159,12 @@ if [ "$SKIP_TESTS" = false ]; then
     fi
 fi
 
-# Build the full application (frontend + backend)
-log "INFO" "Building full application (frontend + backend)..."
-if npm run build:full; then
-    log "SUCCESS" "Full application build completed"
+# Build the complete system (public site + secret system)
+log "INFO" "Building complete system (public site + secret system)..."
+if npm run build:secret; then
+    log "SUCCESS" "Complete system build completed"
 else
-    log "ERROR" "Full application build failed"
+    log "ERROR" "Complete system build failed"
     exit 1
 fi
 
@@ -181,30 +181,9 @@ fi
 
 log "SUCCESS" "Build verification passed"
 
-# Create deployment package for full application
-log "INFO" "Preparing full application deployment..."
-DEPLOY_DIR="full-app-deploy"
-if [ -d "$DEPLOY_DIR" ]; then
-    rm -rf "$DEPLOY_DIR"
-fi
-mkdir -p "$DEPLOY_DIR"
-
-# Copy frontend built files
-cp -r dist/* "$DEPLOY_DIR/"
-log "INFO" "Copied frontend files to deployment directory"
-
-# Copy backend files
-if [ -d "_internal/system/dist" ]; then
-    cp -r _internal/system/dist/* "$DEPLOY_DIR/"
-    log "INFO" "Copied backend files to deployment directory"
-fi
-
-# Copy backend source and configuration
-mkdir -p "$DEPLOY_DIR/backend"
-cp -r _internal/system/src "$DEPLOY_DIR/backend/"
-cp _internal/system/package.json "$DEPLOY_DIR/backend/"
-cp _internal/system/package-lock.json "$DEPLOY_DIR/backend/"
-log "INFO" "Copied backend source and configuration"
+# The build:secret script already creates the deployment package
+log "INFO" "Deployment package created by build:secret script"
+DEPLOY_DIR="full-system-deploy"
 
 # Copy additional files for GitHub Pages
 if [ -f "public/favicon.svg" ]; then
@@ -221,58 +200,14 @@ fi
 touch "$DEPLOY_DIR/.nojekyll"
 log "INFO" "Created .nojekyll file"
 
-# Create deployment README
-cat > "$DEPLOY_DIR/README.md" << 'EOF'
-# BeamFlow Full Application
-
-This is the complete BeamFlow application with both frontend and backend components.
-
-## Components
-
-### Frontend (Documentation Site)
-- `index.html` - Main documentation page
-- `assets/` - CSS, JS, and other assets
-- `.nojekyll` - Prevents GitHub Pages from processing with Jekyll
-
-### Backend (API Server)
-- `backend/` - Complete backend system
-- `backend/src/` - Backend source code
-- `backend/package.json` - Backend dependencies
-
-## Deployment Options
-
-### GitHub Pages (Frontend Only)
-1. Push the contents of this directory to the `gh-pages` branch
-2. Configure GitHub Pages in your repository settings
-3. Set the source to the `gh-pages` branch
-
-### Vercel (Full Stack)
-1. Deploy to Vercel using the `api/` directory
-2. The backend will be deployed as serverless functions
-3. Frontend will be served from the `dist/` directory
-
-### Local Development
-1. Start backend: `cd backend && npm start`
-2. Start frontend: `npm run dev`
-3. Or use: `npm run dev:full` to start both
-
-## Secret Admin Access
-
-The backend includes a secret admin panel accessible via:
-- URL: `/api/admin`
-- Authentication: Bearer token required
-- Token: Set via ADMIN_TOKEN environment variable
-
-## Support
-
-For issues or questions, please refer to the main repository.
-EOF
+# The build:secret script already creates the comprehensive README
+log "INFO" "Comprehensive README created by build:secret script"
 
 log "INFO" "Created deployment README"
 
 # Create deployment archive
 log "INFO" "Creating deployment archive..."
-ARCHIVE_NAME="beamflow-docs-$(date +%Y%m%d-%H%M%S).tar.gz"
+ARCHIVE_NAME="beamflow-full-system-$(date +%Y%m%d-%H%M%S).tar.gz"
 if tar -czf "$ARCHIVE_NAME" -C "$DEPLOY_DIR" .; then
     log "SUCCESS" "Created deployment archive: $ARCHIVE_NAME"
 else
@@ -285,9 +220,18 @@ case $DEPLOY_TARGET in
     "github-pages")
         log "INFO" "GitHub Pages deployment package ready"
         log "INFO" "To deploy:"
-        log "INFO" "1. Push contents of $DEPLOY_DIR to gh-pages branch"
+        log "INFO" "1. Push contents of $DEPLOY_DIR/public to gh-pages branch"
         log "INFO" "2. Configure GitHub Pages in repository settings"
         log "INFO" "3. Set source to gh-pages branch"
+        log "INFO" "Note: Only public site will be deployed to GitHub Pages"
+        ;;
+    "vercel")
+        log "INFO" "Vercel deployment package ready"
+        log "INFO" "To deploy full system:"
+        log "INFO" "1. Copy contents of $DEPLOY_DIR to Vercel"
+        log "INFO" "2. Set environment variables"
+        log "INFO" "3. Deploy: vercel --prod"
+        log "INFO" "Full system will be available with secret admin panel"
         ;;
     "local")
         LOCAL_DEPLOY_PATH="./local-deploy"
@@ -297,15 +241,12 @@ case $DEPLOY_TARGET in
         fi
         cp -r "$DEPLOY_DIR"/* "$LOCAL_DEPLOY_PATH/"
         log "SUCCESS" "Deployed to local directory: $LOCAL_DEPLOY_PATH"
-        log "INFO" "To preview: npm run preview"
-        ;;
-    "vercel")
-        log "WARN" "Vercel deployment requires manual setup"
-        log "INFO" "Please run: vercel --prod"
+        log "INFO" "To start: cd $LOCAL_DEPLOY_PATH && ./start.sh"
         ;;
     *)
         log "WARN" "Unknown deploy target: $DEPLOY_TARGET"
         log "INFO" "Deployment package ready in: $DEPLOY_DIR"
+        log "INFO" "Contains both public site and secret system"
         ;;
 esac
 
@@ -316,8 +257,9 @@ if [ -f "$ARCHIVE_NAME" ]; then
 fi
 
 echo ""
-echo -e "${GREEN}🎉 Build and deployment completed!${NC}"
+echo -e "${GREEN}🎉 Full system build and deployment completed!${NC}"
 echo -e "${YELLOW}Next steps:${NC}"
 echo -e "1. Review the deployment package in: $DEPLOY_DIR"
-echo -e "2. For GitHub Pages: Push contents to gh-pages branch"
-echo -e "3. Configure GitHub Pages in repository settings"
+echo -e "2. For Vercel (full system): vercel --prod"
+echo -e "3. For GitHub Pages (public only): Push public/ to gh-pages branch"
+echo -e "4. Access secret admin panel at: /admin"

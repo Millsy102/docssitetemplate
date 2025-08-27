@@ -26,7 +26,7 @@ We welcome feature suggestions! When suggesting a feature:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/yourusername/docssitetemplate.git
+   git clone https://github.com/Millsy102/docssitetemplate.git
    cd docssitetemplate
    ```
 

@@ -1,5 +1,5 @@
 {
-  "name": "beamflow-docs",
+  "name": "docssitetemplate",
   "version": "1.0.0",
   "description": "BeamFlow Documentation Site",
   "private": true,
@@ -14,14 +14,16 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "build:full": "npm run build && npm run build:backend",
-    "build:backend": "cd _internal/system && npm run build:full",
+    "build:backend": "cd _internal/system && npm run build",
+    "build:secret": "node scripts/build-full-system.js",
     "dev:full": "concurrently \"npm run dev\" \"npm run dev:backend\"",
     "dev:backend": "cd _internal/system && npm run dev",
     "start:backend": "cd _internal/system && npm start",
-    "deploy": "npm run build:full && npm run deploy:prepare",
+    "deploy": "npm run build:secret",
     "deploy:prepare": "node scripts/prepare-deployment.js",
-    "deploy:github-pages": "npm run build:full && node scripts/deploy-github-pages.js",
-    "deploy:vercel": "npm run build:full && vercel --prod"
+    "deploy:github-pages": "npm run build && node scripts/deploy-github-pages.js",
+    "deploy:vercel": "npm run build:secret && vercel --prod",
+    "deploy:full": "npm run build:secret && vercel --prod"
   },
   "keywords": [
     "documentation",
@@ -59,10 +61,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/beamflow-docs.git"
+    "url": "https://github.com/Millsy102/docssitetemplate.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/beamflow-docs/issues"
+    "url": "https://github.com/Millsy102/docssitetemplate/issues"
   },
-  "homepage": "https://yourusername.github.io/beamflow-docs/"
+  "homepage": "https://millsy102.github.io/docssitetemplate/"
 }
