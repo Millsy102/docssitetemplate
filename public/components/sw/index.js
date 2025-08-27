@@ -55,8 +55,6 @@ self.addEventListener('push', (event) => {
     
     const options = {
         body: event.data ? event.data.text() : 'New notification',
-        icon: '/favicon-32x32.png',
-        badge: '/favicon-16x16.png',
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),
@@ -65,13 +63,11 @@ self.addEventListener('push', (event) => {
         actions: [
             {
                 action: 'explore',
-                title: 'View',
-                icon: '/favicon-32x32.png'
+                title: 'View'
             },
             {
                 action: 'close',
-                title: 'Close',
-                icon: '/favicon-16x16.png'
+                title: 'Close'
             }
         ]
     };

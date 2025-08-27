@@ -1,22 +1,22 @@
 // Service Worker for PWA functionality
 
-const CACHE_NAME = 'project-name-v1.0.0';
+const CACHE_NAME = 'beamflow-docs-v1.0.0';
 const STATIC_CACHE = 'static-v1.0.0';
 const DYNAMIC_CACHE = 'dynamic-v1.0.0';
 const API_CACHE = 'api-v1.0.0';
 
-// Files to cache immediately
+// Files to cache immediately - updated to match actual project structure
 const STATIC_FILES = [
     '/',
     '/index.html',
-    '/src/main.jsx',
-    '/src/styles/index.css',
-    '/manifest.json',
-    '/favicon.svg',
-    '/favicon-32x32.png',
-    '/favicon-16x16.png',
-    '/apple-touch-icon.png',
-    '/site.webmanifest'
+    '/assets/main-Czr3l6Ap.js',
+    '/assets/main-tn0RQdqM.css',
+    '/assets/router-HvkchvHX.js',
+    '/assets/utils-l0sNRNKZ.js',
+    '/assets/vendor-gH-7aFTg.js',
+    '/assets/manifest-ChRwKaLr.json',
+    '/login.js',
+    '/sw.js'
 ];
 
 // API endpoints to cache
@@ -232,8 +232,6 @@ self.addEventListener('push', (event) => {
     
     const options = {
         body: event.data ? event.data.text() : 'New notification',
-        icon: '/icons/icon-192x192.png',
-        badge: '/icons/badge-72x72.png',
         vibrate: [100, 50, 100],
         data: {
             dateOfArrival: Date.now(),
@@ -242,13 +240,11 @@ self.addEventListener('push', (event) => {
         actions: [
             {
                 action: 'explore',
-                title: 'View',
-                icon: '/icons/checkmark.png'
+                title: 'View'
             },
             {
                 action: 'close',
-                title: 'Close',
-                icon: '/icons/xmark.png'
+                title: 'Close'
             }
         ]
     };

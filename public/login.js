@@ -5,9 +5,6 @@ class SecretLogin {
         this.currentView = 'public'; // 'public', 'login', 'oauth-setup', 'git'
         this.ghClientId = 'your-github-client-id'; // Replace with your GitHub OAuth app client ID
         
-        // Try to get credentials from environment or use defaults
-        this.credentials = this.getCredentials();
-        
         this.init();
     }
 
@@ -26,15 +23,12 @@ class SecretLogin {
                 }
             }
         } catch (error) {
-            console.log('Could not fetch server config, using fallback credentials');
+            console.log('Could not fetch server config');
         }
         
-        // Fallback to default credentials
-        console.log('Using default credentials. Set ADMIN_USERNAME and ADMIN_PASSWORD environment variables for custom credentials.');
-        return {
-            username: 'admin',
-            password: 'secret123'
-        };
+        // No fallback credentials - this is a security measure
+        console.warn('No credentials available. Please configure ADMIN_USERNAME and ADMIN_PASSWORD environment variables.');
+        return null;
     }
 
     getEnvironmentVariable(name) {
@@ -53,9 +47,6 @@ class SecretLogin {
     }
 
     async init() {
-        // Initialize credentials first
-        this.credentials = await this.getCredentials();
-        
         // Check if OAuth is already configured
         if (localStorage.getItem('oauthConfigured') === 'true') {
             // OAuth is configured, show Git-only interface
@@ -127,7 +118,7 @@ class SecretLogin {
         }, 1000);
     }
 
-    showLoginModal() {
+    async showLoginModal() {
         // Remove existing modal if any
         const existingModal = document.querySelector('.login-modal');
         if (existingModal) existingModal.remove();
@@ -228,8 +219,10 @@ class SecretLogin {
         const password = document.getElementById('password');
         const loginError = document.getElementById('login-error');
 
-        loginBtn.addEventListener('click', () => {
-            if (username.value === this.credentials.username && password.value === this.credentials.password) {
+        loginBtn.addEventListener('click', async () => {
+            // Use server-side authentication instead of client-side credentials
+            const success = await this.authenticateWithServer(username.value, password.value);
+            if (success) {
                 localStorage.setItem('secretAuth', 'true');
                 this.isAuthenticated = true;
                 this.currentView = 'oauth-setup';
@@ -257,6 +250,27 @@ class SecretLogin {
                 loginBtn.click();
             }
         });
+    }
+
+    async authenticateWithServer(username, password) {
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data.success || false;
+            }
+            return false;
+        } catch (error) {
+            console.error('Authentication error:', error);
+            return false;
+        }
     }
 
     showOAuthSetup() {

@@ -3,27 +3,23 @@
 // Cache management utilities for Service Worker
 class CacheManager {
     constructor() {
-        this.CACHE_NAME = 'project-name-v1.0.0';
+        this.CACHE_NAME = 'beamflow-docs-v1.0.0';
         this.STATIC_CACHE = 'static-v1.0.0';
         this.DYNAMIC_CACHE = 'dynamic-v1.0.0';
         this.API_CACHE = 'api-v1.0.0';
         
-        // Files to cache immediately
+        // Files to cache immediately - updated to match actual project structure
         this.STATIC_FILES = [
             '/',
             '/index.html',
-            '/src/main.jsx',
-            '/src/styles/index.css',
-            '/manifest.json',
-            '/favicon.svg',
-            '/favicon-32x32.png',
-            '/favicon-16x16.png',
-            '/apple-touch-icon.png',
-            '/site.webmanifest',
-            '/components/styles/critical.css',
-            '/components/scripts/service-worker.js',
-            '/components/scripts/performance.js',
-            '/components/scripts/analytics.js'
+            '/assets/main-Czr3l6Ap.js',
+            '/assets/main-tn0RQdqM.css',
+            '/assets/router-HvkchvHX.js',
+            '/assets/utils-l0sNRNKZ.js',
+            '/assets/vendor-gH-7aFTg.js',
+            '/assets/manifest-ChRwKaLr.json',
+            '/login.js',
+            '/sw.js'
         ];
         
         // API endpoints to cache
