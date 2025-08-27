@@ -28,7 +28,6 @@ docs/
 ├── index.md              # This page
 ├── getting-started.md    # Getting started guide
 ├── installation.md       # Installation instructions
-├── user-guide.md         # User guide
 └── contributing.md       # Contributing guidelines
 ```
 

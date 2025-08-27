@@ -1,116 +1,76 @@
 # Installation Guide
 
-This guide will help you install and set up the Documentation Site Template.
+This guide provides detailed instructions for installing and setting up the Documentation Site Template.
 
-## Prerequisites
+## System Requirements
 
-Before you begin, make sure you have:
+- **Operating System**: Windows, macOS, or Linux
+- **Python**: 3.7 or higher
+- **Git**: Latest version
+- **Web Browser**: Modern browser (Chrome, Firefox, Safari, Edge)
 
-- **Git** installed on your system
-- **A GitHub account** for hosting
-- **A text editor** (VS Code, Sublime Text, etc.)
-- **Basic knowledge** of HTML, CSS, and Markdown
+## Installation Methods
 
-## Installation Steps
+### Method 1: Using Git Clone (Recommended)
 
-### Step 1: Clone the Repository
+1. **Clone the repository**
 
-```bash
-git clone https://github.com/your-username/docssitetemplate.git
-cd docssitetemplate
-```
-
-### Step 2: Review the Structure
-
-Take a look at the project structure:
-
-```
-docssitetemplate/
-├── docs/              # Documentation content
-├── assets/            # CSS, JS, and images
-├── index.html         # Main page
-├── mkdocs.yml         # Configuration
-└── README.md          # Project README
-```
-
-### Step 3: Customize Content
-
-Edit the files in the `docs/` folder:
-
-- `docs/index.md` - Main documentation page
-- `docs/getting-started.md` - Getting started guide
-- `docs/installation.md` - This installation guide
-- `docs/user-guide.md` - User guide
-
-### Step 4: Update Configuration
-
-Edit `mkdocs.yml` to customize your site:
-
-```yaml
-site_name: Your Project Name
-site_description: Your project description
-site_author: Your Name
-repo_url: https://github.com/your-username/your-repo-name
-```
-
-### Step 5: Customize Styling
-
-Modify the CSS files in `assets/css/`:
-
-- `assets/css/main.css` - Main styles
-- `assets/css/components.css` - Component styles
-- `assets/css/animations.css` - Animation styles
-
-### Step 6: Test Locally
-
-If you have MkDocs installed:
-
-```bash
-# Install MkDocs (optional)
-pip install mkdocs
-
-# Start local server
-mkdocs serve
-```
-
-Or simply open `index.html` in your browser to preview.
-
-### Step 7: Deploy to GitHub Pages
-
-1. **Push to GitHub**
    ```bash
-   git add .
-   git commit -m "Initial setup"
-   git push origin main
+   git clone https://github.com/yourusername/docssitetemplate.git
+   cd docssitetemplate
    ```
 
-2. **Enable GitHub Pages**
-   - Go to your repository on GitHub
-   - Click "Settings"
-   - Scroll down to "GitHub Pages"
-   - Select "Deploy from a branch"
-   - Choose "main" branch
-   - Click "Save"
+2. **Install Python dependencies**
 
-3. **Your site will be available at**
-   `https://yourusername.github.io/your-repo-name/`
+   ```bash
+   pip install mkdocs mkdocs-material
+   ```
 
-## Configuration Options
+3. **Verify installation**
 
-### Site Configuration
+   ```bash
+   mkdocs --version
+   ```
 
-Edit `mkdocs.yml` for basic settings:
+### Method 2: Manual Download
 
-```yaml
-site_name: My Documentation
-site_description: Documentation for my project
-site_author: John Doe
-site_url: https://yourusername.github.io/your-repo-name/
-```
+1. **Download the repository**
+   - Go to the GitHub repository
+   - Click "Code" → "Download ZIP"
+   - Extract the ZIP file
+
+2. **Install dependencies**
+
+   ```bash
+   cd docssitetemplate
+   pip install mkdocs mkdocs-material
+   ```
+
+## Configuration
+
+### Basic Setup
+
+1. **Edit site configuration**
+   Open `mkdocs.yml` and update the basic information:
+
+   ```yaml
+   site_name: Your Documentation Site
+   site_description: Your site description
+   site_author: Your Name
+   site_url: https://yourusername.github.io/your-repo-name/
+   ```
+
+2. **Update repository information**
+
+   ```yaml
+   repo_name: yourusername/your-repo-name
+   repo_url: https://github.com/yourusername/your-repo-name
+   edit_uri: edit/main/docs/
+   ```
 
 ### Theme Configuration
 
-Customize the appearance:
+The template uses Material for MkDocs theme. You can customize it:
 
 ```yaml
 theme:
@@ -119,82 +79,196 @@ theme:
     - scheme: default
       primary: indigo
       accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
 ```
 
-### Navigation
+### Navigation Setup
 
-Configure the navigation structure:
+Configure the navigation structure in `mkdocs.yml`:
 
 ```yaml
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
-  - Installation: installation.md
-  - User Guide: user-guide.md
+  - Getting Started:
+    - Installation: getting-started.md
+    - Configuration: installation.md
+  - Contributing: contributing.md
 ```
+
+## Development
+
+### Local Development Server
+
+1. **Start the development server**
+
+   ```bash
+   mkdocs serve
+   ```
+
+2. **Access your site**
+   Open your browser and go to `http://127.0.0.1:8000`
+
+3. **Live reload**
+   The server automatically reloads when you make changes to your files.
+
+### Building the Site
+
+1. **Build for production**
+
+   ```bash
+   mkdocs build
+   ```
+
+2. **Build output**
+   The built site will be in the `site/` directory.
 
 ## Customization
 
-### Adding Pages
+### Adding Custom CSS
 
-1. Create a new Markdown file in the `docs/` folder
-2. Add it to the navigation in `mkdocs.yml`
-3. Link to it from other pages
+1. **Create custom CSS file**
 
-### Adding Images
-
-1. Place images in `assets/images/`
-2. Reference them in Markdown:
-   ```markdown
-   ![Alt text](assets/images/image.png)
+   ```bash
+   mkdir docs/stylesheets
+   touch docs/stylesheets/extra.css
    ```
 
-### Custom CSS
+2. **Add your styles**
 
-Add custom styles in `assets/css/main.css`:
+   ```css
+   /* Custom styles */
+   .custom-header {
+       background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+       color: white;
+       padding: 2rem;
+   }
+   ```
 
-```css
-/* Custom styles */
-.my-custom-class {
-    color: #333;
-    font-weight: bold;
-}
-```
+3. **Include in configuration**
+
+   ```yaml
+   extra_css:
+     - stylesheets/extra.css
+   ```
+
+### Adding Custom JavaScript
+
+1. **Create custom JS file**
+
+   ```bash
+   mkdir docs/javascripts
+   touch docs/javascripts/extra.js
+   ```
+
+2. **Add your scripts**
+
+   ```javascript
+   // Custom JavaScript
+   document.addEventListener('DOMContentLoaded', function() {
+       console.log('Documentation site loaded!');
+   });
+   ```
+
+3. **Include in configuration**
+
+   ```yaml
+   extra_javascript:
+     - javascripts/extra.js
+   ```
+
+## Deployment
+
+### GitHub Pages
+
+1. **Push to GitHub**
+
+   ```bash
+   git add .
+   git commit -m "Initial documentation site"
+   git push origin main
+   ```
+
+2. **Enable GitHub Pages**
+   - Go to your repository on GitHub
+   - Click "Settings" → "Pages"
+   - Select "Deploy from a branch"
+   - Choose branch: `main` and folder: `/docs`
+   - Click "Save"
+
+3. **Your site is live**
+   Your documentation will be available at `https://yourusername.github.io/your-repo-name/`
+
+### Netlify
+
+1. **Connect to Netlify**
+   - Go to [netlify.com](https://netlify.com)
+   - Connect your GitHub repository
+   - Set build command: `mkdocs build`
+   - Set publish directory: `site`
+
+2. **Deploy**
+   Netlify will automatically build and deploy your site.
+
+### Custom Domain
+
+1. **Add CNAME file**
+   Create `docs/CNAME` with your domain:
+
+   ```
+   yourdomain.com
+   ```
+
+2. **Configure DNS**
+   Add a CNAME record pointing to `yourusername.github.io`
+
+3. **Update configuration**
+
+   ```yaml
+   site_url: https://yourdomain.com
+   ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Site not updating**
-   - Check GitHub Pages settings
-   - Ensure files are pushed to the main branch
-   - Wait a few minutes for changes to propagate
+**Issue**: `mkdocs: command not found`
+**Solution**: Make sure Python and pip are installed correctly.
 
-2. **Styling not working**
-   - Check file paths in CSS references
-   - Ensure CSS files are properly linked
-   - Clear browser cache
+**Issue**: Theme not loading
+**Solution**: Install the Material theme: `pip install mkdocs-material`
 
-3. **Navigation issues**
-   - Verify `mkdocs.yml` configuration
-   - Check file names and paths
-   - Ensure proper Markdown formatting
+**Issue**: Site not updating on GitHub Pages
+**Solution**: Check that you're using the `/docs` folder as the source.
 
 ### Getting Help
 
-- Check the [Getting Started](getting-started.md) guide
-- Review the [User Guide](user-guide.md)
-- Create an issue in the repository
+- Check the [MkDocs documentation](https://www.mkdocs.org/)
+- Review the [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-material/)
+- Create an issue in this repository
 
 ## Next Steps
 
-After installation:
-
-1. Customize the content for your project
-2. Add your own branding and styling
-3. Set up custom domain (optional)
-4. Add analytics (optional)
+- Read the [Getting Started Guide](getting-started.md)
+- Check out the [Contributing Guide](contributing.md)
+- Customize the theme and styling
+- Add your own content and documentation
 
 ---
 
-*Simple documentation template for GitHub Pages*
+*Your documentation site is ready!*

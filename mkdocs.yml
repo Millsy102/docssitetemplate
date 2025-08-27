@@ -70,17 +70,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Installation: getting-started/installation.md
-    - Configuration: getting-started/configuration.md
-    - Customization: getting-started/customization.md
-  - Features:
-    - Theme: features/theme.md
-    - Search: features/search.md
-    - Code Blocks: features/code-blocks.md
-  - Advanced:
-    - Plugins: advanced/plugins.md
-    - Styling: advanced/styling.md
-    - Deployment: advanced/deployment.md
-  - API Reference: api-reference/index.md
+  - Getting Started: getting-started.md
+  - Installation: installation.md
   - Contributing: contributing.md

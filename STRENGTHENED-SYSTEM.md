@@ -4,9 +4,33 @@
 
 The BeamFlow website system has been significantly strengthened with comprehensive security, performance, monitoring, and reliability enhancements. This document outlines the improvements and how to use them.
 
+## 🏗️ Project Structure
+
+This project implements a **dual-layer architecture**:
+
+### Public Layer (Root Directory)
+- **Purpose**: Basic documentation template visible to everyone
+- **Content**: Simple docs template, README, basic configuration
+- **Access**: Public - visible to anyone who visits the repository
+- **Deployment**: Can be deployed to GitHub Pages as a basic docs site
+
+### Private Layer (`private/` folder)
+- **Purpose**: Complete, full-featured website with all functionality
+- **Content**: Real website, admin dashboard, strengthened system components
+- **Access**: Private - only accessible after login/authentication
+- **Deployment**: Hosted separately with proper authentication
+
+### Strengthened System Components (`private/src/`)
+- **BeamSecurity**: Comprehensive security middleware
+- **BeamAuth**: Enhanced authentication system
+- **BeamPerformanceMonitor**: Real-time performance monitoring
+- **BeamCache**: Advanced caching system
+- **BeamErrorHandler**: Comprehensive error handling
+- **BeamValidator**: Input validation and sanitization
+
 ## 🛡️ Security Enhancements
 
-### 1. BeamSecurity Middleware (`src/middleware/BeamSecurity.js`)
+### 1. BeamSecurity Middleware (`private/src/middleware/BeamSecurity.js`)
 
 **Features:**
 - **Helmet.js Integration**: Comprehensive security headers
@@ -28,7 +52,7 @@ const authLimiter = BeamSecurity.getAuthLimiter();
 const apiLimiter = BeamSecurity.getApiLimiter();
 ```
 
-### 2. Enhanced Authentication (`src/middleware/BeamAuth.js`)
+### 2. Enhanced Authentication (`private/src/middleware/BeamAuth.js`)
 
 **Features:**
 - **JWT Token Management**: Secure token-based authentication
@@ -39,7 +63,7 @@ const apiLimiter = BeamSecurity.getApiLimiter();
 
 ## 📊 Performance Monitoring
 
-### 1. BeamPerformanceMonitor (`src/utils/BeamPerformanceMonitor.js`)
+### 1. BeamPerformanceMonitor (`private/src/utils/BeamPerformanceMonitor.js`)
 
 **Features:**
 - **Request Tracking**: Response times, status codes, endpoints
@@ -60,7 +84,7 @@ const stats = BeamPerformanceMonitor.getStats();
 console.log(stats);
 ```
 
-### 2. BeamCache System (`src/utils/BeamCache.js`)
+### 2. BeamCache System (`private/src/utils/BeamCache.js`)
 
 **Features:**
 - **In-Memory Caching**: Fast response caching
@@ -88,7 +112,7 @@ BeamCache.invalidateByTag('users');
 
 ## 🔍 Error Handling
 
-### BeamErrorHandler (`src/utils/BeamErrorHandler.js`)
+### BeamErrorHandler (`private/src/utils/BeamErrorHandler.js`)
 
 **Features:**
 - **Comprehensive Error Categorization**: Different error types
@@ -112,7 +136,7 @@ app.use(BeamErrorHandler.globalErrorHandler());
 
 ## ✅ Input Validation
 
-### BeamValidator (`src/utils/BeamValidator.js`)
+### BeamValidator (`private/src/utils/BeamValidator.js`)
 
 **Features:**
 - **Schema-Based Validation**: Declarative validation rules
@@ -155,7 +179,7 @@ app.post('/api/users', validateUser, (req, res) => {
 
 ## 🚀 Server Configuration
 
-### Enhanced Server (`src/server.js`)
+### Enhanced Server (`private/src/server.js`)
 
 **Features:**
 - **Integrated Security**: All security middleware applied

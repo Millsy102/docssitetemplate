@@ -95,9 +95,51 @@ HIDDEN_CONFIG.md
 *.hidden
 .hidden/
 
-# Secret files (keep these on GitHub for secret hosting)
+# ========================================
+# PUBLIC DOCS TEMPLATE (docs/ folder)
+# ========================================
+# The docs/ folder should ONLY contain basic template content
+# Keep this minimal and generic for public viewing
+
+# ========================================
+# PRIVATE WEBSITE (root directory)
+# ========================================
+# These files contain the full secret website - only visible after login
+
+# Secret website files (keep these on GitHub for secret hosting)
 # dist/ - KEEP (secret website)
-# admin-docs/ - KEEP (admin documentation)
-# content/ - KEEP (secret content)
-# assets/ - KEEP (secret assets)
+# private/ - KEEP (secret content)
+# assets/ - KEEP (secret assets) 
 # scripts/ - KEEP (secret scripts)
+# index.html - KEEP (secret main page)
+# sw.js - KEEP (secret service worker)
+
+# Private configuration files
+private/
+admin-docs/
+content/
+*.secret
+*.private
+
+# Authentication and security files
+auth/
+security/
+*.key
+*.pem
+*.crt
+
+# Database and data files
+*.db
+*.sqlite
+data/
+uploads/
+
+# ========================================
+# DOCS TEMPLATE EXCLUSIONS
+# ========================================
+# Exclude any private content that might accidentally be in docs/
+docs/private/
+docs/admin/
+docs/secret/
+docs/*.secret
+docs/*.private

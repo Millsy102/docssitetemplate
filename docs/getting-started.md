@@ -2,101 +2,160 @@
 
 Welcome to the Documentation Site Template! This guide will help you get started with creating your own documentation site.
 
-## Overview
-
-This template provides a simple foundation for creating documentation sites. It's designed to be easy to use and customize.
-
 ## Prerequisites
 
 Before you begin, make sure you have:
 
 - A GitHub account
 - Basic knowledge of Markdown
-- A text editor
+- A text editor (VS Code, Sublime Text, etc.)
 
-## Quick Start
+## Installation
 
-### 1. Clone the Template
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/docssitetemplate.git
+   cd docssitetemplate
+   ```
 
-```bash
-git clone https://github.com/your-username/docssitetemplate.git
-cd docssitetemplate
-```
+2. **Install dependencies** (if using MkDocs)
+   ```bash
+   pip install mkdocs mkdocs-material
+   ```
 
-### 2. Customize Content
+3. **Start the development server**
+   ```bash
+   mkdocs serve
+   ```
 
-Edit the files in the `docs/` folder to add your own content:
+## Basic Configuration
 
-- `docs/index.md` - Main page
-- `docs/getting-started.md` - This guide
-- `docs/installation.md` - Installation instructions
-- `docs/user-guide.md` - User guide
-
-### 3. Update Configuration
+### Site Information
 
 Edit `mkdocs.yml` to customize your site:
 
 ```yaml
-site_name: Your Project Name
-site_description: Your project description
+site_name: Your Documentation Site
+site_description: Your site description
 site_author: Your Name
+site_url: https://yourusername.github.io/your-repo-name/
 ```
 
-### 4. Customize Styling
+### Navigation
 
-Modify the CSS files in `assets/css/` to change the appearance:
+Update the navigation in `mkdocs.yml`:
 
-- `assets/css/main.css` - Main styles
-- `assets/css/components.css` - Component styles
+```yaml
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Installation: installation.md
+  - Contributing: contributing.md
+```
 
-### 5. Deploy to GitHub Pages
+## Adding Content
+
+### Creating New Pages
+
+1. Create a new `.md` file in the `docs/` folder
+2. Add front matter (optional):
+   ```markdown
+   ---
+   title: Your Page Title
+   description: Page description
+   ---
+   ```
+3. Write your content using Markdown
+4. Add the page to navigation in `mkdocs.yml`
+
+### Markdown Features
+
+This template supports extended Markdown features:
+
+- **Admonitions**
+  ```markdown
+  !!! note "Note"
+      This is a note.
+  ```
+
+- **Code blocks with syntax highlighting**
+  ```markdown
+  ```python
+  def hello_world():
+      print("Hello, World!")
+  ```
+  ```
+
+- **Tables**
+  ```markdown
+  | Feature | Description |
+  |--------|-------------|
+  | Markdown | Full support |
+  | Search | Built-in |
+  | Responsive | Mobile-friendly |
+  ```
+
+## Customization
+
+### Theme
+
+The template uses Material for MkDocs theme. You can customize it in `mkdocs.yml`:
+
+```yaml
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+```
+
+### CSS Customization
+
+Add custom CSS by creating `docs/stylesheets/extra.css`:
+
+```css
+/* Your custom styles */
+.custom-class {
+    color: #ff6b6b;
+}
+```
+
+## Deployment
+
+### GitHub Pages
 
 1. Push your changes to GitHub
-2. Go to your repository settings
-3. Enable GitHub Pages
-4. Your site will be available at `https://yourusername.github.io/your-repo-name/`
+2. Go to repository Settings > Pages
+3. Select source: "Deploy from a branch"
+4. Choose branch: `main` and folder: `/docs`
+5. Click Save
 
-## File Structure
+Your site will be available at `https://yourusername.github.io/your-repo-name/`
 
-```
-├── docs/                 # Documentation content
-│   ├── index.md         # Main page
-│   ├── getting-started.md
-│   ├── installation.md
-│   └── user-guide.md
-├── assets/              # CSS, JS, images
-│   ├── css/
-│   ├── js/
-│   └── images/
-├── index.html           # Main HTML file
-├── mkdocs.yml          # MkDocs configuration
-└── README.md           # Repository README
-```
+### Custom Domain
 
-## Customization Tips
+To use a custom domain:
 
-### Adding Pages
-
-Create new Markdown files in the `docs/` folder and they'll automatically appear in the navigation.
-
-### Changing Colors
-
-Edit the CSS variables in `assets/css/main.css` to change the color scheme.
-
-### Adding Images
-
-Place images in `assets/images/` and reference them in your Markdown files.
+1. Add a `CNAME` file in the `docs/` folder with your domain
+2. Configure DNS settings with your domain provider
+3. Update `site_url` in `mkdocs.yml`
 
 ## Next Steps
 
 - Read the [Installation Guide](installation.md) for detailed setup instructions
-- Check the [User Guide](user-guide.md) for advanced features
-- Customize the styling to match your brand
+- Check out the [Contributing Guide](contributing.md) to learn how to contribute
+- Customize the theme and styling to match your brand
+- Add more content and documentation
 
 ## Support
 
-If you need help, please refer to the documentation or create an issue in the repository.
+If you need help:
+
+1. Check the [MkDocs documentation](https://www.mkdocs.org/)
+2. Review the [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-material/)
+3. Create an issue in this repository
 
 ---
 
-*Simple documentation template for GitHub Pages*
+*Happy documenting!*
