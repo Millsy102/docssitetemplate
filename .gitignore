@@ -54,3 +54,13 @@ jspm_packages/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# ========================================
+# SECRET SETUP DOCUMENTATION
+# ========================================
+# Hide setup documentation that reveals the honeypot system
+SETUP.md
+DUAL_LAYER_SETUP.md
+HONEYPOT_SETUP.md
+SECRET_SETUP.md
+GITHUB_PAGES_README.md
