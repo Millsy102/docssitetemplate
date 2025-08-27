@@ -98,6 +98,7 @@
     "passport-github2": "^0.1.12",
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.3",
+    "uuid": "^9.0.1",
     "redis": "^4.6.12",
     "sharp": "^0.33.2",
     "socket.io": "^4.7.4",

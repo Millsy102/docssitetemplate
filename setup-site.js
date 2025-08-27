@@ -10,6 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { log } = require('./src/utils/logger');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -23,8 +24,8 @@ function question(prompt) {
 }
 
 async function setupSite() {
-    console.log('🚀 BeamFlow Site Setup\n');
-    console.log('This script will help you configure the site with your own information.\n');
+    log.info('🚀 BeamFlow Site Setup\n');
+    log.info('This script will help you configure the site with your own information.\n');
 
     // Get user information
     const githubUsername = await question('Enter your GitHub username: ');
@@ -188,35 +189,35 @@ Your site is now ready to deploy!
 
     fs.writeFileSync('SETUP_COMPLETE.md', setupReadme);
 
-    console.log('\n✅ Site configuration complete!\n');
-    console.log('📋 Summary:');
-    console.log(`   Site Name: ${siteName}`);
-    console.log(`   GitHub Username: ${githubUsername}`);
-    console.log(`   Repository: ${repositoryName}`);
-    console.log(`   Site URL: ${baseUrl}`);
-    console.log(`   OAuth Callback: ${callbackUrl}\n`);
+    log.info('\n✅ Site configuration complete!\n');
+    log.info('📋 Summary:');
+    log.info(`   Site Name: ${siteName}`);
+    log.info(`   GitHub Username: ${githubUsername}`);
+    log.info(`   Repository: ${repositoryName}`);
+    log.info(`   Site URL: ${baseUrl}`);
+    log.info(`   OAuth Callback: ${callbackUrl}\n`);
 
-    console.log('📝 Next steps:');
-    console.log('1. Review SETUP_COMPLETE.md for detailed instructions');
-    console.log('2. Push your changes to GitHub');
-    console.log('3. Enable GitHub Pages in your repository settings');
-    console.log('4. Your site will be available at the URL above\n');
+    log.info('📝 Next steps:');
+    log.info('1. Review SETUP_COMPLETE.md for detailed instructions');
+    log.info('2. Push your changes to GitHub');
+    log.info('3. Enable GitHub Pages in your repository settings');
+    log.info('4. Your site will be available at the URL above\n');
 
-    console.log('🎉 Happy coding!');
+    log.info('🎉 Happy coding!');
 
     rl.close();
 }
 
 // Handle errors
 process.on('SIGINT', () => {
-    console.log('\n\nSetup cancelled. You can run this script again anytime.');
+    log.info('\n\nSetup cancelled. You can run this script again anytime.');
     rl.close();
     process.exit(0);
 });
 
 // Run the setup
 setupSite().catch(error => {
-    console.error('❌ Setup failed:', error.message);
+    log.error('❌ Setup failed:', error.message);
     rl.close();
     process.exit(1);
 });

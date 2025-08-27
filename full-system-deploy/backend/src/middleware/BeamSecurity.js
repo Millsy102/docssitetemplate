@@ -1,25 +1,10 @@
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const xss = require('xss-clean');
 
 class BeamSecurity {
     constructor() {
-        this.apiLimiter = rateLimit({
-            windowMs: 15 * 60 * 1000, // 15 minutes
-            max: 1000, // limit each IP to 1000 requests per windowMs
-            message: 'Too many API requests, please try again later.',
-            standardHeaders: true,
-            legacyHeaders: false,
-        });
-
-        this.generalLimiter = rateLimit({
-            windowMs: 15 * 60 * 1000, // 15 minutes
-            max: 100, // limit each IP to 100 requests per windowMs
-            message: 'Too many requests, please try again later.',
-            standardHeaders: true,
-            legacyHeaders: false,
-        });
+        // Rate limiting is now handled by BeamRateLimiter
     }
 
     applySecurityMiddleware(app) {
@@ -60,18 +45,10 @@ class BeamSecurity {
         app.use(express.json({ limit: '10mb' }));
         app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-        // Apply rate limiters
-        app.use('/api', this.apiLimiter);
-        app.use('/', this.generalLimiter);
+        // Rate limiting is now handled by BeamRateLimiter
     }
 
-    getApiLimiter() {
-        return this.apiLimiter;
-    }
-
-    getGeneralLimiter() {
-        return this.generalLimiter;
-    }
+    // Rate limiting methods are now handled by BeamRateLimiter
 
     sanitizeInput(input) {
         if (typeof input === 'string') {

@@ -15,7 +15,7 @@ const siteConfig = {
   
   // Authentication
   auth: {
-    clientId: process.env.GITHUB_CLIENT_ID || "",
+    clientId: process.env.GH_CLIENT_ID || "",
     callbackUrl: "https://millsy102.github.io/docssitetemplate/auth/callback",
   },
   

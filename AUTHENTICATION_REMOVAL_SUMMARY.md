@@ -49,9 +49,9 @@ JWT_EXPIRES_IN=24h
 SESSION_SECRET=your-session-secret-key
 
 # GitHub OAuth (REMOVED)
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
-GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback
+GH_CLIENT_ID=your-github-client-id
+GH_CLIENT_SECRET=your-github-client-secret
+GH_CALLBACK_URL=http://localhost:3000/auth/github/callback
 
 # FTP/SSH Server (REMOVED)
 FTP_PORT=21

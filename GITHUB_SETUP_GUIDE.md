@@ -80,9 +80,9 @@ ssh -T git@github.com
 Create a `.env` file in your project root:
 ```bash
 # .env
-GITHUB_USERNAME=[your-username]
-GITHUB_TOKEN=your_personal_access_token_here
-GITHUB_REPO=[your-username]/[your-repo-name]
+GH_USERNAME=[your-username]
+GH_TOKEN=your_personal_access_token_here
+GH_REPO=[your-username]/[your-repo-name]
 ```
 
 ### 6. Verify GitHub Pages Settings

@@ -1,11 +1,21 @@
 /* ===== SERVICE WORKER COMPONENT ===== */
 
+// Development flag - set to false in production
+const DEBUG_MODE = false;
+
+// Debug logging function
+function debugLog(...args) {
+    if (DEBUG_MODE) {
+        console.log(...args);
+    }
+}
+
 // Service Worker registration and management
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => {
-                console.log('SW registered: ', registration);
+                debugLog('SW registered: ', registration);
                 
                 // Handle service worker updates
                 registration.addEventListener('updatefound', () => {
@@ -19,7 +29,7 @@ if ('serviceWorker' in navigator) {
                 });
             })
             .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
+                debugLog('SW registration failed: ', registrationError);
             });
     });
 }

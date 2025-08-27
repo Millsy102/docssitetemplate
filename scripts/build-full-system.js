@@ -5,7 +5,8 @@
  * Builds both the public documentation site and the hidden secret system
  */
 
-const fs = require('fs');
+const fs = require('fs').promises;
+const fsSync = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -67,7 +68,7 @@ function buildSecretSystem() {
     
     const secretPath = '_internal/system';
     
-    if (!fs.existsSync(secretPath)) {
+    if (!fsSync.existsSync(secretPath)) {
         log('Secret system directory not found', 'ERROR');
         process.exit(1);
     }
@@ -94,52 +95,70 @@ function buildSecretSystem() {
     }
 }
 
-function createDeploymentPackage() {
+async function createDeploymentPackage() {
     log('Creating comprehensive deployment package...');
     
     const deployDir = 'full-system-deploy';
     
-    // Clean previous deployment
-    if (fs.existsSync(deployDir)) {
-        fs.rmSync(deployDir, { recursive: true, force: true });
+    try {
+        // Clean previous deployment
+        try {
+            await fs.access(deployDir);
+            await fs.rm(deployDir, { recursive: true, force: true });
+            log('Cleaned previous deployment directory');
+        } catch (error) {
+            // Directory doesn't exist, which is fine
+        }
+        
+        await fs.mkdir(deployDir, { recursive: true });
+        
+        // Copy public site
+        try {
+            await fs.access('dist');
+            await fs.cp('dist', `${deployDir}/public`, { recursive: true });
+            log('Copied public site to deployment package');
+        } catch (error) {
+            log('Public site dist directory not found, skipping', 'WARN');
+        }
+        
+        // Copy secret system
+        try {
+            await fs.access('_internal/system/dist');
+            await fs.cp('_internal/system/dist', `${deployDir}/secret`, { recursive: true });
+            log('Copied secret system to deployment package');
+        } catch (error) {
+            log('Secret system dist directory not found, skipping', 'WARN');
+        }
+        
+        // Copy backend source
+        await fs.mkdir(`${deployDir}/backend`, { recursive: true });
+        await fs.cp('_internal/system/src', `${deployDir}/backend/src`, { recursive: true });
+        await fs.copyFile('_internal/system/package.json', `${deployDir}/backend/package.json`);
+        await fs.copyFile('_internal/system/package-lock.json', `${deployDir}/backend/package-lock.json`);
+        
+        // Copy API entry point
+        await fs.copyFile('api/index.js', `${deployDir}/api.js`);
+        
+        // Copy configuration files
+        try {
+            await fs.access('vercel.json');
+            await fs.copyFile('vercel.json', `${deployDir}/vercel.json`);
+        } catch (error) {
+            log('vercel.json not found, skipping', 'WARN');
+        }
+        
+        // Create deployment README
+        await createDeploymentReadme(deployDir);
+        
+        log('Deployment package created successfully', 'SUCCESS');
+        return deployDir;
+    } catch (error) {
+        log(`Failed to create deployment package: ${error.message}`, 'ERROR');
+        throw error;
     }
-    
-    fs.mkdirSync(deployDir, { recursive: true });
-    
-    // Copy public site
-    if (fs.existsSync('dist')) {
-        fs.cpSync('dist', `${deployDir}/public`, { recursive: true });
-        log('Copied public site to deployment package');
-    }
-    
-    // Copy secret system
-    if (fs.existsSync('_internal/system/dist')) {
-        fs.cpSync('_internal/system/dist', `${deployDir}/secret`, { recursive: true });
-        log('Copied secret system to deployment package');
-    }
-    
-    // Copy backend source
-    fs.mkdirSync(`${deployDir}/backend`, { recursive: true });
-    fs.cpSync('_internal/system/src', `${deployDir}/backend/src`, { recursive: true });
-    fs.copyFileSync('_internal/system/package.json', `${deployDir}/backend/package.json`);
-    fs.copyFileSync('_internal/system/package-lock.json', `${deployDir}/backend/package-lock.json`);
-    
-    // Copy API entry point
-    fs.copyFileSync('api/index.js', `${deployDir}/api.js`);
-    
-    // Copy configuration files
-    if (fs.existsSync('vercel.json')) {
-        fs.copyFileSync('vercel.json', `${deployDir}/vercel.json`);
-    }
-    
-    // Create deployment README
-    createDeploymentReadme(deployDir);
-    
-    log('Deployment package created successfully', 'SUCCESS');
-    return deployDir;
 }
 
-function createDeploymentReadme(deployDir) {
+async function createDeploymentReadme(deployDir) {
     const readmeContent = `# BeamFlow Full System Deployment
 
 This package contains both the public documentation site and the hidden secret system.
@@ -269,13 +288,14 @@ For issues or questions about the secret system, refer to the private documentat
 **Remember**: The public site is a facade. The real system is hidden in the secret directory.
 `;
     
-    fs.writeFileSync(`${deployDir}/README.md`, readmeContent);
+    await fs.writeFile(`${deployDir}/README.md`, readmeContent);
     log('Created deployment README');
 }
 
-function createStartScripts(deployDir) {
-    // Create start script for the full system
-    const startScript = `#!/bin/bash
+async function createStartScripts(deployDir) {
+    try {
+        // Create start script for the full system
+        const startScript = `#!/bin/bash
 # BeamFlow Full System Start Script
 
 echo "🚀 Starting BeamFlow Full System..."
@@ -297,11 +317,11 @@ echo "🔐 Admin panel: http://localhost:3000/admin"
 echo "📊 Health check: http://localhost:3000/api/health"
 `;
 
-    fs.writeFileSync(`${deployDir}/start.sh`, startScript);
-    fs.chmodSync(`${deployDir}/start.sh`, '755');
-    
-    // Create PowerShell version
-    const startScriptPS = `# BeamFlow Full System Start Script (PowerShell)
+        await fs.writeFile(`${deployDir}/start.sh`, startScript);
+        await fs.chmod(`${deployDir}/start.sh`, '755');
+        
+        // Create PowerShell version
+        const startScriptPS = `# BeamFlow Full System Start Script (PowerShell)
 
 Write-Host "🚀 Starting BeamFlow Full System..." -ForegroundColor Green
 
@@ -322,19 +342,23 @@ Write-Host "🔐 Admin panel: http://localhost:3000/admin" -ForegroundColor Cyan
 Write-Host "📊 Health check: http://localhost:3000/api/health" -ForegroundColor Cyan
 `;
 
-    fs.writeFileSync(`${deployDir}/start.ps1`, startScriptPS);
-    log('Created start scripts');
+        await fs.writeFile(`${deployDir}/start.ps1`, startScriptPS);
+        log('Created start scripts');
+    } catch (error) {
+        log(`Failed to create start scripts: ${error.message}`, 'ERROR');
+        throw error;
+    }
 }
 
-function main() {
+async function main() {
     console.log(`${colors.green}🚀 BeamFlow Full System Build${colors.reset}\n`);
     
     try {
         checkPrerequisites();
         buildPublicSite();
         buildSecretSystem();
-        const deployDir = createDeploymentPackage();
-        createStartScripts(deployDir);
+        const deployDir = await createDeploymentPackage();
+        await createStartScripts(deployDir);
         
         console.log(`\n${colors.green}🎉 Full system build completed!${colors.reset}`);
         console.log(`${colors.yellow}Deployment package:${colors.reset} ${deployDir}`);

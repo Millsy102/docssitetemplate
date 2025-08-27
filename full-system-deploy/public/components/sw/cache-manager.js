@@ -1,5 +1,15 @@
 /* ===== CACHE MANAGER COMPONENT ===== */
 
+// Development flag - set to false in production
+const DEBUG_MODE = false;
+
+// Debug logging function
+function debugLog(...args) {
+    if (DEBUG_MODE) {
+        console.log(...args);
+    }
+}
+
 // Cache management utilities for Service Worker
 class CacheManager {
     constructor() {
@@ -32,13 +42,13 @@ class CacheManager {
     
     // Install event - cache static files
     async install() {
-        console.log('Cache Manager: Installing...');
+        debugLog('Cache Manager: Installing...');
         
         try {
             const cache = await caches.open(this.STATIC_CACHE);
-            console.log('Cache Manager: Caching static files');
+            debugLog('Cache Manager: Caching static files');
             await cache.addAll(this.STATIC_FILES);
-            console.log('Cache Manager: Static files cached successfully');
+            debugLog('Cache Manager: Static files cached successfully');
             return true;
         } catch (error) {
             console.error('Cache Manager: Error caching static files', error);
@@ -48,7 +58,7 @@ class CacheManager {
     
     // Activate event - clean up old caches
     async activate() {
-        console.log('Cache Manager: Activating...');
+        debugLog('Cache Manager: Activating...');
         
         try {
             const cacheNames = await caches.keys();
@@ -56,13 +66,13 @@ class CacheManager {
                 if (cacheName !== this.STATIC_CACHE && 
                     cacheName !== this.DYNAMIC_CACHE && 
                     cacheName !== this.API_CACHE) {
-                    console.log('Cache Manager: Deleting old cache', cacheName);
+                    debugLog('Cache Manager: Deleting old cache', cacheName);
                     return caches.delete(cacheName);
                 }
             });
             
             await Promise.all(deletePromises);
-            console.log('Cache Manager: Activated successfully');
+            debugLog('Cache Manager: Activated successfully');
             return true;
         } catch (error) {
             console.error('Cache Manager: Error during activation', error);
@@ -149,7 +159,7 @@ class CacheManager {
         try {
             const cacheNames = await caches.keys();
             await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
-            console.log('Cache Manager: All caches cleared');
+            debugLog('Cache Manager: All caches cleared');
             return true;
         } catch (error) {
             console.error('Cache Manager: Error clearing caches', error);

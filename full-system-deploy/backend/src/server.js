@@ -3,10 +3,15 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 
+// Import environment validation
+const { enforceEnvironmentValidation, getEnvVar, getIntegerEnvVar } = require('./config/env-validator');
+
 // Import strengthened system components
 const BeamSecurity = require('./middleware/BeamSecurity');
 const BeamAuth = require('./middleware/BeamAuth');
+const BeamRateLimiter = require('./middleware/BeamRateLimiter');
 const BeamPerformanceMonitor = require('./utils/BeamPerformanceMonitor');
+const BeamRequestTracker = require('./utils/BeamRequestTracker');
 const BeamCache = require('./utils/BeamCache');
 const BeamErrorHandler = require('./utils/BeamErrorHandler');
 const BeamValidator = require('./utils/BeamValidator');
@@ -26,10 +31,16 @@ const BeamPCLinkDashboard = require('./admin/BeamPCLinkDashboard');
 
 class BeamServer {
     constructor() {
+        // Enforce environment validation before initializing
+        enforceEnvironmentValidation();
+        
         this.app = express();
         this.server = null;
-        this.port = process.env.PORT || 3000;
-        this.isProduction = process.env.NODE_ENV === 'production';
+        this.port = getIntegerEnvVar('PORT', 3000);
+        this.isProduction = getEnvVar('NODE_ENV', 'development') === 'production';
+        
+        // Initialize rate limiter
+        this.rateLimiter = new BeamRateLimiter();
         
         this.initializeSystem();
     }
@@ -66,8 +77,14 @@ class BeamServer {
 
     // Setup middleware
     setupMiddleware() {
-        // Apply security middleware
+        // Apply security middleware (without rate limiting - we'll use our own)
         BeamSecurity.applySecurityMiddleware(this.app);
+
+        // Apply comprehensive rate limiting
+        this.rateLimiter.applyRateLimiting(this.app);
+
+        // Request tracking (must be early in middleware chain)
+        this.app.use(BeamRequestTracker.createTrackingMiddleware());
 
         // Performance monitoring
         this.app.use(BeamPerformanceMonitor.recordRequest.bind(BeamPerformanceMonitor));
@@ -133,7 +150,8 @@ class BeamServer {
             const metrics = {
                 performance: BeamPerformanceMonitor.getStats(),
                 cache: BeamCache.getStats(),
-                errors: BeamErrorHandler.getErrorStats()
+                errors: BeamErrorHandler.getErrorStats(),
+                rateLimiting: this.rateLimiter.getStats()
             };
             res.json(metrics);
         });
@@ -156,6 +174,141 @@ class BeamServer {
                 success: true,
                 message: `Cache cleared. ${clearedCount} entries removed.`
             });
+        });
+
+        // Rate limiting management endpoints (admin only)
+        this.app.get('/api/rate-limit/stats', this.requireAdminApiKey, (req, res) => {
+            res.json(this.rateLimiter.getStats());
+        });
+
+        this.app.get('/api/rate-limit/status/:key/:type', this.requireAdminApiKey, async (req, res) => {
+            try {
+                const { key, type } = req.params;
+                const status = await this.rateLimiter.getRateLimitStatus(key, type);
+                res.json(status);
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        this.app.post('/api/rate-limit/reset/:key/:type', this.requireAdminApiKey, async (req, res) => {
+            try {
+                const { key, type } = req.params;
+                const success = await this.rateLimiter.resetRateLimit(key, type);
+                res.json({
+                    success,
+                    message: success ? 'Rate limit reset successfully' : 'Failed to reset rate limit'
+                });
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        // Request tracking endpoints (admin only)
+        this.app.get('/api/requests/stats', this.requireAdminApiKey, (req, res) => {
+            try {
+                const stats = BeamRequestTracker.getRequestStats();
+                res.json({
+                    success: true,
+                    stats
+                });
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        this.app.get('/api/requests/logs', this.requireAdminApiKey, (req, res) => {
+            try {
+                const filters = {
+                    method: req.query.method,
+                    status: req.query.status ? parseInt(req.query.status) : undefined,
+                    path: req.query.path,
+                    completed: req.query.completed === 'true',
+                    since: req.query.since ? parseInt(req.query.since) : undefined,
+                    until: req.query.until ? parseInt(req.query.until) : undefined
+                };
+
+                const logs = BeamRequestTracker.getAllRequestLogs(filters);
+                const limit = req.query.limit ? parseInt(req.query.limit) : 100;
+                const offset = req.query.offset ? parseInt(req.query.offset) : 0;
+
+                res.json({
+                    success: true,
+                    logs: logs.slice(offset, offset + limit),
+                    total: logs.length,
+                    limit,
+                    offset
+                });
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        this.app.get('/api/requests/logs/:requestId', this.requireAdminApiKey, (req, res) => {
+            try {
+                const { requestId } = req.params;
+                const log = BeamRequestTracker.getRequestLog(requestId);
+                
+                if (!log) {
+                    return res.status(404).json({
+                        success: false,
+                        error: 'Request log not found'
+                    });
+                }
+
+                res.json({
+                    success: true,
+                    log
+                });
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        this.app.post('/api/requests/logs/clear', this.requireAdminApiKey, (req, res) => {
+            try {
+                BeamRequestTracker.clearAllLogs();
+                res.json({
+                    success: true,
+                    message: 'All request logs cleared successfully'
+                });
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
+
+        this.app.get('/api/requests/export', this.requireAdminApiKey, (req, res) => {
+            try {
+                const { requestId } = req.query;
+                const exportData = BeamRequestTracker.exportLogs(requestId);
+                
+                res.setHeader('Content-Type', 'application/json');
+                res.setHeader('Content-Disposition', `attachment; filename="request-logs-${Date.now()}.json"`);
+                res.json(exportData);
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
         });
 
         // Authentication routes - Secure admin authentication
@@ -210,32 +363,15 @@ class BeamServer {
         }));
 
         this.app.post('/api/auth/register', BeamErrorHandler.asyncHandler(async (req, res) => {
-            const { email, password, username } = req.body;
-
-            // Validate input
-            const validation = BeamValidator.validateObject({
-                email: { type: 'email', required: true },
-                password: { type: 'string', required: true, minLength: 8 },
-                username: { type: 'string', required: true, minLength: 3, maxLength: 30 }
-            }, { email, password, username });
-
-            if (!validation.valid) {
-                return res.status(400).json({
-                    error: true,
-                    message: 'Invalid input',
-                    details: validation.errors
+            try {
+                const result = await BeamUserService.createUser(req.body);
+                res.json(result);
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    error: error.message
                 });
             }
-
-            // Hash password
-            const passwordHash = await BeamAuth.hashPassword(password);
-
-            // TODO: Implement actual user creation in database
-            // For now, return success
-            res.json({
-                success: true,
-                message: 'User registered successfully'
-            });
         }));
 
 
@@ -287,17 +423,7 @@ class BeamServer {
             }
         });
 
-        this.app.post('/api/auth/register', async (req, res) => {
-            try {
-                const result = await BeamUserService.createUser(req.body);
-                res.json(result);
-            } catch (error) {
-                res.status(500).json({
-                    success: false,
-                    error: error.message
-                });
-            }
-        });
+
 
         this.app.post('/api/auth/logout', this.requireAuth, async (req, res) => {
             try {
@@ -564,13 +690,23 @@ class BeamServer {
 
     // Stop server
     async stop() {
-        return new Promise((resolve) => {
-            if (this.server) {
-                this.server.close(() => {
-                    console.log('Server stopped');
+        return new Promise(async (resolve) => {
+            try {
+                // Cleanup rate limiter
+                if (this.rateLimiter) {
+                    await this.rateLimiter.cleanup();
+                }
+
+                if (this.server) {
+                    this.server.close(() => {
+                        console.log('Server stopped');
+                        resolve();
+                    });
+                } else {
                     resolve();
-                });
-            } else {
+                }
+            } catch (error) {
+                console.error('Error during server shutdown:', error);
                 resolve();
             }
         });

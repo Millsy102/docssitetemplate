@@ -1,5 +1,9 @@
 /* ===== ANALYTICS COMPONENT ===== */
 
+// Global analytics state
+let analyticsEnabled = false;
+let analyticsConfig = null;
+
 // Google Analytics integration
 (function() {
     // Get GA Measurement ID from environment or config
@@ -19,11 +23,16 @@
         try {
             const response = await fetch('/api/analytics/config');
             const config = await response.json();
+            analyticsConfig = config;
+            analyticsEnabled = !!(config.ga_measurement_id && config.analytics_enabled);
+            
             if (config.ga_measurement_id && config.analytics_enabled) {
                 return config.ga_measurement_id;
             }
         } catch (error) {
-            console.warn('Failed to fetch analytics config:', error);
+            if (analyticsEnabled) {
+                console.warn('Failed to fetch analytics config:', error);
+            }
         }
         
         // Return null if no GA ID found
@@ -58,8 +67,10 @@
             // Make gtag globally available
             window.gtag = gtag;
             
-            console.log('Google Analytics initialized with ID:', gaMeasurementId);
-        } else {
+            if (analyticsEnabled) {
+                console.log('Google Analytics initialized with ID:', gaMeasurementId);
+            }
+        } else if (analyticsEnabled) {
             console.log('Google Analytics not initialized - no valid measurement ID found');
         }
     };
@@ -75,6 +86,11 @@
 // Custom analytics tracking
 class Analytics {
     constructor() {
+        // Only initialize if analytics is enabled
+        if (!analyticsEnabled) {
+            return;
+        }
+        
         this.events = [];
         this.sessionId = this.generateSessionId();
         this.startTime = Date.now();
@@ -99,6 +115,8 @@ class Analytics {
     
     // Track page view
     trackPageView() {
+        if (!analyticsEnabled) return;
+        
         const pageData = {
             event: 'page_view',
             page_title: document.title,
@@ -122,8 +140,12 @@ class Analytics {
     
     // Track user interactions
     trackUserInteractions() {
+        if (!analyticsEnabled) return;
+        
         // Track clicks
         document.addEventListener('click', (event) => {
+            if (!analyticsEnabled) return;
+            
             const target = event.target;
             const clickData = {
                 event: 'click',
@@ -141,6 +163,8 @@ class Analytics {
         
         // Track form submissions
         document.addEventListener('submit', (event) => {
+            if (!analyticsEnabled) return;
+            
             const form = event.target;
             const formData = {
                 event: 'form_submit',
@@ -158,6 +182,8 @@ class Analytics {
         // Track scroll depth
         let maxScroll = 0;
         window.addEventListener('scroll', () => {
+            if (!analyticsEnabled) return;
+            
             const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
             
             if (scrollPercent > maxScroll) {
@@ -181,7 +207,11 @@ class Analytics {
     
     // Track performance metrics
     trackPerformance() {
+        if (!analyticsEnabled) return;
+        
         window.addEventListener('load', () => {
+            if (!analyticsEnabled) return;
+            
             setTimeout(() => {
                 const perfData = performance.getEntriesByType('navigation')[0];
                 const performanceData = {
@@ -202,7 +232,11 @@ class Analytics {
     
     // Track errors
     trackErrors() {
+        if (!analyticsEnabled) return;
+        
         window.addEventListener('error', (event) => {
+            if (!analyticsEnabled) return;
+            
             const errorData = {
                 event: 'error',
                 error_message: event.message,
@@ -218,6 +252,8 @@ class Analytics {
         });
         
         window.addEventListener('unhandledrejection', (event) => {
+            if (!analyticsEnabled) return;
+            
             const errorData = {
                 event: 'unhandled_rejection',
                 error_reason: event.reason?.toString(),
@@ -232,6 +268,8 @@ class Analytics {
     
     // Send event to analytics
     sendEvent(data) {
+        if (!analyticsEnabled) return;
+        
         // Store locally
         this.events.push(data);
         
@@ -251,6 +289,8 @@ class Analytics {
     
     // Send to custom analytics endpoint
     sendToCustomAnalytics(data) {
+        if (!analyticsEnabled) return;
+        
         const analyticsEndpoint = '/api/analytics';
         
         fetch(analyticsEndpoint, {
@@ -265,11 +305,13 @@ class Analytics {
             }
             return response.json();
         }).then(result => {
-            if (result.success) {
+            if (result.success && analyticsEnabled) {
                 console.log('Analytics event tracked successfully');
             }
         }).catch(error => {
-            console.warn('Analytics send failed:', error.message);
+            if (analyticsEnabled) {
+                console.warn('Analytics send failed:', error.message);
+            }
             // Store locally if server is unavailable
             this.storeLocalEvent(data);
         });
@@ -277,6 +319,8 @@ class Analytics {
     
     // Store event locally when server is unavailable
     storeLocalEvent(data) {
+        if (!analyticsEnabled) return;
+        
         try {
             const localEvents = JSON.parse(localStorage.getItem('analytics_events') || '[]');
             localEvents.push({
@@ -291,12 +335,16 @@ class Analytics {
             
             localStorage.setItem('analytics_events', JSON.stringify(localEvents));
         } catch (error) {
-            console.warn('Failed to store analytics event locally:', error);
+            if (analyticsEnabled) {
+                console.warn('Failed to store analytics event locally:', error);
+            }
         }
     }
     
     // Get session summary
     getSessionSummary() {
+        if (!analyticsEnabled) return null;
+        
         const sessionDuration = Date.now() - this.startTime;
         const eventCount = this.events.length;
         
@@ -311,31 +359,38 @@ class Analytics {
 
 // Initialize analytics when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    window.analytics = new Analytics();
+    // Only initialize if analytics is enabled
+    if (analyticsEnabled) {
+        window.analytics = new Analytics();
+    }
 });
 
 // Send session data before page unload
 window.addEventListener('beforeunload', () => {
-    if (window.analytics) {
+    if (window.analytics && analyticsEnabled) {
         const summary = window.analytics.getSessionSummary();
         
-        // Try to send session summary using beacon API
-        try {
-            const success = navigator.sendBeacon('/api/analytics/session', JSON.stringify(summary));
-            if (!success) {
-                // Fallback to localStorage if beacon fails
+        if (summary) {
+            // Try to send session summary using beacon API
+            try {
+                const success = navigator.sendBeacon('/api/analytics/session', JSON.stringify(summary));
+                if (!success) {
+                    // Fallback to localStorage if beacon fails
+                    window.analytics.storeLocalEvent({
+                        event: 'session_summary',
+                        ...summary
+                    });
+                }
+            } catch (error) {
+                if (analyticsEnabled) {
+                    console.warn('Failed to send session data:', error);
+                }
+                // Store locally as fallback
                 window.analytics.storeLocalEvent({
                     event: 'session_summary',
                     ...summary
                 });
             }
-        } catch (error) {
-            console.warn('Failed to send session data:', error);
-            // Store locally as fallback
-            window.analytics.storeLocalEvent({
-                event: 'session_summary',
-                ...summary
-            });
         }
     }
 });

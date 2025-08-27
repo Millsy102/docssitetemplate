@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
-import Home from './pages/Home'
-import Installation from './pages/Installation'
-import GettingStarted from './pages/GettingStarted'
-import Contributing from './pages/Contributing'
-import NotFound from './pages/NotFound'
+import LoadingSpinner from './components/LoadingSpinner'
 import './App.css'
+
+// Lazy load page components for code splitting
+const Home = lazy(() => import('./pages/Home'))
+const Installation = lazy(() => import('./pages/Installation'))
+const GettingStarted = lazy(() => import('./pages/GettingStarted'))
+const Contributing = lazy(() => import('./pages/Contributing'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
   return (
@@ -17,13 +20,15 @@ function App() {
         <div className="main-content">
           <Sidebar />
           <main className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/installation" element={<Installation />} />
-              <Route path="/getting-started" element={<GettingStarted />} />
-              <Route path="/contributing" element={<Contributing />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/installation" element={<Installation />} />
+                <Route path="/getting-started" element={<GettingStarted />} />
+                <Route path="/contributing" element={<Contributing />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </main>
         </div>
       </div>

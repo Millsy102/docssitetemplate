@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Header: React.FC = () => {
@@ -12,11 +12,18 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false)
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       closeMobileMenu()
     }
   }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   return (
     <header className="bg-black border-b border-red-600 px-6 py-4 relative">
@@ -48,7 +55,6 @@ const Header: React.FC = () => {
           <button 
             className="text-gray-300 hover:text-red-400 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-black"
             onClick={toggleMobileMenu}
-            onKeyDown={handleKeyDown}
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"

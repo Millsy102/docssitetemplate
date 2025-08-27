@@ -1,5 +1,15 @@
 /* ===== SERVICE WORKER MAIN COMPONENT ===== */
 
+// Development flag - set to false in production
+const DEBUG_MODE = false;
+
+// Debug logging function
+function debugLog(...args) {
+    if (DEBUG_MODE) {
+        console.log(...args);
+    }
+}
+
 // Import service worker components
 importScripts('./cache-manager.js');
 importScripts('./network-handler.js');
@@ -10,12 +20,12 @@ const networkHandler = new NetworkHandler(cacheManager);
 
 // Service Worker lifecycle events
 self.addEventListener('install', (event) => {
-    console.log('Service Worker: Installing...');
+    debugLog('Service Worker: Installing...');
     
     event.waitUntil(
         cacheManager.install()
             .then(() => {
-                console.log('Service Worker: Installation complete');
+                debugLog('Service Worker: Installation complete');
                 return self.skipWaiting();
             })
             .catch((error) => {
@@ -25,12 +35,12 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-    console.log('Service Worker: Activating...');
+    debugLog('Service Worker: Activating...');
     
     event.waitUntil(
         cacheManager.activate()
             .then(() => {
-                console.log('Service Worker: Activation complete');
+                debugLog('Service Worker: Activation complete');
                 return self.clients.claim();
             })
             .catch((error) => {
@@ -51,7 +61,7 @@ self.addEventListener('sync', (event) => {
 
 // Push notification event
 self.addEventListener('push', (event) => {
-    console.log('Service Worker: Push notification received');
+    debugLog('Service Worker: Push notification received');
     
     const options = {
         body: event.data ? event.data.text() : 'New notification',
@@ -79,7 +89,7 @@ self.addEventListener('push', (event) => {
 
 // Notification click event
 self.addEventListener('notificationclick', (event) => {
-    console.log('Service Worker: Notification clicked');
+    debugLog('Service Worker: Notification clicked');
     
     event.notification.close();
     
@@ -92,7 +102,7 @@ self.addEventListener('notificationclick', (event) => {
 
 // Message event - handle communication from main thread
 self.addEventListener('message', (event) => {
-    console.log('Service Worker: Message received', event.data);
+    debugLog('Service Worker: Message received', event.data);
     
     switch (event.data.type) {
         case 'GET_CACHE_STATS':
@@ -114,7 +124,7 @@ self.addEventListener('message', (event) => {
             break;
             
         default:
-            console.log('Service Worker: Unknown message type', event.data.type);
+            debugLog('Service Worker: Unknown message type', event.data.type);
     }
 });
 

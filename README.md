@@ -38,6 +38,80 @@ BeamFlow is a powerful plugin that enhances Unreal Engine development with advan
 4. **Open your browser**
    Navigate to `http://localhost:3000`
 
+### Testing
+
+The project includes a comprehensive test suite to ensure code quality and functionality.
+
+#### Running Tests
+
+**All Tests**
+```bash
+npm test
+```
+
+**Tests with Coverage Report**
+```bash
+npm run test:coverage
+```
+
+**Watch Mode (for development)**
+```bash
+npm test -- --watch
+```
+
+**Specific Test Files**
+```bash
+# Run only component tests
+npm test -- components/
+
+# Run only page tests
+npm test -- pages/
+
+# Run a specific test file
+npm test -- Header.test.tsx
+```
+
+**Verbose Output**
+```bash
+npm test -- --verbose
+```
+
+#### Test Coverage
+
+The test suite includes:
+- **Component Tests**: Header, Sidebar, and other UI components
+- **Page Tests**: Home, Installation, Getting Started, and 404 pages
+- **Integration Tests**: App routing and navigation
+- **Accessibility Tests**: ARIA attributes and keyboard navigation
+
+Coverage thresholds are set to 70% for branches, functions, lines, and statements.
+
+#### Test Environment
+
+Tests run in a JSDOM environment with:
+- React Testing Library for component testing
+- Jest for test framework
+- TypeScript support
+- CSS and static asset mocking
+
+#### Additional Testing Tools
+
+**Environment Testing**
+```bash
+npm run test:env
+```
+
+**Script Testing**
+```bash
+# Run script tests
+node scripts/test-runner.js
+
+# Run simple tests
+node scripts/simple-test.js
+```
+
+For detailed testing documentation, see [`src/__tests__/README.md`](src/__tests__/README.md).
+
 ### Building for Production
 
 ```bash

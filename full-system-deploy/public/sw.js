@@ -5,6 +5,16 @@ const STATIC_CACHE = 'static-v1.0.0';
 const DYNAMIC_CACHE = 'dynamic-v1.0.0';
 const API_CACHE = 'api-v1.0.0';
 
+// Development flag - set to false in production
+const DEBUG_MODE = false;
+
+// Debug logging function
+function debugLog(...args) {
+    if (DEBUG_MODE) {
+        console.log(...args);
+    }
+}
+
 // Files to cache immediately - updated to match actual project structure
 const STATIC_FILES = [
     '/',
@@ -28,16 +38,16 @@ const API_ENDPOINTS = [
 
 // Install event - cache static files
 self.addEventListener('install', (event) => {
-    console.log('Service Worker: Installing...');
+    debugLog('Service Worker: Installing...');
     
     event.waitUntil(
         caches.open(STATIC_CACHE)
             .then((cache) => {
-                console.log('Service Worker: Caching static files');
+                debugLog('Service Worker: Caching static files');
                 return cache.addAll(STATIC_FILES);
             })
             .then(() => {
-                console.log('Service Worker: Static files cached');
+                debugLog('Service Worker: Static files cached');
                 return self.skipWaiting();
             })
             .catch((error) => {
@@ -48,7 +58,7 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-    console.log('Service Worker: Activating...');
+    debugLog('Service Worker: Activating...');
     
     event.waitUntil(
         caches.keys()
@@ -58,14 +68,14 @@ self.addEventListener('activate', (event) => {
                         if (cacheName !== STATIC_CACHE && 
                             cacheName !== DYNAMIC_CACHE && 
                             cacheName !== API_CACHE) {
-                            console.log('Service Worker: Deleting old cache', cacheName);
+                            debugLog('Service Worker: Deleting old cache', cacheName);
                             return caches.delete(cacheName);
                         }
                     })
                 );
             })
             .then(() => {
-                console.log('Service Worker: Activated');
+                debugLog('Service Worker: Activated');
                 return self.clients.claim();
             })
     );
@@ -200,7 +210,7 @@ async function handleDynamicRequest(request) {
 
 // Background sync for offline actions
 self.addEventListener('sync', (event) => {
-    console.log('Service Worker: Background sync', event.tag);
+    debugLog('Service Worker: Background sync', event.tag);
     
     if (event.tag === 'background-sync') {
         event.waitUntil(doBackgroundSync());
@@ -228,7 +238,7 @@ async function doBackgroundSync() {
 
 // Push notification handling
 self.addEventListener('push', (event) => {
-    console.log('Service Worker: Push notification received');
+    debugLog('Service Worker: Push notification received');
     
     const options = {
         body: event.data ? event.data.text() : 'New notification',
@@ -256,7 +266,7 @@ self.addEventListener('push', (event) => {
 
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
-    console.log('Service Worker: Notification clicked', event.action);
+    debugLog('Service Worker: Notification clicked', event.action);
     
     event.notification.close();
     
@@ -269,7 +279,7 @@ self.addEventListener('notificationclick', (event) => {
 
 // Message handling from main thread
 self.addEventListener('message', (event) => {
-    console.log('Service Worker: Message received', event.data);
+    debugLog('Service Worker: Message received', event.data);
     
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
@@ -297,12 +307,12 @@ async function getPendingActions() {
 
 async function processPendingAction(action) {
     // Implementation for processing pending actions
-    console.log('Processing action:', action);
+    debugLog('Processing action:', action);
 }
 
 async function removePendingAction(id) {
     // Implementation for removing processed actions
-    console.log('Removing action:', id);
+    debugLog('Removing action:', id);
 }
 
 // Cache management utilities

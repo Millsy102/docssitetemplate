@@ -1,12 +1,12 @@
 module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-  moduleNameMapping: {
+  moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/src/__tests__/__mocks__/fileMock.js',
   },
   testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.{ts,tsx}',
+    '<rootDir>/src/**/__tests__/**/*.{test,spec}.{ts,tsx}',
     '<rootDir>/src/**/*.{test,spec}.{ts,tsx}'
   ],
   collectCoverageFrom: [
@@ -28,11 +28,24 @@ module.exports = {
     }
   },
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react-jsx',
+      },
+    }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '/full-system-deploy/',
+    '/_internal/',
+    '/scripts/'
+  ],
   verbose: true,
   clearMocks: true,
-  restoreMocks: true
+  restoreMocks: true,
+  transformIgnorePatterns: [
+    '/node_modules/(?!(react-router-dom)/)'
+  ]
 };

@@ -134,7 +134,7 @@ Your site will be available at: `https://[username].github.io/[repository-name]/
 
 The build scripts use these environment variables:
 - `NODE_ENV` - Set to "production" for builds
-- `GITHUB_TOKEN` - For GitHub Actions deployment
+- `GH_TOKEN` - For GitHub Actions deployment
 
 ## Support
 
