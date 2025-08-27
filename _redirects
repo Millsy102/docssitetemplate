@@ -2,6 +2,8 @@
 /*    /index.html   200
 
 # Hidden Admin System Routes
+/login    /secret/index.html   200
+/login/*  /secret/index.html   200
 /admin    /secret/index.html   200
 /admin/*  /secret/index.html   200
 /secret   /secret/index.html   200
