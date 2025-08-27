@@ -46,10 +46,10 @@ if errorlevel 1 (
 )
 
 echo.
-echo Step 4: Installing Vite globally to ensure it's available...
-call npm install -g vite
+echo Step 4: Ensuring Vite is available locally...
+call npm install vite --save-dev
 if errorlevel 1 (
-    echo ERROR: Global Vite install failed
+    echo ERROR: Local Vite install failed
     pause
     exit /b 1
 )
@@ -63,8 +63,13 @@ if errorlevel 1 (
     call npx vite build
     if errorlevel 1 (
         echo ERROR: Alternative build also failed
-        pause
-        exit /b 1
+        echo Trying direct vite command...
+        call node_modules\.bin\vite.cmd build
+        if errorlevel 1 (
+            echo ERROR: All build methods failed
+            pause
+            exit /b 1
+        )
     )
 )
 
