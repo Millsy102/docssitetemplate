@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - BeamFlow</title>
+    <meta name="description" content="Page not found">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#dc2626">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #e5e7eb;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 500px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background-color: #dc2626;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+        }
+        
+        .logo-subtitle {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .error-code {
+            font-size: 6rem;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        
+        .message {
+            color: #9ca3af;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+        
+        .links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+        }
+        
+        .btn-secondary {
+            background-color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">B</div>
+            <div>
+                <div class="logo-text">BeamFlow</div>
+                <div class="logo-subtitle">for Unreal Engine</div>
+            </div>
+        </div>
+        
+        <div class="error-code">404</div>
+        <h1>Page Not Found</h1>
+        <p class="message">The page you're looking for doesn't exist or has been moved.</p>
+        
+        <div class="links">
+            <a href="/" class="btn">Go Home</a>
+            <a href="/login/" class="btn btn-secondary">Login</a>
+        </div>
+    </div>
+    
+    <script>
+        // SPA routing fallback - try to redirect to the correct route
+        const path = window.location.pathname;
+        
+        // If this is a known route, redirect to it
+        const knownRoutes = [
+            '/installation',
+            '/getting-started', 
+            '/contributing',
+            '/login',
+            '/app'
+        ];
+        
+        for (const route of knownRoutes) {
+            if (path.startsWith(route)) {
+                window.location.replace(route + '/');
+                break;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 interface SocketContextType {
@@ -24,9 +24,10 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
 }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const socketRef = useRef<Socket | null>(null);
 
   const connect = useCallback(() => {
-    if (socket?.connected) return;
+    if (socketRef.current?.connected) return;
 
     const newSocket = io(serverUrl, {
       transports: ['websocket', 'polling'],
@@ -61,44 +62,51 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
       console.error('Socket.IO reconnection error:', error);
     });
 
+    socketRef.current = newSocket;
     setSocket(newSocket);
-  }, [serverUrl, socket?.connected]);
+  }, [serverUrl]);
 
   const disconnect = useCallback(() => {
-    if (socket) {
-      socket.disconnect();
+    if (socketRef.current) {
+      socketRef.current.disconnect();
+      socketRef.current = null;
       setSocket(null);
       setIsConnected(false);
     }
-  }, [socket]);
+  }, []);
 
   const emit = useCallback((event: string, data?: any) => {
-    if (socket?.connected) {
-      socket.emit(event, data);
+    if (socketRef.current?.connected) {
+      socketRef.current.emit(event, data);
     } else {
       console.warn('Socket not connected, cannot emit event:', event);
     }
-  }, [socket]);
+  }, []);
 
   const on = useCallback((event: string, callback: (data: any) => void) => {
-    if (socket) {
-      socket.on(event, callback);
+    if (socketRef.current) {
+      socketRef.current.on(event, callback);
     }
-  }, [socket]);
+  }, []);
 
   const off = useCallback((event: string) => {
-    if (socket) {
-      socket.off(event);
+    if (socketRef.current) {
+      socketRef.current.off(event);
     }
-  }, [socket]);
+  }, []);
 
   useEffect(() => {
     connect();
 
     return () => {
-      disconnect();
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+        setSocket(null);
+        setIsConnected(false);
+      }
     };
-  }, [connect, disconnect]);
+  }, [connect]);
 
   const value: SocketContextType = {
     socket,

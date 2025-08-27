@@ -26,7 +26,7 @@ module.exports = {
   rules: {
     // Basic rules
     'no-unused-vars': 'off',
-    'no-console': 'warn',
+    'no-console': 'off', // Allow console statements for development
     'semi': ['error', 'always'],
     'quotes': ['error', 'single'],
     

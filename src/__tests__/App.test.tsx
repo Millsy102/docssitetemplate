@@ -15,7 +15,7 @@ describe('App Component', () => {
     render(<App />);
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByText('BeamFlow')).toBeInTheDocument();
-    expect(screen.getByText('Documentation')).toBeInTheDocument();
+    expect(screen.getByText('for Unreal Engine')).toBeInTheDocument();
   });
 
   it('renders sidebar component', () => {

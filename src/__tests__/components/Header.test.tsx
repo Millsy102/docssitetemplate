@@ -16,7 +16,7 @@ describe('Header Component', () => {
     render(<Header />);
     
     expect(screen.getByText('BeamFlow')).toBeInTheDocument();
-    expect(screen.getByText('Documentation')).toBeInTheDocument();
+    expect(screen.getByText('for Unreal Engine')).toBeInTheDocument();
     expect(screen.getByText('B')).toBeInTheDocument(); // Logo
   });
 

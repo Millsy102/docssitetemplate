@@ -10,25 +10,25 @@ describe('Home Page', () => {
 
   it('renders description text', () => {
     render(<Home />);
-    expect(screen.getByText(/A powerful plugin that enhances Unreal Engine development/)).toBeInTheDocument();
+    expect(screen.getByText(/A powerful streaming and processing plugin for Unreal Engine/)).toBeInTheDocument();
   });
 
   it('renders key features section', () => {
     render(<Home />);
     
     expect(screen.getByText('🚀 Key Features')).toBeInTheDocument();
-    expect(screen.getByText('• Advanced AI integration')).toBeInTheDocument();
-    expect(screen.getByText('• Performance optimization tools')).toBeInTheDocument();
-    expect(screen.getByText('• Enhanced development workflow')).toBeInTheDocument();
-    expect(screen.getByText('• Real-time monitoring')).toBeInTheDocument();
-    expect(screen.getByText('• Plugin management system')).toBeInTheDocument();
+    expect(screen.getByText('• Real-time streaming capabilities')).toBeInTheDocument();
+    expect(screen.getByText('• Advanced data processing')).toBeInTheDocument();
+    expect(screen.getByText('• Seamless Unreal Engine integration')).toBeInTheDocument();
+    expect(screen.getByText('• High-performance optimization')).toBeInTheDocument();
+    expect(screen.getByText('• Scalable architecture')).toBeInTheDocument();
   });
 
   it('renders quick start section', () => {
     render(<Home />);
     
     expect(screen.getByText('⚡ Quick Start')).toBeInTheDocument();
-    expect(screen.getByText('Get up and running in minutes:')).toBeInTheDocument();
+    expect(screen.getByText('Get started with BeamFlow in minutes')).toBeInTheDocument();
   });
 
   it('renders installation link', () => {
