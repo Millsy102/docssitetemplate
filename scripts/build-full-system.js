@@ -50,11 +50,20 @@ function buildPublicSite() {
     log('Building public documentation site...');
     
     try {
-        // Install dependencies
-        execSync('npm install', { stdio: 'inherit' });
+        // Set environment variables for the build
+        const env = {
+            ...process.env,
+            SITE_TITLE: 'BeamFlow Documentation',
+            SITE_DESCRIPTION: 'Comprehensive documentation for the BeamFlow Unreal Engine plugin',
+            SITE_URL: 'https://millsy102.github.io/docssitetemplate',
+            NODE_ENV: 'production'
+        };
         
-        // Build frontend
-        execSync('npm run build', { stdio: 'inherit' });
+        // Install dependencies
+        execSync('npm install', { stdio: 'inherit', env });
+        
+        // Build frontend using npx to ensure vite is available
+        execSync('npx vite build', { stdio: 'inherit', env });
         
         log('Public site build completed', 'SUCCESS');
     } catch (error) {
@@ -74,14 +83,23 @@ function buildSecretSystem() {
     }
     
     try {
+        // Set environment variables for the build
+        const env = {
+            ...process.env,
+            SITE_TITLE: 'BeamFlow Documentation',
+            SITE_DESCRIPTION: 'Comprehensive documentation for the BeamFlow Unreal Engine plugin',
+            SITE_URL: 'https://millsy102.github.io/docssitetemplate',
+            NODE_ENV: 'production'
+        };
+        
         // Change to secret system directory
         process.chdir(secretPath);
         
         // Install dependencies
-        execSync('npm install', { stdio: 'inherit' });
+        execSync('npm install', { stdio: 'inherit', env });
         
         // Build the secret system (just the backend, no frontend)
-        execSync('npm run build', { stdio: 'inherit' });
+        execSync('npm run build', { stdio: 'inherit', env });
         
         // Return to root directory
         process.chdir('../..');

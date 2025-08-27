@@ -32,6 +32,7 @@
     "deploy:github-pages": "npm run build && node scripts/deploy-github-pages.js",
     "deploy:vercel": "npm run build:secret && vercel --prod",
     "deploy:full": "npm run build:secret && vercel --prod",
+    "deploy:all": "node scripts/deploy-all.js",
     "i18n:copy": "node scripts/copy-translations.js",
     "i18n:build": "npm run i18n:copy && npm run build",
     "i18n:dev": "npm run i18n:copy && npm run dev",
