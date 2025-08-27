@@ -10,9 +10,20 @@ Your website is now configured with a secret login system! Here's how to test it
 - Look for the ** Login** button in the bottom-right corner
 
 ### 3. **Login Credentials**
-Use these credentials to access the deep scan system:
+⚠️ **SECURITY WARNING**: Never use default credentials in production!
+
+**For Testing Only:**
 - **Username:** `admin`
 - **Password:** `secret123`
+
+**For Production:**
+1. Create a `.env` file in your project root
+2. Set your own secure credentials:
+   ```env
+   ADMIN_USERNAME=your-secure-username
+   ADMIN_PASSWORD=your-secure-password
+   ```
+3. Restart the server after setting environment variables
 
 ### 4. **What Happens After Login**
 1. **Access Granted** message appears

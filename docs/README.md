@@ -1,66 +1,46 @@
-# Documentation Site Template
+# Unreal Engine Plugin Documentation
 
-Welcome to the Documentation Site Template - a simple, clean template for creating documentation sites with authentication.
+Welcome to the documentation for our Unreal Engine plugin. This documentation provides comprehensive information about installing, configuring, and using the plugin in your Unreal Engine projects.
 
-##  Authentication
+## Overview
 
-This site requires authentication to access the full documentation. Use one of the following credentials:
+This plugin extends Unreal Engine's functionality with powerful features designed to enhance your development workflow and project capabilities.
 
-### Available Accounts:
-- **Username**: `admin` | **Password**: `admin123`
-- **Username**: `user` | **Password**: `user123`  
-- **Username**: `demo` | **Password**: `demo123`
+## Quick Start
 
-##  How It Works
+1. **Installation**: Follow the [Installation Guide](installation.md) to set up the plugin
+2. **Getting Started**: Check out the [Getting Started Guide](getting-started.md) for your first steps
+3. **Contributing**: See [Contributing Guidelines](contributing.md) if you want to help improve the plugin
 
-1. **Public Facade**: The site appears as a simple documentation template
-2. **Login Required**: Users must authenticate to access the full content
-3. **Authenticated Content**: After login, users see the real documentation and system access
-
-##  Structure
+## Documentation Structure
 
 ```
 docs/
-├── index.html              # Main page with login system
-├── getting-started.md      # Getting started guide
-├── installation.md         # Installation instructions
-├── contributing.md         # Contributing guidelines
-└── README.md              # This file
+├── index.md              # Main documentation page
+├── getting-started.md    # Getting started guide
+├── installation.md       # Installation instructions
+├── contributing.md       # Contributing guidelines
+└── README.md            # This file
 ```
 
-##  Features
+## Features
 
-- **Modern UI**: Clean, responsive design with smooth animations
-- **Session Management**: Login state persists across browser sessions
-- **Secure Access**: Simple client-side authentication system
-- **Real System Integration**: Links to admin dashboard, FTP, SSH, and plugin system
+- **Easy Integration**: Seamless integration with Unreal Engine projects
+- **Comprehensive Documentation**: Detailed guides and examples
+- **Active Development**: Regular updates and improvements
+- **Community Support**: Active community and contribution guidelines
 
-##  Security Note
+## Support
 
-This is a demonstration system with client-side authentication. In production, you should:
-- Use server-side authentication
-- Implement proper session management
-- Add HTTPS encryption
-- Use secure password hashing
+For questions, issues, or contributions:
+- Check the documentation first
+- Create an issue in the repository
+- Review the contributing guidelines
 
-##  Deployment
+## License
 
-This template is ready for GitHub Pages deployment:
-
-1. Push your changes to GitHub
-2. Enable GitHub Pages in repository settings
-3. Your site will be available at `https://yourusername.github.io/your-repo-name/`
-
-##  Documentation
-
-After logging in, you'll have access to:
-- Getting Started Guide
-- API Documentation
-- Admin Dashboard
-- FTP Access
-- SSH Access
-- Plugin System
+This plugin is provided under the same license as the main project. Please refer to the LICENSE file for details.
 
 ---
 
-*Documentation site template with authentication for GitHub Pages*
+*Documentation for Unreal Engine Plugin*

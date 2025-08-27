@@ -6,16 +6,9 @@ You're getting an "invalid user" error because the system is using hardcoded cre
 
 ## 🚀 Quick Fix
 
-### Option 1: Use Default Credentials (Immediate)
-The system currently uses these default credentials:
-- **Username:** `admin`
-- **Password:** `secret123`
+### Option 1: Set Up Environment Variables (Recommended)
 
-Try logging in with these credentials first.
-
-### Option 2: Set Up Environment Variables (Recommended)
-
-1. **Create a `.env` file** in the `_internal/system` directory:
+1. **Create a `.env` file** in the project root directory:
 
 ```env
 # Authentication Settings
@@ -27,19 +20,28 @@ NODE_ENV=production
 PORT=3000
 ```
 
-2. **Restart the server** after creating the `.env` file
+1. **Restart the server** after creating the `.env` file
 
-3. **Clear browser cache** and try logging in again
+2. **Clear browser cache** and try logging in again
+
+### Option 2: Use Default Credentials (Testing Only)
+⚠️ **SECURITY WARNING**: Only use these for initial testing, never in production!
+
+The system currently uses these default credentials for testing:
+- **Username:** `admin`
+- **Password:** `secret123`
+
+**Important:** Change these immediately after initial setup!
 
 ## 🔧 How to Set Up Custom Credentials
 
 ### Step 1: Create Environment File
 ```bash
-# Navigate to the system directory
-cd _internal/system
+# Navigate to the project root directory
+cd /path/to/your/project
 
-# Copy the example file
-cp env.example .env
+# Copy the example file from the system directory
+cp _internal/system/env.example .env
 
 # Edit the file with your credentials
 # Use any text editor to modify ADMIN_USERNAME and ADMIN_PASSWORD
@@ -60,7 +62,7 @@ ADMIN_PASSWORD=your-password-here
 ```
 
 ### Step 4: Test Login
-- Go to your application
+- go to your application
 - Click the login button (🔐)
 - Use your new username and password
 
@@ -69,7 +71,7 @@ ADMIN_PASSWORD=your-password-here
 ### If you still get "invalid user":
 
 1. **Check the console** (F12 → Console) for any error messages
-2. **Verify your `.env` file** is in the correct location: `_internal/system/.env`
+2. **Verify your `.env` file** is in the correct location project root directory (`.env`)
 3. **Make sure the server restarted** after creating the `.env` file
 4. **Clear browser cache** and try again
 
@@ -77,7 +79,7 @@ ADMIN_PASSWORD=your-password-here
 
 1. **Check if environment variables are loaded:**
    ```bash
-   # In the _internal/system directory
+   # In the project root directory
    node -e "require('dotenv').config(); console.log('Username:', process.env.ADMIN_USERNAME); console.log('Password:', process.env.ADMIN_PASSWORD);"
    ```
 

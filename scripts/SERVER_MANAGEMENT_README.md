@@ -1,6 +1,19 @@
 # BeamFlow Server Management
 
-This directory contains scripts and tools for managing your BeamFlow FTP and SSH servers from your private side.
+This directory contains scripts and tools for managing your BeamFlow FTP and SSH servers. The backend server components are located in the `_internal/system/` directory and include:
+
+- **FTP Server**: File transfer protocol server for secure file uploads/downloads
+- **SSH Server**: Secure shell server for remote access and SFTP
+- **Process Manager**: Centralized process management for all server components
+
+## Backend Components
+
+The server management system relies on the following backend components:
+
+- `_internal/system/src/ftp-server.js` - FTP server implementation
+- `_internal/system/src/ssh-server.js` - SSH server implementation  
+- `_internal/system/src/process-manager.js` - Process management system
+- `_internal/system/package.json` - Backend dependencies and scripts
 
 ## Quick Start
 
@@ -26,7 +39,9 @@ npm run ssh:restart           # Restart SSH server only
 
 # Check status
 npm run servers:status         # Show status of all servers
-```
+
+# Test system
+npm run servers:test           # Test server management system configuration
 
 ### Using PowerShell Script (Windows)
 
@@ -81,27 +96,32 @@ chmod +x scripts/manage-servers.sh
 
 ## Direct Process Manager Usage
 
-You can also use the process manager directly:
+You can also use the process manager directly from the backend directory:
 
 ```bash
+# Navigate to the backend directory
+cd _internal/system
+
 # Start servers
-node _internal/system/src/process-manager.js start all
-node _internal/system/src/process-manager.js start ftp
-node _internal/system/src/process-manager.js start ssh
+node src/process-manager.js start all
+node src/process-manager.js start ftp
+node src/process-manager.js start ssh
 
 # Stop servers
-node _internal/system/src/process-manager.js stop all
-node _internal/system/src/process-manager.js stop ftp
-node _internal/system/src/process-manager.js stop ssh
+node src/process-manager.js stop all
+node src/process-manager.js stop ftp
+node src/process-manager.js stop ssh
 
 # Restart servers
-node _internal/system/src/process-manager.js restart all
-node _internal/system/src/process-manager.js restart ftp
-node _internal/system/src/process-manager.js restart ssh
+node src/process-manager.js restart all
+node src/process-manager.js restart ftp
+node src/process-manager.js restart ssh
 
 # Check status
-node _internal/system/src/process-manager.js status
+node src/process-manager.js status
 ```
+
+**Note**: The npm scripts in the main `package.json` automatically handle the directory navigation for you.
 
 ## Server Information
 
@@ -159,6 +179,15 @@ SSH_HOST_KEY_PATH=/path/to/key # SSH host key path
    - Check the logs for error messages
    - Verify all dependencies are installed
    - Ensure configuration files exist
+
+4. **NPM scripts not found**
+   - Make sure you're running commands from the project root directory
+   - Verify that the npm scripts are properly defined in `package.json`
+   - Check that the `_internal/system/` directory exists and contains the backend components
+
+5. **Backend dependencies missing**
+   - Navigate to `_internal/system/` and run `npm install`
+   - Ensure all required dependencies are installed in the backend directory
 
 ### Logs and Monitoring
 

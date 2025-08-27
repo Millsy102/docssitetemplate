@@ -1,0 +1,95 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-black);
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  background-color: var(--background-dark);
+  overflow-y: auto;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red-light);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-white);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--primary-red);
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--primary-red);
+  padding-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--primary-red-light);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-gray-light);
+}
+
+a {
+  color: var(--primary-red);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-red-light);
+}
+
+code {
+  background-color: var(--background-gray);
+  color: var(--primary-red-light);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+pre {
+  background-color: var(--background-gray);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid var(--border-gray);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}

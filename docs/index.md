@@ -1,27 +1,25 @@
-# Documentation Site Template
+# Unreal Engine Plugin Documentation
 
-Welcome to the Documentation Site Template - a simple, clean template for creating documentation sites.
+Welcome to the comprehensive documentation for our Unreal Engine plugin. This documentation will guide you through installation, configuration, and usage of the plugin in your Unreal Engine projects.
 
 ## Overview
 
-This template provides a basic structure for creating documentation sites. It's designed to be simple and easy to customize.
+This plugin extends Unreal Engine's functionality with powerful features designed to enhance your development workflow and project capabilities. Whether you're a beginner or an experienced developer, this documentation will help you get the most out of the plugin.
 
 ## Features
 
-- Clean, responsive design
-- Simple navigation
-- Markdown support
-- GitHub Pages ready
-- Easy customization
+- **Easy Integration**: Seamless integration with Unreal Engine projects
+- **Comprehensive Documentation**: Detailed guides and examples
+- **Active Development**: Regular updates and improvements
+- **Community Support**: Active community and contribution guidelines
 
 ## Quick Start
 
-1. Clone this repository
-2. Edit the content in the `docs/` folder
-3. Customize the styling in `assets/css/`
-4. Deploy to GitHub Pages
+1. **Installation**: Follow the [Installation Guide](installation.md) to set up the plugin
+2. **Getting Started**: Check out the [Getting Started Guide](getting-started.md) for your first steps
+3. **Contributing**: See [Contributing Guidelines](contributing.md) if you want to help improve the plugin
 
-## Structure
+## Documentation Structure
 
 ```
 docs/
@@ -31,29 +29,22 @@ docs/
 └── contributing.md       # Contributing guidelines
 ```
 
-## Customization
+## Getting Help
 
-### Content
-Edit the Markdown files in the `docs/` folder to add your own content.
+### Documentation
+- Start with the [Getting Started Guide](getting-started.md) for basic setup
+- Check the [Installation Guide](installation.md) for detailed installation steps
+- Review [Contributing Guidelines](contributing.md) if you want to contribute
 
-### Styling
-Modify the CSS files in `assets/css/` to customize the appearance.
+### Support
+- Check the documentation first for common questions
+- Create an issue in the repository for bugs or feature requests
+- Review the contributing guidelines for development questions
 
-### Configuration
-Update the site configuration in `mkdocs.yml` to change site settings.
+## License
 
-## Deployment
-
-This template is ready for GitHub Pages deployment:
-
-1. Push your changes to GitHub
-2. Enable GitHub Pages in repository settings
-3. Your site will be available at `https://yourusername.github.io/your-repo-name/`
-
-## Support
-
-For questions or issues, please refer to the documentation or create an issue in the repository.
+This plugin is provided under the same license as the main project. Please refer to the LICENSE file for details.
 
 ---
 
-*Simple documentation template for GitHub Pages*
+*Comprehensive documentation for Unreal Engine Plugin*

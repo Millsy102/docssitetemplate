@@ -3,7 +3,8 @@ class SecretLogin {
     constructor() {
         this.isAuthenticated = false;
         this.currentView = 'public'; // 'public', 'login', 'oauth-setup', 'git'
-        this.ghClientId = 'your-github-client-id'; // Replace with your GitHub OAuth app client ID
+        this.ghClientId = null; // Will be fetched securely from server
+        this.authToken = null;
         
         this.init();
     }
@@ -46,7 +47,45 @@ class SecretLogin {
         return null;
     }
 
+    async getOAuthClientId() {
+        try {
+            // Get auth token from localStorage if not already set
+            if (!this.authToken) {
+                this.authToken = localStorage.getItem('authToken');
+            }
+            
+            if (!this.authToken) {
+                throw new Error('Authentication required to access OAuth client ID');
+            }
+            
+            const response = await fetch('/api/auth/oauth-client-id', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${this.authToken}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data.clientId;
+            } else {
+                throw new Error('Failed to fetch OAuth client ID');
+            }
+        } catch (error) {
+            console.error('Error fetching OAuth client ID:', error);
+            throw error;
+        }
+    }
+
     async init() {
+        // Restore authentication state
+        const authToken = localStorage.getItem('authToken');
+        if (authToken) {
+            this.authToken = authToken;
+            this.isAuthenticated = true;
+        }
+        
         // Check if OAuth is already configured
         if (localStorage.getItem('oauthConfigured') === 'true') {
             // OAuth is configured, show Git-only interface
@@ -56,8 +95,7 @@ class SecretLogin {
         }
         
         // Check if already logged in for OAuth setup
-        if (localStorage.getItem('secretAuth') === 'true') {
-            this.isAuthenticated = true;
+        if (this.isAuthenticated) {
             this.currentView = 'oauth-setup';
             this.showOAuthSetup();
             return;
@@ -223,7 +261,6 @@ class SecretLogin {
             // Use server-side authentication instead of client-side credentials
             const success = await this.authenticateWithServer(username.value, password.value);
             if (success) {
-                localStorage.setItem('secretAuth', 'true');
                 this.isAuthenticated = true;
                 this.currentView = 'oauth-setup';
                 this.showOAuthSetup();
@@ -264,7 +301,12 @@ class SecretLogin {
 
             if (response.ok) {
                 const data = await response.json();
-                return data.success || false;
+                if (data.success && data.token) {
+                    this.authToken = data.token;
+                    localStorage.setItem('authToken', data.token);
+                    return true;
+                }
+                return false;
             }
             return false;
         } catch (error) {
@@ -327,8 +369,8 @@ class SecretLogin {
                         <li>Fill in the details:
                             <ul style="margin-top: 10px; margin-left: 20px;">
                                 <li><strong>Application name:</strong> BeamFlow Site</li>
-                                <li><strong>Homepage URL:</strong> <span id="homepage-url">https://millsy.github.io/docssitetemplate</span></li>
-                                <li><strong>Authorization callback URL:</strong> <span id="callback-url">https://millsy.github.io/docssitetemplate/auth/callback</span></li>
+                                <li><strong>Homepage URL:</strong> <span id="homepage-url">https://yourusername.github.io/your-repo-name</span></li>
+                                <li><strong>Authorization callback URL:</strong> <span id="callback-url">https://yourusername.github.io/your-repo-name/auth/callback</span></li>
                             </ul>
                         </li>
                         <li>Click "Register application"</li>
@@ -408,21 +450,44 @@ class SecretLogin {
             this.testOAuthConfiguration(ghClientId.value.trim(), ghClientSecret.value.trim());
         });
 
-        completeSetup.addEventListener('click', () => {
+        completeSetup.addEventListener('click', async () => {
             if (!ghClientId.value.trim() || !ghClientSecret.value.trim()) {
                 oauthError.textContent = 'Please enter both GitHub Client ID and Client Secret';
                 oauthError.style.display = 'block';
                 return;
             }
             
-            // Save OAuth configuration
-            localStorage.setItem('oauthConfigured', 'true');
-            localStorage.setItem('ghClientId', ghClientId.value.trim());
-            localStorage.setItem('ghClientSecret', ghClientSecret.value.trim());
-            
-            // Switch to Git-only interface
-            this.currentView = 'git';
-            this.showGitInterface();
+            try {
+                // Save OAuth configuration to server
+                const response = await fetch('/api/auth/configure-oauth', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.authToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        clientId: ghClientId.value.trim(),
+                        clientSecret: ghClientSecret.value.trim()
+                    })
+                });
+
+                if (response.ok) {
+                    // Save OAuth configuration locally
+                    localStorage.setItem('oauthConfigured', 'true');
+                    
+                    // Switch to Git-only interface
+                    this.currentView = 'git';
+                    this.showGitInterface();
+                } else {
+                    const error = await response.json();
+                    oauthError.textContent = error.error || 'Failed to configure OAuth';
+                    oauthError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('OAuth configuration error:', error);
+                oauthError.textContent = 'Failed to configure OAuth. Please try again.';
+                oauthError.style.display = 'block';
+            }
         });
     }
 
@@ -534,29 +599,32 @@ class SecretLogin {
         });
 
         logout.addEventListener('click', () => {
-            localStorage.removeItem('secretAuth');
+            localStorage.removeItem('authToken');
             localStorage.removeItem('oauthConfigured');
             localStorage.removeItem('ghClientId');
             localStorage.removeItem('ghClientSecret');
+            localStorage.removeItem('oauthState');
             location.reload();
         });
     }
 
-    initiateGitHubOAuth() {
-        const clientId = localStorage.getItem('ghClientId');
-        if (!clientId) {
-            alert('OAuth not configured. Please set up OAuth first.');
-            return;
+    async initiateGitHubOAuth() {
+        try {
+            // Fetch client ID securely from server
+            const clientId = await this.getOAuthClientId();
+            
+            const redirectUri = encodeURIComponent(window.location.origin + '/auth/callback');
+            const scope = encodeURIComponent('repo user');
+            const state = Math.random().toString(36).substring(7);
+            
+            localStorage.setItem('oauthState', state);
+            
+            const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
+            window.location.href = authUrl;
+        } catch (error) {
+            console.error('Failed to initiate GitHub OAuth:', error);
+            alert('Failed to initiate OAuth. Please ensure you are authenticated and OAuth is properly configured.');
         }
-
-        const redirectUri = encodeURIComponent(window.location.origin + '/auth/callback');
-        const scope = encodeURIComponent('repo user');
-        const state = Math.random().toString(36).substring(7);
-        
-        localStorage.setItem('oauthState', state);
-        
-        const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
-        window.location.href = authUrl;
     }
 
     hidePublicSite() {
@@ -588,7 +656,25 @@ class SecretLogin {
     }
 }
 
+// Update OAuth URLs with site configuration
+function updateOAuthUrls() {
+    if (typeof window.siteConfig !== 'undefined') {
+        const config = window.siteConfig;
+        const homepageUrl = document.getElementById('homepage-url');
+        const callbackUrl = document.getElementById('callback-url');
+        
+        if (homepageUrl) {
+            homepageUrl.textContent = config.domain.baseUrl.replace(/\/$/, '');
+        }
+        
+        if (callbackUrl) {
+            callbackUrl.textContent = config.oauth.callbackUrl;
+        }
+    }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new SecretLogin();
+    updateOAuthUrls();
 });

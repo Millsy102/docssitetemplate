@@ -24,17 +24,28 @@
 - `GH_CALLBACK_URL` ✅
 
 ### 🌐 Site URL:
-https://millsy.github.io/docssitetemplate/
+https://yourusername.github.io/your-repo-name/
 
 ### 🔐 Login Credentials:
+⚠️ **SECURITY WARNING**: Use environment variables for production!
+
+**For Testing Only:**
 - **Username:** admin
 - **Password:** secret123
+
+**For Production:**
+Set these environment variables:
+```env
+ADMIN_USERNAME=your-secure-username
+ADMIN_PASSWORD=your-secure-password
+```
 
 ### 📋 Next Steps:
 1. Push this file to trigger GitHub Actions deployment
 2. Check Actions tab for deployment status
 3. Visit the site URL to verify it's working
 4. Test the login system
+5. **IMPORTANT:** Change default credentials immediately after deployment
 
 ---
 *Deployment initiated: $(date)*

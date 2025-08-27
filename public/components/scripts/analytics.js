@@ -2,27 +2,74 @@
 
 // Google Analytics integration
 (function() {
-    // Load Google Analytics
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
-    document.head.appendChild(script);
-    
-    // Initialize gtag
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'GA_MEASUREMENT_ID', {
-        'page_title': document.title,
-        'page_location': window.location.href,
-        'custom_map': {
-            'dimension1': 'user_type',
-            'dimension2': 'page_section'
+    // Get GA Measurement ID from environment or config
+    const getGAMeasurementId = async () => {
+        // Check if GA ID is set in window config (set by server)
+        if (window.GA_MEASUREMENT_ID) {
+            return window.GA_MEASUREMENT_ID;
         }
-    });
+        
+        // Check if GA ID is in meta tag
+        const metaTag = document.querySelector('meta[name="ga-measurement-id"]');
+        if (metaTag && metaTag.content) {
+            return metaTag.content;
+        }
+        
+        // Try to fetch from server config
+        try {
+            const response = await fetch('/api/analytics/config');
+            const config = await response.json();
+            if (config.ga_measurement_id && config.analytics_enabled) {
+                return config.ga_measurement_id;
+            }
+        } catch (error) {
+            console.warn('Failed to fetch analytics config:', error);
+        }
+        
+        // Return null if no GA ID found
+        return null;
+    };
     
-    // Make gtag globally available
-    window.gtag = gtag;
+    // Initialize GA when config is available
+    const initializeGA = async () => {
+        const gaMeasurementId = await getGAMeasurementId();
+    
+        // Only load GA if we have a valid measurement ID
+        if (gaMeasurementId && gaMeasurementId !== 'your-google-analytics-measurement-id') {
+            // Load Google Analytics
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
+            document.head.appendChild(script);
+            
+            // Initialize gtag
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', gaMeasurementId, {
+                'page_title': document.title,
+                'page_location': window.location.href,
+                'custom_map': {
+                    'dimension1': 'user_type',
+                    'dimension2': 'page_section'
+                }
+            });
+            
+            // Make gtag globally available
+            window.gtag = gtag;
+            
+            console.log('Google Analytics initialized with ID:', gaMeasurementId);
+        } else {
+            console.log('Google Analytics not initialized - no valid measurement ID found');
+        }
+    };
+    
+    // Initialize GA when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeGA);
+    } else {
+        initializeGA();
+    }
 })();
 
 // Custom analytics tracking
@@ -204,7 +251,6 @@ class Analytics {
     
     // Send to custom analytics endpoint
     sendToCustomAnalytics(data) {
-        // Replace with your analytics endpoint
         const analyticsEndpoint = '/api/analytics';
         
         fetch(analyticsEndpoint, {
@@ -213,9 +259,40 @@ class Analytics {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        }).then(result => {
+            if (result.success) {
+                console.log('Analytics event tracked successfully');
+            }
         }).catch(error => {
-            console.warn('Analytics send failed:', error);
+            console.warn('Analytics send failed:', error.message);
+            // Store locally if server is unavailable
+            this.storeLocalEvent(data);
         });
+    }
+    
+    // Store event locally when server is unavailable
+    storeLocalEvent(data) {
+        try {
+            const localEvents = JSON.parse(localStorage.getItem('analytics_events') || '[]');
+            localEvents.push({
+                ...data,
+                stored_at: new Date().toISOString()
+            });
+            
+            // Keep only last 50 events
+            if (localEvents.length > 50) {
+                localEvents.splice(0, localEvents.length - 50);
+            }
+            
+            localStorage.setItem('analytics_events', JSON.stringify(localEvents));
+        } catch (error) {
+            console.warn('Failed to store analytics event locally:', error);
+        }
     }
     
     // Get session summary
@@ -242,7 +319,23 @@ window.addEventListener('beforeunload', () => {
     if (window.analytics) {
         const summary = window.analytics.getSessionSummary();
         
-        // Send session summary
-        navigator.sendBeacon('/api/analytics/session', JSON.stringify(summary));
+        // Try to send session summary using beacon API
+        try {
+            const success = navigator.sendBeacon('/api/analytics/session', JSON.stringify(summary));
+            if (!success) {
+                // Fallback to localStorage if beacon fails
+                window.analytics.storeLocalEvent({
+                    event: 'session_summary',
+                    ...summary
+                });
+            }
+        } catch (error) {
+            console.warn('Failed to send session data:', error);
+            // Store locally as fallback
+            window.analytics.storeLocalEvent({
+                event: 'session_summary',
+                ...summary
+            });
+        }
     }
 });

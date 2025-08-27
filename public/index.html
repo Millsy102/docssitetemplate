@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeamFlow - Modern Development Framework</title>
-    <meta name="description" content="A powerful and flexible development framework designed to simplify complex development tasks. Build robust applications with minimal effort.">
-    <meta name="keywords" content="development framework, web development, API, documentation, open source">
-    <meta name="author" content="BeamFlow Team">
-    <link rel="canonical" href="https://millsy.github.io/docssitetemplate/">
+    <title id="site-title">BeamFlow - Modern Development Framework</title>
+    <meta name="description" id="site-description" content="A powerful and flexible development framework designed to simplify complex development tasks. Build robust applications with minimal effort.">
+    <meta name="keywords" id="site-keywords" content="development framework, web development, API, documentation, open source">
+    <meta name="author" id="site-author" content="BeamFlow Team">
+    <link rel="canonical" id="canonical-url" href="https://yourusername.github.io/your-repo-name/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://millsy.github.io/docssitetemplate/">
-    <meta property="og:title" content="BeamFlow - Modern Development Framework">
-    <meta property="og:description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
-    <meta property="og:image" content="https://millsy.github.io/docssitetemplate/assets/og-image.png">
-    <meta property="og:site_name" content="BeamFlow">
+    <meta property="og:url" id="og-url" content="https://yourusername.github.io/your-repo-name/">
+    <meta property="og:title" id="og-title" content="BeamFlow - Modern Development Framework">
+    <meta property="og:description" id="og-description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
+    <meta property="og:image" id="og-image" content="https://yourusername.github.io/your-repo-name/assets/og-image.png">
+    <meta property="og:site_name" id="og-site-name" content="BeamFlow">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://millsy.github.io/docssitetemplate/">
-    <meta property="twitter:title" content="BeamFlow - Modern Development Framework">
-    <meta property="twitter:description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
-    <meta property="twitter:image" content="https://millsy.github.io/docssitetemplate/assets/og-image.png">
-    <meta property="twitter:creator" content="@millsy">
+    <meta property="twitter:url" id="twitter-url" content="https://yourusername.github.io/your-repo-name/">
+    <meta property="twitter:title" id="twitter-title" content="BeamFlow - Modern Development Framework">
+    <meta property="twitter:description" id="twitter-description" content="A powerful and flexible development framework designed to simplify complex development tasks.">
+    <meta property="twitter:image" id="twitter-image" content="https://yourusername.github.io/your-repo-name/assets/og-image.png">
+    <meta property="twitter:creator" id="twitter-creator" content="@yourusername">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     
@@ -45,8 +45,8 @@
     <meta name="theme-color" content="#667eea">
     <meta name="msapplication-TileColor" content="#667eea">
     
-    <!-- PWA manifest -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Site Configuration -->
+    <script src="/site-config.js"></script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -55,7 +55,7 @@
         "@type": "SoftwareApplication",
         "name": "BeamFlow",
         "description": "A powerful and flexible development framework",
-        "url": "https://millsy.github.io/docssitetemplate/",
+        "url": "https://yourusername.github.io/your-repo-name/",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Any",
         "offers": {
@@ -188,10 +188,61 @@
     <!-- Load login system -->
     <script src="login.js"></script>
     
-    <!-- Hide loading screen when page is ready -->
+    <!-- Dynamic site configuration -->
     <script>
+        // Update meta tags and content with site configuration
+        function updateSiteContent() {
+            if (typeof window.siteConfig !== 'undefined') {
+                const config = window.siteConfig;
+                
+                // Update meta tags
+                document.getElementById('site-title').textContent = `${config.siteName} - Modern Development Framework`;
+                document.getElementById('site-description').setAttribute('content', config.siteDescription);
+                document.getElementById('site-keywords').setAttribute('content', config.siteKeywords);
+                document.getElementById('site-author').setAttribute('content', config.siteAuthor);
+                
+                // Update canonical and social URLs
+                document.getElementById('canonical-url').setAttribute('href', config.domain.baseUrl);
+                document.getElementById('og-url').setAttribute('content', config.domain.baseUrl);
+                document.getElementById('og-title').setAttribute('content', `${config.siteName} - Modern Development Framework`);
+                document.getElementById('og-description').setAttribute('content', config.siteDescription);
+                document.getElementById('og-image').setAttribute('content', getFullUrl(config.seo.ogImage));
+                document.getElementById('og-site-name').setAttribute('content', config.siteName);
+                
+                document.getElementById('twitter-url').setAttribute('content', config.domain.baseUrl);
+                document.getElementById('twitter-title').setAttribute('content', `${config.siteName} - Modern Development Framework`);
+                document.getElementById('twitter-description').setAttribute('content', config.siteDescription);
+                document.getElementById('twitter-image').setAttribute('content', getFullUrl(config.seo.ogImage));
+                document.getElementById('twitter-creator').setAttribute('content', config.social.twitter.creator);
+                
+                // Update structured data
+                const structuredData = document.querySelector('script[type="application/ld+json"]');
+                if (structuredData) {
+                    const data = JSON.parse(structuredData.textContent);
+                    data.url = config.domain.baseUrl;
+                    data.name = config.siteName;
+                    data.description = config.siteDescription;
+                    data.author.name = config.siteAuthor;
+                    structuredData.textContent = JSON.stringify(data, null, 2);
+                }
+                
+                // Update page content
+                const headerTitle = document.querySelector('header h1');
+                if (headerTitle) {
+                    headerTitle.textContent = `🚀 ${config.siteName}`;
+                }
+                
+                const footer = document.querySelector('footer p');
+                if (footer) {
+                    footer.innerHTML = `&copy; 2024 ${config.siteName}. Built with ❤️ for developers.`;
+                }
+            }
+        }
+        
+        // Update content when page loads
         window.addEventListener('load', function() {
             document.body.classList.add('content-loaded');
+            updateSiteContent();
         });
     </script>
 </body>

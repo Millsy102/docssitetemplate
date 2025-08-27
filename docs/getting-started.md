@@ -112,7 +112,7 @@ theme:
 
 ### CSS Customization
 
-Add custom CSS by creating `docs/stylesheets/extra.css`:
+Add custom CSS by creating `public/components/styles/custom.css`:
 
 ```css
 /* Your custom styles */

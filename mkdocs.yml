@@ -1,7 +1,7 @@
 site_name: Documentation Template
 site_description: A modern documentation site template
 site_author: Documentation Template
-site_url: https://yourusername.github.io/docssitetemplate/
+site_url: https://yourusername.github.io/your-repo-name/
 
 repo_name: yourusername/docssitetemplate
 repo_url: https://github.com/yourusername/docssitetemplate
@@ -69,7 +69,7 @@ markdown_extensions:
   - pymdownx.tilde
 
 nav:
-  - Home: index.html
+  - Home: index.md
   - Getting Started: getting-started.md
   - Installation: installation.md
   - Contributing: contributing.md

@@ -38,11 +38,13 @@ run_npm_command() {
     local command=$1
     echo -e "${CYAN}Running: npm run $command${NC}"
     
-    if npm run "$command"; then
+    # Check if the npm script exists
+    if npm run --silent "$command" 2>/dev/null; then
         print_success "Command completed successfully"
         return 0
     else
-        print_error "Command failed with exit code $?"
+        print_error "Command failed or script not found"
+        print_info "Make sure the server management scripts are properly configured"
         return 1
     fi
 }

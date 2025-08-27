@@ -1,15 +1,34 @@
 {
   "default": true,
-  "MD013": false,
+  "MD013": {
+    "line_length": 120,
+    "code_blocks": false,
+    "tables": false
+  },
   "MD033": false,
   "MD041": false,
-  "MD024": false,
-  "MD029": false,
-  "MD030": false,
-  "MD026": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD029": {
+    "style": "ordered"
+  },
+  "MD030": {
+    "ul_single": 1,
+    "ol_single": 1,
+    "ul_multi": 1,
+    "ol_multi": 1
+  },
+  "MD026": {
+    "punctuation": ".,;:!"
+  },
   "MD002": false,
-  "MD012": false,
-  "MD007": false,
+  "MD012": {
+    "maximum": 1
+  },
+  "MD007": {
+    "indent": 2
+  },
   "MD009": false,
   "MD010": false,
   "MD011": false,
@@ -34,13 +53,86 @@
   "MD040": false,
   "MD042": false,
   "MD043": false,
-  "MD044": false,
+  "MD044": {
+    "names": [
+      "javascript",
+      "js",
+      "typescript",
+      "ts",
+      "json",
+      "html",
+      "css",
+      "scss",
+      "sass",
+      "less",
+      "xml",
+      "yaml",
+      "yml",
+      "toml",
+      "ini",
+      "bash",
+      "sh",
+      "powershell",
+      "ps1",
+      "cmd",
+      "batch",
+      "bat",
+      "python",
+      "py",
+      "php",
+      "java",
+      "c",
+      "cpp",
+      "csharp",
+      "cs",
+      "go",
+      "rust",
+      "rs",
+      "ruby",
+      "rb",
+      "swift",
+      "kotlin",
+      "kt",
+      "scala",
+      "r",
+      "matlab",
+      "sql",
+      "plsql",
+      "mysql",
+      "postgresql",
+      "mongodb",
+      "redis",
+      "dockerfile",
+      "docker",
+      "gitignore",
+      "gitattributes",
+      "markdown",
+      "md",
+      "text",
+      "txt",
+      "log",
+      "diff",
+      "patch",
+      "unreal",
+      "ue",
+      "blueprint",
+      "bp"
+    ]
+  },
   "MD045": false,
-  "MD046": false,
+  "MD046": {
+    "style": "fenced"
+  },
   "MD047": false,
-  "MD048": false,
-  "MD049": false,
-  "MD050": false,
+  "MD048": {
+    "style": "backtick"
+  },
+  "MD049": {
+    "style": "smart"
+  },
+  "MD050": {
+    "style": "consistent"
+  },
   "MD051": false,
   "MD052": false,
   "MD053": false

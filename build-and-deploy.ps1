@@ -1,15 +1,15 @@
-# BeamFlow Build and Deploy Script
-# This script builds and deploys the BeamFlow application
+# BeamFlow Documentation Site Build and Deploy Script
+# This script builds the static documentation site for GitHub Pages
 
 param(
     [string]$Environment = "production",
     [switch]$SkipTests,
     [switch]$SkipLint,
     [switch]$Force,
-    [string]$DeployTarget = "local"
+    [string]$DeployTarget = "github-pages"
 )
 
-Write-Host "🚀 BeamFlow Build and Deploy Script" -ForegroundColor Green
+Write-Host "🚀 BeamFlow Documentation Site Build Script" -ForegroundColor Green
 Write-Host "Environment: $Environment" -ForegroundColor Yellow
 Write-Host "Deploy Target: $DeployTarget" -ForegroundColor Yellow
 Write-Host ""
@@ -62,20 +62,11 @@ if ($missing.Count -gt 0) {
 
 Write-Log "All prerequisites found" "SUCCESS"
 
-# Navigate to the system directory
-Set-Location "_internal/system"
-Write-Log "Changed to system directory" "INFO"
-
 # Clean previous builds
 Write-Log "Cleaning previous builds..." "INFO"
 if (Test-Path "dist") {
     Remove-Item "dist" -Recurse -Force
     Write-Log "Removed previous dist directory" "SUCCESS"
-}
-
-if (Test-Path "node_modules") {
-    Write-Log "Removing node_modules for clean install..." "WARN"
-    Remove-Item "node_modules" -Recurse -Force
 }
 
 # Install dependencies
@@ -123,162 +114,86 @@ if (-not $SkipTests) {
     }
 }
 
-# Build frontend
-Write-Log "Building frontend..." "INFO"
-try {
-    npm run frontend:build
-    Write-Log "Frontend build completed" "SUCCESS"
-}
-catch {
-    Write-Log "Frontend build failed: $($_.Exception.Message)" "ERROR"
-    exit 1
-}
-
-# Build backend (if needed)
-Write-Log "Building backend..." "INFO"
+# Build the static site
+Write-Log "Building static documentation site..." "INFO"
 try {
     npm run build
-    Write-Log "Backend build completed" "SUCCESS"
+    Write-Log "Static site build completed" "SUCCESS"
 }
 catch {
-    Write-Log "Backend build failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Static site build failed: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 
-# Create deployment package
-Write-Log "Creating deployment package..." "INFO"
-$deployDir = "deploy"
+# Verify build output
+if (-not (Test-Path "dist")) {
+    Write-Log "Build output directory 'dist' not found" "ERROR"
+    exit 1
+}
+
+if (-not (Test-Path "dist/index.html")) {
+    Write-Log "Build output missing index.html" "ERROR"
+    exit 1
+}
+
+Write-Log "Build verification passed" "SUCCESS"
+
+# Create deployment package for GitHub Pages
+Write-Log "Preparing GitHub Pages deployment..." "INFO"
+$deployDir = "gh-pages-deploy"
 if (Test-Path $deployDir) {
     Remove-Item $deployDir -Recurse -Force
 }
 New-Item -ItemType Directory -Path $deployDir | Out-Null
 
-# Copy necessary files
-$filesToCopy = @(
-    "dist",
-    "src",
-    "package.json",
-    "package-lock.json",
-    "vite.config.ts",
-    "tsconfig.json",
-    "tailwind.config.js",
-    "env.example"
-)
+# Copy built files
+Copy-Item "dist\*" -Destination $deployDir -Recurse -Force
+Write-Log "Copied built files to deployment directory" "INFO"
 
-foreach ($file in $filesToCopy) {
-    if (Test-Path $file) {
-        if (Test-Path $file -PathType Container) {
-            Copy-Item $file -Destination $deployDir -Recurse
-        } else {
-            Copy-Item $file -Destination $deployDir
-        }
-        Write-Log "Copied $file" "INFO"
-    }
+# Copy additional files for GitHub Pages
+if (Test-Path "public/favicon.svg") {
+    Copy-Item "public/favicon.svg" -Destination $deployDir
+    Write-Log "Copied favicon" "INFO"
 }
 
-# Create deployment scripts
-$deployScripts = @{
-    "start.ps1" = @"
-# BeamFlow Production Start Script
-Write-Host "Starting BeamFlow Server..." -ForegroundColor Green
-
-# Set environment
-`$env:NODE_ENV = "production"
-
-# Install production dependencies
-npm ci --only=production
-
-# Start the server
-node src/server.js
-"@
-
-    "start.bat" = @"
-@echo off
-echo Starting BeamFlow Server...
-set NODE_ENV=production
-npm ci --only=production
-node src/server.js
-"@
-
-    "deploy.ps1" = @"
-# BeamFlow Deployment Script
-param([string]`$Target = "local")
-
-Write-Host "Deploying BeamFlow to `$Target..." -ForegroundColor Green
-
-# Copy files to target location
-switch (`$Target) {
-    "local" {
-        `$targetPath = "C:\BeamFlow"
-        if (-not (Test-Path `$targetPath)) {
-            New-Item -ItemType Directory -Path `$targetPath | Out-Null
-        }
-        Copy-Item * -Destination `$targetPath -Recurse -Force
-        Write-Host "Deployed to `$targetPath" -ForegroundColor Green
-    }
-    "server" {
-        Write-Host "Server deployment not configured. Please update this script." -ForegroundColor Yellow
-    }
-    default {
-        Write-Host "Unknown target: `$Target" -ForegroundColor Red
-    }
-}
-"@
+if (Test-Path "public/manifest.json") {
+    Copy-Item "public/manifest.json" -Destination $deployDir
+    Write-Log "Copied manifest" "INFO"
 }
 
-foreach ($script in $deployScripts.GetEnumerator()) {
-    $deployScripts[$script.Key] | Out-File -FilePath "$deployDir\$($script.Key)" -Encoding UTF8
-    Write-Log "Created $($script.Key)" "INFO"
-}
+# Create .nojekyll file for GitHub Pages
+New-Item -ItemType File -Path "$deployDir/.nojekyll" -Force | Out-Null
+Write-Log "Created .nojekyll file" "INFO"
 
-# Create README for deployment
+# Create deployment README
 $deployReadme = @"
-# BeamFlow Deployment Package
+# BeamFlow Documentation Site
 
-This package contains the built BeamFlow application ready for deployment.
+This is the built documentation site for BeamFlow.
 
-## Quick Start
+## Deployment
 
-### Windows
-```powershell
-.\start.ps1
-```
+This directory contains the static files ready for GitHub Pages deployment.
 
-### Linux/Mac
-```bash
-npm ci --only=production
-node src/server.js
-```
+### Manual Deployment
 
-## Configuration
+1. Push the contents of this directory to the `gh-pages` branch
+2. Configure GitHub Pages in your repository settings
+3. Set the source to the `gh-pages` branch
 
-1. Copy `.env.example` to `.env`
-2. Update the environment variables as needed
-3. Start the application
+### Automated Deployment
 
-## Files Included
+Use GitHub Actions to automatically deploy on push to main branch.
 
-- `dist/` - Built frontend assets
-- `src/` - Backend source code
-- `package.json` - Dependencies
-- `start.ps1` - Windows start script
-- `start.bat` - Windows batch start script
-- `deploy.ps1` - Deployment script
+## Files
 
-## Environment Variables
-
-Required environment variables (see .env.example):
-- NODE_ENV
-- PORT
-- DATABASE_URL
-- REDIS_URL
-- JWT_SECRET
-- GITHUB_CLIENT_ID
-- GITHUB_CLIENT_SECRET
+- `index.html` - Main documentation page
+- `assets/` - CSS, JS, and other assets
+- `.nojekyll` - Prevents GitHub Pages from processing with Jekyll
 
 ## Support
 
-For issues or questions, please refer to the main documentation.
+For issues or questions, please refer to the main repository.
 "@
 
 $deployReadme | Out-File -FilePath "$deployDir/README.md" -Encoding UTF8
@@ -286,7 +201,7 @@ Write-Log "Created deployment README" "INFO"
 
 # Create deployment archive
 Write-Log "Creating deployment archive..." "INFO"
-$archiveName = "beamflow-deploy-$(Get-Date -Format 'yyyyMMdd-HHmmss').zip"
+$archiveName = "beamflow-docs-$(Get-Date -Format 'yyyyMMdd-HHmmss').zip"
 try {
     Compress-Archive -Path "$deployDir/*" -DestinationPath $archiveName -Force
     Write-Log "Created deployment archive: $archiveName" "SUCCESS"
@@ -298,31 +213,32 @@ catch {
 # Deploy based on target
 Write-Log "Deploying to $DeployTarget..." "INFO"
 switch ($DeployTarget) {
+    "github-pages" {
+        Write-Log "GitHub Pages deployment package ready" "INFO"
+        Write-Log "To deploy:" "INFO"
+        Write-Log "1. Push contents of $deployDir to gh-pages branch" "INFO"
+        Write-Log "2. Configure GitHub Pages in repository settings" "INFO"
+        Write-Log "3. Set source to gh-pages branch" "INFO"
+    }
     "local" {
-        $localDeployPath = "C:\BeamFlow"
+        $localDeployPath = "./local-deploy"
         if (-not (Test-Path $localDeployPath)) {
             New-Item -ItemType Directory -Path $localDeployPath | Out-Null
             Write-Log "Created local deployment directory: $localDeployPath" "INFO"
         }
         Copy-Item "$deployDir\*" -Destination $localDeployPath -Recurse -Force
         Write-Log "Deployed to local directory: $localDeployPath" "SUCCESS"
+        Write-Log "To preview: npm run preview" "INFO"
     }
     "vercel" {
         Write-Log "Vercel deployment requires manual setup" "WARN"
         Write-Log "Please run: vercel --prod" "INFO"
-    }
-    "github-pages" {
-        Write-Log "GitHub Pages deployment requires manual setup" "WARN"
-        Write-Log "Please push to gh-pages branch or configure GitHub Pages" "INFO"
     }
     default {
         Write-Log "Unknown deploy target: $DeployTarget" "WARN"
         Write-Log "Deployment package ready in: $deployDir" "INFO"
     }
 }
-
-# Return to original directory
-Set-Location "../.."
 
 Write-Log "Build and deploy completed successfully!" "SUCCESS"
 Write-Log "Deployment package: $deployDir" "INFO"
@@ -334,5 +250,5 @@ Write-Host ""
 Write-Host "🎉 Build and deployment completed!" -ForegroundColor Green
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Review the deployment package in: $deployDir" -ForegroundColor White
-Write-Host "2. Configure environment variables" -ForegroundColor White
-Write-Host "3. Start the application" -ForegroundColor White
+Write-Host "2. For GitHub Pages: Push contents to gh-pages branch" -ForegroundColor White
+Write-Host "3. Configure GitHub Pages in repository settings" -ForegroundColor White

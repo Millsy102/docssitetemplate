@@ -145,8 +145,8 @@ nav:
 1. **Create custom CSS file**
 
    ```bash
-   mkdir docs/stylesheets
-   touch docs/stylesheets/extra.css
+   mkdir -p public/components/styles
+   touch public/components/styles/custom.css
    ```
 
 2. **Add your styles**
@@ -164,7 +164,7 @@ nav:
 
    ```yaml
    extra_css:
-     - stylesheets/extra.css
+     - public/components/styles/custom.css
    ```
 
 ### Adding Custom JavaScript
@@ -172,8 +172,8 @@ nav:
 1. **Create custom JS file**
 
    ```bash
-   mkdir docs/javascripts
-   touch docs/javascripts/extra.js
+   mkdir -p public/components/scripts
+   touch public/components/scripts/custom.js
    ```
 
 2. **Add your scripts**
@@ -189,7 +189,7 @@ nav:
 
    ```yaml
    extra_javascript:
-     - javascripts/extra.js
+     - public/components/scripts/custom.js
    ```
 
 ## Deployment

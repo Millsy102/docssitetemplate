@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# BeamFlow Build and Deploy Script (Bash Version)
-# This script builds and deploys the BeamFlow application
+# BeamFlow Documentation Site Build and Deploy Script
+# This script builds the static documentation site for GitHub Pages
 
 set -e  # Exit on any error
 
@@ -10,7 +10,7 @@ ENVIRONMENT="production"
 SKIP_TESTS=false
 SKIP_LINT=false
 FORCE=false
-DEPLOY_TARGET="local"
+DEPLOY_TARGET="github-pages"
 
 # Colors for output
 RED='\033[0;31m'
@@ -77,7 +77,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --skip-tests            Skip running tests"
             echo "  --skip-lint             Skip running linting"
             echo "  --force                 Continue despite errors"
-            echo "  -t, --deploy-target TARGET  Deploy target (default: local)"
+            echo "  -t, --deploy-target TARGET  Deploy target (default: github-pages)"
             echo "  -h, --help              Show this help message"
             exit 0
             ;;
@@ -88,7 +88,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo -e "${GREEN}🚀 BeamFlow Build and Deploy Script${NC}"
+echo -e "${GREEN}🚀 BeamFlow Documentation Site Build Script${NC}"
 echo -e "${YELLOW}Environment: $ENVIRONMENT${NC}"
 echo -e "${YELLOW}Deploy Target: $DEPLOY_TARGET${NC}"
 echo ""
@@ -113,20 +113,11 @@ fi
 
 log "SUCCESS" "All prerequisites found"
 
-# Navigate to the system directory
-cd "_internal/system"
-log "INFO" "Changed to system directory"
-
 # Clean previous builds
 log "INFO" "Cleaning previous builds..."
 if [ -d "dist" ]; then
     rm -rf dist
     log "SUCCESS" "Removed previous dist directory"
-fi
-
-if [ -d "node_modules" ]; then
-    log "WARN" "Removing node_modules for clean install..."
-    rm -rf node_modules
 fi
 
 # Install dependencies
@@ -168,147 +159,91 @@ if [ "$SKIP_TESTS" = false ]; then
     fi
 fi
 
-# Build frontend
-log "INFO" "Building frontend..."
-if npm run frontend:build; then
-    log "SUCCESS" "Frontend build completed"
-else
-    log "ERROR" "Frontend build failed"
-    exit 1
-fi
-
-# Build backend (if needed)
-log "INFO" "Building backend..."
+# Build the static site
+log "INFO" "Building static documentation site..."
 if npm run build; then
-    log "SUCCESS" "Backend build completed"
+    log "SUCCESS" "Static site build completed"
 else
-    log "ERROR" "Backend build failed"
+    log "ERROR" "Static site build failed"
     exit 1
 fi
 
-# Create deployment package
-log "INFO" "Creating deployment package..."
-DEPLOY_DIR="deploy"
+# Verify build output
+if [ ! -d "dist" ]; then
+    log "ERROR" "Build output directory 'dist' not found"
+    exit 1
+fi
+
+if [ ! -f "dist/index.html" ]; then
+    log "ERROR" "Build output missing index.html"
+    exit 1
+fi
+
+log "SUCCESS" "Build verification passed"
+
+# Create deployment package for GitHub Pages
+log "INFO" "Preparing GitHub Pages deployment..."
+DEPLOY_DIR="gh-pages-deploy"
 if [ -d "$DEPLOY_DIR" ]; then
     rm -rf "$DEPLOY_DIR"
 fi
 mkdir -p "$DEPLOY_DIR"
 
-# Copy necessary files
-FILES_TO_COPY=("dist" "src" "package.json" "package-lock.json" "vite.config.ts" "tsconfig.json" "tailwind.config.js" "env.example")
+# Copy built files
+cp -r dist/* "$DEPLOY_DIR/"
+log "INFO" "Copied built files to deployment directory"
 
-for file in "${FILES_TO_COPY[@]}"; do
-    if [ -e "$file" ]; then
-        if [ -d "$file" ]; then
-            cp -r "$file" "$DEPLOY_DIR/"
-        else
-            cp "$file" "$DEPLOY_DIR/"
-        fi
-        log "INFO" "Copied $file"
-    fi
-done
+# Copy additional files for GitHub Pages
+if [ -f "public/favicon.svg" ]; then
+    cp public/favicon.svg "$DEPLOY_DIR/"
+    log "INFO" "Copied favicon"
+fi
 
-# Create deployment scripts
-cat > "$DEPLOY_DIR/start.sh" << 'EOF'
-#!/bin/bash
-# BeamFlow Production Start Script
-echo "Starting BeamFlow Server..."
+if [ -f "public/manifest.json" ]; then
+    cp public/manifest.json "$DEPLOY_DIR/"
+    log "INFO" "Copied manifest"
+fi
 
-# Set environment
-export NODE_ENV="production"
+# Create .nojekyll file for GitHub Pages
+touch "$DEPLOY_DIR/.nojekyll"
+log "INFO" "Created .nojekyll file"
 
-# Install production dependencies
-npm ci --only=production
-
-# Start the server
-node src/server.js
-EOF
-
-chmod +x "$DEPLOY_DIR/start.sh"
-log "INFO" "Created start.sh"
-
-cat > "$DEPLOY_DIR/deploy.sh" << 'EOF'
-#!/bin/bash
-# BeamFlow Deployment Script
-TARGET=${1:-"local"}
-
-echo "Deploying BeamFlow to $TARGET..."
-
-# Copy files to target location
-case $TARGET in
-    "local")
-        TARGET_PATH="/opt/BeamFlow"
-        sudo mkdir -p "$TARGET_PATH"
-        sudo cp -r * "$TARGET_PATH/"
-        echo "Deployed to $TARGET_PATH"
-        ;;
-    "server")
-        echo "Server deployment not configured. Please update this script."
-        ;;
-    *)
-        echo "Unknown target: $TARGET"
-        ;;
-esac
-EOF
-
-chmod +x "$DEPLOY_DIR/deploy.sh"
-log "INFO" "Created deploy.sh"
-
-# Create README for deployment
+# Create deployment README
 cat > "$DEPLOY_DIR/README.md" << 'EOF'
-# BeamFlow Deployment Package
+# BeamFlow Documentation Site
 
-This package contains the built BeamFlow application ready for deployment.
+This is the built documentation site for BeamFlow.
 
-## Quick Start
+## Deployment
 
-### Linux/Mac
-```bash
-chmod +x start.sh
-./start.sh
-```
+This directory contains the static files ready for GitHub Pages deployment.
 
-### Windows
-```powershell
-npm ci --only=production
-node src/server.js
-```
+### Manual Deployment
 
-## Configuration
+1. Push the contents of this directory to the `gh-pages` branch
+2. Configure GitHub Pages in your repository settings
+3. Set the source to the `gh-pages` branch
 
-1. Copy `.env.example` to `.env`
-2. Update the environment variables as needed
-3. Start the application
+### Automated Deployment
 
-## Files Included
+Use GitHub Actions to automatically deploy on push to main branch.
 
-- `dist/` - Built frontend assets
-- `src/` - Backend source code
-- `package.json` - Dependencies
-- `start.sh` - Linux/Mac start script
-- `deploy.sh` - Deployment script
+## Files
 
-## Environment Variables
-
-Required environment variables (see .env.example):
-- NODE_ENV
-- PORT
-- DATABASE_URL
-- REDIS_URL
-- JWT_SECRET
-- GITHUB_CLIENT_ID
-- GITHUB_CLIENT_SECRET
+- `index.html` - Main documentation page
+- `assets/` - CSS, JS, and other assets
+- `.nojekyll` - Prevents GitHub Pages from processing with Jekyll
 
 ## Support
 
-For issues or questions, please refer to the main documentation.
+For issues or questions, please refer to the main repository.
 EOF
 
 log "INFO" "Created deployment README"
 
 # Create deployment archive
 log "INFO" "Creating deployment archive..."
-ARCHIVE_NAME="beamflow-deploy-$(date +%Y%m%d-%H%M%S).tar.gz"
+ARCHIVE_NAME="beamflow-docs-$(date +%Y%m%d-%H%M%S).tar.gz"
 if tar -czf "$ARCHIVE_NAME" -C "$DEPLOY_DIR" .; then
     log "SUCCESS" "Created deployment archive: $ARCHIVE_NAME"
 else
@@ -318,31 +253,32 @@ fi
 # Deploy based on target
 log "INFO" "Deploying to $DEPLOY_TARGET..."
 case $DEPLOY_TARGET in
+    "github-pages")
+        log "INFO" "GitHub Pages deployment package ready"
+        log "INFO" "To deploy:"
+        log "INFO" "1. Push contents of $DEPLOY_DIR to gh-pages branch"
+        log "INFO" "2. Configure GitHub Pages in repository settings"
+        log "INFO" "3. Set source to gh-pages branch"
+        ;;
     "local")
-        LOCAL_DEPLOY_PATH="/opt/BeamFlow"
+        LOCAL_DEPLOY_PATH="./local-deploy"
         if [ ! -d "$LOCAL_DEPLOY_PATH" ]; then
-            sudo mkdir -p "$LOCAL_DEPLOY_PATH"
+            mkdir -p "$LOCAL_DEPLOY_PATH"
             log "INFO" "Created local deployment directory: $LOCAL_DEPLOY_PATH"
         fi
-        sudo cp -r "$DEPLOY_DIR"/* "$LOCAL_DEPLOY_PATH/"
+        cp -r "$DEPLOY_DIR"/* "$LOCAL_DEPLOY_PATH/"
         log "SUCCESS" "Deployed to local directory: $LOCAL_DEPLOY_PATH"
+        log "INFO" "To preview: npm run preview"
         ;;
     "vercel")
         log "WARN" "Vercel deployment requires manual setup"
         log "INFO" "Please run: vercel --prod"
-        ;;
-    "github-pages")
-        log "WARN" "GitHub Pages deployment requires manual setup"
-        log "INFO" "Please push to gh-pages branch or configure GitHub Pages"
         ;;
     *)
         log "WARN" "Unknown deploy target: $DEPLOY_TARGET"
         log "INFO" "Deployment package ready in: $DEPLOY_DIR"
         ;;
 esac
-
-# Return to original directory
-cd ../..
 
 log "SUCCESS" "Build and deploy completed successfully!"
 log "INFO" "Deployment package: $DEPLOY_DIR"
@@ -354,5 +290,5 @@ echo ""
 echo -e "${GREEN}🎉 Build and deployment completed!${NC}"
 echo -e "${YELLOW}Next steps:${NC}"
 echo -e "1. Review the deployment package in: $DEPLOY_DIR"
-echo -e "2. Configure environment variables"
-echo -e "3. Start the application"
+echo -e "2. For GitHub Pages: Push contents to gh-pages branch"
+echo -e "3. Configure GitHub Pages in repository settings"

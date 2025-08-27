@@ -1,6 +1,6 @@
-# Contributing to BeamFlow
+# Contributing to BeamFlow Documentation
 
-Thank you for your interest in contributing to BeamFlow! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to the BeamFlow Documentation site! This document provides guidelines and information for contributors.
 
 ##  Table of Contents
 
@@ -30,8 +30,8 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/your-username/beam-uiverse.git
-   cd beam-uiverse
+   git clone https://github.com/your-username/docssitetemplate.git
+   cd docssitetemplate
    ```
 3. Install dependencies:
    ```bash
@@ -51,9 +51,14 @@ Follow the established repository structure:
 ```
 <repo-root>/
 ├─ .github/                    # CI/CD workflows and templates
-├─ docs/                       # Public documentation
-├─ content/                    # Blog posts and news
-├─ assets/                     # Static files
+├─ docs/                       # Documentation markdown files
+├─ assets/                     # Static assets (images, etc.)
+├─ src/                        # React source code
+│  ├─ components/              # React components
+│  ├─ pages/                   # Page components
+│  ├─ App.tsx                  # Main app component
+│  └─ main.tsx                 # Entry point
+├─ public/                     # Public static files
 ├─ scripts/                    # Build-time helpers
 └─ dist/                       # Build output (ignored)
 ```
@@ -125,9 +130,10 @@ npm test -- --testPathPattern=filename
 ### Documentation Locations
 
 - **Public docs**: `/docs/` directory
-- **API documentation**: `/docs/api-reference.md`
-- **Blog posts**: `/content/posts/`
+- **Component documentation**: Update component files with JSDoc comments
 - **README**: Update main README.md for significant changes
+- **Installation guide**: `/docs/installation.md`
+- **Getting started**: `/docs/getting-started.md`
 
 ##  Submitting Changes
 
@@ -192,8 +198,8 @@ npm run preview
 
 ##  License
 
-By contributing to BeamFlow, you agree that your contributions will be licensed under the same license as the project.
+By contributing to BeamFlow Documentation, you agree that your contributions will be licensed under the same license as the project.
 
 ---
 
-Thank you for contributing to BeamFlow! 
+Thank you for contributing to BeamFlow Documentation! 
