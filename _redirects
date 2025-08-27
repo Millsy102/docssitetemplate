@@ -1,0 +1,8 @@
+# Handle client-side routing
+/*    /index.html   200
+
+# API routes (if any backend functionality is needed)
+/api/*  /api/index.js  200
+
+# Custom 404 page
+/404    /404.html  404

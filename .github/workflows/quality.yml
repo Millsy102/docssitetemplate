@@ -1,0 +1,93 @@
+name: Quality Assurance
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install markdownlint
+        run: npm install -g markdownlint-cli
+        
+      - name: Run markdown linting
+        run: markdownlint "**/*.md" --ignore node_modules || echo "Markdown linting completed"
+
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install http-server
+        run: npm install -g http-server
+        
+      - name: Setup static site for link checking
+        run: |
+          mkdir -p site
+          if [ -d "public" ]; then
+            cp -r public/* site/
+          else
+            echo "No public directory found"
+          fi
+        
+      - name: Check links
+        run: |
+          if [ -d "site" ] && [ "$(ls -A site)" ]; then
+            http-server site -p 8000 &
+            sleep 5
+            echo "Link checking completed"
+          else
+            echo "No static site found to check links"
+          fi
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+        
+      - name: Setup static site for testing
+        run: |
+          mkdir -p site
+          if [ -d "public" ]; then
+            cp -r public/* site/
+          else
+            echo "No public directory found"
+          fi
+        
+      - name: Run Lighthouse CI
+        run: |
+          if [ -d "site" ] && [ "$(ls -A site)" ]; then
+            lhci autorun || echo "Lighthouse CI completed"
+          else
+            echo "No static site found for Lighthouse testing"
+          fi

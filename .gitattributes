@@ -1,0 +1,30 @@
+# Ensure consistent line endings
+* text=auto
+
+# Protect sensitive files
+*.env* filter=git-crypt diff=git-crypt
+*.key filter=git-crypt diff=git-crypt
+*.pem filter=git-crypt diff=git-crypt
+*.p12 filter=git-crypt diff=git-crypt
+*.pfx filter=git-crypt diff=git-crypt
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar.gz binary
+*.rar binary
+
+# Documentation
+*.md text diff=markdown
+*.txt text
+*.html text
+*.css text
+*.js text
+*.json text
+*.yml text
+*.yaml text

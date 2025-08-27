@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+# Note: Local linter warnings about GitHub Actions are expected and can be ignored
+# These warnings occur because the linter cannot reach GitHub's action repositories locally
+# They do not affect the functionality of the workflows when run on GitHub
+# The actions/checkout@v4 and actions/setup-node@v4 versions are correct and will work on GitHub
+name: Quality Gates
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup static site for link checking
+        run: |
+          mkdir -p site
+          cp -r public/* site/
+      
+      - name: Check for broken links
+        run: npx broken-link-checker --recursive --exclude-external site/
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Lint markdown files
+        run: npx markdownlint "docs/**/*.md" "content/**/*.md"
+
+  lighthouse-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup static site for testing
+        run: |
+          mkdir -p site
+          cp -r public/* site/
+      
+      - name: Start local server
+        run: |
+          npx http-server site -p 8000 &
+          sleep 10
+      
+      - name: Run Lighthouse CI
+        run: npx lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN || '' }}
+
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Check spelling
+        run: npx cspell "docs/**/*.md" "content/**/*.md"
