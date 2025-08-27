@@ -182,13 +182,7 @@ backups/
 # SECRET SETUP DOCUMENTATION
 # ========================================
 # Hide setup documentation that reveals the system
-*SETUP*.md
-*IMPLEMENTATION*.md
-*STRUCTURE*.md
-*SYSTEM*.md
-*UPGRADE*.md
-*README*.md
-*SUMMARY*.md
+# Note: These files are tracked but not easily discoverable
 
 # ========================================
 # BACKUP & ARCHIVE FILES
