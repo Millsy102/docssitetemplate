@@ -398,3 +398,8 @@ pnpm-lock.yaml
 # Encrypted blobs (if using encrypted-on-GH pattern)
 !encrypted/
 !encrypted/*.enc
+
+# Hidden website configuration (never commit)
+HIDDEN_CONFIG.md
+*.hidden
+.hidden/

@@ -1,7 +1,7 @@
 {
-  "name": "docssitetemplate-façade",
+  "name": "docs-site-template",
   "version": "1.0.0",
-  "description": "Public documentation façade - private app lives in ~/millsy-admin",
+  "description": "A modern documentation site template with GitHub Pages support",
   "private": true,
   "scripts": {
     "docs:dev": "mkdocs serve",
@@ -12,10 +12,11 @@
   },
   "keywords": [
     "documentation",
-    "façade",
-    "template"
+    "template",
+    "github-pages",
+    "mkdocs"
   ],
-  "author": "Private Development",
+  "author": "Documentation Template",
   "license": "MIT",
   "devDependencies": {
     "broken-link-checker": "^0.7.8",

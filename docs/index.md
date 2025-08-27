@@ -1,155 +1,224 @@
-# Welcome to Beam Website System
+# Documentation Site Template
 
-A modern, comprehensive website and documentation system with intelligent access control. The public site serves as a "template docs site" showcasing basic features, while authenticated users gain access to the full, real site with complete functionality.
+Welcome to the Documentation Site Template - a modern, professional template for creating beautiful documentation with MkDocs and Material theme.
 
 ## 🚀 Quick Start
 
-Get started with Beam Website System in minutes:
+Get started in minutes with our easy-to-use documentation template:
 
 ```bash
-npm install beam-website-system
+# Clone the template
+git clone https://github.com/your-username/docssitetemplate.git
+cd docssitetemplate
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run docs:dev
 ```
 
-```javascript
-import { BeamWebsite } from 'beam-website-system';
+## ✨ Features
 
-const website = new BeamWebsite({
-  apiKey: 'your-api-key',
-  environment: 'production'
-});
+### Modern Documentation
+- **MkDocs + Material Theme** - Professional, responsive design
+- **Search Functionality** - Fast, full-text search across all content
+- **Dark/Light Mode** - Automatic theme switching
+- **Mobile Responsive** - Perfect on all devices
+- **SEO Optimized** - Built-in SEO features
 
-// Initialize the website system
-await website.initialize();
+### Developer Experience
+- **Hot Reload** - Instant preview during development
+- **Markdown Support** - Write content in Markdown with extensions
+- **Code Highlighting** - Syntax highlighting for 100+ languages
+- **Version Control** - Git-based content management
+- **CI/CD Ready** - Automated deployment to GitHub Pages
 
-// Access public template site
-const publicSite = website.getPublicSite();
+## 📚 Documentation Sections
 
-// Access private real site (requires authentication)
-const privateSite = website.getPrivateSite();
+### Getting Started
+Learn how to set up and customize your documentation site:
+
+- [Installation Guide](getting-started/installation.md)
+- [Configuration](getting-started/configuration.md)
+- [Customization](getting-started/customization.md)
+- [Deployment](getting-started/deployment.md)
+
+### Features
+Explore the powerful features of this template:
+
+- [Theme Customization](features/theme.md)
+- [Search Functionality](features/search.md)
+- [Code Highlighting](features/code-blocks.md)
+- [Admonitions](features/admonitions.md)
+- [Navigation](features/navigation.md)
+
+### Advanced
+Take your documentation to the next level:
+
+- [Custom Plugins](advanced/plugins.md)
+- [Custom CSS/JS](advanced/styling.md)
+- [Multi-language](advanced/i18n.md)
+- [Analytics](advanced/analytics.md)
+- [Performance](advanced/performance.md)
+
+## 🎨 Customization
+
+### Theme Configuration
+
+Customize the appearance of your site by editing `mkdocs.yml`:
+
+```yaml
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
 ```
 
-## ✨ Key Features
+### Adding Content
 
-### Public/Private Access Pattern
-- **Template Site**: Limited, generic documentation for public users
-- **Real Site**: Complete functionality for authenticated users
-- **Role-Based Control**: Different access levels for users, moderators, and admins
-- **Seamless Transition**: Smooth upgrade path from public to private access
+1. Create new Markdown files in the `docs/` directory
+2. Update `mkdocs.yml` to include them in navigation
+3. Use Material theme features for rich content
 
-### Modern Architecture
-- **React Frontend**: Modern, responsive UI with dark mode support
-- **Node.js Backend**: Robust API with comprehensive middleware
-- **Plugin System**: Extensible architecture with third-party plugin support
-- **Authentication**: Multiple auth methods including GitHub OAuth
-- **Database**: Flexible data storage with migration support
+## 🔧 Development
 
-### Component System
-- **Beam Components**: Consistent, reusable UI components
-- **Design System**: Comprehensive visual design tokens and themes
-- **Accessibility**: WCAG 2.1 AA compliant components
-- **Performance**: Optimized for speed and user experience
+### Local Development
 
-## 🏗️ Architecture
+```bash
+# Start development server
+npm run docs:dev
 
-Beam Website System uses a sophisticated access control architecture:
+# Build for production
+npm run docs:build
 
-```mermaid
-graph TB
-    A[Public Users] --> B[Template Site]
-    C[Authenticated Users] --> D[Real Site]
-    E[Admin Users] --> F[Admin Panel]
-    
-    B --> G[Basic Documentation]
-    B --> H[Demo Features]
-    B --> I[Limited API]
-    
-    D --> J[Complete Documentation]
-    D --> K[Full Feature Set]
-    D --> L[Plugin Management]
-    
-    F --> M[User Management]
-    F --> N[System Configuration]
-    F --> O[Security Monitoring]
+# Validate links
+npm run validate-links
 ```
 
-## 📊 Performance Benchmarks
+### Project Structure
 
-| Metric | Value |
-|--------|-------|
-| **Page Load Time** | <2 seconds |
-| **API Response Time** | <100ms |
-| **Availability** | 99.9% uptime |
-| **Scalability** | Auto-scaling support |
+```
+docs/
+├─ index.md              # This homepage
+├─ getting-started/      # Getting started guides
+├─ features/            # Feature documentation
+├─ advanced/            # Advanced topics
+├─ api-reference/       # API documentation
+└─ assets/              # Images and static files
+```
 
-## 🔐 Enterprise Security
+## 🚀 Deployment
 
-- **End-to-end Encryption**: All data encrypted in transit and at rest
-- **Role-based Access Control**: Fine-grained permissions and security
-- **Audit Logging**: Comprehensive audit trails for compliance
-- **OAuth Integration**: Secure authentication with multiple providers
+### GitHub Pages
 
-## 💰 Pricing
+This template is configured for automatic deployment to GitHub Pages:
 
-| Plan | Price | Features | Access |
-|------|-------|----------|--------|
-| **Public** | Free | Template site, basic docs | Limited |
-| **User** | $29/month | Full site access, all features | Complete |
-| **Admin** | $99/month | Admin panel, user management | Full control |
+1. Push to `main` branch
+2. GitHub Actions builds and deploys automatically
+3. Site available at `https://yourusername.github.io/docssitetemplate`
 
-## 🆘 Support & Community
+### Custom Domain
 
-- 📚 [Documentation](getting-started.md) - Comprehensive guides and tutorials
-- 💬 [Community Forum](https://community.beam-website.com) - Connect with other users
-- 📧 [Email Support](mailto:support@beam-website.com) - Direct support for all plans
-- 🎯 [Live Chat](https://beam-website.com/chat) - Real-time assistance
+1. Add your domain to repository settings
+2. Update `mkdocs.yml` with your domain
+3. Configure DNS records
 
-## 🚀 Ready to Get Started?
+## 📚 Documentation Features
 
-Choose your path:
+### Code Blocks
 
-- **[Quick Start Guide](getting-started.md)** - Get up and running in 5 minutes
-- **[Installation Guide](installation.md)** - Detailed setup instructions
-- **[API Reference](api-reference.md)** - Complete API documentation
-- **[Examples](examples.md)** - Sample code and use cases
+```python
+def hello_world():
+    print("Hello, World!")
+    return "Documentation is awesome!"
+```
 
-## 🔐 Access Control
+### Admonitions
 
-### Public Access (Template Site)
-- Basic documentation and guides
-- Demo features and examples
-- Limited API endpoints
-- Marketing and showcase content
+!!! note "Note"
+    This template provides a solid foundation for creating professional documentation.
 
-### Private Access (Real Site)
-- Complete documentation
-- Full feature set
-- Admin dashboard
-- Plugin management
-- Analytics and reporting
+!!! tip "Tip"
+    Use Material theme features to create rich, interactive documentation.
 
-### Admin Access
-- User management
-- Content management
-- System configuration
-- Plugin installation
-- Security monitoring
+!!! warning "Warning"
+    Always test your documentation before deploying to production.
 
-## 🧩 Plugin System
+### Tabs
 
-The Beam system includes a comprehensive plugin architecture:
+=== "Python"
+    ```python
+    print("Hello from Python!")
+    ```
 
-- **Core Features**: Essential functionality built into the system
-- **Third-Party Plugins**: Extensible functionality through plugins
-- **Plugin Management**: Install, configure, and manage plugins
-- **AI Integration**: Plugins can integrate with AI chat system
+=== "JavaScript"
+    ```javascript
+    console.log("Hello from JavaScript!");
+    ```
 
-## 🎨 Design System
+=== "Bash"
+    ```bash
+    echo "Hello from Bash!"
+    ```
 
-- **Beam Components**: Consistent UI component library
-- **Theme Support**: Light, dark, and high contrast themes
-- **Responsive Design**: Mobile-first approach
-- **Accessibility**: WCAG 2.1 AA compliance
+### Math Support
+
+Inline math: $E = mc^2$
+
+Block math:
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](../CONTRIBUTING.md) for details.
+
+### Development Setup
+
+```bash
+# Fork and clone
+git clone https://github.com/your-username/docssitetemplate.git
+
+# Install dependencies
+npm install
+
+# Start development
+npm run docs:dev
+
+# Run tests
+npm test
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
+
+## 🆘 Support
+
+- **Documentation**: Browse the docs you're reading right now
+- **Issues**: [GitHub Issues](https://github.com/your-username/docssitetemplate/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-username/docssitetemplate/discussions)
+
+## 🚀 What's Next?
+
+- [Installation Guide](getting-started/installation.md) - Get started quickly
+- [Configuration](getting-started/configuration.md) - Customize your site
+- [Features](features/theme.md) - Explore powerful features
+- [API Reference](api-reference/index.md) - Technical documentation
 
 ---
 
-**Beam Website System** - Modern documentation and website platform with intelligent access control.
+**Documentation Site Template** - Create beautiful, professional documentation with ease.

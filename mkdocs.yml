@@ -1,10 +1,10 @@
-site_name: BeamFlow Documentation
-site_description: Enterprise-grade data processing and analytics platform
-site_author: BeamFlow Team
-site_url: https://beamflow.com
+site_name: Documentation Site Template
+site_description: A modern documentation site template for creating comprehensive guides and tutorials
+site_author: Documentation Template
+site_url: https://yourusername.github.io/your-repo-name
 
-repo_name: beam/beamflow-docs
-repo_url: https://github.com/beam/beamflow-docs
+repo_name: yourusername/docs-site-template
+repo_url: https://github.com/yourusername/docs-site-template
 edit_uri: edit/main/docs/
 
 theme:
@@ -58,17 +58,17 @@ plugins:
   # - git-revision-date-localized:
   #     enable_creation_date: true
   # - git-committers:
-  #     repository: beam/beamflow-docs
+  #     repository: yourusername/docs-site-template
   # - social
 
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/beam/beamflow
+      link: https://github.com/yourusername/docs-site-template
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/beamflow
+      link: https://twitter.com/yourusername
     - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/company/beamflow
+      link: https://linkedin.com/in/yourusername
 
 markdown_extensions:
   - abbr
@@ -98,7 +98,8 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets:
-      check_paths: true
+      auto_append:
+        - includes/abbreviations.md
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -119,25 +120,31 @@ nav:
   - Getting Started:
     - Quick Start: getting-started.md
     - Installation: installation.md
-    - User Guide: user-guide.md
-  - API Reference:
-    - Overview: api-reference.md
-  - Guides:
-    - Deployment: deployment.md
-    - Security: security.md
-    - Performance: performance.md
-    - Architecture: architecture.md
+    - Configuration: configuration.md
+  - Documentation:
+    - API Reference: api-reference.md
     - Examples: examples.md
     - Troubleshooting: troubleshooting.md
   - Development:
     - Contributing: contributing.md
-    - Plugin Development: PLUGIN-DEVELOPMENT.md
-    - Component System: component-system-overview.md
-    - Visual Design: visual-design-system.md
-  - Features:
-    - AI Chat: ai-chat-feature.md
-    - Search Bar: search-bar-implementation.md
-  - Community:
     - Code of Conduct: code-of-conduct.md
-    - FAQ: faq.md
     - Changelog: changelog.md
+  - Community:
+    - FAQ: faq.md
+    - Support: support.md
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+validation:
+  nav:
+    omitted_files: ignore
+  not_found: ignore
+
+# Copyright
+copyright: Copyright &copy; 2024 Documentation Template

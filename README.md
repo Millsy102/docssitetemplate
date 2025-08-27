@@ -1,200 +1,250 @@
-# Beam Website System - Public Documentation Façade
+# Documentation Site Template
 
-> **⚠️ IMPORTANT: This repository contains ONLY the public documentation façade.**  
-> All private application code, admin tools, and real features live in `~/millsy-admin` (personal folder).  
-> This repo serves as a generic docs template for GitHub Pages.
+A modern, professional documentation site template built with MkDocs and Material theme. Perfect for creating beautiful documentation for your projects, APIs, or technical guides.
 
-## 🚀 Overview
+## 🚀 Features
 
-This is a **public documentation façade** that demonstrates a modern website system architecture. The actual application code and private features are kept separate in a personal development folder (`~/millsy-admin`) to maintain security and separation of concerns.
+### Modern Documentation
+- **MkDocs + Material Theme** - Professional, responsive documentation
+- **Search Functionality** - Fast, full-text search across all content
+- **Dark/Light Mode** - Automatic theme switching
+- **Mobile Responsive** - Works perfectly on all devices
+- **SEO Optimized** - Built-in SEO features and meta tags
 
-### Architecture Pattern
+### Developer Experience
+- **Hot Reload** - Instant preview during development
+- **Markdown Support** - Write content in Markdown with extensions
+- **Code Highlighting** - Syntax highlighting for 100+ languages
+- **Version Control** - Git-based content management
+- **CI/CD Ready** - Automated deployment to GitHub Pages
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    PUBLIC REPO (GitHub Pages)               │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │   Docs Façade   │  │  Encrypted      │  │  GitHub      │ │
-│  │   (Template)    │  │  Blobs (opt)    │  │  Workflows   │ │
-│  │                 │  │                 │  │              │ │
-│  │ • Basic Docs    │  │ • manifest.enc  │  │ • CI/CD      │ │
-│  │ • Demo Features │  │ • key.enc       │  │ • Pages      │ │
-│  │ • Limited API   │  │ • chunks/*.enc  │  │ • Quality    │ │
-│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 PRIVATE FOLDER (~/millsy-admin)             │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ │
-│  │  Private App    │  │  Admin Tools    │  │  Build       │ │
-│  │  (Real Site)    │  │  & Scripts      │  │  Scripts     │ │
-│  │                 │  │                 │  │              │ │
-│  │ • Full Features │  │ • build.sh      │  │ • encrypt.js │ │
-│  │ • Admin Panel   │  │ • deploy.sh     │  │ • sync.sh    │ │
-│  │ • Real API      │  │ • tools/        │  │ • dist/      │ │
-│  └─────────────────┘  └─────────────────┘  └──────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
+### Customization
+- **Theme Customization** - Easy color schemes and branding
+- **Plugin System** - Extensible with MkDocs plugins
+- **Custom CSS/JS** - Add your own styling and functionality
+- **Multi-language** - Support for internationalization
+- **Analytics** - Built-in Google Analytics support
 
-## 📁 Repository Structure
-
-### Public (GitHub Pages - This Repo)
-```
-docssitetemplate/              # public repo (visible to everyone)
-├─ public/                     # façade: generic docs template only
-│  ├─ index.html
-│  ├─ css/
-│  └─ js/
-├─ docs/                       # public documentation
-├─ encrypted/                  # encrypted blobs of private app (optional)
-│  ├─ manifest.enc
-│  ├─ key.enc
-│  └─ chunks/*.js.enc
-├─ .github/workflows/          # Pages deploy + CI quality
-├─ .gitignore                  # ignores private/admin/local folders
-└─ README.md                   # explains façade + setup
-```
-
-### Private (Personal Folder - NOT in this repo)
-```
-%USERPROFILE%/millsy-admin/    # Windows
-~/millsy-admin/                # macOS/Linux
-
-  sites/
-    beam-site/
-      private-app/             # ← your full real site lives here
-        src/
-        public/
-        package.json
-        tsconfig.json
-        ...
-        dist/                  # build output (never committed)
-
-      encrypt/                 # encryption helpers
-        encrypt.js
-
-  bin/                         # admin scripts (non-essential)
-  templates/                   # scaffolding templates
-  tmp/                         # scratch builds
-```
-
-## 🔐 Security Model
-
-### Public Access (GitHub Pages)
-- **Generic documentation template** - showcases basic features
-- **Demo content only** - no real functionality
-- **Limited API endpoints** - public examples only
-- **Marketing content** - project overview and setup guides
-
-### Private Access (Personal Folder)
-- **Full application code** - complete feature set
-- **Admin tools and scripts** - development utilities
-- **Real database and API** - production functionality
-- **Sensitive configuration** - environment variables, secrets
-
-## 🛠️ Development Workflow
-
-### Option A: Personal Folder (Recommended)
-```bash
-# 1. Build the real site locally (personal folder)
-~/millsy-admin/bin/build_private.sh beam-site
-
-# 2. (Optional) Encrypt & sync ciphertext to public repo
-~/millsy-admin/bin/encrypt_private.sh beam-site /path/to/public-repo
-
-# 3. Commit + push from public repo (façade only)
-cd /path/to/public-repo
-git add encrypted public .github README.md .gitignore
-git commit -m "chore: update encrypted bundle + façade"
-git push origin main
-```
-
-### Option B: Private Repo + VPS
-- **Public repo**: This façade (GitHub Pages)
-- **Private repo**: `github.com/you/private-real-app`
-- **VPS**: `app.yourdomain.tld` behind Cloudflare Access
-
-## 📦 Installation (Public Façade Only)
-
-This repository contains only the public documentation façade. To work with the full application:
+## 📦 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Personal development folder setup
+- Python 3.8+
+- Node.js 18+ (for development tools)
+- Git
 
-### Quick Start (Public Façade)
+### Installation
 
 ```bash
-# Clone the public façade repository
+# Clone the template
 git clone https://github.com/your-username/docssitetemplate.git
 cd docssitetemplate
 
-# Install dependencies (for docs generation only)
+# Install dependencies
 npm install
 
-# Start documentation server
-npm run docs:serve
+# Start development server
+npm run docs:dev
 ```
 
-### Full Application Setup
+### Build and Deploy
 
-The complete application setup is documented in the private development folder. This public repo contains only the façade and basic documentation.
+```bash
+# Build documentation
+npm run docs:build
 
-## 🔧 Configuration
-
-### Environment Variables (Public Façade)
-```env
-# Documentation server
-DOCS_PORT=3000
-DOCS_HOST=localhost
-
-# Build configuration
-NODE_ENV=production
+# Deploy to GitHub Pages
+npm run docs:deploy
 ```
 
-### Private Application Configuration
-Private application configuration lives in `~/millsy-admin/sites/beam-site/private-app/` and is not committed to this public repository.
+## 🏗️ Project Structure
+
+```
+docssitetemplate/
+├─ docs/                    # Documentation source
+│  ├─ index.md             # Homepage
+│  ├─ getting-started.md   # Quick start guide
+│  ├─ api-reference.md     # API documentation
+│  └─ assets/              # Images and static files
+├─ public/                 # Public assets
+│  ├─ css/                 # Custom stylesheets
+│  ├─ js/                  # Custom JavaScript
+│  └─ images/              # Public images
+├─ scripts/                # Build and utility scripts
+├─ .github/                # GitHub Actions workflows
+├─ mkdocs.yml             # MkDocs configuration
+└─ package.json           # Node.js dependencies
+```
+
+## 🎨 Customization
+
+### Theme Configuration
+
+Edit `mkdocs.yml` to customize your site:
+
+```yaml
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to light mode
+```
+
+### Adding Content
+
+1. Create new Markdown files in the `docs/` directory
+2. Update `mkdocs.yml` to include them in navigation
+3. Use Material theme features like admonitions and code blocks
+
+### Custom Styling
+
+Add custom CSS in `public/css/custom.css`:
+
+```css
+/* Custom styles */
+:root {
+  --md-primary-fg-color: #3f51b5;
+  --md-primary-fg-color--light: #757de8;
+  --md-primary-fg-color--dark: #002984;
+}
+```
+
+## 🔧 Development
+
+### Local Development
+
+```bash
+# Start development server
+npm run docs:dev
+
+# Build for production
+npm run docs:build
+
+# Validate links
+npm run validate-links
+```
+
+### Adding New Pages
+
+1. Create a new `.md` file in `docs/`
+2. Add it to the navigation in `mkdocs.yml`
+3. Use Material theme features for rich content
+
+### Custom Plugins
+
+Install and configure MkDocs plugins in `mkdocs.yml`:
+
+```yaml
+plugins:
+  - search
+  - git-revision-date-localized
+  - minify:
+      minify_html: true
+```
 
 ## 🚀 Deployment
 
-### GitHub Pages (Public Façade)
-This repository is configured for automatic deployment to GitHub Pages via GitHub Actions. The workflow:
+### GitHub Pages
 
-1. Builds the documentation site
-2. Deploys to GitHub Pages
-3. Runs quality checks and link validation
+This template is configured for automatic deployment to GitHub Pages:
 
-### Private Application Deployment
-Private application deployment is handled by scripts in the personal development folder (`~/millsy-admin/bin/`).
+1. Push to `main` branch
+2. GitHub Actions builds and deploys automatically
+3. Site available at `https://yourusername.github.io/docssitetemplate`
 
-## 📚 Documentation
+### Custom Domain
 
-### Public Documentation
-- [Getting Started](./docs/getting-started.md) - Basic setup guide
-- [Architecture](./docs/architecture.md) - System overview
-- [Contributing](./CONTRIBUTING.md) - How to contribute to the façade
+1. Add your domain to repository settings
+2. Update `mkdocs.yml` with your domain
+3. Configure DNS records
 
-### Private Documentation
-Private application documentation lives in the personal development folder and is not accessible from this public repository.
+## 📚 Documentation Features
+
+### Code Blocks
+
+```python
+def hello_world():
+    print("Hello, World!")
+```
+
+### Admonitions
+
+!!! note "Note"
+    This is a note block with important information.
+
+!!! warning "Warning"
+    This is a warning block.
+
+!!! tip "Tip"
+    This is a helpful tip.
+
+### Tabs
+
+=== "Python"
+    ```python
+    print("Hello from Python!")
+    ```
+
+=== "JavaScript"
+    ```javascript
+    console.log("Hello from JavaScript!");
+    ```
+
+### Math Support
+
+Inline math: $E = mc^2$
+
+Block math:
+$$
+\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+$$
 
 ## 🤝 Contributing
 
-This repository accepts contributions to the **public documentation façade only**. All private application code contributions should be made to the private development folder or private repository.
+We welcome contributions! Please see our [Contributing Guide](docs/contributing.md) for details.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+### Development Setup
+
+```bash
+# Fork and clone
+git clone https://github.com/your-username/docssitetemplate.git
+
+# Install dependencies
+npm install
+
+# Start development
+npm run docs:dev
+
+# Run tests
+npm test
+```
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links
+## 🆘 Support
 
-- **Public Façade**: This repository (GitHub Pages)
-- **Private App**: `~/millsy-admin/sites/beam-site/private-app/`
-- **Admin Tools**: `~/millsy-admin/bin/`
+- **Documentation**: [docs/](docs/)
+- **Issues**: [GitHub Issues](https://github.com/your-username/docssitetemplate/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-username/docssitetemplate/discussions)
+
+## 🚀 What's Next?
+
+- [Getting Started Guide](docs/getting-started.md)
+- [API Reference](docs/api-reference.md)
+- [Customization Guide](docs/customization.md)
+- [Deployment Guide](docs/deployment.md)
 
 ---
 
-> **Note**: This repository serves as a demonstration of the docs façade pattern. The actual application functionality is maintained separately in a private development environment for security and maintainability.
+**Documentation Site Template** - Create beautiful, professional documentation with ease.
