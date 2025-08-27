@@ -41,6 +41,11 @@ jobs:
           echo "ADMIN_API_KEY=${{ secrets.ADMIN_API_KEY }}" >> $GITHUB_ENV
           
       - name: Build documentation site
+        env:
+          SITE_TITLE: BeamFlow Documentation
+          SITE_DESCRIPTION: Comprehensive documentation for the BeamFlow Unreal Engine plugin
+          SITE_URL: https://millsy102.github.io/docssitetemplate
+          NODE_ENV: production
         run: npm run build
         
       - name: Build secret system

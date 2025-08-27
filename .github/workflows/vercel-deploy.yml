@@ -1,4 +1,4 @@
-name: Deploy Secret System to Vercel
+name: Deploy to Vercel
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-secret-system:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,8 +21,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build secret system
-        run: npm run build:secret
+      - name: Setup environment variables
+        run: |
+          echo "SITE_TITLE=BeamFlow Documentation" >> $GITHUB_ENV
+          echo "SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin" >> $GITHUB_ENV
+          echo "SITE_URL=https://millsy102.github.io/docssitetemplate" >> $GITHUB_ENV
+          echo "NODE_ENV=production" >> $GITHUB_ENV
+          
+      - name: Build project
+        run: npm run build
         
       - name: Install Vercel CLI
         run: npm install -g vercel
@@ -30,6 +37,8 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           if [ -z "$VERCEL_TOKEN" ]; then
             echo "❌ VERCEL_TOKEN is not set. Please add it to your GitHub repository secrets."
@@ -52,21 +61,19 @@ jobs:
         
       - name: Create deployment summary
         run: |
-          echo "## 🔒 Secret System Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Vercel Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### ✅ Hidden System Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Deployment Status" >> $GITHUB_STEP_SUMMARY
           echo "- **Platform**: Vercel" >> $GITHUB_STEP_SUMMARY
           echo "- **Status**: Successfully deployed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Admin Panel**: Available at /admin" >> $GITHUB_STEP_SUMMARY
+          echo "- **Domain**: docssitetemplate.vercel.app" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🔐 Access Information" >> $GITHUB_STEP_SUMMARY
-          echo "- **Admin Username**: Set via environment variables" >> $GITHUB_STEP_SUMMARY
-          echo "- **Admin Password**: Set via environment variables" >> $GITHUB_STEP_SUMMARY
-          echo "- **FTP Server**: Available on configured port" >> $GITHUB_STEP_SUMMARY
-          echo "- **SSH Server**: Available on configured port" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 What was deployed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Output**: dist/ directory" >> $GITHUB_STEP_SUMMARY
+          echo "- **API Functions**: api/ directory" >> $GITHUB_STEP_SUMMARY
+          echo "- **Static Assets**: All built assets" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 🛡️ Security Features" >> $GITHUB_STEP_SUMMARY
-          echo "- IP Whitelisting enabled" >> $GITHUB_STEP_SUMMARY
-          echo "- Session management active" >> $GITHUB_STEP_SUMMARY
-          echo "- Rate limiting configured" >> $GITHUB_STEP_SUMMARY
-          echo "- Audit logging enabled" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔧 Configuration" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Command**: npm run build" >> $GITHUB_STEP_SUMMARY
+          echo "- **Output Directory**: dist" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node Version**: 20" >> $GITHUB_STEP_SUMMARY
