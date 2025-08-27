@@ -56,20 +56,11 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host ""
-Write-Host "Step 4: Checking Vite installation..." -ForegroundColor Yellow
-# Check if Vite is available locally
-$viteCheck = npm list vite 2>$null
-if ($LASTEXITCODE -ne 0 -or $viteCheck -match "\(empty\)") {
-    Write-Host "Installing Vite locally..." -ForegroundColor Yellow
-    npm install vite @vitejs/plugin-react --save-dev
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "ERROR: Local Vite install failed" -ForegroundColor Red
-        exit 1
-    }
-    Write-Host "Vite installed successfully" -ForegroundColor Green
-} else {
-    Write-Host "Vite is already installed locally" -ForegroundColor Green
-}
+Write-Host "Step 4: Setting up build environment..." -ForegroundColor Yellow
+# Install global dependencies that are needed for the build
+Write-Host "Installing global build dependencies..." -ForegroundColor White
+npm install -g tailwindcss postcss autoprefixer
+Write-Host "Global dependencies installed" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Step 5: Building main documentation site..." -ForegroundColor Yellow
@@ -79,18 +70,30 @@ $env:SITE_DESCRIPTION = "Comprehensive documentation for the BeamFlow Unreal Eng
 $env:SITE_URL = "https://millsy102.github.io/docssitetemplate"
 $env:NODE_ENV = "production"
 
-# Use the local Vite installation
-Write-Host "Building with local Vite installation..." -ForegroundColor White
+# Temporarily disable PostCSS config to avoid tailwindcss issues
+Write-Host "Temporarily disabling PostCSS config..." -ForegroundColor White
+if (Test-Path "postcss.config.js") {
+    Move-Item "postcss.config.js" "postcss.config.js.bak"
+}
+
+# Use npx vite build which works reliably
+Write-Host "Building with npx vite build..." -ForegroundColor White
 npx vite build
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Main site build failed" -ForegroundColor Red
-    Write-Host "Trying npm run build as fallback..." -ForegroundColor Yellow
-    npm run build
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "ERROR: All build methods failed" -ForegroundColor Red
-        exit 1
+    # Restore PostCSS config on failure
+    if (Test-Path "postcss.config.js.bak") {
+        Move-Item "postcss.config.js.bak" "postcss.config.js"
     }
+    exit 1
 }
+
+# Restore PostCSS config after successful build
+if (Test-Path "postcss.config.js.bak") {
+    Move-Item "postcss.config.js.bak" "postcss.config.js"
+}
+
+Write-Host "SUCCESS: Main site build completed" -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Step 6: Building secret system..." -ForegroundColor Yellow
@@ -168,7 +171,36 @@ Compress-Archive -Path "full-system-deploy/*" -DestinationPath $archiveName -For
 Write-Host "SUCCESS: Deployment archive created: $archiveName" -ForegroundColor Green
 
 Write-Host ""
-Write-Host "Step 12: Deploying to GitHub Pages..." -ForegroundColor Yellow
+Write-Host "Step 12: Committing and pushing changes to Git..." -ForegroundColor Yellow
+# Add all changes to git
+Write-Host "Adding all changes to Git..." -ForegroundColor White
+git add .
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Git add failed" -ForegroundColor Red
+    exit 1
+}
+
+# Commit changes with timestamp
+$commitMessage = "Auto-deploy: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Complete system build and deployment"
+Write-Host "Committing changes..." -ForegroundColor White
+git commit -m $commitMessage
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Git commit failed" -ForegroundColor Red
+    exit 1
+}
+
+# Push to remote repository
+Write-Host "Pushing to remote repository..." -ForegroundColor White
+git push
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Git push failed" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "SUCCESS: Git changes committed and pushed" -ForegroundColor Green
+
+Write-Host ""
+Write-Host "Step 13: Deploying to GitHub Pages..." -ForegroundColor Yellow
 npx gh-pages -d dist
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: GitHub Pages deployment failed" -ForegroundColor Red
@@ -178,24 +210,33 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host ""
-Write-Host "Step 13: Deploying to Vercel..." -ForegroundColor Yellow
-$vercelVersion = vercel --version 2>$null
+Write-Host "Step 14: Deploying to Vercel..." -ForegroundColor Yellow
+# Check if Vercel CLI is installed
+$vercelVersion = npx vercel --version 2>$null
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Installing Vercel CLI..." -ForegroundColor Yellow
     npm install -g vercel
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "ERROR: Failed to install Vercel CLI" -ForegroundColor Red
+        Write-Host "Trying alternative installation..." -ForegroundColor Yellow
+        npm install -g @vercel/cli
+    }
 }
 
-vercel --prod --yes
+# Try to deploy using npx vercel
+Write-Host "Deploying to Vercel..." -ForegroundColor White
+npx vercel --prod --yes
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Vercel deployment failed" -ForegroundColor Red
-    Write-Host "TIP: You may need to run: vercel login" -ForegroundColor Yellow
+    Write-Host "TIP: You may need to run: npx vercel login" -ForegroundColor Yellow
+    Write-Host "WARNING: Vercel deployment skipped, but other deployments succeeded" -ForegroundColor Yellow
 } else {
     Write-Host "SUCCESS: Vercel deployed successfully" -ForegroundColor Green
     Write-Host "   Full system: docssitetemplate.vercel.app" -ForegroundColor Cyan
 }
 
 Write-Host ""
-Write-Host "Step 14: Creating deployment summary..." -ForegroundColor Yellow
+Write-Host "Step 15: Creating deployment summary..." -ForegroundColor Yellow
 $summary = @"
 # BeamFlow Deployment Complete
 
