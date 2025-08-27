@@ -18,7 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,10 +30,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Copy public files to site directory
+      - name: Build and prepare site
         run: |
+          # Create site directory
           mkdir -p site
+          
+          # Copy all public files
           cp -r public/* site/
+          
+          # Copy any additional assets if needed
+          if [ -d "assets" ]; then
+            cp -r assets site/
+          fi
+          
+          # Ensure login.js is copied
+          if [ -f "public/login.js" ]; then
+            echo "✅ Login system found and copied"
+          else
+            echo "❌ Login system not found"
+          fi
+          
+          # Create a simple index if none exists
+          if [ ! -f "site/index.html" ]; then
+            echo "<!DOCTYPE html><html><head><title>My Secret Site</title></head><body><h1>Welcome to my secret site!</h1></body></html>" > site/index.html
+          fi
+          
+          # List contents for debugging
+          echo "Site contents:"
+          ls -la site/
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -46,5 +71,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
