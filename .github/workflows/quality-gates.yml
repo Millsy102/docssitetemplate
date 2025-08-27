@@ -2,6 +2,7 @@
 # Note: Local linter warnings about GitHub Actions are expected and can be ignored
 # These warnings occur because the linter cannot reach GitHub's action repositories locally
 # They do not affect the functionality of the workflows when run on GitHub
+# The actions/checkout@v4 and actions/setup-node@v4 versions are correct and will work on GitHub
 name: Quality Gates
 
 on:
@@ -77,7 +78,7 @@ jobs:
       - name: Run Lighthouse CI
         run: npx lhci autorun
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN || '' }}
 
   spell-check:
     runs-on: ubuntu-latest
