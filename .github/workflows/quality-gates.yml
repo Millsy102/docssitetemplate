@@ -1,3 +1,7 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+# Note: Local linter warnings about GitHub Actions are expected and can be ignored
+# These warnings occur because the linter cannot reach GitHub's action repositories locally
+# They do not affect the functionality of the workflows when run on GitHub
 name: Quality Gates
 
 on:
