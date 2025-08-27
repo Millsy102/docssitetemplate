@@ -14,19 +14,27 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:env": "tsx test-env.ts",
+    "test:sw:versioning": "node scripts/test-sw-versioning.js",
     "test:security": "node scripts/test-security-headers.js",
     "test:security:local": "node scripts/test-security-headers.js http://localhost:3000",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:fix": "npm audit fix",
     "build:full": "npm run build && npm run build:backend",
     "build:backend": "cd _internal/system && npm run build",
     "build:secret": "node scripts/build-full-system.js",
     "dev:full": "concurrently \"npm run dev\" \"npm run dev:backend\"",
     "dev:backend": "cd _internal/system && npm run dev",
+    "dev:socket": "cd server && npm run dev",
+    "dev:realtime": "concurrently \"npm run dev\" \"npm run dev:socket\"",
     "start:backend": "cd _internal/system && npm start",
     "deploy": "npm run build:secret",
     "deploy:prepare": "node scripts/prepare-deployment.js",
     "deploy:github-pages": "npm run build && node scripts/deploy-github-pages.js",
     "deploy:vercel": "npm run build:secret && vercel --prod",
-    "deploy:full": "npm run build:secret && vercel --prod"
+    "deploy:full": "npm run build:secret && vercel --prod",
+    "i18n:copy": "node scripts/copy-translations.js",
+    "i18n:build": "npm run i18n:copy && npm run build",
+    "i18n:dev": "npm run i18n:copy && npm run dev"
   },
   "keywords": [
     "documentation",
@@ -38,9 +46,13 @@
   "license": "MIT",
   "dependencies": {
     "caniuse-lite": "^1.0.30001737",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
+    "prom-client": "^15.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
+    "socket.io-client": "^4.7.4",
     "winston": "^3.17.0"
   },
   "devDependencies": {

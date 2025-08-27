@@ -1,0 +1,214 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "notFound": "No encontrado",
+    "goBack": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "refresh": "Actualizar",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "download": "Descargar",
+    "upload": "Subir",
+    "submit": "Enviar",
+    "reset": "Restablecer",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "learnMore": "Saber más",
+    "readMore": "Leer más",
+    "viewAll": "Ver todo",
+    "collapse": "Colapsar",
+    "expand": "Expandir"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "installation": "Instalación",
+    "gettingStarted": "Primeros pasos",
+    "contributing": "Contribuir",
+    "privacyPolicy": "Política de privacidad",
+    "skipToMain": "Saltar al contenido principal",
+    "skipToNav": "Saltar al pie de página",
+    "language": "Idioma",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "toggleTheme": "Cambiar tema"
+  },
+  "home": {
+    "title": "Documentación de BeamFlow",
+    "subtitle": "Documentación completa para el plugin de BeamFlow para Unreal Engine",
+    "welcome": "Bienvenido a BeamFlow",
+    "description": "BeamFlow es un potente plugin para Unreal Engine que permite el streaming y procesamiento en tiempo real de grandes conjuntos de datos con un impacto mínimo en el rendimiento.",
+    "features": {
+      "title": "Características principales",
+      "streaming": "Streaming de datos en tiempo real",
+      "processing": "Procesamiento eficiente de datos",
+      "integration": "Integración perfecta con Unreal",
+      "performance": "Alto rendimiento",
+      "scalability": "Arquitectura escalable"
+    },
+    "getStarted": {
+      "title": "Comenzar",
+      "description": "Comienza a usar BeamFlow en tus proyectos de Unreal Engine",
+      "installButton": "Instalar BeamFlow",
+      "learnMoreButton": "Saber más"
+    }
+  },
+  "installation": {
+    "title": "Guía de instalación",
+    "description": "Aprende cómo instalar y configurar BeamFlow en tu proyecto de Unreal Engine",
+    "prerequisites": {
+      "title": "Prerrequisitos",
+      "unrealVersion": "Unreal Engine 5.0 o posterior",
+      "systemRequirements": "Requisitos del sistema",
+      "dependencies": "Dependencias"
+    },
+    "methods": {
+      "title": "Métodos de instalación",
+      "marketplace": {
+        "title": "Desde Unreal Marketplace",
+        "description": "Instala BeamFlow directamente desde el Unreal Engine Marketplace"
+      },
+      "manual": {
+        "title": "Instalación manual",
+        "description": "Descarga e instala BeamFlow manualmente"
+      },
+      "git": {
+        "title": "Repositorio Git",
+        "description": "Clona desde el repositorio de GitHub"
+      }
+    },
+    "configuration": {
+      "title": "Configuración",
+      "description": "Configura los ajustes de BeamFlow para tu proyecto",
+      "settings": "Ajustes",
+      "plugins": "Ajustes de plugin"
+    }
+  },
+  "gettingStarted": {
+    "title": "Primeros pasos",
+    "description": "Aprende los conceptos básicos de usar BeamFlow en tu proyecto de Unreal Engine",
+    "quickStart": {
+      "title": "Guía de inicio rápido",
+      "step1": "Paso 1: Instalar BeamFlow",
+      "step2": "Paso 2: Habilitar el plugin",
+      "step3": "Paso 3: Configurar ajustes",
+      "step4": "Paso 4: Crear tu primer stream"
+    },
+    "examples": {
+      "title": "Ejemplos",
+      "basicStream": "Ejemplo de streaming básico",
+      "dataProcessing": "Ejemplo de procesamiento de datos",
+      "integration": "Ejemplo de integración con Unreal"
+    }
+  },
+  "contributing": {
+    "title": "Contribuir a BeamFlow",
+    "description": "Aprende cómo contribuir al proyecto BeamFlow",
+    "guidelines": {
+      "title": "Pautas de contribución",
+      "codeStyle": "Pautas de estilo de código",
+      "commitMessages": "Pautas de mensajes de commit",
+      "pullRequests": "Proceso de Pull Request"
+    },
+    "development": {
+      "title": "Configuración de desarrollo",
+      "setup": "Configuración del entorno de desarrollo",
+      "testing": "Pautas de testing",
+      "documentation": "Estándares de documentación"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 BeamFlow. Todos los derechos reservados.",
+    "links": {
+      "home": "Inicio",
+      "docs": "Documentación",
+      "github": "GitHub",
+      "issues": "Problemas",
+      "privacy": "Política de privacidad",
+      "terms": "Términos de servicio"
+    },
+    "madeWith": "Hecho con ❤️ por el equipo de BeamFlow"
+  },
+  "errors": {
+    "pageNotFound": "Página no encontrada",
+    "pageNotFoundDescription": "La página que buscas no existe.",
+    "wentWrong": "Algo salió mal",
+    "wentWrongDescription": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "networkError": "Error de red",
+    "networkErrorDescription": "No se pudo conectar al servidor. Por favor, verifica tu conexión a internet.",
+    "notAuthorized": "No autorizado",
+    "notAuthorizedDescription": "No tienes permiso para acceder a este recurso."
+  },
+  "cookies": {
+    "title": "Preferencias de cookies",
+    "description": "Usamos cookies para mejorar tu experiencia en nuestro sitio web.",
+    "necessary": {
+      "title": "Cookies necesarias",
+      "description": "Estas cookies son esenciales para que el sitio web funcione correctamente."
+    },
+    "analytics": {
+      "title": "Cookies de análisis",
+      "description": "Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.",
+      "accept": "Aceptar análisis",
+      "decline": "Rechazar análisis"
+    },
+    "preferences": {
+      "title": "Cookies de preferencias",
+      "description": "Estas cookies recuerdan tus preferencias y ajustes."
+    },
+    "marketing": {
+      "title": "Cookies de marketing",
+      "description": "Estas cookies se usan para entregar anuncios relevantes."
+    },
+    "save": "Guardar preferencias",
+    "acceptAll": "Aceptar todo",
+    "rejectAll": "Rechazar todo"
+  },
+  "analytics": {
+    "banner": {
+      "title": "Ayúdanos a mejorar",
+      "description": "Usamos análisis para entender cómo usas nuestra documentación y mejorar la experiencia.",
+      "accept": "Aceptar",
+      "decline": "Rechazar"
+    },
+    "privacy": {
+      "title": "Aviso de privacidad",
+      "description": "Tus datos se recopilan de forma anónima y solo se usan para mejorar nuestros servicios."
+    }
+  },
+  "search": {
+    "placeholder": "Buscar documentación...",
+    "noResults": "No se encontraron resultados",
+    "searching": "Buscando...",
+    "results": "{{count}} resultado",
+    "results_plural": "{{count}} resultados"
+  },
+  "languageSelector": {
+    "title": "Seleccionar idioma",
+    "current": "Idioma actual",
+    "changeLanguage": "Cambiar idioma",
+    "languages": {
+      "en": "Inglés",
+      "es": "Español",
+      "fr": "Francés",
+      "de": "Alemán",
+      "zh": "Chino",
+      "ja": "Japonés"
+    }
+  },
+  "theme": {
+    "light": "Tema claro",
+    "dark": "Tema oscuro",
+    "auto": "Tema automático",
+    "system": "Tema del sistema"
+  }
+}

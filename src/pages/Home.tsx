@@ -1,43 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const Home: React.FC = () => {
+  const { t } = useTranslation()
+  
   return (
     <div className="max-w-4xl">
       <div className="mb-8">
-        <h1>BeamFlow for Unreal Engine</h1>
+        <h1>{t('home.welcome')}</h1>
         <p className="text-xl text-gray-300 mb-6">
-          A powerful plugin that enhances Unreal Engine development with advanced features and tools.
+          {t('home.description')}
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 mb-12">
         <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-red-400 mb-4">🚀 Key Features</h3>
+          <h3 className="text-red-400 mb-4">🚀 {t('home.features.title')}</h3>
           <ul className="space-y-2 text-gray-300">
-            <li>• Advanced AI integration</li>
-            <li>• Performance optimization tools</li>
-            <li>• Enhanced development workflow</li>
-            <li>• Real-time monitoring</li>
-            <li>• Plugin management system</li>
+            <li>• {t('home.features.streaming')}</li>
+            <li>• {t('home.features.processing')}</li>
+            <li>• {t('home.features.integration')}</li>
+            <li>• {t('home.features.performance')}</li>
+            <li>• {t('home.features.scalability')}</li>
           </ul>
         </div>
 
         <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-          <h3 className="text-red-400 mb-4">⚡ Quick Start</h3>
+          <h3 className="text-red-400 mb-4">⚡ {t('home.getStarted.title')}</h3>
           <div className="space-y-3">
-            <p className="text-gray-300">Get up and running in minutes:</p>
+            <p className="text-gray-300">{t('home.getStarted.description')}</p>
             <Link 
               to="/installation" 
               className="inline-block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors"
             >
-              Install Plugin
+              {t('home.getStarted.installButton')}
             </Link>
             <Link 
               to="/getting-started" 
               className="inline-block bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition-colors ml-2"
             >
-              Learn More
+              {t('home.getStarted.learnMoreButton')}
             </Link>
           </div>
         </div>

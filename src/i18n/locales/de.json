@@ -1,0 +1,214 @@
+{
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "notFound": "Nicht gefunden",
+    "goBack": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "refresh": "Aktualisieren",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "download": "Herunterladen",
+    "upload": "Hochladen",
+    "submit": "Absenden",
+    "reset": "Zurücksetzen",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "learnMore": "Mehr erfahren",
+    "readMore": "Weiterlesen",
+    "viewAll": "Alle anzeigen",
+    "collapse": "Einklappen",
+    "expand": "Erweitern"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "installation": "Installation",
+    "gettingStarted": "Erste Schritte",
+    "contributing": "Beitragen",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "skipToMain": "Zum Hauptinhalt springen",
+    "skipToNav": "Zum Footer springen",
+    "language": "Sprache",
+    "darkMode": "Dunkler Modus",
+    "lightMode": "Heller Modus",
+    "toggleTheme": "Theme ändern"
+  },
+  "home": {
+    "title": "BeamFlow Dokumentation",
+    "subtitle": "Vollständige Dokumentation für das BeamFlow Unreal Engine Plugin",
+    "welcome": "Willkommen bei BeamFlow",
+    "description": "BeamFlow ist ein leistungsstarkes Unreal Engine Plugin, das Echtzeit-Streaming und -Verarbeitung großer Datensätze mit minimalen Leistungsauswirkungen ermöglicht.",
+    "features": {
+      "title": "Hauptfunktionen",
+      "streaming": "Echtzeit-Datenstreaming",
+      "processing": "Effiziente Datenverarbeitung",
+      "integration": "Nahtlose Unreal-Integration",
+      "performance": "Hohe Leistung",
+      "scalability": "Skalierbare Architektur"
+    },
+    "getStarted": {
+      "title": "Loslegen",
+      "description": "Beginnen Sie mit der Verwendung von BeamFlow in Ihren Unreal Engine-Projekten",
+      "installButton": "BeamFlow installieren",
+      "learnMoreButton": "Mehr erfahren"
+    }
+  },
+  "installation": {
+    "title": "Installationsanleitung",
+    "description": "Erfahren Sie, wie Sie BeamFlow in Ihrem Unreal Engine-Projekt installieren und konfigurieren",
+    "prerequisites": {
+      "title": "Voraussetzungen",
+      "unrealVersion": "Unreal Engine 5.0 oder höher",
+      "systemRequirements": "Systemanforderungen",
+      "dependencies": "Abhängigkeiten"
+    },
+    "methods": {
+      "title": "Installationsmethoden",
+      "marketplace": {
+        "title": "Von Unreal Marketplace",
+        "description": "Installieren Sie BeamFlow direkt vom Unreal Engine Marketplace"
+      },
+      "manual": {
+        "title": "Manuelle Installation",
+        "description": "Laden Sie BeamFlow manuell herunter und installieren Sie es"
+      },
+      "git": {
+        "title": "Git-Repository",
+        "description": "Klonen Sie vom GitHub-Repository"
+      }
+    },
+    "configuration": {
+      "title": "Konfiguration",
+      "description": "Konfigurieren Sie BeamFlow-Einstellungen für Ihr Projekt",
+      "settings": "Einstellungen",
+      "plugins": "Plugin-Einstellungen"
+    }
+  },
+  "gettingStarted": {
+    "title": "Erste Schritte",
+    "description": "Lernen Sie die Grundlagen der Verwendung von BeamFlow in Ihrem Unreal Engine-Projekt",
+    "quickStart": {
+      "title": "Schnellstart-Anleitung",
+      "step1": "Schritt 1: BeamFlow installieren",
+      "step2": "Schritt 2: Plugin aktivieren",
+      "step3": "Schritt 3: Einstellungen konfigurieren",
+      "step4": "Schritt 4: Ersten Stream erstellen"
+    },
+    "examples": {
+      "title": "Beispiele",
+      "basicStream": "Grundlegendes Streaming-Beispiel",
+      "dataProcessing": "Datenverarbeitungsbeispiel",
+      "integration": "Unreal-Integrationsbeispiel"
+    }
+  },
+  "contributing": {
+    "title": "Zu BeamFlow beitragen",
+    "description": "Erfahren Sie, wie Sie zum BeamFlow-Projekt beitragen können",
+    "guidelines": {
+      "title": "Beitragsrichtlinien",
+      "codeStyle": "Code-Stil-Richtlinien",
+      "commitMessages": "Commit-Nachrichten-Richtlinien",
+      "pullRequests": "Pull-Request-Prozess"
+    },
+    "development": {
+      "title": "Entwicklungsumgebung",
+      "setup": "Entwicklungsumgebung einrichten",
+      "testing": "Testrichtlinien",
+      "documentation": "Dokumentationsstandards"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 BeamFlow. Alle Rechte vorbehalten.",
+    "links": {
+      "home": "Startseite",
+      "docs": "Dokumentation",
+      "github": "GitHub",
+      "issues": "Probleme",
+      "privacy": "Datenschutzrichtlinie",
+      "terms": "Nutzungsbedingungen"
+    },
+    "madeWith": "Entwickelt mit ❤️ vom BeamFlow-Team"
+  },
+  "errors": {
+    "pageNotFound": "Seite nicht gefunden",
+    "pageNotFoundDescription": "Die gesuchte Seite existiert nicht.",
+    "wentWrong": "Etwas ist schiefgelaufen",
+    "wentWrongDescription": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "networkError": "Netzwerkfehler",
+    "networkErrorDescription": "Verbindung zum Server nicht möglich. Bitte überprüfen Sie Ihre Internetverbindung.",
+    "notAuthorized": "Nicht autorisiert",
+    "notAuthorizedDescription": "Sie haben keine Berechtigung, auf diese Ressource zuzugreifen."
+  },
+  "cookies": {
+    "title": "Cookie-Einstellungen",
+    "description": "Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern.",
+    "necessary": {
+      "title": "Notwendige Cookies",
+      "description": "Diese Cookies sind für die ordnungsgemäße Funktion der Website erforderlich."
+    },
+    "analytics": {
+      "title": "Analyse-Cookies",
+      "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.",
+      "accept": "Analyse akzeptieren",
+      "decline": "Analyse ablehnen"
+    },
+    "preferences": {
+      "title": "Präferenz-Cookies",
+      "description": "Diese Cookies merken sich Ihre Präferenzen und Einstellungen."
+    },
+    "marketing": {
+      "title": "Marketing-Cookies",
+      "description": "Diese Cookies werden verwendet, um relevante Anzeigen zu liefern."
+    },
+    "save": "Einstellungen speichern",
+    "acceptAll": "Alle akzeptieren",
+    "rejectAll": "Alle ablehnen"
+  },
+  "analytics": {
+    "banner": {
+      "title": "Helfen Sie uns zu verbessern",
+      "description": "Wir verwenden Analysen, um zu verstehen, wie Sie unsere Dokumentation nutzen und die Erfahrung zu verbessern.",
+      "accept": "Akzeptieren",
+      "decline": "Ablehnen"
+    },
+    "privacy": {
+      "title": "Datenschutzhinweis",
+      "description": "Ihre Daten werden anonym gesammelt und nur zur Verbesserung unserer Dienste verwendet."
+    }
+  },
+  "search": {
+    "placeholder": "Dokumentation durchsuchen...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "searching": "Suche läuft...",
+    "results": "{{count}} Ergebnis",
+    "results_plural": "{{count}} Ergebnisse"
+  },
+  "languageSelector": {
+    "title": "Sprache auswählen",
+    "current": "Aktuelle Sprache",
+    "changeLanguage": "Sprache ändern",
+    "languages": {
+      "en": "Englisch",
+      "es": "Spanisch",
+      "fr": "Französisch",
+      "de": "Deutsch",
+      "zh": "Chinesisch",
+      "ja": "Japanisch"
+    }
+  },
+  "theme": {
+    "light": "Helles Theme",
+    "dark": "Dunkles Theme",
+    "auto": "Automatisches Theme",
+    "system": "System-Theme"
+  }
+}

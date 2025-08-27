@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found - BeamFlow Documentation</title>
+    <meta
+      name="description"
+      content="The page you're looking for doesn't exist. Navigate back to the BeamFlow documentation homepage or explore our installation and getting started guides."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/docssitetemplate/assets/index.css" as="style" />
+    <link rel="preload" href="/docssitetemplate/assets/index.js" as="script" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/docssitetemplate/favicon.ico" />
+
+    <style>
+      /* Critical CSS for 404 page */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', sans-serif;
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 500px;
+        padding: 2rem;
+      }
+
+      .error-code {
+        font-size: 6rem;
+        font-weight: bold;
+        color: #dc2626;
+        margin: 0 0 1rem 0;
+        line-height: 1;
+      }
+
+      .error-title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+      }
+
+      .error-message {
+        color: #d1d5db;
+        margin: 0 0 2rem 0;
+        line-height: 1.6;
+      }
+
+      .home-button {
+        display: inline-block;
+        background-color: #dc2626;
+        color: white;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: background-color 0.2s;
+        margin-bottom: 1rem;
+      }
+
+      .home-button:hover {
+        background-color: #b91c1c;
+      }
+
+      .suggestions {
+        font-size: 0.875rem;
+        color: #9ca3af;
+      }
+
+      .suggestions a {
+        color: #f87171;
+        text-decoration: none;
+        display: block;
+        margin: 0.25rem 0;
+        transition: color 0.2s;
+      }
+
+      .suggestions a:hover {
+        color: #ef4444;
+      }
+
+      .loading {
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-code">404</div>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-message">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      <a href="/docssitetemplate/" class="home-button">Go Home</a>
+
+      <div class="suggestions">
+        <p>Or try one of these pages:</p>
+        <a href="/docssitetemplate/installation">Installation</a>
+        <a href="/docssitetemplate/getting-started">Getting Started</a>
+        <a href="/docssitetemplate/contributing">Contributing</a>
+      </div>
+    </div>
+
+    <script>
+      // Redirect to React app's 404 page after a brief delay
+      // This ensures the user sees the styled 404 page immediately
+      // while the React app loads in the background
+      setTimeout(function () {
+        // Check if we're on GitHub Pages (with base path)
+        const basePath = '/docssitetemplate';
+        const currentPath = window.location.pathname;
+
+        // If we're not already on the 404 route, redirect to it
+        if (!currentPath.includes('/404')) {
+          window.location.href = basePath + '/404';
+        }
+      }, 3000); // 3 second delay
+
+      // Add loading class to body
+      document.body.classList.add('loading');
+
+      // Remove loading class when page is fully loaded
+      window.addEventListener('load', function () {
+        document.body.classList.remove('loading');
+      });
+    </script>
+  </body>
+</html>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import LanguageSelector from './LanguageSelector'
 
 const Header: React.FC = () => {
+  const { t } = useTranslation()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const toggleMobileMenu = () => {
@@ -33,7 +36,7 @@ const Header: React.FC = () => {
             <span className="text-white font-bold text-lg">B</span>
           </div>
           <h1 className="text-2xl font-bold text-red-600">BeamFlow</h1>
-          <span className="text-gray-400 text-sm">Documentation</span>
+          <span className="text-gray-400 text-sm">for Unreal Engine</span>
         </Link>
         
         <nav className="hidden md:flex items-center space-x-6">
@@ -50,6 +53,10 @@ const Header: React.FC = () => {
             Contributing
           </Link>
         </nav>
+
+        <div className="hidden md:flex items-center space-x-4">
+          <LanguageSelector />
+        </div>
 
         <div className="md:hidden">
           <button 
@@ -113,6 +120,9 @@ const Header: React.FC = () => {
             >
               Contributing
             </Link>
+            <div className="pt-4 border-t border-gray-700">
+              <LanguageSelector />
+            </div>
           </div>
         </nav>
       )}

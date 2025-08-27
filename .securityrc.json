@@ -1,0 +1,50 @@
+{
+  "security": {
+    "audit": {
+      "level": "moderate",
+      "failOnError": true,
+      "allowlist": []
+    },
+    "dependencies": {
+      "checkOutdated": true,
+      "checkVulnerabilities": true,
+      "autoFix": false
+    },
+    "code": {
+      "patterns": {
+        "forbidden": [
+          "eval(",
+          "innerHTML",
+          "document.write(",
+          "password\\s*[:=]\\s*['\"`][^'\"`]+['\"`]",
+          "api_key\\s*[:=]\\s*['\"`][^'\"`]+['\"`]",
+          "secret\\s*[:=]\\s*['\"`][^'\"`]+['\"`]"
+        ],
+        "warn": ["console\\.log(", "debugger;"]
+      }
+    },
+    "headers": {
+      "required": [
+        "X-Frame-Options",
+        "X-Content-Type-Options",
+        "X-XSS-Protection",
+        "Strict-Transport-Security"
+      ],
+      "recommended": ["Content-Security-Policy", "Referrer-Policy"]
+    },
+    "environment": {
+      "checkEnvFiles": true,
+      "checkSecrets": true
+    }
+  },
+  "reporting": {
+    "format": "json",
+    "output": "security-audit-report.json",
+    "retention": 30
+  },
+  "notifications": {
+    "onFailure": true,
+    "onWarning": false,
+    "channels": ["github", "console"]
+  }
+}

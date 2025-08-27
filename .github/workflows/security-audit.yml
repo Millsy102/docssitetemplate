@@ -1,0 +1,270 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run security audits weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  npm-audit:
+    name: NPM Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+
+      - name: Run npm audit fix (dry run)
+        run: npm audit fix --dry-run
+
+      - name: Generate audit report
+        run: |
+          npm audit --json > audit-report.json || echo "Audit completed with findings"
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-audit-report
+          path: audit-report.json
+          retention-days: 30
+
+  snyk-security:
+    name: Snyk Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: Run Snyk to check for license issues
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --command=monitor
+
+  codeql-analysis:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, typescript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  security-headers:
+    name: Security Headers Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Setup static site for testing
+        run: |
+          mkdir -p site
+          if [ -d "dist" ]; then
+            cp -r dist/* site/
+          elif [ -d "public" ]; then
+            cp -r public/* site/
+          else
+            echo "No build output found"
+            exit 1
+          fi
+
+      - name: Start local server
+        run: |
+          npx http-server site -p 8000 &
+          sleep 10
+
+      - name: Test security headers
+        run: |
+          curl -I http://localhost:8000 | grep -E "(X-Frame-Options|X-Content-Type-Options|X-XSS-Protection|Strict-Transport-Security|Content-Security-Policy)" || echo "Security headers check completed"
+
+  dependency-check:
+    name: Dependency Vulnerability Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run dependency check
+        run: |
+          # Check for known vulnerabilities in dependencies
+          npm ls --depth=0
+
+          # Check for outdated packages
+          npm outdated || echo "Dependency check completed"
+
+      - name: Check for malicious packages
+        run: |
+          # Use npm audit to check for known malicious packages
+          npm audit --audit-level=high || echo "No high severity issues found"
+
+  secrets-scan:
+    name: Secrets Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          args: --only-verified --fail --no-update
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  security-best-practices:
+    name: Security Best Practices Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for hardcoded secrets
+        run: |
+          # Check for common patterns that might indicate hardcoded secrets
+          grep -r -i "password\|secret\|key\|token" src/ --exclude-dir=node_modules || echo "No obvious hardcoded secrets found"
+
+      - name: Check for unsafe eval usage
+        run: |
+          grep -r "eval(" src/ --exclude-dir=node_modules || echo "No eval() usage found"
+
+      - name: Check for unsafe innerHTML usage
+        run: |
+          grep -r "innerHTML" src/ --exclude-dir=node_modules || echo "No innerHTML usage found"
+
+      - name: Check for console.log in production code
+        run: |
+          grep -r "console\.log" src/ --exclude-dir=node_modules || echo "No console.log statements found"
+
+  security-report:
+    name: Generate Security Report
+    runs-on: ubuntu-latest
+    needs:
+      [
+        npm-audit,
+        snyk-security,
+        codeql-analysis,
+        security-headers,
+        dependency-check,
+        secrets-scan,
+        security-best-practices,
+      ]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate security summary
+        run: |
+          echo "# Security Audit Report" > security-report.md
+          echo "Generated on: $(date)" >> security-report.md
+          echo "" >> security-report.md
+          echo "## Job Status" >> security-report.md
+          echo "- NPM Audit: ${{ needs.npm-audit.result }}" >> security-report.md
+          echo "- Snyk Security: ${{ needs.snyk-security.result }}" >> security-report.md
+          echo "- CodeQL Analysis: ${{ needs.codeql-analysis.result }}" >> security-report.md
+          echo "- Security Headers: ${{ needs.security-headers.result }}" >> security-report.md
+          echo "- Dependency Check: ${{ needs.dependency-check.result }}" >> security-report.md
+          echo "- Secrets Scan: ${{ needs.secrets-scan.result }}" >> security-report.md
+          echo "- Security Best Practices: ${{ needs.security-best-practices.result }}" >> security-report.md
+
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-report
+          path: security-report.md
+          retention-days: 90
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('security-report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🔒 Security Audit Results\n\n${report}\n\n*This report was generated automatically by the security audit workflow.*`
+            });

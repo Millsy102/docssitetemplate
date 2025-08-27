@@ -46,6 +46,6 @@ module.exports = {
   clearMocks: true,
   restoreMocks: true,
   transformIgnorePatterns: [
-    '/node_modules/(?!(react-router-dom)/)'
+    '/node_modules/(?!(react-router-dom|i18next|react-i18next|i18next-browser-languagedetector|i18next-http-backend)/)'
   ]
 };

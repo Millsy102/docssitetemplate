@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2025-08-27T13:56:44.010Z",
+    "totalSize": 259248,
+    "breakdown": {
+      "javascript": 231040,
+      "css": 0,
+      "images": 0,
+      "html": 28208,
+      "other": 0
+    },
+    "largestFiles": [
+      {
+        "name": "js\\react-vendor-legacy-CWeJzkRj.js",
+        "size": 139891
+      },
+      {
+        "name": "js\\react-vendor-BwcJvvGU.js",
+        "size": 139847
+      },
+      {
+        "name": "assets\\main-legacy-BeCn5Kbo.js",
+        "size": 88968
+      }
+    ]
+  }
+]

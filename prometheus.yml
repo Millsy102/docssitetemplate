@@ -1,0 +1,48 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Socket.IO Server metrics
+  - job_name: 'socket-server'
+    static_configs:
+      - targets: ['localhost:3001']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Node.js application metrics (if running on different port)
+  - job_name: 'node-app'
+    static_configs:
+      - targets: ['localhost:3000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Health check endpoint
+  - job_name: 'health-check'
+    static_configs:
+      - targets: ['localhost:3001']
+    metrics_path: '/health'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+# Alerting rules (optional)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Recording rules (optional)
+# rule_files:
+#   - "recording_rules.yml"
