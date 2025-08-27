@@ -483,186 +483,22 @@ print("Blueprint created via automation")
      * Call AI service for parsing
      */
     async callAIService(prompt) {
-        try {
-            // Integration with OpenAI API or other AI service
-            const axios = require('axios');
-            
-            // Check if OpenAI API key is available
-            const openaiApiKey = process.env.OPENAI_API_KEY;
-            if (!openaiApiKey) {
-                console.log(' OpenAI API key not found, using fallback logic');
-                return this.generateFallbackResponse(prompt);
-            }
-
-            const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-                model: 'gpt-4',
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'You are an expert Unreal Engine developer. Parse the given blueprint description and return a structured JSON response with the blueprint specification.'
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                temperature: 0.3,
-                max_tokens: 2000
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${openaiApiKey}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const aiResponse = response.data.choices[0].message.content;
-            
-            // Parse the AI response to extract JSON
-            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-                return JSON.parse(jsonMatch[0]);
-            } else {
-                // Fallback if JSON parsing fails
-                return this.parseTextResponse(aiResponse);
-            }
-
-        } catch (error) {
-            console.log(' AI service call failed, using fallback logic');
-            return this.generateFallbackResponse(prompt);
-        }
-    }
-
-    /**
-     * Generate fallback response when AI service is unavailable
-     */
-    generateFallbackResponse(prompt) {
-        // Extract key information from prompt using regex patterns
-        const nameMatch = prompt.match(/name[:\s]+([A-Za-z0-9_]+)/i);
-        const typeMatch = prompt.match(/type[:\s]+([A-Za-z0-9_]+)/i);
-        const descriptionMatch = prompt.match(/description[:\s]+([^.\n]+)/i);
-
-        const blueprintName = nameMatch ? nameMatch[1] : 'GeneratedBlueprint';
-        const blueprintType = typeMatch ? typeMatch[1] : 'Actor';
-        const description = descriptionMatch ? descriptionMatch[1].trim() : '';
-
-        // Generate variables based on description keywords
-        const variables = [];
-        if (description.toLowerCase().includes('speed') || description.toLowerCase().includes('movement')) {
-            variables.push({ name: 'Speed', type: 'float', defaultValue: '500.0f' });
-        }
-        if (description.toLowerCase().includes('health') || description.toLowerCase().includes('damage')) {
-            variables.push({ name: 'Health', type: 'int32', defaultValue: '100' });
-        }
-        if (description.toLowerCase().includes('damage')) {
-            variables.push({ name: 'Damage', type: 'int32', defaultValue: '25' });
-        }
-        if (description.toLowerCase().includes('range')) {
-            variables.push({ name: 'Range', type: 'float', defaultValue: '1000.0f' });
-        }
-        if (description.toLowerCase().includes('cooldown')) {
-            variables.push({ name: 'Cooldown', type: 'float', defaultValue: '1.0f' });
-        }
-
-        // Generate functions based on blueprint type
-        const functions = [
-            { name: 'BeginPlay', parameters: [], returnType: 'void' }
-        ];
-
-        if (blueprintType.toLowerCase().includes('character') || description.toLowerCase().includes('movement')) {
-            functions.push({ name: 'Tick', parameters: ['float DeltaTime'], returnType: 'void' });
-        }
-
-        if (description.toLowerCase().includes('fire') || description.toLowerCase().includes('shoot')) {
-            functions.push({ name: 'Fire', parameters: [], returnType: 'void' });
-        }
-
-        if (description.toLowerCase().includes('pickup') || description.toLowerCase().includes('collect')) {
-            functions.push({ name: 'OnPickup', parameters: ['AActor* OtherActor'], returnType: 'void' });
-        }
-
-        // Generate components based on type and description
-        const components = [];
-        if (blueprintType.toLowerCase().includes('character')) {
-            components.push('StaticMeshComponent', 'CapsuleComponent');
-        } else if (blueprintType.toLowerCase().includes('weapon')) {
-            components.push('StaticMeshComponent', 'SceneComponent');
-        } else if (blueprintType.toLowerCase().includes('pickup')) {
-            components.push('StaticMeshComponent', 'SphereComponent');
-        } else {
-            components.push('StaticMeshComponent');
-        }
-
+        // This would integrate with your existing AI system
+        // For now, return a mock response
         return {
-            name: blueprintName,
-            parentClass: blueprintType,
-            variables: variables,
-            functions: functions,
-            components: components,
+            name: 'GeneratedBlueprint',
+            parentClass: 'Actor',
+            variables: [
+                { name: 'Speed', type: 'float', defaultValue: '500.0f' },
+                { name: 'Health', type: 'int32', defaultValue: '100' }
+            ],
+            functions: [
+                { name: 'BeginPlay', parameters: [], returnType: 'void' },
+                { name: 'Tick', parameters: ['float DeltaTime'], returnType: 'void' }
+            ],
+            components: ['StaticMeshComponent', 'CollisionComponent'],
             events: ['OnBeginOverlap', 'OnEndOverlap']
         };
-    }
-
-    /**
-     * Parse text response from AI when JSON parsing fails
-     */
-    parseTextResponse(textResponse) {
-        // Extract information from text response using regex
-        const nameMatch = textResponse.match(/name[:\s]+([A-Za-z0-9_]+)/i);
-        const classMatch = textResponse.match(/class[:\s]+([A-Za-z0-9_]+)/i);
-        const variableMatches = textResponse.match(/variable[:\s]+([A-Za-z0-9_]+)[:\s]+([A-Za-z0-9_]+)/gi);
-        const functionMatches = textResponse.match(/function[:\s]+([A-Za-z0-9_]+)/gi);
-
-        const variables = [];
-        if (variableMatches) {
-            variableMatches.forEach(match => {
-                const parts = match.split(/[:\s]+/);
-                if (parts.length >= 3) {
-                    variables.push({
-                        name: parts[1],
-                        type: parts[2],
-                        defaultValue: this.getDefaultValue(parts[2])
-                    });
-                }
-            });
-        }
-
-        const functions = [];
-        if (functionMatches) {
-            functionMatches.forEach(match => {
-                const parts = match.split(/[:\s]+/);
-                if (parts.length >= 2) {
-                    functions.push({
-                        name: parts[1],
-                        parameters: [],
-                        returnType: 'void'
-                    });
-                }
-            });
-        }
-
-        return {
-            name: nameMatch ? nameMatch[1] : 'GeneratedBlueprint',
-            parentClass: classMatch ? classMatch[1] : 'Actor',
-            variables: variables,
-            functions: functions,
-            components: ['StaticMeshComponent'],
-            events: ['OnBeginOverlap', 'OnEndOverlap']
-        };
-    }
-
-    /**
-     * Get default value for variable type
-     */
-    getDefaultValue(type) {
-        const defaults = {
-            'int32': '0',
-            'float': '0.0f',
-            'bool': 'false',
-            'string': '""',
-            'vector': 'FVector::ZeroVector',
-            'rotator': 'FRotator::ZeroRotator'
-        };
-        return defaults[type.toLowerCase()] || '0';
     }
 
     /**
@@ -684,196 +520,13 @@ print("Blueprint created via automation")
      * Generate function code
      */
     generateFunctionCode(functionSpec) {
-        const functionName = functionSpec.name;
-        const returnType = functionSpec.returnType;
-        const parameters = functionSpec.parameters;
-        
-        // Generate appropriate function implementation based on function name and type
-        let implementation = this.generateFunctionImplementation(functionName, parameters, returnType);
-        
-        // Determine UFUNCTION specifiers based on function type
-        let ufunctionSpecifiers = 'BlueprintCallable';
-        if (functionName === 'BeginPlay' || functionName === 'Tick') {
-            ufunctionSpecifiers = 'BlueprintCallable, BlueprintEvent';
-        } else if (functionName.startsWith('On')) {
-            ufunctionSpecifiers = 'BlueprintCallable, BlueprintEvent';
-        } else if (functionName.toLowerCase().includes('get')) {
-            ufunctionSpecifiers = 'BlueprintCallable, BlueprintPure';
-        } else if (functionName.toLowerCase().includes('set')) {
-            ufunctionSpecifiers = 'BlueprintCallable';
-        }
-
         return `
-UFUNCTION(${ufunctionSpecifiers})
-${returnType} ${functionName}(${parameters.join(', ')})
+UFUNCTION(BlueprintCallable)
+${functionSpec.returnType} ${functionSpec.name}(${functionSpec.parameters.join(', ')})
 {
-    ${implementation}
+    // Generated function implementation
+    // TODO: Add custom logic here
 }`;
-    }
-
-    /**
-     * Generate function implementation based on function name and parameters
-     */
-    generateFunctionImplementation(functionName, parameters, returnType) {
-        const name = functionName.toLowerCase();
-        
-        // BeginPlay implementation
-        if (name === 'beginplay') {
-            return `
-    // Initialize components and variables
-    if (MeshComponent) {
-        MeshComponent->SetVisibility(true);
-    }
-    
-    // Set initial state
-    bIsActive = true;
-    
-    // Log initialization
-    UE_LOG(LogTemp, Log, TEXT("${functionName}: Initialized successfully"));
-`;
-        }
-        
-        // Tick implementation
-        if (name === 'tick') {
-            return `
-    Super::Tick(DeltaTime);
-    
-    // Update movement or behavior
-    if (bIsActive && Speed > 0.0f) {
-        FVector CurrentLocation = GetActorLocation();
-        FVector NewLocation = CurrentLocation + (GetActorForwardVector() * Speed * DeltaTime);
-        SetActorLocation(NewLocation);
-    }
-`;
-        }
-        
-        // Fire/Shoot implementation
-        if (name.includes('fire') || name.includes('shoot')) {
-            return `
-    if (bCanFire && GetWorld()) {
-        // Create projectile or perform firing logic
-        FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 100.0f;
-        FRotator SpawnRotation = GetActorRotation();
-        
-        // Spawn projectile (placeholder)
-        // AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-        
-        // Set cooldown
-        bCanFire = false;
-        GetWorldTimerManager().SetTimer(FireTimerHandle, this, &A${this.getClassName()}::
-            ResetFireCooldown, FireCooldown, false);
-        
-        UE_LOG(LogTemp, Log, TEXT("${functionName}: Fired projectile"));
-    }
-`;
-        }
-        
-        // Pickup implementation
-        if (name.includes('pickup') || name.includes('collect')) {
-            return `
-    if (OtherActor && OtherActor->IsA(APlayerCharacter::StaticClass())) {
-        // Handle pickup logic
-        APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor);
-        if (Player) {
-            // Apply pickup effect
-            Player->AddHealth(HealthValue);
-            
-            // Destroy pickup
-            Destroy();
-            
-            UE_LOG(LogTemp, Log, TEXT("${functionName}: Item picked up by player"));
-        }
-    }
-`;
-        }
-        
-        // Getter implementations
-        if (name.startsWith('get')) {
-            const propertyName = functionName.substring(3); // Remove "Get" prefix
-            return `
-    return ${propertyName};
-`;
-        }
-        
-        // Setter implementations
-        if (name.startsWith('set')) {
-            const propertyName = functionName.substring(3); // Remove "Set" prefix
-            const paramName = parameters[0] ? parameters[0].split(' ').pop() : 'Value';
-            return `
-    ${propertyName} = ${paramName};
-    
-    // Notify any listeners of the change
-    On${propertyName}Changed.Broadcast(${paramName});
-`;
-        }
-        
-        // Damage implementation
-        if (name.includes('damage') || name.includes('hurt')) {
-            return `
-    if (Health > 0) {
-        Health -= DamageAmount;
-        
-        // Check if dead
-        if (Health <= 0) {
-            Health = 0;
-            OnDeath();
-        }
-        
-        // Trigger damage effects
-        OnDamaged.Broadcast(DamageAmount);
-        
-        UE_LOG(LogTemp, Log, TEXT("${functionName}: Took %f damage, Health: %d"), DamageAmount, Health);
-    }
-`;
-        }
-        
-        // Movement implementations
-        if (name.includes('move') || name.includes('walk')) {
-            return `
-    if (bCanMove) {
-        FVector CurrentLocation = GetActorLocation();
-        FVector NewLocation = CurrentLocation + (Direction * Speed * DeltaTime);
-        SetActorLocation(NewLocation);
-        
-        // Update rotation to face movement direction
-        if (!Direction.IsNearlyZero()) {
-            FRotator NewRotation = Direction.Rotation();
-            SetActorRotation(NewRotation);
-        }
-    }
-`;
-        }
-        
-        // Toggle implementations
-        if (name.includes('toggle')) {
-            return `
-    bIsActive = !bIsActive;
-    
-    // Update visual state
-    if (MeshComponent) {
-        MeshComponent->SetVisibility(bIsActive);
-    }
-    
-    // Trigger toggle event
-    OnToggled.Broadcast(bIsActive);
-    
-    UE_LOG(LogTemp, Log, TEXT("${functionName}: Toggled to %s"), bIsActive ? TEXT("Active") : TEXT("Inactive"));
-`;
-        }
-        
-        // Default implementation
-        return `
-    // TODO: Implement ${functionName} logic
-    UE_LOG(LogTemp, Warning, TEXT("${functionName}: Function called but not implemented"));
-`;
-    }
-
-    /**
-     * Get class name from current context
-     */
-    getClassName() {
-        // This would be set during blueprint generation
-        return 'GeneratedBlueprint';
     }
 
     /**
@@ -881,19 +534,10 @@ ${returnType} ${functionName}(${parameters.join(', ')})
      */
     getCharacterBlueprintTemplate() {
         return `
-// Character Blueprint: {{NAME}}
+// Blueprint: {{NAME}}
 // Parent Class: {{PARENT_CLASS}}
 
-#pragma once
-
-#include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "{{NAME}}.generated.h"
-
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class {{NAME}} : public {{PARENT_CLASS}}
 {
     GENERATED_BODY()
@@ -913,109 +557,10 @@ protected:
 
     // Components
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class USkeletalMeshComponent* MeshComponent;
+    class UStaticMeshComponent* MeshComponent;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class UCapsuleComponent* CapsuleComponent;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class UCharacterMovementComponent* MovementComponent;
-
-    // Character-specific variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-    float WalkSpeed = 600.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-    float RunSpeed = 1200.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-    float JumpForce = 500.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-    int32 MaxHealth = 100;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
-    int32 CurrentHealth = 100;
-
-    // Character state
-    UPROPERTY(BlueprintReadOnly, Category = "Character")
-    bool bIsAlive = true;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Character")
-    bool bIsMoving = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Character")
-    bool bIsRunning = false;
-
-    // Events
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDamageTaken(float DamageAmount);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDeath();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnHealthRestored(float HealthAmount);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnMovementStateChanged(bool bNewIsMoving, bool bNewIsRunning);
-
-    // Input functions
-    UFUNCTION(BlueprintCallable)
-    void MoveForward(float Value);
-
-    UFUNCTION(BlueprintCallable)
-    void MoveRight(float Value);
-
-    UFUNCTION(BlueprintCallable)
-    void StartJump();
-
-    UFUNCTION(BlueprintCallable)
-    void StopJump();
-
-    UFUNCTION(BlueprintCallable)
-    void StartRun();
-
-    UFUNCTION(BlueprintCallable)
-    void StopRun();
-
-    // Utility functions
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetHealthPercentage() const;
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsAlive() const { return bIsAlive; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsMoving() const { return bIsMoving; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsRunning() const { return bIsRunning; }
-
-    // Getters and setters
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetWalkSpeed() const { return WalkSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetWalkSpeed(float NewSpeed) { WalkSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetRunSpeed() const { return RunSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetRunSpeed(float NewSpeed) { RunSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    int32 GetCurrentHealth() const { return CurrentHealth; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetCurrentHealth(int32 NewHealth) { CurrentHealth = FMath::Clamp(NewHealth, 0, MaxHealth); }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    int32 GetMaxHealth() const { return MaxHealth; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetMaxHealth(int32 NewMaxHealth) { MaxHealth = NewMaxHealth; }
 };`;
     }
 
@@ -1027,15 +572,7 @@ protected:
 // Weapon Blueprint: {{NAME}}
 // Parent Class: {{PARENT_CLASS}}
 
-#pragma once
-
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/SceneComponent.h"
-#include "{{NAME}}.generated.h"
-
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class {{NAME}} : public {{PARENT_CLASS}}
 {
     GENERATED_BODY()
@@ -1045,7 +582,6 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-    virtual void Tick(float DeltaTime) override;
 
     // Variables
 {{VARIABLES}}
@@ -1059,131 +595,6 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class USceneComponent* MuzzleLocation;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class USceneComponent* RootComponent;
-
-    // Weapon-specific variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    float Damage = 25.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    float FireRate = 1.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    float Range = 1000.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    int32 MaxAmmo = 30;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    int32 CurrentAmmo = 30;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    float ReloadTime = 2.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-    bool bAutomatic = false;
-
-    // Weapon state
-    UPROPERTY(BlueprintReadOnly, Category = "Weapon")
-    bool bCanFire = true;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Weapon")
-    bool bIsReloading = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Weapon")
-    bool bIsEquipped = false;
-
-    // Timers
-    FTimerHandle FireTimerHandle;
-    FTimerHandle ReloadTimerHandle;
-
-    // Events
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnWeaponFired();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnWeaponReloaded();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnAmmoChanged(int32 NewAmmo);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnWeaponEquipped();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnWeaponUnequipped();
-
-    // Weapon functions
-    UFUNCTION(BlueprintCallable)
-    void Fire();
-
-    UFUNCTION(BlueprintCallable)
-    void StartReload();
-
-    UFUNCTION(BlueprintCallable)
-    void StopReload();
-
-    UFUNCTION(BlueprintCallable)
-    void Equip();
-
-    UFUNCTION(BlueprintCallable)
-    void Unequip();
-
-    UFUNCTION(BlueprintCallable)
-    void AddAmmo(int32 AmmoAmount);
-
-    UFUNCTION(BlueprintCallable)
-    void ConsumeAmmo(int32 AmmoAmount = 1);
-
-    // Utility functions
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetAmmoPercentage() const;
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool CanFire() const { return bCanFire && CurrentAmmo > 0 && !bIsReloading; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsReloading() const { return bIsReloading; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsEquipped() const { return bIsEquipped; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool HasAmmo() const { return CurrentAmmo > 0; }
-
-    // Getters and setters
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetDamage() const { return Damage; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetDamage(float NewDamage) { Damage = NewDamage; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetFireRate() const { return FireRate; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetFireRate(float NewFireRate) { FireRate = NewFireRate; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    int32 GetCurrentAmmo() const { return CurrentAmmo; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetCurrentAmmo(int32 NewAmmo) { CurrentAmmo = FMath::Clamp(NewAmmo, 0, MaxAmmo); }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    int32 GetMaxAmmo() const { return MaxAmmo; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetMaxAmmo(int32 NewMaxAmmo) { MaxAmmo = NewMaxAmmo; }
-
-private:
-    UFUNCTION()
-    void ResetFireCooldown();
-
-    UFUNCTION()
-    void FinishReload();
 };`;
     }
 
@@ -1195,15 +606,7 @@ private:
 // Pickup Blueprint: {{NAME}}
 // Parent Class: {{PARENT_CLASS}}
 
-#pragma once
-
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/SphereComponent.h"
-#include "{{NAME}}.generated.h"
-
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class {{NAME}} : public {{PARENT_CLASS}}
 {
     GENERATED_BODY()
@@ -1213,7 +616,6 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-    virtual void Tick(float DeltaTime) override;
 
     // Variables
 {{VARIABLES}}
@@ -1227,138 +629,6 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class USphereComponent* CollisionSphere;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class USceneComponent* RootComponent;
-
-    // Pickup-specific variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    float PickupValue = 10.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    FString PickupType = TEXT("Health");
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    bool bCanBePickedUp = true;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    bool bDestroyOnPickup = true;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    float RespawnTime = 30.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    bool bRespawnable = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    float RotationSpeed = 90.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    float BobSpeed = 2.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Pickup")
-    float BobHeight = 10.0f;
-
-    // Pickup state
-    UPROPERTY(BlueprintReadOnly, Category = "Pickup")
-    bool bIsActive = true;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Pickup")
-    bool bIsRespawnTimerActive = false;
-
-    // Timers
-    FTimerHandle RespawnTimerHandle;
-
-    // Events
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnPickup(AActor* OtherActor);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnPickupFailed(AActor* OtherActor, const FString& Reason);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnRespawn();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDeactivate();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnActivate();
-
-    // Pickup functions
-    UFUNCTION(BlueprintCallable)
-    void Pickup(AActor* OtherActor);
-
-    UFUNCTION(BlueprintCallable)
-    void Deactivate();
-
-    UFUNCTION(BlueprintCallable)
-    void Activate();
-
-    UFUNCTION(BlueprintCallable)
-    void StartRespawnTimer();
-
-    UFUNCTION(BlueprintCallable)
-    void StopRespawnTimer();
-
-    UFUNCTION(BlueprintCallable)
-    void SetPickupValue(float NewValue);
-
-    UFUNCTION(BlueprintCallable)
-    void SetPickupType(const FString& NewType);
-
-    // Utility functions
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool CanBePickedUp() const { return bCanBePickedUp && bIsActive; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsActive() const { return bIsActive; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsRespawnable() const { return bRespawnable; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetPickupValue() const { return PickupValue; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    FString GetPickupType() const { return PickupType; }
-
-    // Getters and setters
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetRespawnTime() const { return RespawnTime; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetRespawnTime(float NewTime) { RespawnTime = NewTime; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetRotationSpeed() const { return RotationSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetRotationSpeed(float NewSpeed) { RotationSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetBobSpeed() const { return BobSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetBobSpeed(float NewSpeed) { BobSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetBobHeight() const { return BobHeight; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetBobHeight(float NewHeight) { BobHeight = NewHeight; }
-
-private:
-    UFUNCTION()
-    void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
-                       bool bFromSweep, const FHitResult& SweepResult);
-
-    UFUNCTION()
-    void Respawn();
-
-    FVector InitialLocation;
-    float BobTime = 0.0f;
 };`;
     }
 
@@ -1370,15 +640,7 @@ private:
 // Door Blueprint: {{NAME}}
 // Parent Class: {{PARENT_CLASS}}
 
-#pragma once
-
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
-#include "{{NAME}}.generated.h"
-
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class {{NAME}} : public {{PARENT_CLASS}}
 {
     GENERATED_BODY()
@@ -1388,7 +650,6 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-    virtual void Tick(float DeltaTime) override;
 
     // Variables
 {{VARIABLES}}
@@ -1402,175 +663,6 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class UBoxComponent* TriggerBox;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class USceneComponent* RootComponent;
-
-    // Door-specific variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    float OpenSpeed = 100.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    float CloseSpeed = 100.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    float OpenAngle = 90.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    float AutoCloseDelay = 3.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    bool bAutoClose = true;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    bool bRequireKey = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    FString RequiredKey = TEXT("");
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    bool bLocked = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    bool bOneWay = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    bool bSliding = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    FVector SlideDirection = FVector(0.0f, 0.0f, 1.0f);
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-    float SlideDistance = 200.0f;
-
-    // Door state
-    UPROPERTY(BlueprintReadOnly, Category = "Door")
-    bool bIsOpen = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Door")
-    bool bIsMoving = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Door")
-    bool bIsLocked = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Door")
-    float CurrentOpenPercentage = 0.0f;
-
-    // Timers
-    FTimerHandle AutoCloseTimerHandle;
-
-    // Events
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorOpened();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorClosed();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorLocked();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorUnlocked();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorAccessDenied(AActor* Actor, const FString& Reason);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnDoorTriggered(AActor* Actor);
-
-    // Door functions
-    UFUNCTION(BlueprintCallable)
-    void Open();
-
-    UFUNCTION(BlueprintCallable)
-    void Close();
-
-    UFUNCTION(BlueprintCallable)
-    void Toggle();
-
-    UFUNCTION(BlueprintCallable)
-    void Lock();
-
-    UFUNCTION(BlueprintCallable)
-    void Unlock();
-
-    UFUNCTION(BlueprintCallable)
-    void SetLocked(bool bNewLocked);
-
-    UFUNCTION(BlueprintCallable)
-    void SetRequiredKey(const FString& NewKey);
-
-    UFUNCTION(BlueprintCallable)
-    void SetAutoClose(bool bNewAutoClose);
-
-    UFUNCTION(BlueprintCallable)
-    void SetAutoCloseDelay(float NewDelay);
-
-    // Utility functions
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsOpen() const { return bIsOpen; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsMoving() const { return bIsMoving; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsLocked() const { return bIsLocked; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool CanBeOpened() const { return !bIsLocked && !bIsMoving; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetOpenPercentage() const { return CurrentOpenPercentage; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool RequiresKey() const { return bRequireKey; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    FString GetRequiredKey() const { return RequiredKey; }
-
-    // Getters and setters
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetOpenSpeed() const { return OpenSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetOpenSpeed(float NewSpeed) { OpenSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetCloseSpeed() const { return CloseSpeed; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetCloseSpeed(float NewSpeed) { CloseSpeed = NewSpeed; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetOpenAngle() const { return OpenAngle; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetOpenAngle(float NewAngle) { OpenAngle = NewAngle; }
-
-private:
-    UFUNCTION()
-    void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
-                       bool bFromSweep, const FHitResult& SweepResult);
-
-    UFUNCTION()
-    void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
-    UFUNCTION()
-    void AutoClose();
-
-    bool CheckAccess(AActor* Actor);
-    void UpdateDoorTransform(float DeltaTime);
-    void UpdateDoorRotation(float DeltaTime);
-    void UpdateDoorPosition(float DeltaTime);
-
-    FRotator InitialRotation;
-    FVector InitialLocation;
-    FRotator TargetRotation;
-    FVector TargetLocation;
-    bool bOpening = false;
-    bool bClosing = false;
 };`;
     }
 
@@ -1582,15 +674,7 @@ private:
 // Light Blueprint: {{NAME}}
 // Parent Class: {{PARENT_CLASS}}
 
-#pragma once
-
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "Components/PointLightComponent.h"
-#include "Components/StaticMeshComponent.h"
-#include "{{NAME}}.generated.h"
-
-UCLASS(BlueprintType, Blueprintable)
+UCLASS(BlueprintType)
 class {{NAME}} : public {{PARENT_CLASS}}
 {
     GENERATED_BODY()
@@ -1600,7 +684,6 @@ public:
 
 protected:
     virtual void BeginPlay() override;
-    virtual void Tick(float DeltaTime) override;
 
     // Variables
 {{VARIABLES}}
@@ -1614,219 +697,6 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     class UStaticMeshComponent* LightMesh;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-    class USceneComponent* RootComponent;
-
-    // Light-specific variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float LightIntensity = 1000.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float LightRadius = 1000.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    FLinearColor LightColor = FLinearColor::White;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bCastShadows = true;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bUseTemperature = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float Temperature = 6500.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bFlicker = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float FlickerIntensity = 0.1f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float FlickerSpeed = 1.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bPulse = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float PulseIntensity = 0.5f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float PulseSpeed = 2.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bAutoOnOff = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float OnTime = 5.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float OffTime = 2.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    bool bMotionSensor = false;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float MotionRange = 500.0f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Light")
-    float MotionTimeout = 10.0f;
-
-    // Light state
-    UPROPERTY(BlueprintReadOnly, Category = "Light")
-    bool bIsOn = true;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Light")
-    bool bMotionDetected = false;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Light")
-    float CurrentIntensity = 1000.0f;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Light")
-    float CurrentRadius = 1000.0f;
-
-    // Timers
-    FTimerHandle AutoOnOffTimerHandle;
-    FTimerHandle MotionTimeoutTimerHandle;
-
-    // Events
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnLightTurnedOn();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnLightTurnedOff();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnMotionDetected(AActor* Actor);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnMotionTimeout();
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnIntensityChanged(float NewIntensity);
-
-    UFUNCTION(BlueprintCallable, BlueprintEvent)
-    void OnColorChanged(FLinearColor NewColor);
-
-    // Light functions
-    UFUNCTION(BlueprintCallable)
-    void TurnOn();
-
-    UFUNCTION(BlueprintCallable)
-    void TurnOff();
-
-    UFUNCTION(BlueprintCallable)
-    void Toggle();
-
-    UFUNCTION(BlueprintCallable)
-    void SetIntensity(float NewIntensity);
-
-    UFUNCTION(BlueprintCallable)
-    void SetRadius(float NewRadius);
-
-    UFUNCTION(BlueprintCallable)
-    void SetColor(FLinearColor NewColor);
-
-    UFUNCTION(BlueprintCallable)
-    void SetTemperature(float NewTemperature);
-
-    UFUNCTION(BlueprintCallable)
-    void EnableFlicker(bool bEnable);
-
-    UFUNCTION(BlueprintCallable)
-    void EnablePulse(bool bEnable);
-
-    UFUNCTION(BlueprintCallable)
-    void EnableAutoOnOff(bool bEnable);
-
-    UFUNCTION(BlueprintCallable)
-    void EnableMotionSensor(bool bEnable);
-
-    UFUNCTION(BlueprintCallable)
-    void SetMotionRange(float NewRange);
-
-    UFUNCTION(BlueprintCallable)
-    void SetMotionTimeout(float NewTimeout);
-
-    // Utility functions
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsOn() const { return bIsOn; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsMotionDetected() const { return bMotionDetected; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetCurrentIntensity() const { return CurrentIntensity; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetCurrentRadius() const { return CurrentRadius; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    FLinearColor GetCurrentColor() const { return LightColor; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool HasMotionSensor() const { return bMotionSensor; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsFlickering() const { return bFlicker; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsPulsing() const { return bPulse; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    bool IsAutoOnOff() const { return bAutoOnOff; }
-
-    // Getters and setters
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetLightIntensity() const { return LightIntensity; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetLightIntensity(float NewIntensity) { LightIntensity = NewIntensity; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetLightRadius() const { return LightRadius; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetLightRadius(float NewRadius) { LightRadius = NewRadius; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    FLinearColor GetLightColor() const { return LightColor; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetLightColor(FLinearColor NewColor) { LightColor = NewColor; }
-
-    UFUNCTION(BlueprintCallable, BlueprintPure)
-    float GetTemperature() const { return Temperature; }
-
-    UFUNCTION(BlueprintCallable)
-    void SetTemperature(float NewTemperature) { Temperature = NewTemperature; }
-
-private:
-    UFUNCTION()
-    void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, 
-                       bool bFromSweep, const FHitResult& SweepResult);
-
-    UFUNCTION()
-    void OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, 
-                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
-    UFUNCTION()
-    void AutoOnOff();
-
-    UFUNCTION()
-    void MotionTimeout();
-
-    void UpdateFlicker(float DeltaTime);
-    void UpdatePulse(float DeltaTime);
-    void UpdateLightProperties();
-
-    float FlickerTime = 0.0f;
-    float PulseTime = 0.0f;
-    float BaseIntensity = 1000.0f;
-    float BaseRadius = 1000.0f;
-    bool bAutoOnOffActive = false;
 };`;
     }
 

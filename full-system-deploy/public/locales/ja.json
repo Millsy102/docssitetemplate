@@ -1,0 +1,214 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "notFound": "見つかりません",
+    "goBack": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並び替え",
+    "refresh": "更新",
+    "close": "閉じる",
+    "open": "開く",
+    "download": "ダウンロード",
+    "upload": "アップロード",
+    "submit": "送信",
+    "reset": "リセット",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "learnMore": "詳細を見る",
+    "readMore": "続きを読む",
+    "viewAll": "すべて表示",
+    "collapse": "折りたたむ",
+    "expand": "展開"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "installation": "インストール",
+    "gettingStarted": "はじめに",
+    "contributing": "貢献",
+    "privacyPolicy": "プライバシーポリシー",
+    "skipToMain": "メインコンテンツにスキップ",
+    "skipToNav": "フッターにスキップ",
+    "language": "言語",
+    "darkMode": "ダークモード",
+    "lightMode": "ライトモード",
+    "toggleTheme": "テーマを切り替え"
+  },
+  "home": {
+    "title": "BeamFlow ドキュメント",
+    "subtitle": "BeamFlow Unreal Engine プラグインの完全なドキュメント",
+    "welcome": "BeamFlow へようこそ",
+    "description": "BeamFlow は、大きなデータセットのリアルタイムストリーミングと処理を最小限のパフォーマンス影響で可能にする強力な Unreal Engine プラグインです。",
+    "features": {
+      "title": "主要機能",
+      "streaming": "リアルタイムデータストリーミング",
+      "processing": "効率的なデータ処理",
+      "integration": "シームレスな Unreal 統合",
+      "performance": "高性能",
+      "scalability": "スケーラブルなアーキテクチャ"
+    },
+    "getStarted": {
+      "title": "始める",
+      "description": "Unreal Engine プロジェクトで BeamFlow の使用を開始",
+      "installButton": "BeamFlow をインストール",
+      "learnMoreButton": "詳細を見る"
+    }
+  },
+  "installation": {
+    "title": "インストールガイド",
+    "description": "Unreal Engine プロジェクトでの BeamFlow のインストールと設定方法を学ぶ",
+    "prerequisites": {
+      "title": "前提条件",
+      "unrealVersion": "Unreal Engine 5.0 以降",
+      "systemRequirements": "システム要件",
+      "dependencies": "依存関係"
+    },
+    "methods": {
+      "title": "インストール方法",
+      "marketplace": {
+        "title": "Unreal Marketplace から",
+        "description": "Unreal Engine Marketplace から BeamFlow を直接インストール"
+      },
+      "manual": {
+        "title": "手動インストール",
+        "description": "BeamFlow を手動でダウンロードしてインストール"
+      },
+      "git": {
+        "title": "Git リポジトリ",
+        "description": "GitHub リポジトリからクローン"
+      }
+    },
+    "configuration": {
+      "title": "設定",
+      "description": "プロジェクト用の BeamFlow 設定を構成",
+      "settings": "設定",
+      "plugins": "プラグイン設定"
+    }
+  },
+  "gettingStarted": {
+    "title": "はじめに",
+    "description": "Unreal Engine プロジェクトで BeamFlow を使用するための基本を学ぶ",
+    "quickStart": {
+      "title": "クイックスタートガイド",
+      "step1": "ステップ 1: BeamFlow をインストール",
+      "step2": "ステップ 2: プラグインを有効化",
+      "step3": "ステップ 3: 設定を構成",
+      "step4": "ステップ 4: 最初のストリームを作成"
+    },
+    "examples": {
+      "title": "例",
+      "basicStream": "基本的なストリーミング例",
+      "dataProcessing": "データ処理例",
+      "integration": "Unreal 統合例"
+    }
+  },
+  "contributing": {
+    "title": "BeamFlow への貢献",
+    "description": "BeamFlow プロジェクトへの貢献方法を学ぶ",
+    "guidelines": {
+      "title": "貢献ガイドライン",
+      "codeStyle": "コードスタイルガイドライン",
+      "commitMessages": "コミットメッセージガイドライン",
+      "pullRequests": "Pull Request プロセス"
+    },
+    "development": {
+      "title": "開発セットアップ",
+      "setup": "開発環境セットアップ",
+      "testing": "テストガイドライン",
+      "documentation": "ドキュメント標準"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 BeamFlow。全著作権所有。",
+    "links": {
+      "home": "ホーム",
+      "docs": "ドキュメント",
+      "github": "GitHub",
+      "issues": "課題",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約"
+    },
+    "madeWith": "BeamFlow チームによって ❤️ で作成されました"
+  },
+  "errors": {
+    "pageNotFound": "ページが見つかりません",
+    "pageNotFoundDescription": "お探しのページは存在しません。",
+    "wentWrong": "何か問題が発生しました",
+    "wentWrongDescription": "予期しないエラーが発生しました。もう一度お試しください。",
+    "networkError": "ネットワークエラー",
+    "networkErrorDescription": "サーバーに接続できません。インターネット接続を確認してください。",
+    "notAuthorized": "認証されていません",
+    "notAuthorizedDescription": "このリソースにアクセスする権限がありません。"
+  },
+  "cookies": {
+    "title": "Cookie 設定",
+    "description": "当社は Web サイトでの体験を向上させるために Cookie を使用しています。",
+    "necessary": {
+      "title": "必要な Cookie",
+      "description": "これらの Cookie は Web サイトの正常な動作に必要です。"
+    },
+    "analytics": {
+      "title": "分析 Cookie",
+      "description": "これらの Cookie は訪問者が当社の Web サイトとどのように対話するかを理解するのに役立ちます。",
+      "accept": "分析を受け入れる",
+      "decline": "分析を拒否"
+    },
+    "preferences": {
+      "title": "設定 Cookie",
+      "description": "これらの Cookie はあなたの設定とプリファレンスを記憶します。"
+    },
+    "marketing": {
+      "title": "マーケティング Cookie",
+      "description": "これらの Cookie は関連する広告を配信するために使用されます。"
+    },
+    "save": "設定を保存",
+    "acceptAll": "すべて受け入れる",
+    "rejectAll": "すべて拒否"
+  },
+  "analytics": {
+    "banner": {
+      "title": "改善にご協力ください",
+      "description": "当社は分析を使用してあなたがドキュメントをどのように使用し、体験を改善しているかを理解しています。",
+      "accept": "受け入れる",
+      "decline": "拒否"
+    },
+    "privacy": {
+      "title": "プライバシー通知",
+      "description": "あなたのデータは匿名で収集され、当社のサービスの改善にのみ使用されます。"
+    }
+  },
+  "search": {
+    "placeholder": "ドキュメントを検索...",
+    "noResults": "結果が見つかりません",
+    "searching": "検索中...",
+    "results": "{{count}} 件の結果",
+    "results_plural": "{{count}} 件の結果"
+  },
+  "languageSelector": {
+    "title": "言語を選択",
+    "current": "現在の言語",
+    "changeLanguage": "言語を変更",
+    "languages": {
+      "en": "英語",
+      "es": "スペイン語",
+      "fr": "フランス語",
+      "de": "ドイツ語",
+      "zh": "中国語",
+      "ja": "日本語"
+    }
+  },
+  "theme": {
+    "light": "ライトテーマ",
+    "dark": "ダークテーマ",
+    "auto": "自動テーマ",
+    "system": "システムテーマ"
+  }
+}

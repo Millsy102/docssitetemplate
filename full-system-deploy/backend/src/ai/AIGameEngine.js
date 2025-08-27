@@ -1,7 +1,6 @@
 const BeamErrorHandler = require('../utils/BeamErrorHandler');
 const BeamPerformanceMonitor = require('../utils/BeamPerformanceMonitor');
 const beamDatabase = require('../database/BeamDatabase');
-const { log } = require('../../utils/logger');
 
 class AIGameEngine {
     constructor() {
@@ -21,7 +20,7 @@ class AIGameEngine {
      */
     async initialize() {
         try {
-            log.info('Initializing AI Game Engine...');
+            console.log(' Initializing AI Game Engine...');
             
             // Initialize core components
             await this.initializeComponents();
@@ -33,7 +32,7 @@ class AIGameEngine {
             await this.registerWithBeam();
             
             this.isInitialized = true;
-            log.info('AI Game Engine initialized successfully');
+            console.log(' AI Game Engine initialized successfully');
             
         } catch (error) {
             BeamErrorHandler.logError('AI Game Engine Initialization Error', error);
@@ -128,7 +127,7 @@ class AIGameEngine {
             // Check rate limits
             await this.rateLimiter.checkLimit('game_creation');
 
-            log.info(`Creating game: ${prompt}`);
+            console.log(` Creating game: ${prompt}`);
 
             // Parse the prompt
             const gameSpec = await this.parsePrompt(prompt);
@@ -147,7 +146,7 @@ class AIGameEngine {
             this.metrics.trackGenerationTime(startTime, endTime);
             this.metrics.trackSuccessRate(true);
 
-            log.info('Game created successfully!');
+            console.log(' Game created successfully!');
             return game;
 
         } catch (error) {

@@ -1,42 +1,46 @@
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const xss = require('xss-clean');
+const { securityHeadersConfig, customHeaders, corsConfig, rateLimitConfig } = require('../config/security-headers');
 
 class BeamSecurity {
     constructor() {
-        // Rate limiting is now handled by BeamRateLimiter
+        this.apiLimiter = rateLimit(rateLimitConfig.api);
+        this.generalLimiter = rateLimit(rateLimitConfig.general);
     }
 
     applySecurityMiddleware(app) {
-        // Helmet.js for security headers
-        app.use(helmet({
-            contentSecurityPolicy: {
-                directives: {
-                    defaultSrc: ["'self'"],
-                    styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-                    scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://www.googletagmanager.com"],
-                    fontSrc: ["'self'", "https://fonts.gstatic.com"],
-                    imgSrc: ["'self'", "data:", "https:"],
-                    connectSrc: ["'self'"],
-                    frameSrc: ["'none'"],
-                    objectSrc: ["'none'"],
-                    upgradeInsecureRequests: [],
-                },
-            },
-            hsts: {
-                maxAge: 31536000,
-                includeSubDomains: true,
-                preload: true
-            }
-        }));
+        // Enhanced Helmet.js configuration with centralized security headers
+        app.use(helmet(securityHeadersConfig));
 
-        // CORS configuration
-        app.use(cors({
-            origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000'],
-            credentials: true,
-            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-            allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key']
-        }));
+        // Additional custom security headers
+        app.use((req, res, next) => {
+            // Remove server information
+            customHeaders.removeHeaders.forEach(header => {
+                res.removeHeader(header);
+            });
+            
+            // Set additional security headers
+            Object.entries(customHeaders.additionalHeaders).forEach(([key, value]) => {
+                res.setHeader(key, value);
+            });
+            
+            // Cache control for sensitive pages
+            if (req.path.startsWith('/api/') || req.path.startsWith('/admin/')) {
+                Object.entries(customHeaders.sensitivePageCache).forEach(([key, value]) => {
+                    res.setHeader(key, value);
+                });
+            }
+            
+            // Feature Policy (for older browsers)
+            res.setHeader('Feature-Policy', customHeaders.featurePolicy);
+            
+            next();
+        });
+
+        // Enhanced CORS configuration
+        app.use(cors(corsConfig));
 
         // XSS protection
         app.use(xss());
@@ -45,10 +49,18 @@ class BeamSecurity {
         app.use(express.json({ limit: '10mb' }));
         app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-        // Rate limiting is now handled by BeamRateLimiter
+        // Apply rate limiters
+        app.use('/api', this.apiLimiter);
+        app.use('/', this.generalLimiter);
     }
 
-    // Rate limiting methods are now handled by BeamRateLimiter
+    getApiLimiter() {
+        return this.apiLimiter;
+    }
+
+    getGeneralLimiter() {
+        return this.generalLimiter;
+    }
 
     sanitizeInput(input) {
         if (typeof input === 'string') {

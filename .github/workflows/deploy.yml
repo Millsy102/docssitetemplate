@@ -16,11 +16,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
           
       - name: Install dependencies
         run: npm ci
+        
+      - name: Setup environment variables
+        run: |
+          echo "SITE_TITLE=BeamFlow Documentation" >> $GITHUB_ENV
+          echo "SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin" >> $GITHUB_ENV
+          echo "SITE_URL=https://millsy102.github.io/docssitetemplate" >> $GITHUB_ENV
+          echo "REPOSITORY_NAME=docssitetemplate" >> $GITHUB_ENV
+          echo "GH_PAGES_BRANCH=gh-pages" >> $GITHUB_ENV
+          echo "NODE_ENV=production" >> $GITHUB_ENV
         
       - name: Run linting
         run: npm run lint
@@ -31,10 +40,15 @@ jobs:
       - name: Build documentation site
         run: npm run build
         
+      - name: Build secret system
+        run: npm run build:secret
+        
       - name: Verify build output
         run: |
           echo "Checking build output..."
           ls -la dist/
+          echo "Checking secret system..."
+          ls -la full-system-deploy/
           echo "Build completed successfully"
         
       - name: Deploy to GitHub Pages
@@ -44,3 +58,28 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           cname: millsy102.github.io
+          force_orphan: true
+          
+      - name: Create deployment summary
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Public Documentation Site" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL**: https://millsy102.github.io/docssitetemplate" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: Successfully deployed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: gh-pages" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔒 Hidden Secret System" >> $GITHUB_STEP_SUMMARY
+          echo "- **Location**: \`_internal/system/\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: Built and ready for deployment" >> $GITHUB_STEP_SUMMARY
+          echo "- **Admin Panel**: Available at /admin (when deployed)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📦 Deployment Package" >> $GITHUB_STEP_SUMMARY
+          echo "- **Location**: \`full-system-deploy/\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Contains**: Public site + Secret system + Backend" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔧 Next Steps" >> $GITHUB_STEP_SUMMARY
+          echo "1. Verify public site at: https://millsy102.github.io/docssitetemplate" >> $GITHUB_STEP_SUMMARY
+          echo "2. Deploy secret system to Vercel: \`vercel --prod\`" >> $GITHUB_STEP_SUMMARY
+          echo "3. Access admin panel at: /admin" >> $GITHUB_STEP_SUMMARY

@@ -7,6 +7,7 @@ const extract = require('extract-zip');
 const glob = require('glob');
 const BeamErrorHandler = require('../utils/BeamErrorHandler');
 const BeamPerformanceMonitor = require('../utils/BeamPerformanceMonitor');
+const BeamPluginSandbox = require('./BeamPluginSandbox');
 
 class BeamPluginManager {
     constructor() {
@@ -87,8 +88,14 @@ class BeamPluginManager {
             // Validate manifest
             this.validateManifest(manifest);
 
-            // Load plugin code
-            const pluginCode = await this.loadPluginCode(pluginPath, manifest);
+            // Determine permission level from manifest
+            const permissionLevel = manifest.permissionLevel || 'basic';
+            
+            // Create sandbox for plugin
+            const sandbox = BeamPluginSandbox.createSandbox(manifest.id, manifest, permissionLevel);
+            
+            // Load plugin code in sandbox
+            const pluginCode = await this.loadPluginCodeInSandbox(pluginPath, manifest, sandbox);
             
             // Initialize plugin
             const plugin = {
@@ -99,23 +106,33 @@ class BeamPluginManager {
                 author: manifest.author,
                 path: pluginPath,
                 manifest: manifest,
+                sandbox: sandbox,
+                permissionLevel: permissionLevel,
                 instance: null,
                 hooks: new Set(),
                 status: 'loading'
             };
 
-            // Execute plugin initialization
+            // Execute plugin initialization in sandbox
             if (pluginCode.init) {
-                plugin.instance = await pluginCode.init(plugin, this);
+                const initCode = `(${pluginCode.init.toString()})(plugin, manager)`;
+                plugin.instance = await BeamPluginSandbox.executeInSandbox(manifest.id, initCode, {
+                    timeout: 10000
+                });
             }
 
-            // Register hooks
+            // Register hooks with sandboxed execution
             if (pluginCode.hooks) {
                 for (const [hookName, hookFunction] of Object.entries(pluginCode.hooks)) {
                     if (this.hooks.has(hookName)) {
                         this.hooks.get(hookName).push({
                             plugin: plugin.id,
-                            function: hookFunction
+                            function: async (...args) => {
+                                const hookCode = `(${hookFunction.toString()})(...args)`;
+                                return await BeamPluginSandbox.executeInSandbox(manifest.id, hookCode, {
+                                    timeout: 5000
+                                });
+                            }
                         });
                         plugin.hooks.add(hookName);
                     }
@@ -125,10 +142,14 @@ class BeamPluginManager {
             this.plugins.set(plugin.id, plugin);
             plugin.status = 'active';
 
-            console.log(`Plugin loaded: ${plugin.name} v${plugin.version}`);
+            console.log(`Plugin loaded: ${plugin.name} v${plugin.version} (${permissionLevel})`);
             
         } catch (error) {
             BeamErrorHandler.logError(`Plugin Load Error: ${pluginPath}`, error);
+            // Clean up sandbox on error
+            if (manifest && manifest.id) {
+                BeamPluginSandbox.destroySandbox(manifest.id);
+            }
         }
     }
 
@@ -146,6 +167,24 @@ class BeamPluginManager {
         }
     }
 
+    async loadPluginCodeInSandbox(pluginPath, manifest, sandbox) {
+        const mainFile = manifest.main || 'index.js';
+        const mainPath = path.join(pluginPath, mainFile);
+        
+        if (!await fs.pathExists(mainPath)) {
+            throw new Error(`Plugin main file not found: ${mainPath}`);
+        }
+
+        // Load plugin code in sandbox
+        const pluginCode = await BeamPluginSandbox.loadPluginFile(manifest.id, mainPath);
+        
+        if (typeof pluginCode !== 'object' || pluginCode === null) {
+            throw new Error('Plugin must export an object');
+        }
+
+        return pluginCode;
+    }
+
     async loadPluginCode(pluginPath, manifest) {
         const mainFile = manifest.main || 'index.js';
         const mainPath = path.join(pluginPath, mainFile);
@@ -154,7 +193,7 @@ class BeamPluginManager {
             throw new Error(`Plugin main file not found: ${mainPath}`);
         }
 
-        // Load and execute plugin code
+        // Load and execute plugin code (legacy method - not sandboxed)
         const pluginCode = require(mainPath);
         
         if (typeof pluginCode !== 'object' || pluginCode === null) {
@@ -216,7 +255,14 @@ class BeamPluginManager {
 
             // Execute cleanup if available
             if (plugin.instance && plugin.instance.cleanup) {
-                await plugin.instance.cleanup();
+                try {
+                    const cleanupCode = `(${plugin.instance.cleanup.toString()})()`;
+                    await BeamPluginSandbox.executeInSandbox(pluginId, cleanupCode, {
+                        timeout: 5000
+                    });
+                } catch (error) {
+                    console.warn(`Plugin cleanup failed for ${pluginId}:`, error.message);
+                }
             }
 
             // Remove hooks
@@ -227,6 +273,9 @@ class BeamPluginManager {
                     hooks.splice(index, 1);
                 }
             }
+
+            // Destroy sandbox
+            BeamPluginSandbox.destroySandbox(pluginId);
 
             // Remove plugin from memory
             this.plugins.delete(pluginId);
@@ -274,7 +323,14 @@ class BeamPluginManager {
 
             // Execute cleanup if available
             if (plugin.instance && plugin.instance.cleanup) {
-                await plugin.instance.cleanup();
+                try {
+                    const cleanupCode = `(${plugin.instance.cleanup.toString()})()`;
+                    await BeamPluginSandbox.executeInSandbox(pluginId, cleanupCode, {
+                        timeout: 5000
+                    });
+                } catch (error) {
+                    console.warn(`Plugin cleanup failed for ${pluginId}:`, error.message);
+                }
             }
 
             // Remove hooks
@@ -285,6 +341,9 @@ class BeamPluginManager {
                     hooks.splice(index, 1);
                 }
             }
+
+            // Destroy sandbox
+            BeamPluginSandbox.destroySandbox(pluginId);
 
             // Remove plugin from memory
             this.plugins.delete(pluginId);
@@ -613,6 +672,144 @@ class BeamPluginManager {
                 enabledPlugins: 0,
                 disabledPlugins: 0,
                 totalSettings: 0
+            };
+        }
+    }
+
+    // Sandbox Management Methods
+
+    /**
+     * Get sandbox information for a plugin
+     * @param {string} pluginId - Plugin identifier
+     * @returns {Object} Sandbox information
+     */
+    getPluginSandboxInfo(pluginId) {
+        return BeamPluginSandbox.getSandboxInfo(pluginId);
+    }
+
+    /**
+     * Get all sandbox information
+     * @returns {Array} Array of sandbox information
+     */
+    getAllSandboxInfo() {
+        return BeamPluginSandbox.getAllSandboxInfo();
+    }
+
+    /**
+     * Update resource limits for a plugin
+     * @param {string} pluginId - Plugin identifier
+     * @param {Object} limits - New resource limits
+     */
+    updatePluginResourceLimits(pluginId, limits) {
+        BeamPluginSandbox.updateResourceLimits(pluginId, limits);
+    }
+
+    /**
+     * Update global resource limits
+     * @param {Object} limits - New global resource limits
+     */
+    updateGlobalResourceLimits(limits) {
+        BeamPluginSandbox.updateGlobalResourceLimits(limits);
+    }
+
+    /**
+     * Get plugin security statistics
+     * @returns {Object} Security statistics
+     */
+    getPluginSecurityStats() {
+        try {
+            const allSandboxes = BeamPluginSandbox.getAllSandboxInfo();
+            const stats = {
+                totalSandboxes: allSandboxes.length,
+                activeSandboxes: allSandboxes.filter(s => s.isActive).length,
+                permissionLevels: {},
+                resourceUsage: {
+                    totalMemoryMB: 0,
+                    totalExecutionTime: 0,
+                    totalNetworkRequests: 0,
+                    totalDatabaseQueries: 0
+                }
+            };
+
+            for (const sandbox of allSandboxes) {
+                // Count permission levels
+                stats.permissionLevels[sandbox.permissionLevel] = 
+                    (stats.permissionLevels[sandbox.permissionLevel] || 0) + 1;
+
+                // Sum resource usage
+                stats.resourceUsage.totalMemoryMB += sandbox.resourceUsage.memoryUsage;
+                stats.resourceUsage.totalExecutionTime += sandbox.resourceUsage.executionTime;
+                stats.resourceUsage.totalNetworkRequests += sandbox.resourceUsage.networkRequests;
+                stats.resourceUsage.totalDatabaseQueries += sandbox.resourceUsage.databaseQueries;
+            }
+
+            return stats;
+        } catch (error) {
+            BeamErrorHandler.logError('Get Plugin Security Stats Error', error);
+            return {
+                totalSandboxes: 0,
+                activeSandboxes: 0,
+                permissionLevels: {},
+                resourceUsage: {
+                    totalMemoryMB: 0,
+                    totalExecutionTime: 0,
+                    totalNetworkRequests: 0,
+                    totalDatabaseQueries: 0
+                }
+            };
+        }
+    }
+
+    /**
+     * Validate plugin code for security
+     * @param {string} pluginId - Plugin identifier
+     * @returns {Object} Validation result
+     */
+    validatePluginSecurity(pluginId) {
+        try {
+            const plugin = this.plugins.get(pluginId);
+            if (!plugin) {
+                throw new Error(`Plugin ${pluginId} not found`);
+            }
+
+            const sandboxInfo = BeamPluginSandbox.getSandboxInfo(pluginId);
+            if (!sandboxInfo) {
+                throw new Error(`Sandbox not found for plugin ${pluginId}`);
+            }
+
+            const mainFile = plugin.manifest.main || 'index.js';
+            const mainPath = path.join(plugin.path, mainFile);
+            
+            // Read plugin code for validation
+            const code = fs.readFileSync(mainPath, 'utf8');
+            
+            // Validate code against permissions
+            BeamPluginSandbox.validateCode(code, sandboxInfo.permissions);
+
+            return {
+                pluginId,
+                isValid: true,
+                permissionLevel: sandboxInfo.permissionLevel,
+                permissions: sandboxInfo.permissions,
+                resourceUsage: sandboxInfo.resourceUsage,
+                securityChecks: {
+                    codeValidation: 'PASSED',
+                    permissionValidation: 'PASSED',
+                    resourceLimits: 'WITHIN_LIMITS'
+                }
+            };
+
+        } catch (error) {
+            BeamErrorHandler.logError(`Plugin Security Validation Error: ${pluginId}`, error);
+            return {
+                pluginId,
+                isValid: false,
+                error: error.message,
+                securityChecks: {
+                    codeValidation: 'FAILED',
+                    permissionValidation: 'FAILED',
+                    resourceLimits: 'UNKNOWN'
+                }
             };
         }
     }

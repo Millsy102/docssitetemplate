@@ -10,6 +10,7 @@ const BeamPerformanceMonitor = require('./utils/BeamPerformanceMonitor');
 const BeamCache = require('./utils/BeamCache');
 const BeamErrorHandler = require('./utils/BeamErrorHandler');
 const BeamValidator = require('./utils/BeamValidator');
+const BeamHealthCheckAggregator = require('./utils/BeamHealthCheckAggregator');
 
 // Import database and services
 const beamDatabase = require('./database/BeamDatabase');
@@ -118,23 +119,63 @@ class BeamVercelServer {
 
     // Setup routes
     setupRoutes() {
-        // Health check endpoint
-        this.app.get('/health', (req, res) => {
-            res.json({
-                status: 'healthy',
-                timestamp: new Date().toISOString(),
-                environment: process.env.NODE_ENV || 'development',
-                version: '3.0.0'
-            });
+        // Health check endpoints
+        this.app.get('/health', async (req, res) => {
+            try {
+                const detailed = req.query.detailed === 'true';
+                const health = await BeamHealthCheckAggregator.getHealthStatus(detailed);
+                res.json(health);
+            } catch (error) {
+                res.status(500).json({
+                    status: 'error',
+                    error: error.message,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        });
+
+        // Quick health check (cached)
+        this.app.get('/health/quick', (req, res) => {
+            const cachedHealth = BeamHealthCheckAggregator.getCachedHealthStatus();
+            if (cachedHealth) {
+                res.json(cachedHealth);
+            } else {
+                res.status(503).json({
+                    status: 'unavailable',
+                    message: 'Health check data not available',
+                    timestamp: new Date().toISOString()
+                });
+            }
+        });
+
+        // Individual health checks
+        this.app.get('/health/:check', async (req, res) => {
+            try {
+                const checkName = req.params.check;
+                const result = await BeamHealthCheckAggregator.runCheck(checkName);
+                res.json(result);
+            } catch (error) {
+                res.status(404).json({
+                    status: 'error',
+                    error: error.message,
+                    timestamp: new Date().toISOString()
+                });
+            }
         });
 
         // Metrics endpoint
         this.app.get('/metrics', (req, res) => {
-            const metrics = BeamPerformanceMonitor.getMetrics();
+            const metrics = {
+                performance: BeamPerformanceMonitor.getMetrics(),
+                health: BeamHealthCheckAggregator.getStats()
+            };
             res.json(metrics);
         });
 
-        // API routes
+        // Versioned API routes
+        this.app.use('/api', require('./routes/versioned-api'));
+        
+        // Legacy API routes (for backward compatibility)
         this.app.use('/api/auth', require('./routes/auth'));
         this.app.use('/api/users', require('./routes/users'));
         this.app.use('/api/files', require('./routes/files'));

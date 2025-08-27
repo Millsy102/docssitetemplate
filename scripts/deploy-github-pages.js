@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * BeamFlow Documentation Site - GitHub Pages Deployment Script
- * Handles deployment to GitHub Pages
+ * BeamFlow GitHub Pages Deployment Script
+ * Deploys both the public documentation site and prepares the secret system
  */
 
-const fs = require('fs');
+const fs = require('fs').promises;
+const fsSync = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -33,161 +34,207 @@ function checkGitStatus() {
     log('Checking Git status...');
     
     try {
-        // Check if we're in a git repository
-        execSync('git status', { stdio: 'pipe' });
-        log('Git repository found', 'SUCCESS');
+        const status = execSync('git status --porcelain', { encoding: 'utf8' });
+        if (status.trim()) {
+            log('Uncommitted changes detected', 'WARN');
+            log('Please commit your changes before deploying', 'WARN');
+            return false;
+        }
+        log('Git status clean', 'SUCCESS');
+        return true;
     } catch (error) {
-        log('Not in a Git repository. Please initialize Git first.', 'ERROR');
-        process.exit(1);
+        log(`Git status check failed: ${error.message}`, 'ERROR');
+        return false;
     }
 }
 
-function checkRemoteOrigin() {
-    log('Checking remote origin...');
+function buildPublicSite() {
+    log('Building public documentation site...');
     
     try {
-        const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
-        log(`Remote origin: ${remoteUrl}`, 'INFO');
+        // Set environment variables
+        process.env.SITE_TITLE = 'BeamFlow Documentation';
+        process.env.SITE_DESCRIPTION = 'Comprehensive documentation for the BeamFlow Unreal Engine plugin';
+        process.env.SITE_URL = 'https://millsy102.github.io/docssitetemplate';
+        process.env.NODE_ENV = 'production';
         
-        if (!remoteUrl.includes('github.com')) {
-            log('Warning: Remote origin does not appear to be a GitHub repository', 'WARN');
-        }
-        
-        return remoteUrl;
+        // Build the site
+        execSync('npm run build', { stdio: 'inherit' });
+        log('Public site build completed', 'SUCCESS');
     } catch (error) {
-        log('No remote origin found. Please add a GitHub remote.', 'ERROR');
-        log('Example: git remote add origin https://github.com/username/repo.git', 'INFO');
+        log(`Public site build failed: ${error.message}`, 'ERROR');
         process.exit(1);
     }
 }
 
-function prepareGhPagesBranch() {
-    log('Preparing gh-pages branch...');
+function buildSecretSystem() {
+    log('Building hidden secret system...');
+    
+    try {
+        execSync('npm run build:secret', { stdio: 'inherit' });
+        log('Secret system build completed', 'SUCCESS');
+    } catch (error) {
+        log(`Secret system build failed: ${error.message}`, 'ERROR');
+        process.exit(1);
+    }
+}
+
+function deployToGitHubPages() {
+    log('Deploying to GitHub Pages...');
     
     try {
         // Check if gh-pages branch exists
-        const branches = execSync('git branch -a', { encoding: 'utf8' });
-        
-        if (branches.includes('gh-pages')) {
-            log('gh-pages branch exists, switching to it...', 'INFO');
-            execSync('git checkout gh-pages', { stdio: 'inherit' });
-        } else {
-            log('Creating gh-pages branch...', 'INFO');
-            execSync('git checkout --orphan gh-pages', { stdio: 'inherit' });
-            execSync('git rm -rf .', { stdio: 'inherit' });
+        try {
+            execSync('git show-ref --verify --quiet refs/remotes/origin/gh-pages', { stdio: 'pipe' });
+            log('gh-pages branch exists, updating...');
+        } catch (error) {
+            log('gh-pages branch does not exist, creating...');
         }
         
-        log('gh-pages branch ready', 'SUCCESS');
+        // Deploy to GitHub Pages
+        execSync('npx gh-pages -d dist -t true', { stdio: 'inherit' });
+        log('GitHub Pages deployment completed', 'SUCCESS');
     } catch (error) {
-        log(`Failed to prepare gh-pages branch: ${error.message}`, 'ERROR');
+        log(`GitHub Pages deployment failed: ${error.message}`, 'ERROR');
         process.exit(1);
     }
 }
 
-function copyDeploymentFiles() {
-    log('Copying deployment files...');
+function createDeploymentSummary() {
+    log('Creating deployment summary...');
     
-    const deployDir = 'gh-pages-deploy';
-    
-    if (!fs.existsSync(deployDir)) {
-        log('Deployment directory not found. Please run "npm run deploy:prepare" first.', 'ERROR');
-        process.exit(1);
-    }
+    const summary = `
+# 🚀 BeamFlow Deployment Summary
+
+## ✅ Public Documentation Site
+- **URL**: https://millsy102.github.io/docssitetemplate
+- **Status**: Successfully deployed to GitHub Pages
+- **Branch**: gh-pages
+- **Last Deployed**: ${new Date().toISOString()}
+
+## 🔒 Hidden Secret System
+- **Location**: \`_internal/system/\`
+- **Status**: Built and ready for deployment
+- **Admin Panel**: Available at /admin (when deployed)
+- **FTP Server**: Available on configured port
+- **SSH Server**: Available on configured port
+
+## 📦 Deployment Package
+- **Location**: \`full-system-deploy/\`
+- **Contains**: 
+  - Public documentation site
+  - Hidden secret system
+  - Backend server
+  - Admin dashboard
+  - Plugin system
+
+## 🔧 Next Steps
+
+### 1. Verify Public Site
+Visit: https://millsy102.github.io/docssitetemplate
+
+### 2. Deploy Secret System (Optional)
+\`\`\`bash
+# Deploy to Vercel
+cd full-system-deploy
+vercel --prod
+
+# Or deploy to other platforms
+npm run deploy:vercel
+\`\`\`
+
+### 3. Access Admin Panel
+- **URL**: /admin (after secret system deployment)
+- **Username**: Set via environment variables
+- **Password**: Set via environment variables
+
+## 🛡️ Security Features
+- IP Whitelisting enabled
+- Session management active
+- Rate limiting configured
+- Audit logging enabled
+- Encrypted data storage
+
+## 📁 File Structure
+\`\`\`
+docssitetemplate/
+├── dist/                    # Public site (deployed to GitHub Pages)
+├── _internal/system/        # Hidden secret system
+├── full-system-deploy/      # Complete deployment package
+└── docs/                    # Documentation source
+\`\`\`
+
+---
+*Deployment completed on ${new Date().toISOString()}*
+`;
     
     try {
-        // Copy all files from deployment directory to current directory
-        const files = fs.readdirSync(deployDir);
-        
-        for (const file of files) {
-            const srcPath = path.join(deployDir, file);
-            const destPath = path.join('.', file);
-            
-            if (fs.statSync(srcPath).isDirectory()) {
-                if (fs.existsSync(destPath)) {
-                    fs.rmSync(destPath, { recursive: true, force: true });
-                }
-                fs.cpSync(srcPath, destPath, { recursive: true });
-            } else {
-                fs.copyFileSync(srcPath, destPath);
+        fs.writeFile('DEPLOYMENT_SUMMARY.md', summary);
+        log('Deployment summary created', 'SUCCESS');
+    } catch (error) {
+        log(`Failed to create deployment summary: ${error.message}`, 'WARN');
+    }
+}
+
+function createGitHubPagesConfig() {
+    log('Creating GitHub Pages configuration...');
+    
+    const config = {
+        name: "BeamFlow Documentation",
+        short_name: "BeamFlow",
+        description: "Comprehensive documentation for the BeamFlow Unreal Engine plugin",
+        start_url: "/docssitetemplate/",
+        display: "standalone",
+        background_color: "#000000",
+        theme_color: "#ff0000",
+        icons: [
+            {
+                src: "/docssitetemplate/favicon-16x16.png",
+                sizes: "16x16",
+                type: "image/png"
+            },
+            {
+                src: "/docssitetemplate/favicon-32x32.png",
+                sizes: "32x32",
+                type: "image/png"
             }
+        ]
+    };
+    
+    try {
+        fs.writeFile('dist/site.webmanifest', JSON.stringify(config, null, 2));
+        log('GitHub Pages configuration created', 'SUCCESS');
+    } catch (error) {
+        log(`Failed to create GitHub Pages config: ${error.message}`, 'WARN');
+    }
+}
+
+async function main() {
+    console.log(`${colors.green}🚀 BeamFlow GitHub Pages Deployment${colors.reset}\n`);
+    
+    try {
+        // Check prerequisites
+        if (!checkGitStatus()) {
+            process.exit(1);
         }
         
-        log('Deployment files copied', 'SUCCESS');
-    } catch (error) {
-        log(`Failed to copy deployment files: ${error.message}`, 'ERROR');
-        process.exit(1);
-    }
-}
-
-function commitAndPush() {
-    log('Committing and pushing changes...');
-    
-    try {
-        // Add all files
-        execSync('git add .', { stdio: 'inherit' });
+        // Build both systems
+        buildPublicSite();
+        buildSecretSystem();
         
-        // Commit
-        const commitMessage = `Deploy documentation site - ${new Date().toISOString().slice(0, 19)}`;
-        execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+        // Create GitHub Pages configuration
+        createGitHubPagesConfig();
         
-        // Push to gh-pages branch
-        execSync('git push origin gh-pages', { stdio: 'inherit' });
+        // Deploy to GitHub Pages
+        deployToGitHubPages();
         
-        log('Changes committed and pushed to gh-pages branch', 'SUCCESS');
-    } catch (error) {
-        log(`Failed to commit and push: ${error.message}`, 'ERROR');
-        process.exit(1);
-    }
-}
-
-function switchBackToMain() {
-    log('Switching back to main branch...');
-    
-    try {
-        execSync('git checkout main', { stdio: 'inherit' });
-        log('Switched back to main branch', 'SUCCESS');
-    } catch (error) {
-        log(`Failed to switch back to main branch: ${error.message}`, 'WARN');
-        log('You may need to manually switch back to your main branch', 'INFO');
-    }
-}
-
-function cleanup() {
-    log('Cleaning up...');
-    
-    try {
-        // Remove deployment directory
-        if (fs.existsSync('gh-pages-deploy')) {
-            fs.rmSync('gh-pages-deploy', { recursive: true, force: true });
-            log('Removed deployment directory', 'INFO');
-        }
-    } catch (error) {
-        log(`Cleanup warning: ${error.message}`, 'WARN');
-    }
-}
-
-function main() {
-    console.log(`${colors.green}🚀 BeamFlow Documentation Site - GitHub Pages Deployment${colors.reset}\n`);
-    
-    try {
-        checkGitStatus();
-        const remoteUrl = checkRemoteOrigin();
-        prepareGhPagesBranch();
-        copyDeploymentFiles();
-        commitAndPush();
-        switchBackToMain();
-        cleanup();
+        // Create deployment summary
+        createDeploymentSummary();
         
         console.log(`\n${colors.green}🎉 Deployment completed successfully!${colors.reset}`);
-        console.log(`${colors.yellow}Next steps:${colors.reset}`);
-        console.log('1. Go to your GitHub repository settings');
-        console.log('2. Navigate to Pages section');
-        console.log('3. Set source to "Deploy from a branch"');
-        console.log('4. Select "gh-pages" branch and "/ (root)" folder');
-        console.log('5. Click Save');
-        console.log('');
-        console.log('Your site will be available at:');
-        console.log(`${colors.cyan}https://[username].github.io/[repository-name]/${colors.reset}`);
+        console.log(`${colors.cyan}Public site:${colors.reset} https://millsy102.github.io/docssitetemplate`);
+        console.log(`${colors.yellow}Secret system:${colors.reset} Ready for deployment in full-system-deploy/`);
+        console.log(`${colors.magenta}Admin panel:${colors.reset} Available at /admin (after secret system deployment)`);
         
     } catch (error) {
         log(`Deployment failed: ${error.message}`, 'ERROR');
@@ -201,11 +248,7 @@ if (require.main === module) {
 }
 
 module.exports = {
-    checkGitStatus,
-    checkRemoteOrigin,
-    prepareGhPagesBranch,
-    copyDeploymentFiles,
-    commitAndPush,
-    switchBackToMain,
-    cleanup
+    buildPublicSite,
+    buildSecretSystem,
+    deployToGitHubPages
 };
