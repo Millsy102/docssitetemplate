@@ -1,0 +1,51 @@
+name: development-environment
+version: 1.0.0
+description: Online development environment
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:development-environment:read
+  - plugin:development-environment:write
+  - plugin:development-environment:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Online
+    icon: code
+    path: /plugins/development-environment
+    order: 100
+    permissions:
+      - plugin:development-environment:read
+  widgets:
+    - name: development-environmentWidget
+      description: Online development environment widget
+      component: development-environmentWidget
+      permissions:
+        - plugin:development-environment:read
+  pages:
+    - name: development-environmentPage
+      description: Online development environment page
+      component: development-environmentPage
+      path: /plugins/development-environment
+      permissions:
+        - plugin:development-environment:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:development-environment:read

@@ -1,0 +1,51 @@
+name: json-formatter
+version: 1.0.0
+description: JSON formatter and validator
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:json-formatter:read
+  - plugin:json-formatter:write
+  - plugin:json-formatter:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: JSON
+    icon: build
+    path: /plugins/json-formatter
+    order: 100
+    permissions:
+      - plugin:json-formatter:read
+  widgets:
+    - name: json-formatterWidget
+      description: JSON formatter and validator widget
+      component: json-formatterWidget
+      permissions:
+        - plugin:json-formatter:read
+  pages:
+    - name: json-formatterPage
+      description: JSON formatter and validator page
+      component: json-formatterPage
+      path: /plugins/json-formatter
+      permissions:
+        - plugin:json-formatter:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:json-formatter:read

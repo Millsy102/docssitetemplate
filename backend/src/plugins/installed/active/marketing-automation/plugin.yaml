@@ -1,0 +1,336 @@
+name: "marketing-automation"
+version: "1.0.0"
+description: "Comprehensive marketing automation integrating Mailchimp, HubSpot, Google Analytics, SEMrush, Ahrefs, and marketing tools"
+author: "BeamFlow Team"
+license: "MIT"
+dependencies: 
+  - "@mailchimp/mailchimp_marketing"
+  - "@hubspot/api-client"
+  - "googleapis"
+  - "semrush"
+  - "ahrefs"
+  - "facebook-nodejs-business-sdk"
+  - "twitter-api-v2"
+  - "linkedin-api-v2"
+  - "axios"
+  - "node-cron"
+
+permissions: 
+  - "plugin:marketing-automation:read"
+  - "plugin:marketing-automation:write"
+  - "plugin:marketing-automation:admin"
+
+settings:
+  mailchimp_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "Mailchimp API key"
+    encrypted: true
+  
+  mailchimp_server_prefix:
+    type: "string"
+    default: ""
+    required: false
+    description: "Mailchimp server prefix"
+  
+  hubspot_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "HubSpot API key"
+    encrypted: true
+  
+  google_analytics_id:
+    type: "string"
+    default: ""
+    required: false
+    description: "Google Analytics tracking ID"
+  
+  google_analytics_credentials:
+    type: "string"
+    default: ""
+    required: false
+    description: "Google Analytics service account JSON"
+    encrypted: true
+  
+  semrush_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "SEMrush API key"
+    encrypted: true
+  
+  ahrefs_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "Ahrefs API key"
+    encrypted: true
+  
+  facebook_access_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "Facebook access token"
+    encrypted: true
+  
+  twitter_bearer_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "Twitter bearer token"
+    encrypted: true
+  
+  linkedin_access_token:
+    type: "string"
+    default: ""
+    required: false
+    description: "LinkedIn access token"
+    encrypted: true
+  
+  enable_mailchimp:
+    type: "boolean"
+    default: true
+    description: "Enable Mailchimp integration"
+  
+  enable_hubspot:
+    type: "boolean"
+    default: true
+    description: "Enable HubSpot integration"
+  
+  enable_google_analytics:
+    type: "boolean"
+    default: true
+    description: "Enable Google Analytics integration"
+  
+  enable_semrush:
+    type: "boolean"
+    default: true
+    description: "Enable SEMrush integration"
+  
+  enable_ahrefs:
+    type: "boolean"
+    default: true
+    description: "Enable Ahrefs integration"
+  
+  enable_social_media:
+    type: "boolean"
+    default: true
+    description: "Enable social media integration"
+  
+  auto_campaigns:
+    type: "boolean"
+    default: true
+    description: "Enable automated campaign management"
+  
+  lead_scoring:
+    type: "boolean"
+    default: true
+    description: "Enable lead scoring automation"
+  
+  seo_monitoring:
+    type: "boolean"
+    default: true
+    description: "Enable SEO monitoring"
+  
+  social_scheduling:
+    type: "boolean"
+    default: true
+    description: "Enable social media scheduling"
+  
+  reporting_frequency:
+    type: "string"
+    default: "weekly"
+    description: "Marketing report frequency"
+    options: ["daily", "weekly", "monthly"]
+
+hooks:
+  - name: "onLeadCapture"
+    description: "Process new lead captures"
+    priority: 10
+    enabled: true
+  
+  - name: "onEmailSent"
+    description: "Process email campaign events"
+    priority: 5
+    enabled: true
+  
+  - name: "onSocialPost"
+    description: "Process social media posts"
+    priority: 5
+    enabled: true
+
+ui:
+  navigation:
+    enabled: true
+    title: "Marketing Automation"
+    icon: "campaign"
+    path: "/plugins/marketing-automation"
+    order: 60
+    permissions: ["plugin:marketing-automation:read"]
+  
+  widgets:
+    - name: "CampaignManagerWidget"
+      description: "Email campaign management"
+      component: "CampaignManagerWidget"
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - name: "LeadManagerWidget"
+      description: "Lead management and scoring"
+      component: "LeadManagerWidget"
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - name: "AnalyticsDashboardWidget"
+      description: "Marketing analytics dashboard"
+      component: "AnalyticsDashboardWidget"
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - name: "SEOManagerWidget"
+      description: "SEO monitoring and optimization"
+      component: "SEOManagerWidget"
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - name: "SocialMediaWidget"
+      description: "Social media management"
+      component: "SocialMediaWidget"
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - name: "AutomationWorkflowWidget"
+      description: "Marketing automation workflows"
+      component: "AutomationWorkflowWidget"
+      permissions: ["plugin:marketing-automation:admin"]
+
+api:
+  routes:
+    - method: "GET"
+      path: "/overview"
+      handler: "getOverview"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "GET"
+      path: "/campaigns"
+      handler: "getCampaigns"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/campaigns/create"
+      handler: "createCampaign"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "GET"
+      path: "/campaigns/:id"
+      handler: "getCampaign"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/campaigns/:id/send"
+      handler: "sendCampaign"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "GET"
+      path: "/leads"
+      handler: "getLeads"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/leads/create"
+      handler: "createLead"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "PUT"
+      path: "/leads/:id"
+      handler: "updateLead"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "GET"
+      path: "/analytics/email"
+      handler: "getEmailAnalytics"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "GET"
+      path: "/analytics/website"
+      handler: "getWebsiteAnalytics"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "GET"
+      path: "/analytics/social"
+      handler: "getSocialAnalytics"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "GET"
+      path: "/seo/keywords"
+      handler: "getSEOKeywords"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/seo/analyze"
+      handler: "analyzeSEO"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "GET"
+      path: "/social/posts"
+      handler: "getSocialPosts"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/social/posts/create"
+      handler: "createSocialPost"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "POST"
+      path: "/social/posts/schedule"
+      handler: "scheduleSocialPost"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "GET"
+      path: "/automation/workflows"
+      handler: "getWorkflows"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/automation/workflows/create"
+      handler: "createWorkflow"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:admin"]
+    
+    - method: "GET"
+      path: "/reports"
+      handler: "getReports"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:read"]
+    
+    - method: "POST"
+      path: "/reports/generate"
+      handler: "generateReport"
+      middleware: ["auth"]
+      permissions: ["plugin:marketing-automation:write"]
+    
+    - method: "POST"
+      path: "/webhook/mailchimp"
+      handler: "mailchimpWebhook"
+      middleware: []
+      permissions: []
+    
+    - method: "POST"
+      path: "/webhook/hubspot"
+      handler: "hubspotWebhook"
+      middleware: []
+      permissions: []

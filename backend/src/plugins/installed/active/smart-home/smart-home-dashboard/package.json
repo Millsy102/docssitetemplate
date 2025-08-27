@@ -1,0 +1,16 @@
+{
+  "name": "@beamflow/smart-home-dashboard",
+  "version": "1.0.0",
+  "description": "Smart home device management and control",
+  "main": "index.js",
+  "author": "BeamFlow System",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "beamflow",
+    "plugin",
+    "smart-home",
+    "smart-home-dashboard"
+  ]
+}

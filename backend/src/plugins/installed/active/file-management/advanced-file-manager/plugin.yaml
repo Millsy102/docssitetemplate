@@ -1,0 +1,52 @@
+name: advanced-file-manager
+version: 1.0.0
+description: Advanced file manager with drag & drop, preview, and bulk operations
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:advanced-file-manager:read
+  - plugin:advanced-file-manager:write
+  - plugin:advanced-file-manager:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Advanced
+    icon: folder
+    path: /plugins/advanced-file-manager
+    order: 100
+    permissions:
+      - plugin:advanced-file-manager:read
+  widgets:
+    - name: advanced-file-managerWidget
+      description: Advanced file manager with drag & drop, preview, and bulk
+        operations widget
+      component: advanced-file-managerWidget
+      permissions:
+        - plugin:advanced-file-manager:read
+  pages:
+    - name: advanced-file-managerPage
+      description: Advanced file manager with drag & drop, preview, and bulk operations page
+      component: advanced-file-managerPage
+      path: /plugins/advanced-file-manager
+      permissions:
+        - plugin:advanced-file-manager:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:advanced-file-manager:read
