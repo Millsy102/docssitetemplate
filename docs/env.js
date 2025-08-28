@@ -6,19 +6,19 @@
 // ============================================================================
 
 // Supabase Configuration (Required for authentication)
-window.SUPABASE_URL = '___SUPABASE_URL___';
-window.SUPABASE_ANON_KEY = '___SUPABASE_ANON_KEY___';
+window.SUPABASE_URL = 'https://your-project.supabase.co';
+window.SUPABASE_ANON_KEY = 'your-supabase-anon-key';
 
 // OAuth Configuration (Determines login method)
 window.OAUTH_CONFIG = {
     // OAuth Provider Settings
     google: {
-        clientId: '___GOOGLE_OAUTH_CLIENT_ID___',
+        clientId: 'your-google-client-id',
         clientSecret: '___GOOGLE_OAUTH_CLIENT_SECRET___',
         enabled: false
     },
     github: {
-        clientId: '___GITHUB_OAUTH_CLIENT_ID___',
+        clientId: 'your-github-client-id',
         clientSecret: '___GITHUB_OAUTH_CLIENT_SECRET___',
         enabled: false
     },
@@ -30,8 +30,8 @@ window.OAUTH_CONFIG = {
     redirectUrl: 'https://millsy102.github.io/docssitetemplate/admin/',
     
     // Admin credentials (for initial setup)
-    adminUsername: '___ADMIN_USERNAME___',
-    adminPassword: '___ADMIN_PASSWORD___'
+    adminUsername: 'admin',
+    adminPassword: 'secret'
 };
 
 // GitHub Pages Configuration
