@@ -1,0 +1,91 @@
+name: Build and Deploy Dual-Site to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Setup environment variables
+        run: |
+          echo "SITE_TITLE=BeamFlow Documentation" >> $GITHUB_ENV
+          echo "SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin" >> $GITHUB_ENV
+          echo "SITE_URL=https://millsy102.github.io/docssitetemplate" >> $GITHUB_ENV
+          echo "NODE_ENV=production" >> $GITHUB_ENV
+          echo "SECONDARY_SITE_PATH=admin" >> $GITHUB_ENV
+          
+      - name: Build dual-site
+        run: npm run build:dual-site
+        
+      - name: Validate build output
+        run: |
+          echo "Checking public site..."
+          ls -la dist/
+          echo "Checking secondary site..."
+          ls -la dist/admin/
+          echo "Checking API files..."
+          ls -la dist/admin/api/
+          echo "Checking routing configuration..."
+          cat dist/_redirects
+          
+      - name: Run link checks
+        run: npm run test:links
+        
+      - name: Run authentication tests
+        run: npm run test:auth
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed successfully!"
+          echo "Public site: https://millsy102.github.io/docssitetemplate/"
+          echo "Admin site: https://millsy102.github.io/docssitetemplate/admin/"
+          echo ""
+          echo "Hidden login triggers:"
+          echo "- Keyboard: Ctrl+Shift+L (3 times)"
+          echo "- Click: Footer copyright text (3 times)"
+          echo "- URL: ?debug=true (3 times)"
+          echo ""
+          echo "Admin credentials:"
+          echo "- Username: admin"
+          echo "- Password: secret"
