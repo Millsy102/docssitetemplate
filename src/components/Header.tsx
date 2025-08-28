@@ -56,6 +56,12 @@ const Header: React.FC = () => {
 
         <div className="hidden md:flex items-center space-x-4">
           <LanguageSelector />
+          <a 
+            href="/admin" 
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+          >
+            Login
+          </a>
         </div>
 
         <div className="md:hidden">
@@ -123,6 +129,13 @@ const Header: React.FC = () => {
             <div className="pt-4 border-t border-gray-700">
               <LanguageSelector />
             </div>
+            <a 
+              href="/admin" 
+              className="block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium text-center"
+              onClick={closeMobileMenu}
+            >
+              Login
+            </a>
           </div>
         </nav>
       )}
