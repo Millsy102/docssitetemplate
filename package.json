@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run copy:static",
+    "copy:static": "node scripts/copy-static-files.js",
     "preview": "vite preview",
     "serve": "vite preview",
     "lint": "eslint src/",

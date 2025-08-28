@@ -76,9 +76,9 @@ if (Test-Path "postcss.config.js") {
     Move-Item "postcss.config.js" "postcss.config.js.bak"
 }
 
-# Use npx vite build which works reliably
-Write-Host "Building with npx vite build..." -ForegroundColor White
-npx vite build
+# Use npm run build which includes static files copy
+Write-Host "Building with npm run build (includes static files copy)..." -ForegroundColor White
+npm run build
 if ($LASTEXITCODE -ne 0) {
     Write-Host "ERROR: Main site build failed" -ForegroundColor Red
     # Restore PostCSS config on failure
