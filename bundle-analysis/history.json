@@ -17,35 +17,35 @@
           "size": 88968,
           "gzipSize": 25466,
           "brotliSize": 22014,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\assets\\main-legacy-BeCn5Kbo.js"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\assets\\main-legacy-BeCn5Kbo.js"
         },
         {
           "name": "main-QlYNt15U.js",
           "size": 78548,
           "gzipSize": 23169,
           "brotliSize": 20305,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\assets\\main-QlYNt15U.js"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\assets\\main-QlYNt15U.js"
         },
         {
           "name": "polyfills-legacy-B_KP8c1_.js",
           "size": 63329,
           "gzipSize": 25266,
           "brotliSize": 22800,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\assets\\polyfills-legacy-B_KP8c1_.js"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\assets\\polyfills-legacy-B_KP8c1_.js"
         },
         {
           "name": "404-6F3hq9O7.js",
           "size": 117,
           "gzipSize": 121,
           "brotliSize": 90,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\assets\\404-6F3hq9O7.js"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\assets\\404-6F3hq9O7.js"
         },
         {
           "name": "404-legacy-CnvmjJHj.js",
           "size": 78,
           "gzipSize": 91,
           "brotliSize": 66,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\assets\\404-legacy-CnvmjJHj.js"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\assets\\404-legacy-CnvmjJHj.js"
         }
       ],
       "css": [],
@@ -56,28 +56,28 @@
           "size": 12084,
           "gzipSize": 3374,
           "brotliSize": 2685,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\index.html"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\index.html"
         },
         {
           "name": "offline.html",
           "size": 6328,
           "gzipSize": 1729,
           "brotliSize": 1353,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\offline.html"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\offline.html"
         },
         {
           "name": "favicon-generator.html",
           "size": 5858,
           "gzipSize": 1351,
           "brotliSize": 1054,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\favicon-generator.html"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\favicon-generator.html"
         },
         {
           "name": "404.html",
           "size": 3938,
           "gzipSize": 1483,
           "brotliSize": 1102,
-          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\docssitetemplate\\dist\\404.html"
+          "path": "C:\\Users\\Millsy\\Documents\\GitHub\\[your-repo-name]\\dist\\404.html"
         }
       ]
     }

@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 async function testAuth() {
-  console.log('🔐 Testing static authentication system...');
+  console.log(' Testing static authentication system...');
   
   const testCases = [
     {
@@ -22,7 +22,7 @@ async function testAuth() {
     }
   ];
   
-  console.log('📋 Test Cases:');
+  console.log(' Test Cases:');
   testCases.forEach((testCase, index) => {
     console.log(`   ${index + 1}. ${testCase.name}`);
     console.log(`      Username: ${testCase.credentials.username}`);
@@ -31,10 +31,10 @@ async function testAuth() {
     console.log('');
   });
   
-  console.log('✅ Authentication test configuration ready');
+  console.log(' Authentication test configuration ready');
   console.log('   Run this after deployment to verify authentication works');
   console.log('');
-  console.log('🔑 Test Credentials:');
+  console.log(' Test Credentials:');
   console.log('   Username: admin');
   console.log('   Password: secret');
 }

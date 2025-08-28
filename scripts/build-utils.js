@@ -22,10 +22,10 @@ class BuildUtils {
     try {
       // Run the existing build process
       execSync('npm run build', { stdio: 'inherit' });
-      console.log('✅ Public site built successfully');
+      console.log(' Public site built successfully');
       return true;
     } catch (error) {
-      console.error('❌ Public site build failed:', error.message);
+      console.error(' Public site build failed:', error.message);
       return false;
     }
   }
@@ -56,10 +56,10 @@ class BuildUtils {
         nofollow: true
       });
       
-      console.log('✅ Secondary site built successfully');
+      console.log(' Secondary site built successfully');
       return true;
     } catch (error) {
-      console.error('❌ Secondary site build failed:', error.message);
+      console.error(' Secondary site build failed:', error.message);
       return false;
     }
   }
@@ -79,10 +79,10 @@ class BuildUtils {
       // Validate final output
       await this.validateOutput(config);
       
-      console.log('✅ Final output composed successfully');
+      console.log(' Final output composed successfully');
       return true;
     } catch (error) {
-      console.error('❌ Output composition failed:', error.message);
+      console.error(' Output composition failed:', error.message);
       return false;
     }
   }
@@ -224,7 +224,7 @@ class BuildUtils {
       }
     }
     
-    console.log('✅ Output validation passed');
+    console.log(' Output validation passed');
   }
 
   async fileExists(filePath) {

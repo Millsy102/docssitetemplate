@@ -3,7 +3,7 @@
 const BuildUtils = require('./build-utils');
 
 async function buildDualSite() {
-  console.log('🚀 Building dual-site for GitHub Pages...');
+  console.log(' Building dual-site for GitHub Pages...');
   
   const buildUtils = new BuildUtils();
   
@@ -15,7 +15,7 @@ async function buildDualSite() {
     }
     
     // Step 2: Convert backend to static files
-    console.log('🔄 Converting backend to static files...');
+    console.log(' Converting backend to static files...');
     const convertBackend = require('./convert-backend-to-static');
     await convertBackend();
     
@@ -31,24 +31,24 @@ async function buildDualSite() {
       throw new Error('Output composition failed');
     }
     
-    console.log('🎉 Dual-site build completed successfully!');
+    console.log(' Dual-site build completed successfully!');
     console.log('');
-    console.log('📁 Build output:');
+    console.log(' Build output:');
     console.log('   Public site: dist/');
     console.log('   Admin site: dist/admin/');
     console.log('   Routing: dist/_redirects');
     console.log('');
-    console.log('🔐 Hidden login triggers:');
+    console.log(' Hidden login triggers:');
     console.log('   - Keyboard: Ctrl+Shift+L (3 times)');
     console.log('   - Click: Footer copyright text (3 times)');
     console.log('   - URL: ?debug=true (3 times)');
     console.log('');
-    console.log('🌐 URLs:');
+    console.log(' URLs:');
     console.log('   Public: https://millsy102.github.io/docssitetemplate/');
     console.log('   Admin: https://millsy102.github.io/docssitetemplate/admin/');
     
   } catch (error) {
-    console.error('💥 Dual-site build failed:', error.message);
+    console.error(' Dual-site build failed:', error.message);
     process.exit(1);
   }
 }

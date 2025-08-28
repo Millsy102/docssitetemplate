@@ -14,8 +14,8 @@ Before you begin, make sure you have:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Millsy102/docssitetemplate.git
-   cd docssitetemplate
+   git clone https://github.com/[your-username]/[your-repo-name].git
+   cd [your-repo-name]
    ```
 
 2. **Install dependencies** (if using MkDocs)
@@ -38,7 +38,7 @@ Edit `mkdocs.yml` to customize your site:
 site_name: Your Documentation Site
 site_description: Your site description
 site_author: Your Name
-site_url: https://millsy102.github.io/docssitetemplate/
+site_url: https://[your-username].github.io/[your-repo-name]/
 ```
 
 ### Navigation
@@ -131,7 +131,7 @@ Add custom CSS by creating `public/components/styles/custom.css`:
 4. Choose branch: `main` and folder: `/docs`
 5. Click Save
 
-Your site will be available at `https://millsy102.github.io/docssitetemplate/`
+Your site will be available at `https://[your-username].github.io/[your-repo-name]/`
 
 ### Custom Domain
 

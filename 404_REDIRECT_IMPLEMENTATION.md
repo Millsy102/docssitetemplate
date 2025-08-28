@@ -43,7 +43,7 @@ Located at `public/404.html`, this file provides:
 #### GitHub Pages
 - Uses the `404.html` file automatically
 - No additional configuration required
-- Base path: `/docssitetemplate/`
+- Base path: `/[your-repo-name]/`
 
 #### Vercel
 - Configuration in `vercel.json`

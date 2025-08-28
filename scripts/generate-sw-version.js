@@ -182,7 +182,7 @@ class ServiceWorkerVersionGenerator {
             const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
             return packageJson.name;
         } catch (error) {
-            return 'docssitetemplate';
+            return '[your-repo-name]';
         }
     }
 

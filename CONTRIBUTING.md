@@ -30,8 +30,8 @@ This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDU
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/Millsy102/docssitetemplate.git
-   cd docssitetemplate
+   git clone https://github.com/[your-username]/[your-repo-name].git
+   cd [your-repo-name]
    ```
 3. Install dependencies:
    ```bash

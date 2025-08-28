@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 async function convertExpressToStatic() {
-  console.log('🔄 Converting Express.js backend to static files...');
+  console.log(' Converting Express.js backend to static files...');
   
   const apiDir = 'dist/admin/api';
   
@@ -148,7 +148,7 @@ class StaticAuth {
   async login(credentials) {
     try {
       // Simulate API call to static auth.json
-      const response = await fetch('/docssitetemplate/admin/api/auth.json');
+      const response = await fetch('/[your-repo-name]/admin/api/auth.json');
       const authConfig = await response.json();
       
       // Client-side validation (in real implementation, this would be server-side)
@@ -210,7 +210,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/docssitetemplate/admin/api/users.json');
+    const response = await fetch('/[your-repo-name]/admin/api/users.json');
     return await response.json();
   }
   
@@ -219,7 +219,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/docssitetemplate/admin/api/files.json');
+    const response = await fetch('/[your-repo-name]/admin/api/files.json');
     return await response.json();
   }
   
@@ -228,7 +228,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/docssitetemplate/admin/api/system.json');
+    const response = await fetch('/[your-repo-name]/admin/api/system.json');
     return await response.json();
   }
 }
@@ -242,21 +242,21 @@ window.StaticAuth = StaticAuth;
       clientAuthModule
     );
     
-    console.log('✅ Backend conversion completed successfully!');
+    console.log(' Backend conversion completed successfully!');
     console.log('');
-    console.log('📁 Generated static API files:');
+    console.log(' Generated static API files:');
     console.log('   /admin/api/auth.json');
     console.log('   /admin/api/users.json');
     console.log('   /admin/api/files.json');
     console.log('   /admin/api/system.json');
     console.log('   /admin/api/auth-client.js');
     console.log('');
-    console.log('🔐 Client-side authentication ready');
+    console.log(' Client-side authentication ready');
     console.log('   Username: admin');
     console.log('   Password: secret');
     
   } catch (error) {
-    console.error('❌ Backend conversion failed:', error.message);
+    console.error(' Backend conversion failed:', error.message);
     throw error;
   }
 }

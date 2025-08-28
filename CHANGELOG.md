@@ -2,9 +2,9 @@
 
 ### Features
 
-* complete hidden website setup ([30888a0](https://github.com/Millsy102/docssitetemplate/commit/30888a0bbcd22c9b4402f8a01ba6fc5766f18a53))
-* implement docs faÃ§ade pattern ([ef4a03d](https://github.com/Millsy102/docssitetemplate/commit/ef4a03dfeb9c841783e10e1a87acc85116163bce))
-* implement docs faÃ§ade pattern ([2f51f1b](https://github.com/Millsy102/docssitetemplate/commit/2f51f1b5c58aa53feb3f8decc349f72c0c280081))
+* complete hidden website setup ([30888a0](https://github.com/[your-username]/[your-repo-name]/commit/30888a0bbcd22c9b4402f8a01ba6fc5766f18a53))
+* implement docs faÃ§ade pattern ([ef4a03d](https://github.com/[your-username]/[your-repo-name]/commit/ef4a03dfeb9c841783e10e1a87acc85116163bce))
+* implement docs faÃ§ade pattern ([2f51f1b](https://github.com/[your-username]/[your-repo-name]/commit/2f51f1b5c58aa53feb3f8decc349f72c0c280081))
 # Changelog
 
 All notable changes to this project will be documented in this file.

@@ -171,7 +171,7 @@ npm run deploy:vercel
 
 ##  File Structure
 \`\`\`
-docssitetemplate/
+[your-repo-name]/
 ├── dist/                    # Public site (deployed to GitHub Pages)
 ├── _internal/system/        # Hidden secret system
 ├── full-system-deploy/      # Complete deployment package
@@ -207,18 +207,18 @@ function createGitHubPagesConfig() {
         name: envConfig.siteTitle,
         short_name: "BeamFlow",
         description: envConfig.siteDescription,
-        start_url: "/docssitetemplate/",
+        start_url: "/[your-repo-name]/",
         display: "standalone",
         background_color: "#000000",
         theme_color: "#ff0000",
         icons: [
             {
-                src: "/docssitetemplate/favicon-16x16.png",
+                src: "/[your-repo-name]/favicon-16x16.png",
                 sizes: "16x16",
                 type: "image/png"
             },
             {
-                src: "/docssitetemplate/favicon-32x32.png",
+                src: "/[your-repo-name]/favicon-32x32.png",
                 sizes: "32x32",
                 type: "image/png"
             }

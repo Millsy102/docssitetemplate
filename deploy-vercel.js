@@ -14,10 +14,10 @@ if (!fs.existsSync('vercel.json')) {
 
 try {
     // Set environment variables for the deployment
-    process.env.VERCEL_PROJECT_NAME = 'docssitetemplate';
+    process.env.VERCEL_PROJECT_NAME = '[your-repo-name]';
     process.env.VERCEL_SCOPE = 'millsy102';
     
-    console.log(' Project name: docssitetemplate');
+    console.log(' Project name: [your-repo-name]');
     console.log(' Scope: Millsy\'s projects');
     
     // Run the deployment

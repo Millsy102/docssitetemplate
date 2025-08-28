@@ -152,7 +152,7 @@ For issues or questions, please refer to the main repository.
 function createDeploymentArchive(deployDir) {
     log('Creating deployment archive...');
     
-    const archiveName = `docssitetemplate-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}.zip`;
+    const archiveName = `[your-repo-name]-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}.zip`;
     
     // Note: This is a simplified version. In a real implementation,
     // you might want to use a library like 'archiver' for proper zip creation

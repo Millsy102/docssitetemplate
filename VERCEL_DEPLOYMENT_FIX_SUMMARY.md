@@ -43,7 +43,7 @@ Your builds were not being sent to Vercel due to several configuration issues:
 Added required environment variables to all build steps:
 - `SITE_TITLE=BeamFlow Documentation`
 - `SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin`
-- `SITE_URL=https://millsy102.github.io/docssitetemplate`
+- `SITE_URL=https://[your-username].github.io/[your-repo-name]`
 - `NODE_ENV=production`
 
 ##  Required Action
@@ -56,7 +56,7 @@ Added required environment variables to all build steps:
    - Copy the token (starts with `vercel_`)
 
 2. **Add to GitHub Secrets**:
-   - Go to: https://github.com/Millsy102/docssitetemplate/settings/secrets/actions
+   - Go to: https://github.com/[your-username]/[your-repo-name]/settings/secrets/actions
    - Click "New repository secret"
    - Name: `VERCEL_TOKEN`
    - Value: Paste your Vercel token
@@ -81,7 +81,7 @@ Added required environment variables to all build steps:
 After adding the Vercel token, you should see:
 -  Successful builds in GitHub Actions
 -  Automatic deployments to Vercel
--  Your site live at `docssitetemplate.vercel.app`
+-  Your site live at `[your-repo-name].vercel.app`
 -  No more "No Deployment" message in Vercel dashboard
 
 ##  Troubleshooting

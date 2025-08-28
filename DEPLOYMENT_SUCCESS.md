@@ -4,7 +4,7 @@
 
 ### 1. **Public Documentation Site - GitHub Pages**
 - **Status**:  Successfully Deployed
-- **URL**: https://millsy102.github.io/docssitetemplate
+- **URL**: https://[your-username].github.io/[your-repo-name]
 - **Branch**: gh-pages
 - **Last Deployed**: 2025-08-27 21:56:00 UTC
 
@@ -16,7 +16,7 @@
 
 ### 3. **Complete System Architecture**
 ```
-docssitetemplate/
+[your-repo-name]/
 ├──  Public Site (GitHub Pages)
 │   ├── dist/                    # Deployed to GitHub Pages
 │   ├── src/                     # React/TypeScript source
@@ -101,7 +101,7 @@ docssitetemplate/
 ##  Access Information
 
 ### Public Documentation
-- **URL**: https://millsy102.github.io/docssitetemplate
+- **URL**: https://[your-username].github.io/[your-repo-name]
 - **Access**: Open to everyone
 - **Content**: BeamFlow Unreal Engine plugin documentation
 
@@ -115,7 +115,7 @@ docssitetemplate/
 ##  Next Steps
 
 ### 1. Verify Public Site
-Visit: https://millsy102.github.io/docssitetemplate
+Visit: https://[your-username].github.io/[your-repo-name]
 
 ### 2. Deploy Secret System (Optional)
 ```bash

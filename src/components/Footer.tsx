@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-semibold text-lg">{t('footer.links.github')}</h4>
             <nav className="space-y-2">
               <a 
-                href="https://github.com/Millsy102/docssitetemplate" 
+                href="https://github.com/[your-username]/[your-repo-name]" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block text-gray-400 hover:text-red-400 transition-colors text-sm"
@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
                 {t('footer.links.github')}
               </a>
               <a 
-                href="https://github.com/Millsy102/docssitetemplate/issues" 
+                href="https://github.com/[your-username]/[your-repo-name]/issues" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block text-gray-400 hover:text-red-400 transition-colors text-sm"

@@ -68,11 +68,11 @@ describe('Sidebar Component', () => {
     const githubLink = screen.getByRole('link', { name: /github repository/i });
     const issuesLink = screen.getByRole('link', { name: /report issues/i });
     
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate');
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/[your-username]/[your-repo-name]');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
     
-    expect(issuesLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/issues');
+    expect(issuesLink).toHaveAttribute('href', 'https://github.com/[your-username]/[your-repo-name]/issues');
     expect(issuesLink).toHaveAttribute('target', '_blank');
     expect(issuesLink).toHaveAttribute('rel', 'noopener noreferrer');
   });

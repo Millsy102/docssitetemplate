@@ -1,10 +1,10 @@
 site_name: BeamFlow Documentation
 site_description: A modern documentation site template
 site_author: Documentation Template
-site_url: https://millsy102.github.io/docssitetemplate/
+site_url: https://[your-username].github.io/[your-repo-name]/
 
-repo_name: Millsy102/docssitetemplate
-repo_url: https://github.com/Millsy102/docssitetemplate
+repo_name: [your-username]/[your-repo-name]
+repo_url: https://github.com/[your-username]/[your-repo-name]
 edit_uri: edit/main/docs/
 
 theme:

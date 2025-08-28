@@ -26,9 +26,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Millsy102/docssitetemplate.git"
+    "url": "https://github.com/[your-username]/[your-repo-name].git"
   },
   "bugs": {
-    "url": "https://github.com/Millsy102/docssitetemplate/issues"
+    "url": "https://github.com/[your-username]/[your-repo-name]/issues"
   }
 }

@@ -80,10 +80,10 @@ function copyStaticFiles() {
                 const fullPath = path.join(dir, entry.name);
                 const relativePath = path.relative(docsDir, fullPath);
                 if (entry.isDirectory()) {
-                    log(`  ${prefix}📁 ${relativePath}/`);
+                    log(`  ${prefix} ${relativePath}/`);
                     listFiles(fullPath, prefix + '  ');
                 } else {
-                    log(`  ${prefix}📄 ${relativePath}`);
+                    log(`  ${prefix} ${relativePath}`);
                 }
             }
         };

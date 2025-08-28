@@ -24,7 +24,7 @@ Your builds are not being sent to Vercel because the required authentication tok
 ### 2. Add Token to GitHub Secrets
 
 1. **Go to Your Repository**:
-   - Visit: https://github.com/Millsy102/docssitetemplate
+   - Visit: https://github.com/[your-username]/[your-repo-name]
 
 2. **Navigate to Settings**:
    - Click "Settings" tab
@@ -111,5 +111,5 @@ If you continue having issues:
 
 After following these steps, you should see:
 -  Successful deployments in GitHub Actions
--  Your site live at `docssitetemplate.vercel.app`
+-  Your site live at `[your-repo-name].vercel.app`
 -  Automatic deployments on every push to main

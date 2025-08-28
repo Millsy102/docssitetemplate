@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 async function testLinks() {
-  console.log('🔗 Testing links in dual-site setup...');
+  console.log(' Testing links in dual-site setup...');
   
   const testUrls = [
     '/',
@@ -16,15 +16,15 @@ async function testLinks() {
     '/admin/api/system.json'
   ];
   
-  const baseUrl = 'https://millsy102.github.io/docssitetemplate';
+  const baseUrl = 'https://[your-username].github.io/[your-repo-name]';
   
-  console.log('📋 Test URLs:');
+  console.log(' Test URLs:');
   testUrls.forEach(url => {
     console.log(`   ${baseUrl}${url}`);
   });
   
   console.log('');
-  console.log('✅ Link test configuration ready');
+  console.log(' Link test configuration ready');
   console.log('   Run this after deployment to verify all URLs are accessible');
 }
 
