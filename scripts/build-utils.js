@@ -40,10 +40,10 @@ class BuildUtils {
       // Create secondary site output directory
       await fs.mkdir(secondaryOutput, { recursive: true });
       
-      // Copy admin public files (the built admin site)
-      const adminPublicDir = path.join(config.secondarySrc, 'public');
-      if (await this.fileExists(adminPublicDir)) {
-        await this.copyDirectory(adminPublicDir, secondaryOutput);
+      // Copy admin login files from docs/admin/ (the actual admin login page)
+      const adminDocsDir = 'docs/admin';
+      if (await this.fileExists(adminDocsDir)) {
+        await this.copyDirectory(adminDocsDir, secondaryOutput);
       }
       
       // Create API directory and copy static API files
