@@ -2,17 +2,6 @@
 // Converts all backend functionality to work with GitHub Pages
 
 (async () => {
-  const SUPABASE_URL = window.SUPABASE_URL || '___SUPABASE_URL___';
-  const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '___SUPABASE_ANON_KEY___';
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  // Re-check auth before booting the private UI
-  const { data } = await supabase.auth.getSession();
-  if (!data.session) { 
-    window.location.replace('/login/'); 
-    return; 
-  }
-
   try {
     console.log('🚀 Initializing BeamFlow Full System (GitHub Pages Edition)...');
     
@@ -52,7 +41,7 @@ async function initializeFullSystem() {
           <button class="nav-item" data-section="files">Files</button>
         </div>
         <div class="nav-user">
-          <span class="user-info">${supabase.auth.getUser()?.email || 'User'}</span>
+          <span class="user-info">Admin User</span>
           <button id="logout-btn" class="logout-btn">Logout</button>
         </div>
       </nav>
@@ -413,13 +402,9 @@ function initializeNavigation() {
 // Initialize logout
 function initializeLogout() {
   const logoutBtn = document.getElementById('logout-btn');
-  logoutBtn.addEventListener('click', async () => {
-    try {
-      await supabase.auth.signOut();
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
+  logoutBtn.addEventListener('click', () => {
+    // Redirect back to the main docs site
+    window.location.href = '/';
   });
 }
 
@@ -664,7 +649,7 @@ async function loadAdmin() {
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
       <div style="padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 0.5rem;">
-        <strong>Authentication:</strong> Supabase OAuth configured
+        <strong>Authentication:</strong> Direct access enabled
       </div>
       <div style="padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: 0.5rem;">
         <strong>Environment Variables:</strong> All API keys configured

@@ -45,6 +45,13 @@ jobs:
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
           echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
           
+      - name: Set OAuth credentials from secrets
+        run: |
+          echo "GOOGLE_OAUTH_CLIENT_ID=${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "GITHUB_OAUTH_CLIENT_ID=${{ secrets.GITHUB_OAUTH_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "GITHUB_OAUTH_CLIENT_SECRET=${{ secrets.GITHUB_OAUTH_CLIENT_SECRET }}" >> $GITHUB_ENV
+          
       - name: Set API keys and secrets from GitHub Secrets
         run: |
           # Analytics & Monitoring
@@ -129,6 +136,16 @@ jobs:
           # Core Supabase variables
           sed -i "s/___SUPABASE_URL___/$SUPABASE_URL/g" docs/env.js
           sed -i "s/___SUPABASE_ANON_KEY___/$SUPABASE_ANON_KEY/g" docs/env.js
+          
+          # OAuth variables
+          sed -i "s/___GOOGLE_OAUTH_CLIENT_ID___/$GOOGLE_OAUTH_CLIENT_ID/g" docs/env.js
+          sed -i "s/___GOOGLE_OAUTH_CLIENT_SECRET___/$GOOGLE_OAUTH_CLIENT_SECRET/g" docs/env.js
+          sed -i "s/___GITHUB_OAUTH_CLIENT_ID___/$GITHUB_OAUTH_CLIENT_ID/g" docs/env.js
+          sed -i "s/___GITHUB_OAUTH_CLIENT_SECRET___/$GITHUB_OAUTH_CLIENT_SECRET/g" docs/env.js
+          
+          # Admin credentials
+          sed -i "s/___ADMIN_USERNAME___/$ADMIN_USERNAME/g" docs/env.js
+          sed -i "s/___ADMIN_PASSWORD___/$ADMIN_PASSWORD/g" docs/env.js
           
       - name: Replace admin credentials in login page
         run: |

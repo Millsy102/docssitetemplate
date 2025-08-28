@@ -9,6 +9,31 @@
 window.SUPABASE_URL = '___SUPABASE_URL___';
 window.SUPABASE_ANON_KEY = '___SUPABASE_ANON_KEY___';
 
+// OAuth Configuration (Determines login method)
+window.OAUTH_CONFIG = {
+    // OAuth Provider Settings
+    google: {
+        clientId: '___GOOGLE_OAUTH_CLIENT_ID___',
+        clientSecret: '___GOOGLE_OAUTH_CLIENT_SECRET___',
+        enabled: false
+    },
+    github: {
+        clientId: '___GITHUB_OAUTH_CLIENT_ID___',
+        clientSecret: '___GITHUB_OAUTH_CLIENT_SECRET___',
+        enabled: false
+    },
+    
+    // OAuth Status (set to true when OAuth is properly configured)
+    isConfigured: false,
+    
+    // Redirect URLs
+    redirectUrl: 'https://millsy102.github.io/docssitetemplate/admin/',
+    
+    // Admin credentials (for initial setup)
+    adminUsername: '___ADMIN_USERNAME___',
+    adminPassword: '___ADMIN_PASSWORD___'
+};
+
 // GitHub Pages Configuration
 window.GITHUB_PAGES_CONFIG = {
     baseUrl: 'https://millsy102.github.io/docssitetemplate',

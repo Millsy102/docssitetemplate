@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeamFlow App</title>
-    <meta name="description" content="BeamFlow private workspace">
+    <title>BeamFlow - Full System</title>
+    <meta name="description" content="BeamFlow Complete System - All 29 Plugins and Services">
     
     <!-- Theme color -->
     <meta name="theme-color" content="#dc2626">
@@ -18,16 +18,30 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #000;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
             color: #e5e7eb;
             line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        }
+        
+        #app-root {
+            min-height: 100vh;
         }
         
         .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-content {
             text-align: center;
             max-width: 400px;
             padding: 2rem;
@@ -42,16 +56,17 @@
         }
         
         .logo-icon {
-            width: 2rem;
-            height: 2rem;
-            background-color: #dc2626;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             border-radius: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 1.125rem;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         .logo-text {
@@ -100,60 +115,29 @@
             margin-top: 1rem;
         }
         
-        .error h3 {
-            color: #fca5a5;
-            margin-bottom: 0.5rem;
-        }
-        
-        .error a {
-            color: #dc2626;
-            text-decoration: none;
-        }
-        
-        .error a:hover {
-            text-decoration: underline;
-        }
-        
-        #app-root {
+        .hidden {
             display: none;
-            width: 100%;
-            height: 100vh;
-        }
-        
-        #app-root.loaded {
-            display: block;
         }
     </style>
 </head>
 <body>
-    <div id="loading-screen" class="loading-container">
-        <div class="logo">
-            <div class="logo-icon">B</div>
-            <div>
-                <div class="logo-text">BeamFlow</div>
-                <div class="logo-subtitle">for Unreal Engine</div>
+    <!-- Loading Screen -->
+    <div class="loading-container" id="loading">
+        <div class="loading-content">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                <div>
+                    <div class="logo-text">BeamFlow</div>
+                    <div class="logo-subtitle">Full System Loading</div>
+                </div>
             </div>
-        </div>
-        <div class="spinner"></div>
-        <div class="loading-text">Loading your workspace...</div>
-        <div class="loading-subtext">Connecting to desktop agent</div>
-    </div>
-    
-    <div id="error-screen" class="loading-container" style="display: none;">
-        <div class="logo">
-            <div class="logo-icon">B</div>
-            <div>
-                <div class="logo-text">BeamFlow</div>
-                <div class="logo-subtitle">for Unreal Engine</div>
-            </div>
-        </div>
-        <div class="error">
-            <h3>Authentication Required</h3>
-            <p>You need to sign in to access this workspace.</p>
-            <a href="/login/">Sign in now</a>
+            <div class="spinner"></div>
+            <div class="loading-text">Initializing BeamFlow System...</div>
+            <div class="loading-subtext">Loading 29 plugins and services</div>
         </div>
     </div>
-    
+
+    <!-- Main App Container -->
     <div id="app-root"></div>
 
     <!-- Load Supabase -->
@@ -162,69 +146,29 @@
     <!-- Load environment configuration -->
     <script src="/env.js"></script>
     
+    <!-- Load the full BeamFlow system -->
+    <script src="/app/app.js"></script>
+    
     <script>
-        // Configuration
-        const SUPABASE_URL = window.SUPABASE_URL || '___SUPABASE_URL___';
-        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '___SUPABASE_ANON_KEY___';
-        
-        // DOM elements
-        const loadingScreen = document.getElementById('loading-screen');
-        const errorScreen = document.getElementById('error-screen');
-        const appRoot = document.getElementById('app-root');
-        
-        // Initialize Supabase client
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // Show error screen
-        function showError() {
-            loadingScreen.style.display = 'none';
-            errorScreen.style.display = 'block';
-        }
-        
-        // Show app
-        function showApp() {
-            loadingScreen.style.display = 'none';
-            errorScreen.style.display = 'none';
-            appRoot.classList.add('loaded');
-        }
-        
-        // Check authentication and load app
-        async function initializeApp() {
-            try {
-                // Check if user is authenticated
-                const { data } = await supabase.auth.getSession();
-                
-                if (!data.session) {
-                    // Not authenticated, redirect to login
-                    window.location.href = '/login/';
-                    return;
+        // Hide loading screen when system is ready
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                if (loading) {
+                    loading.classList.add('hidden');
                 }
-                
-                // User is authenticated, load the app
-                showApp();
-                
-                // Load the app script
-                const script = document.createElement('script');
-                script.src = '/app/app.js';
-                script.type = 'module';
-                document.body.appendChild(script);
-                
-            } catch (error) {
-                console.error('Authentication check failed:', error);
-                showError();
-            }
-        }
-        
-        // Listen for auth state changes
-        supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_OUT' || !session) {
-                // User signed out, redirect to login
-                window.location.href = '/login/';
-            }
+            }, 2000);
         });
         
-        // Initialize the app
-        initializeApp();
+        // Show loading screen if there's an error
+        window.addEventListener('error', () => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.classList.remove('hidden');
+                loading.querySelector('.loading-text').textContent = 'Error loading system. Please refresh.';
+                loading.querySelector('.loading-subtext').textContent = 'Check console for details';
+            }
+        });
     </script>
 </body>
 </html>
