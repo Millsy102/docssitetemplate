@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - BeamFlow Documentation</title>
+    <meta name="description" content="Getting Started for the BeamFlow Unreal Engine plugin">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Millsy102.github.io/docssitetemplate/">
+    <meta property="og:title" content="Getting Started - BeamFlow Documentation">
+    <meta property="og:description" content="Getting Started for the BeamFlow Unreal Engine plugin">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://Millsy102.github.io/docssitetemplate/">
+    <meta name="twitter:title" content="Getting Started - BeamFlow Documentation">
+    <meta name="twitter:description" content="Getting Started for the BeamFlow Unreal Engine plugin">
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#dc2626">
+    <meta name="msapplication-TileColor" content="#dc2626">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            background-color: #000;
+            border-bottom: 2px solid #dc2626;
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background-color: #dc2626;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+        }
+        
+        .logo-subtitle {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: #dc2626;
+        }
+        
+        main {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .content {
+            background-color: #111827;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content h1, .content h2, .content h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .content p {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+        
+        .content ul {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .content code {
+            background-color: #374151;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .content pre {
+            background-color: #374151;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+        }
+        
+        .btn-secondary {
+            background-color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        footer {
+            background-color: #000;
+            border-top: 2px solid #dc2626;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/docssitetemplate/" class="logo">
+                    <div class="logo-icon">B</div>
+                    <div>
+                        <div class="logo-text">BeamFlow</div>
+                        <div class="logo-subtitle">for Unreal Engine</div>
+                    </div>
+                </a>
+                <nav>
+                    <a href="/docssitetemplate/">Home</a>
+                    <a href="/docssitetemplate/installation.html">Installation</a>
+                    <a href="/docssitetemplate/getting-started.html">Getting Started</a>
+                    <a href="/docssitetemplate/contributing.html">Contributing</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content">
+                <h1>Getting Started</h1>
+
+<p>Welcome to the Documentation Site Template! This guide will help you get started with creating your own documentation site.</p>
+
+<h2>Prerequisites</h2>
+
+<p>Before you begin, make sure you have:</p>
+
+<ul><li>A GitHub account</li>
+<p><li>Basic knowledge of Markdown</li></p>
+<p><li>A text editor (VS Code, Sublime Text, etc.)</li></p>
+
+<h2>Installation</h2>
+
+<p>1. <strong>Clone the repository</strong></p>
+<p>   <pre><code>bash</p>
+<p>   git clone https://github.com/Millsy102/docssitetemplate.git</p>
+<p>   cd docssitetemplate</p>
+<p>   </code></pre></p>
+<p>2. <strong>Install dependencies</strong> (if using MkDocs)</p>
+<p>   <pre><code>bash</p>
+<p>   pip install mkdocs mkdocs-material</p>
+<p>   </code></pre></p>
+<p>3. <strong>Start the development server</strong></p>
+<p>   <pre><code>bash</p>
+<p>   mkdocs serve</p>
+<p>   </code></pre></p>
+
+<h2>Basic Configuration</h2>
+
+<h3>Site Information</h3>
+
+<p>Edit <code>mkdocs.yml</code> to customize your site:</p>
+
+<pre><code>yaml
+<p>site_name: Your Documentation Site</p>
+<p>site_description: Your site description</p>
+<p>site_author: Your Name</p>
+<p>site_url: https://Millsy102.github.io/docssitetemplate/</p>
+<p></code></pre></p>
+
+<h3>Navigation</h3>
+
+<p>Update the navigation in <code>mkdocs.yml</code>:</p>
+
+<pre><code>yaml
+<p>nav:</p>
+<p>  - Home: index.md</p>
+<p>  - Getting Started: getting-started.md</p>
+<p>  - Installation: installation.md</p>
+<p>  - Contributing: contributing.md</p>
+<p></code></pre></p>
+
+<h2>Adding Content</h2>
+
+<h3>Creating New Pages</h3>
+
+<p>1. Create a new <code>.md</code> file in the <code>docs/</code> folder</p>
+<p>2. Add front matter (optional):</p>
+<p>   <pre><code>markdown</p>
+<p>   ---</p>
+<p>   title: Your Page Title</p>
+<p>   description: Page description</p>
+<p>   ---</p>
+<p>   </code></pre></p>
+<p>3. Write your content using Markdown</p>
+<p>4. Add the page to navigation in <code>mkdocs.yml</code></p>
+
+<h3>Markdown Features</h3>
+
+<p>This template supports extended Markdown features:</p>
+<p><li><strong>Admonitions</strong></li></p>
+<p>  <pre><code>markdown</p>
+<p>  !!! note "Note"</p>
+<p>      This is a note.</p>
+<p>  </code></pre></p>
+<p><li><strong>Code blocks with syntax highlighting</strong></li></p>
+<p>  <pre><code>markdown</p>
+<p>  </code></pre>python</p>
+<p>  def hello_world():</p>
+<p>      print("Hello, World!")</p>
+<p>  <pre><code></p>
+<p>  </code></pre></p>
+<p><li><strong>Tables</strong></li></p>
+<p>  <pre><code>markdown</p>
+<p>  | Feature | Description |</p>
+<p>  |--------|-------------|</p>
+<p>  | Markdown | Full support |</p>
+<p>  | Search | Built-in |</p>
+<p>  | Responsive | Mobile-friendly |</p>
+<p>  </code></pre></p>
+
+<h2>Customization</h2>
+
+<h3>Theme</h3>
+
+<p>The template uses Material for MkDocs theme. You can customize it in <code>mkdocs.yml</code>:</p>
+
+<pre><code>yaml
+<p>theme:</p>
+<p>  name: material</p>
+<p>  palette:</p>
+<p>    - scheme: default</p>
+<p>      primary: indigo</p>
+<p>      accent: indigo</p>
+<p></code></pre></p>
+
+<h3>CSS Customization</h3>
+
+<p>Add custom CSS by creating <code>public/components/styles/custom.css</code>:</p>
+
+<pre><code>css
+<p>/<em> Your custom styles </em>/</p>
+<p>.custom-class {</p>
+<p>    color: #ff6b6b;</p>
+<p>}</p>
+<p></code></pre></p>
+
+<h2>Deployment</h2>
+
+<h3>GitHub Pages</h3>
+
+<p>1. Push your changes to GitHub</p>
+<p>2. Go to repository Settings > Pages</p>
+<p>3. Select source: "Deploy from a branch"</p>
+<p>4. Choose branch: <code>main</code> and folder: <code>/docs</code></p>
+<p>5. Click Save</p>
+<p>Your site will be available at <code>https://Millsy102.github.io/docssitetemplate/</code></p>
+
+<h3>Custom Domain</h3>
+
+<p>To use a custom domain:</p>
+<p>1. Add a <code>CNAME</code> file in the <code>docs/</code> folder with your domain</p>
+<p>2. Configure DNS settings with your domain provider</p>
+<p>3. Update <code>site_url</code> in <code>mkdocs.yml</code></p>
+
+<h2>Next Steps</h2>
+
+<p><li>Read the <a href="installation.md">Installation Guide</a> for detailed setup instructions</li></p>
+<p><li>Check out the <a href="contributing.md">Contributing Guide</a> to learn how to contribute</li></p>
+<p><li>Customize the theme and styling to match your brand</li></p>
+<p><li>Add more content and documentation</li></ul></p>
+
+<h2>Support</h2>
+
+<p>If you need help:</p>
+<p>1. Check the <a href="https://www.mkdocs.org/">MkDocs documentation</a></p>
+<p>2. Review the <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs documentation</a></p>
+<p>3. Create an issue in this repository</p>
+<p>---</p>
+<p><em>Happy documenting!</em></p>
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="/docssitetemplate/" class="btn">← Back to Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p style="color: #9ca3af;"><a href="/docssitetemplate/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/Millsy102/docssitetemplate" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://github.com/Millsy102/docssitetemplate/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+                    <a href="/docssitetemplate/contributing.html">Contributing</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

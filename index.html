@@ -8,13 +8,13 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://[your-username].github.io/[your-repo-name]/">
+    <meta property="og:url" content="https://Millsy102.github.io/docssitetemplate/">
     <meta property="og:title" content="BeamFlow Documentation">
     <meta property="og:description" content="Comprehensive documentation for the BeamFlow Unreal Engine plugin">
     
     <!-- Twitter Card data -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://[your-username].github.io/[your-repo-name]/">
+    <meta property="twitter:url" content="https://Millsy102.github.io/docssitetemplate/">
     <meta name="twitter:title" content="BeamFlow Documentation">
     <meta name="twitter:description" content="Comprehensive documentation for the BeamFlow Unreal Engine plugin">
 
@@ -317,13 +317,87 @@
                     <p style="color: #9ca3af;"><a href="/docssitetemplate/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="https://github.com/[your-username]/[your-repo-name]" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://github.com/[your-username]/[your-repo-name]/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+                    <a href="https://github.com/Millsy102/docssitetemplate" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://github.com/Millsy102/docssitetemplate/issues" target="_blank" rel="noopener noreferrer">Issues</a>
                     <a href="/contributing.html">Contributing</a>
                 </div>
             </div>
         </div>
     </footer>
+
+<script>
+// Hidden login mechanism
+(function() {
+  let loginAttempts = 0;
+  const maxAttempts = 3;
+  
+  // Keyboard shortcut: Ctrl+Shift+L
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/docssitetemplate/admin/';
+      }
+    }
+  });
+  
+  // Hidden click area (footer copyright)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('footer-copyright')) {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/docssitetemplate/admin/';
+      }
+    }
+  });
+  
+  // URL parameter: ?debug=true
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('debug') === 'true') {
+    loginAttempts++;
+    if (loginAttempts >= maxAttempts) {
+      window.location.href = '/docssitetemplate/admin/';
+    }
+  }
+})();
+</script>
+
+<script>
+// Hidden login mechanism
+(function() {
+  let loginAttempts = 0;
+  const maxAttempts = 3;
+  
+  // Keyboard shortcut: Ctrl+Shift+L
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/docssitetemplate/admin/';
+      }
+    }
+  });
+  
+  // Hidden click area (footer copyright)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('footer-copyright')) {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/docssitetemplate/admin/';
+      }
+    }
+  });
+  
+  // URL parameter: ?debug=true
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('debug') === 'true') {
+    loginAttempts++;
+    if (loginAttempts >= maxAttempts) {
+      window.location.href = '/docssitetemplate/admin/';
+    }
+  }
+})();
+</script>
 </body>
 </html>
 

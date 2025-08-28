@@ -1,6 +1,6 @@
 // Service Worker for PWA functionality
 
-const CACHE_NAME = '[your-repo-name]-v1.0.0';
+const CACHE_NAME = 'docssitetemplate-v1.0.0';
 const STATIC_CACHE = 'static-v1.0.0';
 const DYNAMIC_CACHE = 'dynamic-v1.0.0';
 const API_CACHE = 'api-v1.0.0';

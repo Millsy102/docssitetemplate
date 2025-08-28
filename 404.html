@@ -164,13 +164,18 @@
             '/installation',
             '/getting-started', 
             '/contributing',
-            '/admin/',
-            '/app/'
+            '/admin',
+            '/app'
         ];
         
         for (const route of knownRoutes) {
             if (path.startsWith(route)) {
-                window.location.replace(route + '/');
+                // For admin and app routes, ensure they end with /
+                if (route === '/admin' || route === '/app') {
+                    window.location.replace('/docssitetemplate' + route + '/');
+                } else {
+                    window.location.replace('/docssitetemplate' + route + '.html');
+                }
                 break;
             }
         }

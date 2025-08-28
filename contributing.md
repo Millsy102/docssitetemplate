@@ -26,8 +26,8 @@ We welcome feature suggestions! When suggesting a feature:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/[your-username]/[your-repo-name].git
-   cd [your-repo-name]
+   git clone https://github.com/Millsy102/docssitetemplate.git
+   cd docssitetemplate
    ```
 
 2. **Create a feature branch**

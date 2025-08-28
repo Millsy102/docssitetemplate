@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributing - BeamFlow Documentation</title>
+    <meta name="description" content="Contributing for the BeamFlow Unreal Engine plugin">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://Millsy102.github.io/docssitetemplate/">
+    <meta property="og:title" content="Contributing - BeamFlow Documentation">
+    <meta property="og:description" content="Contributing for the BeamFlow Unreal Engine plugin">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://Millsy102.github.io/docssitetemplate/">
+    <meta name="twitter:title" content="Contributing - BeamFlow Documentation">
+    <meta name="twitter:description" content="Contributing for the BeamFlow Unreal Engine plugin">
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#dc2626">
+    <meta name="msapplication-TileColor" content="#dc2626">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        header {
+            background-color: #000;
+            border-bottom: 2px solid #dc2626;
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background-color: #dc2626;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+        }
+        
+        .logo-subtitle {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: #dc2626;
+        }
+        
+        main {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .content {
+            background-color: #111827;
+            border: 1px solid #374151;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content h1, .content h2, .content h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+        
+        .content p {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+        
+        .content ul {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .content code {
+            background-color: #374151;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .content pre {
+            background-color: #374151;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+        }
+        
+        .btn-secondary {
+            background-color: #374151;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        footer {
+            background-color: #000;
+            border-top: 2px solid #dc2626;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: #dc2626;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/docssitetemplate/" class="logo">
+                    <div class="logo-icon">B</div>
+                    <div>
+                        <div class="logo-text">BeamFlow</div>
+                        <div class="logo-subtitle">for Unreal Engine</div>
+                    </div>
+                </a>
+                <nav>
+                    <a href="/docssitetemplate/">Home</a>
+                    <a href="/docssitetemplate/installation.html">Installation</a>
+                    <a href="/docssitetemplate/getting-started.html">Getting Started</a>
+                    <a href="/docssitetemplate/contributing.html">Contributing</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="content">
+                <h1>Contributing</h1>
+
+<p>Thank you for your interest in contributing to the Documentation Site Template! This guide will help you get started.</p>
+
+<h2>How to Contribute</h2>
+
+<h3>Reporting Issues</h3>
+
+<p>If you find a bug or have a suggestion:</p>
+<p>1. <strong>Check existing issues</strong> - Search the repository to see if the issue has already been reported</p>
+<p>2. <strong>Create a new issue</strong> - Use the appropriate issue template</p>
+<p>3. <strong>Provide details</strong> - Include steps to reproduce, expected behavior, and actual behavior</p>
+
+<h3>Suggesting Features</h3>
+
+<p>We welcome feature suggestions! When suggesting a feature:</p>
+<p>1. <strong>Describe the feature</strong> - What would you like to see?</p>
+<p>2. <strong>Explain the use case</strong> - How would this benefit users?</p>
+<p>3. <strong>Consider implementation</strong> - Is this feasible and maintainable?</p>
+
+<h3>Code Contributions</h3>
+
+<p>#### Setting Up Development</p>
+<p>1. <strong>Fork the repository</strong></p>
+<p>   <pre><code>bash</p>
+<p>   git clone https://github.com/Millsy102/docssitetemplate.git</p>
+<p>   cd docssitetemplate</p>
+<p>   </code></pre></p>
+<p>2. <strong>Create a feature branch</strong></p>
+<p>   <pre><code>bash</p>
+<p>   git checkout -b feature/your-feature-name</p>
+<p>   </code></pre></p>
+<p>3. <strong>Make your changes</strong></p>
+<p>   - Edit files in the <code>docs/</code> folder</p>
+<p>   - Update <code>mkdocs.yml</code> if needed</p>
+<p>   - Test your changes locally</p>
+<p>4. <strong>Test your changes</strong></p>
+<p>   <pre><code>bash</p>
+<p>   mkdocs serve</p>
+<p>   </code></pre></p>
+<p>5. <strong>Commit your changes</strong></p>
+<p>   <pre><code>bash</p>
+<p>   git add .</p>
+<p>   git commit -m "Add: brief description of your changes"</p>
+<p>   </code></pre></p>
+<p>6. <strong>Push and create a pull request</strong></p>
+<p>   <pre><code>bash</p>
+<p>   git push origin feature/your-feature-name</p>
+<p>   </code></pre></p>
+<p>#### Code Style Guidelines</p>
+
+<ul><li><strong>Markdown</strong>: Follow standard Markdown conventions</li>
+<p><li><strong>YAML</strong>: Use consistent indentation (2 spaces)</li></p>
+<p><li><strong>Commit messages</strong>: Use clear, descriptive messages</li></p>
+<p><li><strong>Documentation</strong>: Update relevant documentation when adding features</li></p>
+
+<h3>Documentation Contributions</h3>
+
+<p>#### Adding New Pages</p>
+<p>1. <strong>Create a new Markdown file</strong> in the <code>docs/</code> folder</p>
+<p>2. <strong>Add front matter</strong> (optional):</p>
+<p>   <pre><code>markdown</p>
+<p>   ---</p>
+<p>   title: Your Page Title</p>
+<p>   description: Brief description</p>
+<p>   ---</p>
+<p>   </code></pre></p>
+<p>3. <strong>Write clear, concise content</strong></p>
+<p>4. <strong>Add to navigation</strong> in <code>mkdocs.yml</code></p>
+<p>#### Improving Existing Content</p>
+<p><li>Fix typos and grammar errors</li></p>
+<p><li>Clarify unclear explanations</li></p>
+<p><li>Add missing information</li></p>
+<p><li>Update outdated content</li></p>
+
+<h3>Translation Contributions</h3>
+
+<p>If you'd like to translate the documentation:</p>
+<p>1. <strong>Create a new branch</strong> for your language</p>
+<p>2. <strong>Translate the content</strong> in the <code>docs/</code> folder</p>
+<p>3. <strong>Update navigation</strong> in <code>mkdocs.yml</code></p>
+<p>4. <strong>Test the translation</strong> locally</p>
+
+<h2>Development Guidelines</h2>
+
+<h3>Local Development</h3>
+
+<p>1. <strong>Install dependencies</strong></p>
+<p>   <pre><code>bash</p>
+<p>   pip install mkdocs mkdocs-material</p>
+<p>   </code></pre></p>
+<p>2. <strong>Start development server</strong></p>
+<p>   <pre><code>bash</p>
+<p>   mkdocs serve</p>
+<p>   </code></pre></p>
+<p>3. <strong>Make changes</strong> and see them live at <code>http://127.0.0.1:8000</code></p>
+
+<h3>Testing</h3>
+
+<p>Before submitting a pull request:</p>
+<p>1. <strong>Test locally</strong> - Ensure the site builds and runs correctly</p>
+<p>2. <strong>Check links</strong> - Verify all internal and external links work</p>
+<p>3. <strong>Validate Markdown</strong> - Use a Markdown linter if available</p>
+<p>4. <strong>Test responsiveness</strong> - Check the site on different screen sizes</p>
+
+<h3>Pull Request Process</h3>
+
+<p>1. <strong>Create a descriptive title</strong> - Summarize your changes</p>
+<p>2. <strong>Write a detailed description</strong> - Explain what you changed and why</p>
+<p>3. <strong>Reference issues</strong> - Link to any related issues</p>
+<p>4. <strong>Include screenshots</strong> - If your changes affect the visual appearance</p>
+<p>5. <strong>Test thoroughly</strong> - Ensure everything works as expected</p>
+
+<h2>Community Guidelines</h2>
+
+<h3>Be Respectful</h3>
+
+<p><li>Treat all contributors with respect</li></p>
+<p><li>Use inclusive language</li></p>
+<p><li>Be patient with newcomers</li></p>
+<p><li>Provide constructive feedback</li></p>
+
+<h3>Communication</h3>
+
+<p><li>Use clear, concise language</li></p>
+<p><li>Ask questions when you're unsure</li></p>
+<p><li>Help others when you can</li></p>
+<p><li>Stay on topic in discussions</li></p>
+
+<h3>Quality Standards</h3>
+
+<p><li>Write clear, well-documented code</li></p>
+<p><li>Follow established conventions</li></p>
+<p><li>Test your changes thoroughly</li></p>
+<p><li>Consider the impact on other users</li></p>
+
+<h2>Recognition</h2>
+
+<p>Contributors will be recognized in:</p>
+<p><li>The project README</li></p>
+<p><li>Release notes</li></p>
+<p><li>Contributor statistics</li></ul></p>
+
+<h2>Getting Help</h2>
+
+<p>If you need help contributing:</p>
+<p>1. <strong>Check the documentation</strong> - Start with the getting started guide</p>
+<p>2. <strong>Search existing issues</strong> - Your question might already be answered</p>
+<p>3. <strong>Create an issue</strong> - Ask for help with specific problems</p>
+<p>4. <strong>Join discussions</strong> - Participate in community conversations</p>
+
+<h2>License</h2>
+
+<p>By contributing to this project, you agree that your contributions will be licensed under the same license as the project.</p>
+<p>---</p>
+<p><em>Thank you for contributing to the Documentation Site Template!</em></p>
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="/docssitetemplate/" class="btn">← Back to Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p style="color: #9ca3af;"><a href="/docssitetemplate/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com/Millsy102/docssitetemplate" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://github.com/Millsy102/docssitetemplate/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+                    <a href="/docssitetemplate/contributing.html">Contributing</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
