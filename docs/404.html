@@ -152,7 +152,7 @@
         <div class="links">
             <a href="/" class="btn">Go Home</a>
         </div>
-        <p style="color: #9ca3af; margin-top: 1rem;"><a href="/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
+        <p style="color: #9ca3af; margin-top: 1rem;"><a href="/docssitetemplate/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
     </div>
     
     <script>
@@ -164,13 +164,18 @@
             '/installation',
             '/getting-started', 
             '/contributing',
-            '/admin/',
-            '/app/'
+            '/admin',
+            '/app'
         ];
         
         for (const route of knownRoutes) {
             if (path.startsWith(route)) {
-                window.location.replace(route + '/');
+                // For admin and app routes, ensure they end with /
+                if (route === '/admin' || route === '/app') {
+                    window.location.replace('/docssitetemplate' + route + '/');
+                } else {
+                    window.location.replace('/docssitetemplate' + route + '.html');
+                }
                 break;
             }
         }
