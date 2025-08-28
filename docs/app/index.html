@@ -150,6 +150,23 @@
     <script src="/app/app.js"></script>
     
     <script>
+        // Debug logging
+        console.log('🔍 App page loaded, checking system initialization...');
+        
+        // Check if app.js loaded successfully
+        setTimeout(() => {
+            if (typeof window.initializeFullSystem === 'function') {
+                console.log('✅ App.js loaded successfully');
+            } else {
+                console.error('❌ App.js failed to load or initialize');
+                const loading = document.getElementById('loading');
+                if (loading) {
+                    loading.querySelector('.loading-text').textContent = 'Failed to load BeamFlow system';
+                    loading.querySelector('.loading-subtext').textContent = 'Please check console for errors';
+                }
+            }
+        }, 1000);
+        
         // Hide loading screen when system is ready
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -161,7 +178,8 @@
         });
         
         // Show loading screen if there's an error
-        window.addEventListener('error', () => {
+        window.addEventListener('error', (event) => {
+            console.error('❌ Error loading system:', event.error);
             const loading = document.getElementById('loading');
             if (loading) {
                 loading.classList.remove('hidden');
