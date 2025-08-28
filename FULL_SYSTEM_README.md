@@ -10,7 +10,7 @@ This project contains **TWO COMPLETE SYSTEMS**:
 ##  System Architecture
 
 ```
-[your-repo-name]/
+docssitetemplate/
 ├──  Public Site (Facade)
 │   ├── src/                    # React frontend
 │   ├── dist/                   # Built public site

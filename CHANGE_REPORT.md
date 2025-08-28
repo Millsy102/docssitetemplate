@@ -65,7 +65,7 @@ You need to configure Supabase OAuth and replace these placeholders:
 1. Create a Supabase project
 2. Enable OAuth providers (Google, GitHub)
 3. Configure redirect URLs:
-   - `https://[your-username].github.io/[your-repo-name]/login/`
+   - `https://Millsy102.github.io/docssitetemplate/login/`
    - `http://localhost:3000/login/` (for development)
 
 ## Integration Points
@@ -179,7 +179,7 @@ To revert this integration:
 ## Testing Instructions
 
 ### Manual Testing
-1. **Public Docs**: Visit `https://[your-username].github.io/[your-repo-name]/`
+1. **Public Docs**: Visit `https://Millsy102.github.io/docssitetemplate/`
 2. **Login Flow**: Click Login → OAuth → Hidden Site
 3. **Desktop Agent**: Start agent and test UE commands
 4. **Auth Persistence**: Refresh page, should stay logged in

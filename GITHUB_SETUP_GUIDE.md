@@ -1,7 +1,7 @@
 # Complete GitHub Setup Guide
 
 ## Current Issue
-Your Git is configured with the wrong GitHub account. It's currently set to `[old-username]` but your actual GitHub account is `[your-username]`.
+Your Git is configured with the wrong GitHub account. It's currently set to `[old-username]` but your actual GitHub account is `Millsy102`.
 
 ## Step-by-Step Fix
 
@@ -9,7 +9,7 @@ Your Git is configured with the wrong GitHub account. It's currently set to `[ol
 
 ```bash
 # Set your correct GitHub username
-git config --global user.name "[your-username]"
+git config --global user.name "Millsy102"
 
 # Set your GitHub email (you'll need to provide this)
 git config --global user.email "your-email@example.com"
@@ -22,7 +22,7 @@ git config --global user.email
 ### 2. Set Up GitHub Authentication
 
 #### Option A: Personal Access Token (Recommended)
-1. Go to GitHub.com and sign in as `[your-username]`
+1. Go to GitHub.com and sign in as `Millsy102`
 2. Click your profile picture → Settings
 3. Scroll down to "Developer settings" (bottom left)
 4. Click "Personal access tokens" → "Tokens (classic)"
@@ -59,10 +59,10 @@ clip < ~/.ssh/id_ed25519.pub
 git remote -v
 
 # Update to use your correct account
-git remote set-url origin https://github.com/[your-username]/[your-repo-name].git
+git remote set-url origin https://github.com/Millsy102/docssitetemplate.git
 
 # Or for SSH (if you set up SSH keys):
-git remote set-url origin git@github.com:[your-username]/[your-repo-name].git
+git remote set-url origin git@github.com:Millsy102/docssitetemplate.git
 ```
 
 ### 4. Test Authentication
@@ -80,23 +80,23 @@ ssh -T git@github.com
 Create a `.env` file in your project root:
 ```bash
 # .env
-GH_USERNAME=[your-username]
+GH_USERNAME=Millsy102
 GH_TOKEN=your_personal_access_token_here
-GH_REPO=[your-username]/[your-repo-name]
+GH_REPO=Millsy102/docssitetemplate
 ```
 
 ### 6. Verify GitHub Pages Settings
 
-1. Go to your repository: https://github.com/[your-username]/[your-repo-name]
+1. Go to your repository: https://github.com/Millsy102/docssitetemplate
 2. Click "Settings" tab
 3. Scroll down to "Pages" in the left sidebar
 4. Under "Source", make sure it's set to "GitHub Actions"
-5. Your site should be available at: https://[your-username].github.io/[your-repo-name]/
+5. Your site should be available at: https://Millsy102.github.io/docssitetemplate/
 
 ## Troubleshooting
 
 ### If you get "Authentication failed":
-1. Make sure you're using the correct username (`[your-username]`)
+1. Make sure you're using the correct username (`Millsy102`)
 2. If using HTTPS, use your Personal Access Token as password
 3. If using SSH, make sure your SSH key is added to GitHub
 
@@ -112,10 +112,10 @@ GH_REPO=[your-username]/[your-repo-name]
 
 ## Your Repository Status
 
- **Repository exists**: https://github.com/[your-username]/[your-repo-name]  
+ **Repository exists**: https://github.com/Millsy102/docssitetemplate  
  **Public repository**: GitHub Pages enabled  
  **GitHub Actions**: Configured for deployment  
- **Site URL**: https://[your-username].github.io/[your-repo-name]/  
+ **Site URL**: https://Millsy102.github.io/docssitetemplate/  
 
 ## Next Steps
 

@@ -89,7 +89,7 @@ const Installation: React.FC = () => {
               <h3>Getting Help</h3>
               <p className="text-gray-300">
                 If you encounter issues, please check our{' '}
-                <a href="https://github.com/[your-username]/[your-repo-name]/issues" className="text-red-400 hover:text-red-300">
+                <a href="https://github.com/Millsy102/docssitetemplate/issues" className="text-red-400 hover:text-red-300">
                   GitHub Issues
                 </a>{' '}
                 or create a new one with detailed information about your setup.

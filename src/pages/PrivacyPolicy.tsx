@@ -240,7 +240,7 @@ const PrivacyPolicy: React.FC = () => {
                 <br />
                 <strong>GitHub Issues:</strong>{' '}
                 <a
-                  href='https://github.com/[your-username]/[your-repo-name]/issues'
+                  href='https://github.com/Millsy102/docssitetemplate/issues'
                   className='text-red-400 hover:text-red-300 underline'
                 >
                   Create an issue

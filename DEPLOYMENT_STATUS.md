@@ -2,7 +2,7 @@
 
 ##  Public Site (GitHub Pages)
 - **Status**: LIVE
-- **URL**: https://[your-username].github.io/[your-repo-name]/
+- **URL**: https://Millsy102.github.io/docssitetemplate/
 - **Last Deployed**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
 
 ##  Secret System (Vercel)

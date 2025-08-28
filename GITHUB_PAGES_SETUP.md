@@ -16,7 +16,7 @@ This guide will help you set up GitHub Pages to host your website as a secret/pr
 - Your site will be built and deployed automatically on every push to the `main` branch
 
 ### 3. Access Your Site
-- Your site will be available at: `https://[your-username].github.io/[repository-name]/`
+- Your site will be available at: `https://Millsy102.github.io/[repository-name]/`
 - For example: `https://yourusername.github.io/your-repo-name/`
 
 ##  Making Your Site "Secret"

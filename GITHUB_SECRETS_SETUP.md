@@ -8,7 +8,7 @@ This guide shows you how to set up GitHub Secrets to manage your admin credentia
 
 ### Step 1: Access GitHub Repository Settings
 
-1. Go to your repository: https://github.com/[your-username]/[your-repo-name]
+1. Go to your repository: https://github.com/Millsy102/docssitetemplate
 2. Click the **"Settings"** tab
 3. In the left sidebar, click **"Secrets and variables"**
 4. Click **"Actions"**

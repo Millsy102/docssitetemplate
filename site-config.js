@@ -14,7 +14,7 @@ const siteConfig = {
   // GitHub configuration - from environment variables
   githubUsername: envConfig.githubUsername,
   repositoryName: envConfig.repositoryName,
-  twitterHandle: process.env.TWITTER_HANDLE || "@[your-username]",
+  twitterHandle: process.env.TWITTER_HANDLE || "@Millsy102",
   
   // Authentication - from environment variables
   auth: {
@@ -32,8 +32,8 @@ const siteConfig = {
   // Social Media
   social: {
     twitter: {
-      creator: process.env.TWITTER_HANDLE || "@[your-username]",
-      site: process.env.TWITTER_HANDLE || "@[your-username]"
+      creator: process.env.TWITTER_HANDLE || "@Millsy102",
+      site: process.env.TWITTER_HANDLE || "@Millsy102"
     },
     github: process.env.GITHUB_URL || `https://github.com/${envConfig.githubUsername}`
   },

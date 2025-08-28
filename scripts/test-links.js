@@ -16,7 +16,7 @@ async function testLinks() {
     '/admin/api/system.json'
   ];
   
-  const baseUrl = 'https://[your-username].github.io/[your-repo-name]';
+  const baseUrl = 'https://Millsy102.github.io/docssitetemplate';
   
   console.log(' Test URLs:');
   testUrls.forEach(url => {

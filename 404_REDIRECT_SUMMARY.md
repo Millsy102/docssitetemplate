@@ -19,7 +19,7 @@ The 404 redirect support for static hosting has been successfully implemented wi
 
 #### GitHub Pages
 - Uses `404.html` automatically (no additional config needed)
-- Base path: `/[your-repo-name]/`
+- Base path: `/docssitetemplate/`
 
 #### Vercel
 - **File**: `vercel.json`

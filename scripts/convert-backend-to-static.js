@@ -148,7 +148,7 @@ class StaticAuth {
   async login(credentials) {
     try {
       // Simulate API call to static auth.json
-      const response = await fetch('/[your-repo-name]/admin/api/auth.json');
+      const response = await fetch('/docssitetemplate/admin/api/auth.json');
       const authConfig = await response.json();
       
       // Client-side validation (in real implementation, this would be server-side)
@@ -210,7 +210,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/[your-repo-name]/admin/api/users.json');
+    const response = await fetch('/docssitetemplate/admin/api/users.json');
     return await response.json();
   }
   
@@ -219,7 +219,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/[your-repo-name]/admin/api/files.json');
+    const response = await fetch('/docssitetemplate/admin/api/files.json');
     return await response.json();
   }
   
@@ -228,7 +228,7 @@ class StaticAuth {
       throw new Error('Authentication required');
     }
     
-    const response = await fetch('/[your-repo-name]/admin/api/system.json');
+    const response = await fetch('/docssitetemplate/admin/api/system.json');
     return await response.json();
   }
 }

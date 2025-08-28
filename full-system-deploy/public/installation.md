@@ -16,8 +16,8 @@ This guide provides detailed instructions for installing and setting up the Docu
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/[your-username]/[your-repo-name].git
-   cd [your-repo-name]
+   git clone https://github.com/Millsy102/docssitetemplate.git
+   cd docssitetemplate
    ```
 
 2. **Install Python dependencies**
@@ -42,7 +42,7 @@ This guide provides detailed instructions for installing and setting up the Docu
 2. **Install dependencies**
 
    ```bash
-   cd [your-repo-name]
+   cd docssitetemplate
    pip install mkdocs mkdocs-material
    ```
 
@@ -57,14 +57,14 @@ This guide provides detailed instructions for installing and setting up the Docu
    site_name: Your Documentation Site
    site_description: Your site description
    site_author: Your Name
-   site_url: https://[your-username].github.io/[your-repo-name]/
+   site_url: https://Millsy102.github.io/docssitetemplate/
    ```
 
 2. **Update repository information**
 
    ```yaml
-   repo_name: [your-username]/[your-repo-name]
-   repo_url: https://github.com/[your-username]/[your-repo-name]
+   repo_name: Millsy102/docssitetemplate
+   repo_url: https://github.com/Millsy102/docssitetemplate
    edit_uri: edit/main/docs/
    ```
 
@@ -212,7 +212,7 @@ nav:
    - Click "Save"
 
 3. **Your site is live**
-   Your documentation will be available at `https://[your-username].github.io/[your-repo-name]/`
+   Your documentation will be available at `https://Millsy102.github.io/docssitetemplate/`
 
 ### Netlify
 

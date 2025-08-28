@@ -109,7 +109,7 @@ describe('Installation Page', () => {
     
     const githubLink = screen.getByRole('link', { name: /github issues/i });
     expect(githubLink).toBeInTheDocument();
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/[your-username]/[your-repo-name]/issues');
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/issues');
     expect(githubLink).toHaveClass('text-red-400', 'hover:text-red-300');
   });
 

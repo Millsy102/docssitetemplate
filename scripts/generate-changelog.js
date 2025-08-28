@@ -152,7 +152,7 @@ class ChangelogGenerator {
         content += `${typeLabels[type] || '### ' + type.charAt(0).toUpperCase() + type.slice(1)}\n`;
         commits.forEach(commit => {
           const scope = commit.scope ? `**${commit.scope}:** ` : '';
-          content += `- ${scope}${commit.subject} ([${commit.hash.substring(0, 7)}](https://github.com/[your-username]/[your-repo-name]/commit/${commit.hash}))\n`;
+          content += `- ${scope}${commit.subject} ([${commit.hash.substring(0, 7)}](https://github.com/Millsy102/docssitetemplate/commit/${commit.hash}))\n`;
         });
         content += '\n';
       }

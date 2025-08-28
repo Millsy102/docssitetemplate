@@ -24,7 +24,7 @@
 - `GH_CALLBACK_URL` 
 
 ### �� Site URL:
-https://[your-username].github.io/[your-repo-name]/
+https://Millsy102.github.io/docssitetemplate/
 
 ###  Login Credentials:
  **SECURITY WARNING**: Use environment variables for production!

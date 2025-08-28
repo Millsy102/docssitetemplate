@@ -87,7 +87,7 @@ describe('Home Page', () => {
     
     const reportIssuesLink = screen.getByRole('link', { name: /report issues/i });
     expect(reportIssuesLink).toBeInTheDocument();
-    expect(reportIssuesLink).toHaveAttribute('href', 'https://github.com/[your-username]/[your-repo-name]/issues');
+    expect(reportIssuesLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/issues');
     expect(reportIssuesLink).toHaveAttribute('target', '_blank');
     expect(reportIssuesLink).toHaveAttribute('rel', 'noopener noreferrer');
     expect(screen.getByText(' Report Issues')).toBeInTheDocument();
@@ -99,7 +99,7 @@ describe('Home Page', () => {
     
     const communityLink = screen.getByRole('link', { name: /community/i });
     expect(communityLink).toBeInTheDocument();
-    expect(communityLink).toHaveAttribute('href', 'https://github.com/[your-username]/[your-repo-name]/discussions');
+    expect(communityLink).toHaveAttribute('href', 'https://github.com/Millsy102/docssitetemplate/discussions');
     expect(communityLink).toHaveAttribute('target', '_blank');
     expect(communityLink).toHaveAttribute('rel', 'noopener noreferrer');
     expect(screen.getByText(' Community')).toBeInTheDocument();

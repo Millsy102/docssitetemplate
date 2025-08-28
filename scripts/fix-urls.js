@@ -3,7 +3,7 @@
 /**
  * URL Fix Script
  * Fixes all hardcoded URLs in the codebase to use dynamic configuration
- * Replaces [your-repo-name] and [your-username] references with proper placeholders
+ * Replaces docssitetemplate and Millsy102 references with proper placeholders
  */
 
 const fs = require('fs').promises;
@@ -13,36 +13,36 @@ const { execSync } = require('child_process');
 // Configuration for URL replacements
 const URL_REPLACEMENTS = {
   // Hardcoded URLs to replace
-  'https://[your-username].github.io/[your-repo-name]': 'https://[your-username].github.io/[your-repo-name]',
-  'https://[your-username].github.io/[your-repo-name]/': 'https://[your-username].github.io/[your-repo-name]/',
-  'https://[your-username].github.io/[your-repo-name]': 'https://[your-username].github.io/[your-repo-name]',
-  'https://[your-username].github.io/[your-repo-name]/': 'https://[your-username].github.io/[your-repo-name]/',
+  'https://Millsy102.github.io/docssitetemplate': 'https://Millsy102.github.io/docssitetemplate',
+  'https://Millsy102.github.io/docssitetemplate/': 'https://Millsy102.github.io/docssitetemplate/',
+  'https://Millsy102.github.io/docssitetemplate': 'https://Millsy102.github.io/docssitetemplate',
+  'https://Millsy102.github.io/docssitetemplate/': 'https://Millsy102.github.io/docssitetemplate/',
   
   // GitHub repository URLs
-  'https://github.com/[your-username]/[your-repo-name]': 'https://github.com/[your-username]/[your-repo-name]',
-  'https://github.com/[your-username]/[your-repo-name].git': 'https://github.com/[your-username]/[your-repo-name].git',
-  'https://github.com/[your-username]/[your-repo-name]/issues': 'https://github.com/[your-username]/[your-repo-name]/issues',
-  'https://github.com/[your-username]/[your-repo-name]/discussions': 'https://github.com/[your-username]/[your-repo-name]/discussions',
+  'https://github.com/Millsy102/docssitetemplate': 'https://github.com/Millsy102/docssitetemplate',
+  'https://github.com/Millsy102/docssitetemplate.git': 'https://github.com/Millsy102/docssitetemplate.git',
+  'https://github.com/Millsy102/docssitetemplate/issues': 'https://github.com/Millsy102/docssitetemplate/issues',
+  'https://github.com/Millsy102/docssitetemplate/discussions': 'https://github.com/Millsy102/docssitetemplate/discussions',
   
   // User references
-  '[your-username]': '[your-username]',
+  'Millsy102': 'Millsy102',
   '[old-username]': '[old-username]',
   '@yourusername': '@yourusername',
-  '@[your-username]': '@yourusername',
+  '@Millsy102': '@yourusername',
   
   // Repository references
-  '[your-repo-name]': '[your-repo-name]',
-  '[your-username]/[your-repo-name]': '[your-username]/[your-repo-name]',
+  'docssitetemplate': 'docssitetemplate',
+  'Millsy102/docssitetemplate': 'Millsy102/docssitetemplate',
   
   // Base paths
-  '/[your-repo-name]/': '/[your-repo-name]/',
-  '[your-repo-name]/': '[your-repo-name]/',
+  '/docssitetemplate/': '/docssitetemplate/',
+  'docssitetemplate/': 'docssitetemplate/',
   
   // Cache names
-  '[your-repo-name]-v1.0.0': '[your-repo-name]-v1.0.0',
+  'docssitetemplate-v1.0.0': 'docssitetemplate-v1.0.0',
   
   // Project names
-  '[your-repo-name]': '[your-repo-name]'
+  'docssitetemplate': 'docssitetemplate'
 };
 
 // Files to exclude from processing
@@ -156,10 +156,10 @@ async function updateEnvironmentConfig() {
     
     // Update hardcoded fallback values
     const updates = {
-      "'https://[your-username].github.io/[your-repo-name]'": "'https://[your-username].github.io/[your-repo-name]'",
-      "'[your-username]'": "'[your-username]'",
-      "'[your-repo-name]'": "'[your-repo-name]'",
-      "'@[your-username]'": "'@yourusername'",
+      "'https://Millsy102.github.io/docssitetemplate'": "'https://Millsy102.github.io/docssitetemplate'",
+      "'Millsy102'": "'Millsy102'",
+      "'docssitetemplate'": "'docssitetemplate'",
+      "'@Millsy102'": "'@yourusername'",
       "'your-super-secret-jwt-key-change-this-in-production'": "'your-super-secret-jwt-key-change-this-in-production'",
       "'your-secure-admin-password'": "'your-secure-admin-password'",
       "'your-admin-api-key'": "'your-admin-api-key'"
@@ -202,8 +202,8 @@ async function updatePackageJson() {
     // Update repository URLs
     if (packageJson.repository && packageJson.repository.url) {
       packageJson.repository.url = packageJson.repository.url.replace(
-        'https://github.com/[your-username]/[your-repo-name].git',
-        'https://github.com/[your-username]/[your-repo-name].git'
+        'https://github.com/Millsy102/docssitetemplate.git',
+        'https://github.com/Millsy102/docssitetemplate.git'
       );
       changes++;
     }
@@ -211,8 +211,8 @@ async function updatePackageJson() {
     // Update bugs URL
     if (packageJson.bugs && packageJson.bugs.url) {
       packageJson.bugs.url = packageJson.bugs.url.replace(
-        'https://github.com/[your-username]/[your-repo-name]/issues',
-        'https://github.com/[your-username]/[your-repo-name]/issues'
+        'https://github.com/Millsy102/docssitetemplate/issues',
+        'https://github.com/Millsy102/docssitetemplate/issues'
       );
       changes++;
     }
@@ -220,15 +220,15 @@ async function updatePackageJson() {
     // Update homepage
     if (packageJson.homepage) {
       packageJson.homepage = packageJson.homepage.replace(
-        'https://[your-username].github.io/[your-repo-name]/',
-        'https://[your-username].github.io/[your-repo-name]/'
+        'https://Millsy102.github.io/docssitetemplate/',
+        'https://Millsy102.github.io/docssitetemplate/'
       );
       changes++;
     }
     
     // Update name (keep as template name)
-    if (packageJson.name === '[your-repo-name]') {
-      packageJson.name = '[your-repo-name]';
+    if (packageJson.name === 'docssitetemplate') {
+      packageJson.name = 'docssitetemplate';
       changes++;
     }
     
@@ -254,11 +254,11 @@ async function updateViteConfig() {
     let content = await fs.readFile(viteConfigPath, 'utf8');
     
     // Update base path
-    const basePathRegex = /base:\s*process\.env\.NODE_ENV\s*===\s*'production'\s*\?\s*'\/[your-repo-name]\/'\s*:\s*'\/'/;
+    const basePathRegex = /base:\s*process\.env\.NODE_ENV\s*===\s*'production'\s*\?\s*'\/docssitetemplate\/'\s*:\s*'\/'/;
     if (basePathRegex.test(content)) {
       content = content.replace(
         basePathRegex,
-        "base: process.env.NODE_ENV === 'production' ? '/[your-repo-name]/' : '/'"
+        "base: process.env.NODE_ENV === 'production' ? '/docssitetemplate/' : '/'"
       );
       console.log(` Updated Vite base path configuration`);
     }

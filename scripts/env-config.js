@@ -35,7 +35,7 @@ class EnvironmentConfig {
     }
 
     get siteUrl() {
-        return process.env.SITE_URL || 'https://[your-username].github.io/[your-repo-name]';
+        return process.env.SITE_URL || 'https://Millsy102.github.io/docssitetemplate';
     }
 
     get siteAuthor() {
@@ -58,11 +58,11 @@ class EnvironmentConfig {
 
     // GitHub Configuration
     get githubUsername() {
-        return process.env.GITHUB_USERNAME || '[your-username]';
+        return process.env.GITHUB_USERNAME || 'Millsy102';
     }
 
     get repositoryName() {
-        return process.env.REPOSITORY_NAME || '[your-repo-name]';
+        return process.env.REPOSITORY_NAME || 'docssitetemplate';
     }
 
     get githubPagesUrl() {
@@ -195,7 +195,7 @@ class EnvironmentConfig {
  GitHub Secrets Setup Instructions:
 ====================================
 
-1. Go to your GitHub repository: https://github.com/[your-username]/[your-repo-name]
+1. Go to your GitHub repository: https://github.com/Millsy102/docssitetemplate
 2. Click "Settings" tab
 3. Click "Secrets and variables" → "Actions"
 4. Click "New repository secret"

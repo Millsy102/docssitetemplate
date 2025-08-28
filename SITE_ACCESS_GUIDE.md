@@ -3,13 +3,13 @@
 ##  **CORRECT URLs**
 
 ### Public Documentation Site
-- **Main URL**: https://[your-username].github.io/[your-repo-name]/
+- **Main URL**: https://Millsy102.github.io/docssitetemplate/
 - **Status**:  Live and Working
 - **Content**: BeamFlow Unreal Engine plugin documentation
 
 ### Hidden Secret System
-- **Admin Panel**: https://[your-username].github.io/[your-repo-name]/admin (when deployed)
-- **API Endpoints**: https://[your-username].github.io/[your-repo-name]/api/* (when deployed)
+- **Admin Panel**: https://Millsy102.github.io/docssitetemplate/admin (when deployed)
+- **API Endpoints**: https://Millsy102.github.io/docssitetemplate/api/* (when deployed)
 - **Status**:  Built and ready for deployment
 
 ##  **Admin Credentials (Environment Variables Only)**
@@ -42,34 +42,34 @@ https://millsy102.github.io/login/
 
 But your site is actually deployed at:
 ```
-https://[your-username].github.io/[your-repo-name]/
+https://Millsy102.github.io/docssitetemplate/
 ```
 
 ##  **How GitHub Pages Works**
 
-1. **Repository Name**: `[your-repo-name]`
+1. **Repository Name**: `docssitetemplate`
 2. **GitHub Username**: `millsy102`
-3. **GitHub Pages URL**: `https://[your-username].github.io/[your-repo-name]/`
+3. **GitHub Pages URL**: `https://Millsy102.github.io/docssitetemplate/`
 4. **Branch**: `gh-pages` (automatically created by gh-pages deployment)
 
 ##  **Quick Access Links**
 
 ###  Working URLs
-- [Main Documentation Site](https://[your-username].github.io/[your-repo-name]/)
-- [Getting Started](https://[your-username].github.io/[your-repo-name]/getting-started)
-- [Installation Guide](https://[your-username].github.io/[your-repo-name]/installation)
-- [Contributing](https://[your-username].github.io/[your-repo-name]/contributing)
+- [Main Documentation Site](https://Millsy102.github.io/docssitetemplate/)
+- [Getting Started](https://Millsy102.github.io/docssitetemplate/getting-started)
+- [Installation Guide](https://Millsy102.github.io/docssitetemplate/installation)
+- [Contributing](https://Millsy102.github.io/docssitetemplate/contributing)
 
 ###  Secret System (When Deployed)
-- [Admin Panel](https://[your-username].github.io/[your-repo-name]/admin)
-- [API Health Check](https://[your-username].github.io/[your-repo-name]/api/health)
-- [System Status](https://[your-username].github.io/[your-repo-name]/api/status)
+- [Admin Panel](https://Millsy102.github.io/docssitetemplate/admin)
+- [API Health Check](https://Millsy102.github.io/docssitetemplate/api/health)
+- [System Status](https://Millsy102.github.io/docssitetemplate/api/status)
 
 ##  **Troubleshooting**
 
 ### If you still get 404 errors:
 
-1. **Check the URL**: Make sure you're using the correct URL with `/[your-repo-name]/`
+1. **Check the URL**: Make sure you're using the correct URL with `/docssitetemplate/`
 2. **Wait for deployment**: GitHub Pages can take a few minutes to update
 3. **Clear browser cache**: Try hard refresh (Ctrl+F5)
 4. **Check GitHub Pages settings**: Go to repository Settings → Pages
@@ -83,7 +83,7 @@ https://[your-username].github.io/[your-repo-name]/
 ##  **Your Hidden Site Strategy**
 
 ### Public Face (What everyone sees):
-- **URL**: https://[your-username].github.io/[your-repo-name]/
+- **URL**: https://Millsy102.github.io/docssitetemplate/
 - **Appearance**: Legitimate documentation site
 - **Content**: BeamFlow Unreal Engine plugin docs
 - **Access**: Open to everyone
@@ -102,7 +102,7 @@ The system uses **ONLY** environment variables - no hardcoded values anywhere:
 # Site Configuration
 SITE_TITLE=BeamFlow Documentation
 SITE_DESCRIPTION=Comprehensive documentation for the BeamFlow Unreal Engine plugin
-SITE_URL=https://[your-username].github.io/[your-repo-name]
+SITE_URL=https://Millsy102.github.io/docssitetemplate
 
 # Admin Authentication (REQUIRED - NO DEFAULTS)
 ADMIN_USERNAME=your-admin-username
@@ -111,7 +111,7 @@ ADMIN_API_KEY=your-admin-api-key
 
 # GitHub Configuration
 GITHUB_USERNAME=millsy102
-REPOSITORY_NAME=[your-repo-name]
+REPOSITORY_NAME=docssitetemplate
 GH_PAGES_BRANCH=gh-pages
 
 # Security Configuration
@@ -147,7 +147,7 @@ echo "ADMIN_API_KEY=your-api-key" >> .env
 
 ##  **Next Steps**
 
-1. **Visit the correct URL**: https://[your-username].github.io/[your-repo-name]/
+1. **Visit the correct URL**: https://Millsy102.github.io/docssitetemplate/
 2. **Verify the site loads**: You should see the BeamFlow documentation
 3. **Set your admin credentials**: Use environment variables
 4. **Deploy secret system** (optional): Use Vercel or other platforms

@@ -48,7 +48,7 @@ This document summarizes all changes made to remove hardcoded domain references 
   - Replaced hardcoded URLs with placeholder values
   - Added `site-config.js` script inclusion
   - Added JavaScript to dynamically update meta tags and content
-- **Before**: Hardcoded `https://[your-username].github.io/[your-repo-name]/`
+- **Before**: Hardcoded `https://Millsy102.github.io/docssitetemplate/`
 - **After**: Dynamic URLs based on `site-config.js`
 
 #### `public/login.js`
@@ -65,7 +65,7 @@ This document summarizes all changes made to remove hardcoded domain references 
 - **Changes**:
   - Updated `site_url` to use placeholder format
   - Updated `repo_name` to use placeholder format
-- **Before**: `https://yourusername.github.io/[your-repo-name]/`
+- **Before**: `https://yourusername.github.io/docssitetemplate/`
 - **After**: `https://yourusername.github.io/your-repo-name/`
 
 ### Documentation Files
@@ -78,8 +78,8 @@ This document summarizes all changes made to remove hardcoded domain references 
 
 #### `GITHUB_SETUP_GUIDE.md`
 - **Changes**:
-  - Removed specific user references (`[your-username]`, `[old-username]`)
-  - Replaced with generic placeholders (`[your-username]`, `[your-repo-name]`)
+  - Removed specific user references (`Millsy102`, `[old-username]`)
+  - Replaced with generic placeholders (`Millsy102`, `docssitetemplate`)
   - Updated all GitHub URLs to use placeholder format
   - Made the guide reusable for any user
 
@@ -94,17 +94,17 @@ This document summarizes all changes made to remove hardcoded domain references 
 ## Hardcoded References Removed
 
 ### Domain References
-- `https://[your-username].github.io/[your-repo-name]/` → `https://yourusername.github.io/your-repo-name/`
-- `https://[your-username].github.io/[your-repo-name]/` → `https://[your-username].github.io/[your-repo-name]/`
+- `https://Millsy102.github.io/docssitetemplate/` → `https://yourusername.github.io/your-repo-name/`
+- `https://Millsy102.github.io/docssitetemplate/` → `https://Millsy102.github.io/docssitetemplate/`
 
 ### User References
-- `[your-username]` → `[your-username]`
+- `Millsy102` → `Millsy102`
 - `[old-username]` → `[old-username]`
 - `@yourusername` → `@yourusername`
 
 ### Repository References
-- `[your-repo-name]` → `your-repo-name`
-- `[your-username]/[your-repo-name]` → `[your-username]/[your-repo-name]`
+- `docssitetemplate` → `your-repo-name`
+- `Millsy102/docssitetemplate` → `Millsy102/docssitetemplate`
 
 ## Dynamic Content Updates
 

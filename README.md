@@ -21,8 +21,8 @@ BeamFlow is a powerful plugin that enhances Unreal Engine development with advan
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/[your-username]/[your-repo-name].git
-   cd [your-repo-name]
+   git clone https://github.com/Millsy102/docssitetemplate.git
+   cd docssitetemplate
    ```
 
 2. **Install dependencies**
