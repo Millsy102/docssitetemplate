@@ -1,0 +1,51 @@
+name: smart-home-dashboard
+version: 1.0.0
+description: Smart home device management and control
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:smart-home-dashboard:read
+  - plugin:smart-home-dashboard:write
+  - plugin:smart-home-dashboard:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Smart
+    icon: home
+    path: /plugins/smart-home-dashboard
+    order: 100
+    permissions:
+      - plugin:smart-home-dashboard:read
+  widgets:
+    - name: smart-home-dashboardWidget
+      description: Smart home device management and control widget
+      component: smart-home-dashboardWidget
+      permissions:
+        - plugin:smart-home-dashboard:read
+  pages:
+    - name: smart-home-dashboardPage
+      description: Smart home device management and control page
+      component: smart-home-dashboardPage
+      path: /plugins/smart-home-dashboard
+      permissions:
+        - plugin:smart-home-dashboard:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:smart-home-dashboard:read

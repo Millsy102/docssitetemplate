@@ -1,0 +1,18 @@
+id: sample-plugin
+name: Sample Plugin
+version: 1.0.0
+description: A sample plugin demonstrating the BeamFlow plugin system capabilities
+author: BeamFlow Team
+main: index.js
+hooks:
+  - onRequest
+  - onResponse
+  - onSystemStart
+  - onSystemStop
+permissions:
+  - read:files
+  - write:logs
+config:
+  enabled: true
+  debug: false
+  maxRequests: 100

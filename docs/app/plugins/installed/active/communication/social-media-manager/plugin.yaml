@@ -1,0 +1,51 @@
+name: social-media-manager
+version: 1.0.0
+description: Social media management and analytics
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:social-media-manager:read
+  - plugin:social-media-manager:write
+  - plugin:social-media-manager:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Social
+    icon: chat
+    path: /plugins/social-media-manager
+    order: 100
+    permissions:
+      - plugin:social-media-manager:read
+  widgets:
+    - name: social-media-managerWidget
+      description: Social media management and analytics widget
+      component: social-media-managerWidget
+      permissions:
+        - plugin:social-media-manager:read
+  pages:
+    - name: social-media-managerPage
+      description: Social media management and analytics page
+      component: social-media-managerPage
+      path: /plugins/social-media-manager
+      permissions:
+        - plugin:social-media-manager:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:social-media-manager:read

@@ -40,6 +40,179 @@ jobs:
           echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> $GITHUB_ENV
           echo "ADMIN_API_KEY=${{ secrets.ADMIN_API_KEY }}" >> $GITHUB_ENV
           
+      - name: Set Supabase credentials from secrets
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+          echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
+          
+      - name: Set API keys and secrets from GitHub Secrets
+        run: |
+          # Analytics & Monitoring
+          echo "GOOGLE_ANALYTICS_ID=${{ secrets.GOOGLE_ANALYTICS_ID }}" >> $GITHUB_ENV
+          echo "MIXPANEL_TOKEN=${{ secrets.MIXPANEL_TOKEN }}" >> $GITHUB_ENV
+          echo "SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
+          echo "NEW_RELIC_LICENSE_KEY=${{ secrets.NEW_RELIC_LICENSE_KEY }}" >> $GITHUB_ENV
+          
+          # Financial Services
+          echo "COINGECKO_API_KEY=${{ secrets.COINGECKO_API_KEY }}" >> $GITHUB_ENV
+          echo "ALPHA_VANTAGE_API_KEY=${{ secrets.ALPHA_VANTAGE_API_KEY }}" >> $GITHUB_ENV
+          echo "YAHOO_FINANCE_API_KEY=${{ secrets.YAHOO_FINANCE_API_KEY }}" >> $GITHUB_ENV
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "PAYPAL_CLIENT_ID=${{ secrets.PAYPAL_CLIENT_ID }}" >> $GITHUB_ENV
+          
+          # Security Services
+          echo "HIBP_API_KEY=${{ secrets.HIBP_API_KEY }}" >> $GITHUB_ENV
+          echo "VIRUSTOTAL_API_KEY=${{ secrets.VIRUSTOTAL_API_KEY }}" >> $GITHUB_ENV
+          echo "SHODAN_API_KEY=${{ secrets.SHODAN_API_KEY }}" >> $GITHUB_ENV
+          echo "ABUSEIPDB_API_KEY=${{ secrets.ABUSEIPDB_API_KEY }}" >> $GITHUB_ENV
+          
+          # Communication Services
+          echo "TWILIO_ACCOUNT_SID=${{ secrets.TWILIO_ACCOUNT_SID }}" >> $GITHUB_ENV
+          echo "TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN }}" >> $GITHUB_ENV
+          echo "SENDGRID_API_KEY=${{ secrets.SENDGRID_API_KEY }}" >> $GITHUB_ENV
+          echo "MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}" >> $GITHUB_ENV
+          echo "SLACK_BOT_TOKEN=${{ secrets.SLACK_BOT_TOKEN }}" >> $GITHUB_ENV
+          echo "DISCORD_BOT_TOKEN=${{ secrets.DISCORD_BOT_TOKEN }}" >> $GITHUB_ENV
+          
+          # Smart Home & IoT
+          echo "HOME_ASSISTANT_TOKEN=${{ secrets.HOME_ASSISTANT_TOKEN }}" >> $GITHUB_ENV
+          echo "PHILIPS_HUE_BRIDGE_IP=${{ secrets.PHILIPS_HUE_BRIDGE_IP }}" >> $GITHUB_ENV
+          echo "NEST_CLIENT_ID=${{ secrets.NEST_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "RING_REFRESH_TOKEN=${{ secrets.RING_REFRESH_TOKEN }}" >> $GITHUB_ENV
+          echo "TUYA_ACCESS_KEY=${{ secrets.TUYA_ACCESS_KEY }}" >> $GITHUB_ENV
+          
+          # Development & DevOps
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+          echo "GITLAB_TOKEN=${{ secrets.GITLAB_TOKEN }}" >> $GITHUB_ENV
+          echo "DOCKER_HUB_TOKEN=${{ secrets.DOCKER_HUB_TOKEN }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "VERCEL_TOKEN=${{ secrets.VERCEL_TOKEN }}" >> $GITHUB_ENV
+          echo "NETLIFY_TOKEN=${{ secrets.NETLIFY_TOKEN }}" >> $GITHUB_ENV
+          
+          # File Management & Storage
+          echo "DROPBOX_ACCESS_TOKEN=${{ secrets.DROPBOX_ACCESS_TOKEN }}" >> $GITHUB_ENV
+          echo "GOOGLE_DRIVE_API_KEY=${{ secrets.GOOGLE_DRIVE_API_KEY }}" >> $GITHUB_ENV
+          echo "ONEDRIVE_CLIENT_ID=${{ secrets.ONEDRIVE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> $GITHUB_ENV
+          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> $GITHUB_ENV
+          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> $GITHUB_ENV
+          
+          # Entertainment & Media
+          echo "SPOTIFY_CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "PLEX_TOKEN=${{ secrets.PLEX_TOKEN }}" >> $GITHUB_ENV
+          echo "JELLYFIN_API_KEY=${{ secrets.JELLYFIN_API_KEY }}" >> $GITHUB_ENV
+          echo "STEAM_API_KEY=${{ secrets.STEAM_API_KEY }}" >> $GITHUB_ENV
+          echo "TWITCH_CLIENT_ID=${{ secrets.TWITCH_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "TWITCH_CLIENT_SECRET=${{ secrets.TWITCH_CLIENT_SECRET }}" >> $GITHUB_ENV
+          
+          # Weather & News
+          echo "OPENWEATHERMAP_API_KEY=${{ secrets.OPENWEATHERMAP_API_KEY }}" >> $GITHUB_ENV
+          echo "WEATHERAPI_KEY=${{ secrets.WEATHERAPI_KEY }}" >> $GITHUB_ENV
+          echo "NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}" >> $GITHUB_ENV
+          echo "GUARDIAN_API_KEY=${{ secrets.GUARDIAN_API_KEY }}" >> $GITHUB_ENV
+          echo "REDDIT_CLIENT_ID=${{ secrets.REDDIT_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "REDDIT_CLIENT_SECRET=${{ secrets.REDDIT_CLIENT_SECRET }}" >> $GITHUB_ENV
+          
+          # AI & Machine Learning
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> $GITHUB_ENV
+          echo "HUGGINGFACE_API_KEY=${{ secrets.HUGGINGFACE_API_KEY }}" >> $GITHUB_ENV
+          echo "REPLICATE_API_TOKEN=${{ secrets.REPLICATE_API_TOKEN }}" >> $GITHUB_ENV
+          echo "STABILITY_AI_API_KEY=${{ secrets.STABILITY_AI_API_KEY }}" >> $GITHUB_ENV
+          echo "COHERE_API_KEY=${{ secrets.COHERE_API_KEY }}" >> $GITHUB_ENV
+          
+      - name: Replace environment variables in env.js
+        run: |
+          # Core Supabase variables
+          sed -i "s/___SUPABASE_URL___/$SUPABASE_URL/g" docs/env.js
+          sed -i "s/___SUPABASE_ANON_KEY___/$SUPABASE_ANON_KEY/g" docs/env.js
+          
+      - name: Replace admin credentials in login page
+        run: |
+          # Replace admin credentials in login page
+          sed -i "s/___ADMIN_USERNAME___/$ADMIN_USERNAME/g" docs/login/index.html
+          sed -i "s/___ADMIN_PASSWORD___/$ADMIN_PASSWORD/g" docs/login/index.html
+          
+          # Analytics & Monitoring
+          sed -i "s/___GOOGLE_ANALYTICS_ID___/$GOOGLE_ANALYTICS_ID/g" docs/env.js
+          sed -i "s/___MIXPANEL_TOKEN___/$MIXPANEL_TOKEN/g" docs/env.js
+          sed -i "s/___SENTRY_DSN___/$SENTRY_DSN/g" docs/env.js
+          sed -i "s/___NEW_RELIC_LICENSE_KEY___/$NEW_RELIC_LICENSE_KEY/g" docs/env.js
+          
+          # Financial Services
+          sed -i "s/___COINGECKO_API_KEY___/$COINGECKO_API_KEY/g" docs/env.js
+          sed -i "s/___ALPHA_VANTAGE_API_KEY___/$ALPHA_VANTAGE_API_KEY/g" docs/env.js
+          sed -i "s/___YAHOO_FINANCE_API_KEY___/$YAHOO_FINANCE_API_KEY/g" docs/env.js
+          sed -i "s/___STRIPE_SECRET_KEY___/$STRIPE_SECRET_KEY/g" docs/env.js
+          sed -i "s/___PAYPAL_CLIENT_ID___/$PAYPAL_CLIENT_ID/g" docs/env.js
+          
+          # Security Services
+          sed -i "s/___HIBP_API_KEY___/$HIBP_API_KEY/g" docs/env.js
+          sed -i "s/___VIRUSTOTAL_API_KEY___/$VIRUSTOTAL_API_KEY/g" docs/env.js
+          sed -i "s/___SHODAN_API_KEY___/$SHODAN_API_KEY/g" docs/env.js
+          sed -i "s/___ABUSEIPDB_API_KEY___/$ABUSEIPDB_API_KEY/g" docs/env.js
+          
+          # Communication Services
+          sed -i "s/___TWILIO_ACCOUNT_SID___/$TWILIO_ACCOUNT_SID/g" docs/env.js
+          sed -i "s/___TWILIO_AUTH_TOKEN___/$TWILIO_AUTH_TOKEN/g" docs/env.js
+          sed -i "s/___SENDGRID_API_KEY___/$SENDGRID_API_KEY/g" docs/env.js
+          sed -i "s/___MAILGUN_API_KEY___/$MAILGUN_API_KEY/g" docs/env.js
+          sed -i "s/___SLACK_BOT_TOKEN___/$SLACK_BOT_TOKEN/g" docs/env.js
+          sed -i "s/___DISCORD_BOT_TOKEN___/$DISCORD_BOT_TOKEN/g" docs/env.js
+          
+          # Smart Home & IoT
+          sed -i "s/___HOME_ASSISTANT_TOKEN___/$HOME_ASSISTANT_TOKEN/g" docs/env.js
+          sed -i "s/___PHILIPS_HUE_BRIDGE_IP___/$PHILIPS_HUE_BRIDGE_IP/g" docs/env.js
+          sed -i "s/___NEST_CLIENT_ID___/$NEST_CLIENT_ID/g" docs/env.js
+          sed -i "s/___RING_REFRESH_TOKEN___/$RING_REFRESH_TOKEN/g" docs/env.js
+          sed -i "s/___TUYA_ACCESS_KEY___/$TUYA_ACCESS_KEY/g" docs/env.js
+          
+          # Development & DevOps
+          sed -i "s/___GITHUB_TOKEN___/$GITHUB_TOKEN/g" docs/env.js
+          sed -i "s/___GITLAB_TOKEN___/$GITLAB_TOKEN/g" docs/env.js
+          sed -i "s/___DOCKER_HUB_TOKEN___/$DOCKER_HUB_TOKEN/g" docs/env.js
+          sed -i "s/___AWS_ACCESS_KEY_ID___/$AWS_ACCESS_KEY_ID/g" docs/env.js
+          sed -i "s/___AWS_SECRET_ACCESS_KEY___/$AWS_SECRET_ACCESS_KEY/g" docs/env.js
+          sed -i "s/___VERCEL_TOKEN___/$VERCEL_TOKEN/g" docs/env.js
+          sed -i "s/___NETLIFY_TOKEN___/$NETLIFY_TOKEN/g" docs/env.js
+          
+          # File Management & Storage
+          sed -i "s/___DROPBOX_ACCESS_TOKEN___/$DROPBOX_ACCESS_TOKEN/g" docs/env.js
+          sed -i "s/___GOOGLE_DRIVE_API_KEY___/$GOOGLE_DRIVE_API_KEY/g" docs/env.js
+          sed -i "s/___ONEDRIVE_CLIENT_ID___/$ONEDRIVE_CLIENT_ID/g" docs/env.js
+          sed -i "s/___AWS_S3_BUCKET_NAME___/$AWS_S3_BUCKET_NAME/g" docs/env.js
+          sed -i "s/___CLOUDINARY_CLOUD_NAME___/$CLOUDINARY_CLOUD_NAME/g" docs/env.js
+          sed -i "s/___CLOUDINARY_API_KEY___/$CLOUDINARY_API_KEY/g" docs/env.js
+          sed -i "s/___CLOUDINARY_API_SECRET___/$CLOUDINARY_API_SECRET/g" docs/env.js
+          
+          # Entertainment & Media
+          sed -i "s/___SPOTIFY_CLIENT_ID___/$SPOTIFY_CLIENT_ID/g" docs/env.js
+          sed -i "s/___SPOTIFY_CLIENT_SECRET___/$SPOTIFY_CLIENT_SECRET/g" docs/env.js
+          sed -i "s/___PLEX_TOKEN___/$PLEX_TOKEN/g" docs/env.js
+          sed -i "s/___JELLYFIN_API_KEY___/$JELLYFIN_API_KEY/g" docs/env.js
+          sed -i "s/___STEAM_API_KEY___/$STEAM_API_KEY/g" docs/env.js
+          sed -i "s/___TWITCH_CLIENT_ID___/$TWITCH_CLIENT_ID/g" docs/env.js
+          sed -i "s/___TWITCH_CLIENT_SECRET___/$TWITCH_CLIENT_SECRET/g" docs/env.js
+          
+          # Weather & News
+          sed -i "s/___OPENWEATHERMAP_API_KEY___/$OPENWEATHERMAP_API_KEY/g" docs/env.js
+          sed -i "s/___WEATHERAPI_KEY___/$WEATHERAPI_KEY/g" docs/env.js
+          sed -i "s/___NEWS_API_KEY___/$NEWS_API_KEY/g" docs/env.js
+          sed -i "s/___GUARDIAN_API_KEY___/$GUARDIAN_API_KEY/g" docs/env.js
+          sed -i "s/___REDDIT_CLIENT_ID___/$REDDIT_CLIENT_ID/g" docs/env.js
+          sed -i "s/___REDDIT_CLIENT_SECRET___/$REDDIT_CLIENT_SECRET/g" docs/env.js
+          
+          # AI & Machine Learning
+          sed -i "s/___OPENAI_API_KEY___/$OPENAI_API_KEY/g" docs/env.js
+          sed -i "s/___ANTHROPIC_API_KEY___/$ANTHROPIC_API_KEY/g" docs/env.js
+          sed -i "s/___HUGGINGFACE_API_KEY___/$HUGGINGFACE_API_KEY/g" docs/env.js
+          sed -i "s/___REPLICATE_API_TOKEN___/$REPLICATE_API_TOKEN/g" docs/env.js
+          sed -i "s/___STABILITY_AI_API_KEY___/$STABILITY_AI_API_KEY/g" docs/env.js
+          sed -i "s/___COHERE_API_KEY___/$COHERE_API_KEY/g" docs/env.js
+          
       - name: Build documentation site
         env:
           SITE_TITLE: BeamFlow Documentation
