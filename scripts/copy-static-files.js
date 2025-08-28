@@ -72,6 +72,11 @@ function copyStaticFiles() {
         copyDirectory(docsDir, distDir);
         log('Static files copied successfully', 'SUCCESS');
         
+        // Convert markdown files to HTML
+        log('Converting markdown files to HTML...');
+        const { convertMarkdownFiles } = require('./convert-markdown-to-html');
+        convertMarkdownFiles();
+        
         // List what was copied
         log('Files copied:');
         const listFiles = (dir, prefix = '') => {

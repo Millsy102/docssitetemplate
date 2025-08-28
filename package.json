@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build && npm run copy:static",
     "copy:static": "node scripts/copy-static-files.js",
+    "convert:markdown": "node scripts/convert-markdown-to-html.js",
     "preview": "vite preview",
     "serve": "vite preview",
     "lint": "eslint src/",

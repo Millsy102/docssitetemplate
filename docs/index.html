@@ -314,7 +314,7 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <p style="color: #9ca3af;"><a href="/docssitetemplate/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
+                    <p style="color: #9ca3af;"><a href="/admin/" style="color: #9ca3af; text-decoration: none; cursor: pointer;">©</a> 2024 BeamFlow. Built with  for developers.</p>
                 </div>
                 <div class="footer-links">
                     <a href="https://github.com/Millsy102/docssitetemplate" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -324,6 +324,43 @@
             </div>
         </div>
     </footer>
+
+<script>
+// Hidden login mechanism
+(function() {
+  let loginAttempts = 0;
+  const maxAttempts = 3;
+  
+  // Keyboard shortcut: Ctrl+Shift+L
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/admin/';
+      }
+    }
+  });
+  
+  // Hidden click area (footer copyright)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('footer-copyright')) {
+      loginAttempts++;
+      if (loginAttempts >= maxAttempts) {
+        window.location.href = '/admin/';
+      }
+    }
+  });
+  
+  // URL parameter: ?debug=true
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('debug') === 'true') {
+    loginAttempts++;
+    if (loginAttempts >= maxAttempts) {
+      window.location.href = '/admin/';
+    }
+  }
+})();
+</script>
 </body>
 </html>
 
