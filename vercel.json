@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "beamflow-docs-new",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci",
