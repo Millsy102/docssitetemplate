@@ -1,0 +1,51 @@
+name: content-creation-hub
+version: 1.0.0
+description: Content creation and management system
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:content-creation-hub:read
+  - plugin:content-creation-hub:write
+  - plugin:content-creation-hub:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Content
+    icon: palette
+    path: /plugins/content-creation-hub
+    order: 100
+    permissions:
+      - plugin:content-creation-hub:read
+  widgets:
+    - name: content-creation-hubWidget
+      description: Content creation and management system widget
+      component: content-creation-hubWidget
+      permissions:
+        - plugin:content-creation-hub:read
+  pages:
+    - name: content-creation-hubPage
+      description: Content creation and management system page
+      component: content-creation-hubPage
+      path: /plugins/content-creation-hub
+      permissions:
+        - plugin:content-creation-hub:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:content-creation-hub:read

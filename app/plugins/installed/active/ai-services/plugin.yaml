@@ -1,0 +1,164 @@
+name: "ai-services"
+version: "1.0.0"
+description: "Comprehensive AI services integration with OpenAI, Claude, Hugging Face, and Stability AI"
+author: "BeamFlow Team"
+license: "MIT"
+dependencies: 
+  - "openai"
+  - "anthropic"
+  - "huggingface"
+  - "stability-sdk"
+  - "axios"
+  - "sharp"
+
+permissions: 
+  - "plugin:ai-services:read"
+  - "plugin:ai-services:write"
+  - "plugin:ai-services:admin"
+
+settings:
+  openai_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "OpenAI API key for GPT-4 and DALL-E access"
+    encrypted: true
+  
+  anthropic_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "Anthropic API key for Claude access"
+    encrypted: true
+  
+  huggingface_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "Hugging Face API key for custom models"
+    encrypted: true
+  
+  stability_api_key:
+    type: "string"
+    default: ""
+    required: false
+    description: "Stability AI API key for image generation"
+    encrypted: true
+  
+  default_model:
+    type: "string"
+    default: "gpt-4"
+    required: true
+    description: "Default AI model to use"
+    options: ["gpt-4", "gpt-3.5-turbo", "claude-3-opus", "claude-3-sonnet", "claude-3-haiku"]
+  
+  max_tokens:
+    type: "number"
+    default: 2000
+    required: true
+    description: "Maximum tokens for AI responses"
+  
+  temperature:
+    type: "number"
+    default: 0.7
+    required: true
+    description: "AI response creativity (0.0-1.0)"
+  
+  enable_image_generation:
+    type: "boolean"
+    default: true
+    description: "Enable AI image generation features"
+  
+  enable_code_assistance:
+    type: "boolean"
+    default: true
+    description: "Enable AI code assistance features"
+  
+  enable_content_generation:
+    type: "boolean"
+    default: true
+    description: "Enable AI content generation features"
+
+hooks:
+  - name: "onRequest"
+    description: "Process AI service requests"
+    priority: 10
+    enabled: true
+  
+  - name: "onContentCreate"
+    description: "AI-assisted content creation"
+    priority: 5
+    enabled: true
+  
+  - name: "onCodeReview"
+    description: "AI code review and suggestions"
+    priority: 5
+    enabled: true
+
+ui:
+  navigation:
+    enabled: true
+    title: "AI Services"
+    icon: "smart_toy"
+    path: "/plugins/ai-services"
+    order: 10
+    permissions: ["plugin:ai-services:read"]
+  
+  widgets:
+    - name: "AIChatWidget"
+      description: "AI chat interface"
+      component: "AIChatWidget"
+      permissions: ["plugin:ai-services:read"]
+    
+    - name: "ImageGeneratorWidget"
+      description: "AI image generation"
+      component: "ImageGeneratorWidget"
+      permissions: ["plugin:ai-services:write"]
+    
+    - name: "CodeAssistantWidget"
+      description: "AI code assistance"
+      component: "CodeAssistantWidget"
+      permissions: ["plugin:ai-services:read"]
+    
+    - name: "ContentGeneratorWidget"
+      description: "AI content generation"
+      component: "ContentGeneratorWidget"
+      permissions: ["plugin:ai-services:write"]
+
+api:
+  routes:
+    - method: "POST"
+      path: "/chat"
+      handler: "chat"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:read"]
+    
+    - method: "POST"
+      path: "/generate-image"
+      handler: "generateImage"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:write"]
+    
+    - method: "POST"
+      path: "/generate-content"
+      handler: "generateContent"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:write"]
+    
+    - method: "POST"
+      path: "/code-review"
+      handler: "codeReview"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:read"]
+    
+    - method: "GET"
+      path: "/models"
+      handler: "getAvailableModels"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:read"]
+    
+    - method: "GET"
+      path: "/usage"
+      handler: "getUsageStats"
+      middleware: ["auth"]
+      permissions: ["plugin:ai-services:admin"]

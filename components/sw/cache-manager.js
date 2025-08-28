@@ -13,7 +13,7 @@ function debugLog(...args) {
 // Cache management utilities for Service Worker
 class CacheManager {
     constructor() {
-        this.CACHE_NAME = 'docssitetemplate-v1.0.0';
+        this.CACHE_NAME = '[your-repo-name]-v1.0.0';
         this.STATIC_CACHE = 'static-v1.0.0';
         this.DYNAMIC_CACHE = 'dynamic-v1.0.0';
         this.API_CACHE = 'api-v1.0.0';

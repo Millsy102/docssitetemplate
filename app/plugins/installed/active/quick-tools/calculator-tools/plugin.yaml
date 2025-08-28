@@ -1,0 +1,51 @@
+name: calculator-tools
+version: 1.0.0
+description: Advanced calculator with multiple functions
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:calculator-tools:read
+  - plugin:calculator-tools:write
+  - plugin:calculator-tools:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Advanced
+    icon: build
+    path: /plugins/calculator-tools
+    order: 100
+    permissions:
+      - plugin:calculator-tools:read
+  widgets:
+    - name: calculator-toolsWidget
+      description: Advanced calculator with multiple functions widget
+      component: calculator-toolsWidget
+      permissions:
+        - plugin:calculator-tools:read
+  pages:
+    - name: calculator-toolsPage
+      description: Advanced calculator with multiple functions page
+      component: calculator-toolsPage
+      path: /plugins/calculator-tools
+      permissions:
+        - plugin:calculator-tools:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:calculator-tools:read

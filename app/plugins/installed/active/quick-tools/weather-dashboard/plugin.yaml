@@ -1,0 +1,51 @@
+name: weather-dashboard
+version: 1.0.0
+description: Weather dashboard with multiple locations
+author: BeamFlow System
+license: MIT
+dependencies: []
+permissions:
+  - plugin:weather-dashboard:read
+  - plugin:weather-dashboard:write
+  - plugin:weather-dashboard:admin
+settings:
+  enabled:
+    type: boolean
+    default: true
+    description: Enable plugin functionality
+hooks:
+  - name: onRequest
+    description: Process incoming requests
+    priority: 0
+    enabled: true
+ui:
+  navigation:
+    enabled: true
+    title: Weather
+    icon: build
+    path: /plugins/weather-dashboard
+    order: 100
+    permissions:
+      - plugin:weather-dashboard:read
+  widgets:
+    - name: weather-dashboardWidget
+      description: Weather dashboard with multiple locations widget
+      component: weather-dashboardWidget
+      permissions:
+        - plugin:weather-dashboard:read
+  pages:
+    - name: weather-dashboardPage
+      description: Weather dashboard with multiple locations page
+      component: weather-dashboardPage
+      path: /plugins/weather-dashboard
+      permissions:
+        - plugin:weather-dashboard:read
+api:
+  routes:
+    - method: GET
+      path: /data
+      handler: getData
+      middleware:
+        - auth
+      permissions:
+        - plugin:weather-dashboard:read
