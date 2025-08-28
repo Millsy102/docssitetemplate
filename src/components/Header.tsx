@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageSelector from './LanguageSelector'
@@ -57,10 +57,10 @@ const Header: React.FC = () => {
         <div className="hidden md:flex items-center space-x-4">
           <LanguageSelector />
           <a 
-            href="/admin" 
+            href="/admin.html" 
             className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
           >
-            Login
+            Admin
           </a>
         </div>
 
@@ -130,11 +130,11 @@ const Header: React.FC = () => {
               <LanguageSelector />
             </div>
             <a 
-              href="/admin" 
+              href="/admin.html" 
               className="block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium text-center"
               onClick={closeMobileMenu}
             >
-              Login
+              Admin
             </a>
           </div>
         </nav>
@@ -144,3 +144,5 @@ const Header: React.FC = () => {
 }
 
 export default Header
+
+
