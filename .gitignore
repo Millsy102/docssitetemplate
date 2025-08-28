@@ -257,3 +257,4 @@ logs/
 # Prevent accidental command output files
 tatus
 
+.vercel

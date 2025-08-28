@@ -210,64 +210,17 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host ""
-Write-Host "Step 14: Deploying to Vercel (Optional)..." -ForegroundColor Yellow
-Write-Host "Note: Vercel deployment requires authentication. If you haven't set up Vercel, this step will be skipped." -ForegroundColor White
+Write-Host "Step 14: Deploying to Vercel..." -ForegroundColor Yellow
+Write-Host "Deploying to Vercel with fixed configuration..." -ForegroundColor White
 
-# Check if user wants to attempt Vercel deployment
-$attemptVercel = Read-Host "Do you want to attempt Vercel deployment? (y/n)"
-if ($attemptVercel -eq "y" -or $attemptVercel -eq "Y") {
-    # Check if Vercel CLI is installed
-    $vercelVersion = npx vercel --version 2>$null
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Installing Vercel CLI..." -ForegroundColor Yellow
-        npm install -g vercel
-        if ($LASTEXITCODE -ne 0) {
-            Write-Host "ERROR: Failed to install Vercel CLI" -ForegroundColor Red
-            Write-Host "Trying alternative installation..." -ForegroundColor Yellow
-            npm install -g @vercel/cli
-        }
-    }
-
-    # Try to deploy using npx vercel with timeout
-    Write-Host "Deploying to Vercel (this may take a few minutes)..." -ForegroundColor White
-    Write-Host "If this hangs, you can press Ctrl+C to skip Vercel deployment" -ForegroundColor Yellow
-    
-    # Start Vercel deployment in background job with timeout
-    $job = Start-Job -ScriptBlock {
-        param($path)
-        Set-Location $path
-        npx vercel --prod --yes
-    } -ArgumentList (Get-Location)
-    
-    # Wait for job with timeout (5 minutes)
-    $timeout = 300
-    $elapsed = 0
-    while ($job.State -eq "Running" -and $elapsed -lt $timeout) {
-        Start-Sleep -Seconds 10
-        $elapsed += 10
-        Write-Host "Vercel deployment in progress... ($elapsed seconds elapsed)" -ForegroundColor White
-    }
-    
-    if ($job.State -eq "Running") {
-        Write-Host "Vercel deployment timed out after 5 minutes" -ForegroundColor Yellow
-        Stop-Job $job
-        Remove-Job $job
-        Write-Host "WARNING: Vercel deployment skipped due to timeout" -ForegroundColor Yellow
-    } else {
-        $result = Receive-Job $job
-        Remove-Job $job
-        
-        if ($LASTEXITCODE -eq 0) {
-            Write-Host "SUCCESS: Vercel deployed successfully" -ForegroundColor Green
-            Write-Host "   Full system: docssitetemplate.vercel.app" -ForegroundColor Cyan
-        } else {
-            Write-Host "ERROR: Vercel deployment failed" -ForegroundColor Red
-            Write-Host "TIP: You may need to run: npx vercel login" -ForegroundColor Yellow
-            Write-Host "WARNING: Vercel deployment skipped, but other deployments succeeded" -ForegroundColor Yellow
-        }
-    }
+# Deploy to Vercel
+npx vercel --prod --yes
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "ERROR: Vercel deployment failed" -ForegroundColor Red
+    Write-Host "WARNING: Vercel deployment failed, but other deployments succeeded" -ForegroundColor Yellow
 } else {
-    Write-Host "Vercel deployment skipped by user" -ForegroundColor Yellow
+    Write-Host "SUCCESS: Vercel deployed successfully" -ForegroundColor Green
+    Write-Host "   Full system: beamflow-docs-new.vercel.app" -ForegroundColor Cyan
 }
 
 Write-Host ""
