@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeamFlow Admin - Sign In</title>
+    <meta name="description" content="Sign in to access BeamFlow Admin Panel">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#dc2626">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #e5e7eb;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background-color: #dc2626;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+        }
+        
+        .logo-subtitle {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+        
+        h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #f9fafb;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #9ca3af;
+            font-size: 1rem;
+        }
+        
+        .card {
+            background-color: #111827;
+            border: 1px solid #374151;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+        
+        .card p {
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .auth-tab.active {
+            color: #dc2626;
+            border-bottom: 2px solid #dc2626;
+        }
+        
+        .auth-content {
+            display: none;
+        }
+        
+        .auth-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #d1d5db;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1f2937;
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            color: #f9fafb;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+        
+        .providers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            background-color: #1f2937;
+            color: #f9fafb;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #374151;
+            border-color: #6b7280;
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-primary {
+            background-color: #dc2626;
+            border-color: #dc2626;
+        }
+        
+        .btn-primary:hover {
+            background-color: #b91c1c;
+            border-color: #b91c1c;
+        }
+        
+        .btn-google {
+            background-color: #1f2937;
+        }
+        
+        .btn-github {
+            background-color: #1f2937;
+        }
+        
+        .btn-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #dc2626;
+        }
+        
+        .error {
+            background-color: #7f1d1d;
+            border: 1px solid #dc2626;
+            color: #fecaca;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .success {
+            background-color: #064e3b;
+            border: 1px solid #059669;
+            color: #a7f3d0;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #9ca3af;
+            margin-top: 1rem;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #374151;
+            border-radius: 50%;
+            border-top-color: #dc2626;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .setup-notice {
+            background-color: #1e3a8a;
+            border: 1px solid #3b82f6;
+            color: #bfdbfe;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                <div>
+                    <div class="logo-text">BeamFlow</div>
+                    <div class="logo-subtitle">Admin Panel</div>
+                </div>
+            </div>
+            <h1>Sign in</h1>
+            <p class="subtitle">Access your BeamFlow admin panel</p>
+        </div>
+        
+        <div class="card">
+            <div class="error" id="error-message"></div>
+            <div class="success" id="success-message"></div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="oauth">OAuth Login</button>
+                <button class="auth-tab" data-tab="credentials">Admin Login</button>
+            </div>
+            
+            <!-- OAuth Login -->
+            <div class="auth-content active" id="oauth-content">
+                <p>Choose a provider to continue:</p>
+                <div class="providers">
+                    <button class="btn btn-google" id="google">
+                        <svg class="btn-icon" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+                    <button class="btn btn-github" id="github">
+                        <svg class="btn-icon" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Continue with GitHub
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Admin Credentials Login -->
+            <div class="auth-content" id="credentials-content">
+                <p>Use admin credentials:</p>
+                <form id="credentials-form">
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" id="username" class="form-input" placeholder="Admin username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Admin password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </form>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                Signing you in...
+            </div>
+        </div>
+        
+        <a href="/" class="back-link">← Back to documentation</a>
+    </div>
+
+    <!-- Load environment configuration -->
+    <script src="/env.js"></script>
+    
+    <script>
+        // Configuration
+        const OAUTH_CONFIG = window.OAUTH_CONFIG || {};
+        const SUPABASE_URL = window.SUPABASE_URL || '___SUPABASE_URL___';
+        const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '___SUPABASE_ANON_KEY___';
+        const REDIRECT_AFTER_LOGIN = '/app/index.html';
+
+        // DOM elements
+        const googleBtn = document.getElementById('google');
+        const githubBtn = document.getElementById('github');
+        const credentialsForm = document.getElementById('credentials-form');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const loading = document.getElementById('loading');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authContents = document.querySelectorAll('.auth-content');
+        const setupNotice = document.getElementById('setup-notice');
+        const authTabsContainer = document.getElementById('auth-tabs');
+        const oauthContent = document.getElementById('oauth-content');
+        const credentialsContent = document.getElementById('credentials-content');
+
+        // Check OAuth configuration and update button states
+        function checkOAuthConfiguration() {
+            const hasGoogleConfig = OAUTH_CONFIG.google && OAUTH_CONFIG.google.clientId && OAUTH_CONFIG.google.clientId !== '___GOOGLE_OAUTH_CLIENT_ID___';
+            const hasGithubConfig = OAUTH_CONFIG.github && OAUTH_CONFIG.github.clientId && OAUTH_CONFIG.github.clientId !== '___GITHUB_OAUTH_CLIENT_ID___';
+            
+            // Always show both tabs - let user choose
+            authTabsContainer.style.display = 'flex';
+            
+            // Update OAuth button states based on configuration
+            if (!hasGoogleConfig) {
+                googleBtn.disabled = true;
+                googleBtn.style.opacity = '0.5';
+                googleBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>Google OAuth not configured';
+            }
+            if (!hasGithubConfig) {
+                githubBtn.disabled = true;
+                githubBtn.style.opacity = '0.5';
+                githubBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub OAuth not configured';
+            }
+        }
+
+        // Tab switching
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                
+                // Update active tab
+                authTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show target content
+                authContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`${targetTab}-content`).classList.add('active');
+                
+                // Clear messages
+                hideError();
+                hideSuccess();
+            });
+        });
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+            loading.style.display = 'none';
+        }
+
+        // Hide error message
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            loading.style.display = 'none';
+        }
+
+        // Hide success message
+        function hideSuccess() {
+            successMessage.style.display = 'none';
+        }
+
+        // Show loading state
+        function showLoading() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            loading.style.display = 'block';
+            googleBtn.disabled = true;
+            githubBtn.disabled = true;
+            credentialsForm.querySelector('button').disabled = true;
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            loading.style.display = 'none';
+            googleBtn.disabled = false;
+            githubBtn.disabled = false;
+            credentialsForm.querySelector('button').disabled = false;
+        }
+
+        // OAuth sign in function
+        async function signInOAuth(provider) {
+            try {
+                showLoading();
+                
+                // Check if provider is configured
+                const providerConfig = OAUTH_CONFIG[provider];
+                if (!providerConfig || !providerConfig.clientId || providerConfig.clientId === `___${provider.toUpperCase()}_OAUTH_CLIENT_ID___`) {
+                    throw new Error(`${provider.charAt(0).toUpperCase() + provider.slice(1)} OAuth is not configured. Please use admin credentials or configure OAuth in environment variables.`);
+                }
+                
+                // Initialize Supabase if available
+                if (typeof window.supabase !== 'undefined') {
+                    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    
+                    const { data, error } = await supabase.auth.signInWithOAuth({
+                        provider,
+                        options: { 
+                            redirectTo: location.origin + REDIRECT_AFTER_LOGIN 
+                        }
+                    });
+                    
+                    if (error) {
+                        throw error;
+                    }
+                } else {
+                    throw new Error('Supabase not available. Please configure OAuth properly.');
+                }
+                
+            } catch (error) {
+                console.error('OAuth login failed:', error);
+                showError('OAuth login failed: ' + error.message);
+                hideLoading();
+            }
+        }
+
+        // Credentials sign in function
+        async function signInCredentials(username, password) {
+            try {
+                showLoading();
+                
+                // Check if admin credentials are configured
+                if (OAUTH_CONFIG.adminUsername === '___ADMIN_USERNAME___' || OAUTH_CONFIG.adminPassword === '___ADMIN_PASSWORD___') {
+                    throw new Error('Admin credentials not configured. Please set ADMIN_USERNAME and ADMIN_PASSWORD in GitHub Secrets.');
+                }
+                
+                // Validate credentials
+                if (username === OAUTH_CONFIG.adminUsername && password === OAUTH_CONFIG.adminPassword) {
+                    showSuccess('Login successful! Redirecting to admin panel...');
+                    
+                    // Create a session token for admin access
+                    const session = {
+                        user: {
+                            id: 'admin',
+                            email: 'admin@beamflow.local',
+                            user_metadata: {
+                                name: 'Admin User',
+                                provider: 'credentials'
+                            }
+                        },
+                        access_token: 'admin_token_' + Date.now(),
+                        refresh_token: 'admin_refresh_' + Date.now(),
+                        expires_at: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+                    };
+                    
+                    // Store session in localStorage
+                    localStorage.setItem('supabase.auth.token', JSON.stringify(session));
+                    
+                    // Redirect to app
+                    setTimeout(() => {
+                        window.location.href = REDIRECT_AFTER_LOGIN;
+                    }, 1000);
+                    
+                } else {
+                    throw new Error('Invalid username or password');
+                }
+                
+            } catch (error) {
+                console.error('Credentials login failed:', error);
+                showError('Login failed: ' + error.message);
+                hideLoading();
+            }
+        }
+
+        // Event listeners
+        googleBtn.addEventListener('click', () => signInOAuth('google'));
+        githubBtn.addEventListener('click', () => signInOAuth('github'));
+        
+        credentialsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!username || !password) {
+                showError('Please enter both username and password');
+                return;
+            }
+            
+            signInCredentials(username, password);
+        });
+
+        // Initialize on page load
+        checkOAuthConfiguration();
+    </script>
+</body>
+</html>
